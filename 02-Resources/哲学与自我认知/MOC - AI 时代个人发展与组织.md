@@ -49,6 +49,7 @@ source: vault_initiative - moc - ai_agent - ai_career - ai_philosophy
 | 笔记 | 来源 | 核心判断 |
 |------|------|---------|
 | [[用AI的这三年，想跟你分享这9条心得]] | 公众号（卡兹克）| 花钱用最好的模型 / 每周自动化 / 实习生思维 / 品味护城河 / 把时间还给现实的人 |
+| [[The Founders Playbook - 打造 AI 原生创业公司]] | Anthropic 英文指南（中文翻译）| 创始人四阶段方法论：Idea/MVP/Launch/Scale；三能力（研究/编程/工作流）；AI 原生 vs 传统 |
 
 ### 哲学 / 自我认知层
 
@@ -107,6 +108,6 @@ source: vault_initiative - moc - ai_agent - ai_career - ai_philosophy
 
 ## 维护
 
-- **总笔记数**：7 核心
-- **最后更新**：2026-06-11（v1 建立）
+- **总笔记数**：8 核心
+- **最后更新**：2026-06-15（新增 Founders Playbook）
 - **入选标准**：笔记主题直接讨论"AI 时代下的人/职业/组织/自我认知"（不是 Agent 本身的实现细节）
