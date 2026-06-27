@@ -96,6 +96,10 @@ tags_approved:
     proposed_by: ai_agent
     proposed_at: 2026-06-11
     reason: "Text Refinement 子主题——8 个文本润色 Prompt（Translate, Summarize, Simplify, Make shorter/longer, Remove URLs, Fix grammar, Explain like I am 5）"
+  - name: loop_engineering
+    proposed_by: ai_agent
+    proposed_at: 2026-06-25
+    reason: "Loop Engineering 子主题——2 篇笔记（Loop Engineering 橙皮书 - 花叔；遇事留痕 - Loop Engineering 的基础 - 魔术师卡颂），Loop = Harness 上一层"
 
 # 提议新 tag 时，先在此登记；3 个月未审核自动失效
 # tags_pending:

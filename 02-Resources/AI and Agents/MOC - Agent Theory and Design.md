@@ -1,9 +1,9 @@
 ---
 title: MOC - Agent Theory and Design
 description: Agent 时代理论与实践的横切索引——覆盖 Harness、Claude Code、Codex、Cursor、OpenClaw、AI
-  团队组织、AI 时代职业/方法论 6 大子主题，31 篇笔记
+  团队组织、AI 时代职业/方法论 6 大子主题，34 篇笔记
 created: 2026-06-11
-updated: 2026-06-11
+updated: 2026-06-25
 tags:
   - ai_agent
   - ai_philosophy
@@ -15,7 +15,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 # MOC - Agent Theory and Design
 
-> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。共 **31 篇**笔记，按 9 个子主题分组。
+> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。共 **34 篇**笔记，按 9 个子主题分组。
 >
 > **本 MOC 是 v1（圆桌共识落地）**，建立 3 个横切 MOC 后，这里只承担"主题 MOC"角色——跨子目录的横切链接见：
 > - [[MOC - Harness Engineering]]（横切，跨课程/公众号/B站）
@@ -24,9 +24,9 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ---
 
-## A. Harness Engineering（5 篇）
+## A. Harness Engineering（7 篇）
 
-> 围绕"harness = 围绕 Agent 的工程系统"这一概念展开。**Anthropic（Claude Code）** 与 **OpenAI（Codex）** 两大权威来源 + IBM 团队的登山绳比喻 + 三元同学的反向思考 + 1752 行 Anthropic 官方汇编本。
+> 围绕"harness = 围绕 Agent 的工程系统"这一概念展开。**Anthropic（Claude Code）** 与 **OpenAI（Codex）** 两大权威来源 + IBM 团队的登山绳比喻 + 三元同学的反向思考 + 花叔的 Loop Engineering 橙皮书 + ConardLi 的 Harness 迁移实战 + 卡颂的「遇事留痕」+ 1752 行 Anthropic 官方汇编本。
 
 | 文章 | 核心主题 |
 |------|---------|
@@ -34,6 +34,9 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[2026 年 Agent 最重要的工程概念 Harness Engineering]] | OpenAI 5 个月 0 人工代码 100 万行实验；harness = docs/ 当 source of truth + linter 强制不变量 + 黄金原则 |
 | [[IBM团队-Harness工程详解]] | Harness = 登山绳 + 黑盒模型对抗；可靠性比聪明重要 |
 | [[别再搭 Harness 了，先把你的痛点解决，用最笨的方式]] | 马斯克五步法在 Agent 工作流上的应用；先痛点后系统 |
+| [[Loop Engineering 橙皮书 - 花叔]] | 五动作循环 + 六零件 + 四笔代价；Loop = Harness 上一层 |
+| [[Harness 实践 - 将任何文字编辑成精美的文章 - ConardLi]] | 用同一套骨架（8 Phase + 3 Checkpoint + Reacticle）将任意文字编辑成精美网页文章，验证 Harness 可迁移 |
+| [[遇事留痕 - Loop Engineering 的基础 - 魔术师卡颂]] | Session Log + GitHub issue/PR 是项目自我优化的燃料，自动优化循环的基础 |
 | [[Anthropic Agent 工程实战指南 - 从入门到生产落地]] | 1758 行 Anthropic 官方 15 篇博客汇编，按"入门-进阶-核心-高级-生产"5 模块系统化梳理 |
 
 ---
@@ -67,7 +70,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ---
 
-## D. Agent 架构与原理（4 篇）
+## D. Agent 架构与原理（5 篇）
 
 > Agent 本身的架构、记忆、上下文工程等基础理论。
 
@@ -77,6 +80,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[OpenAI员工-上下文工程和Agent记忆]] | 3 大记忆模式（Reshape & Fit, Isolate & Route, Extract & Retrieve）|
 | [[Manus创始人-深度干货-上下文工程的最佳实践]] | Context Engineering 范式、Context Offloading 策略 |
 | [[Karpathy爆火项目-AutoResearch解读与启发]] | AutoResearch 4 步循环 + 6 大商业应用 |
+| [[AI Agent 和 Skill 测评方案及落地实践 - martinskxu]] | Agent/Skill 测评四场景法、评分规则设计、基线管理、稳定性评估、TPerf 实战案例 |
 
 ---
 
@@ -142,7 +146,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 - [[MOC - Prompt 工程]] — Prompt + Skills 横切 MOC
 
 ### 数据源
-- **公众号**：12 篇（`02-Resources/AI and Agents/Agent Design & Patterns/`）
+- **公众号**：15 篇（`02-Resources/AI and Agents/Agent Design & Patterns/`）
 - **B 站视频**：19 篇（`02-Resources/AI and Agents/B站视频知识库/Agent架构与平台/`）
 - **数据流水线**：Recastory 工具链（yt-dlp 替代 + ffmpeg + faster-whisper + LLM distill）
 
@@ -150,7 +154,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ## 维护
 
-- **总笔记数**：31（合并前 12 公众号 + 19 B站）
-- **最后更新**：2026-06-11（v1 合并）
+- **总笔记数**：34（合并前 12 公众号 + 19 B站 + 3 微信公众号新收录）
+- **最后更新**：2026-06-25（收录 遇事留痕 - Loop Engineering 的基础）
 - **更新机制**：每收录 1 篇新笔记，**必须**更新本 MOC（按 §8 SOP 步骤 7）
 - **孤立判定**：MOC 内的笔记被 `[[MOC - Agent Theory and Design]]` 链入 = 破孤（按 §7 "MOC 入口破孤"）
