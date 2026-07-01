@@ -27,13 +27,13 @@ source: vault_initiative - skills_index
 |---|---|---|---|---|
 | `vskill-vault-discuss` | ✅ v0.2 可用（3 模式）| 基于 vault 笔记进行结构化讨论：summary / roundtable / companion 三模式 | `kb-retriever` + `ljg-roundtable` + `ljg-read` | [SKILL.md](./vskill-vault-discuss/SKILL.md) |
 | `vskill-vault-write` | ✅ v0.1 可用 | 5 步切刀写一篇 1000-1500 字观点笔记（基于 vault anchor_notes）| `ljg-writes` | [SKILL.md](./vskill-vault-write/SKILL.md) |
+| `vskill-vault-curate` | ✅ v0.1 可用 | 从外部（URL/PDF/视频/文本）收录内容到 vault——执行 §8 SOP 7 步 | `wiki-ingest` + `kimi-webbridge` | [SKILL.md](./vskill-vault-curate/SKILL.md) |
 | `vskill-vault-moc-builder` | ✅ v0.1 可用 | 降秩 + 9 种取景框——合并 / 拆分 / 新建 / 审计 vault MOC | `ljg-rank` + `wiki-ingest` | [SKILL.md](./vskill-vault-moc-builder/SKILL.md) |
 
 ## 计划中 vskill（未实现）
 
 | 名称 | 计划能力 | 优先级 | 借鉴来源 |
 |---|---|---|---|
-| `vskill-vault-curate` | 执行 §8 SOP 7 步——收素材 → 抓内容 → 选位置 → 写 frontmatter → 打 tag → 找反向链 → 更新 MOC | P0 | `wiki-ingest` + `kimi-webbridge` |
 | `vskill-vault-relate` | 给定新笔记，扫描 vault 输出 top-5 反向链候选 | P1 | 自研 |
 | `vskill-vault-audit` | 季度审计：孤岛 / 死链 / tag 一致性 / frontmatter 完整性 | P2 | `neat-freak` + `reality-check` |
 | `vskill-vault-concept-anatomy` | 8 刀解剖一个 AI 时代术语（含"元反思"第八刀）| P3 | `ljg-learn` |
