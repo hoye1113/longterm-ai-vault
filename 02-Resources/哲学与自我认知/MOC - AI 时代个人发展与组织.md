@@ -1,8 +1,8 @@
 ---
 title: MOC - AI 时代个人发展与组织
-description: AI 时代个人发展与组织转型主题横切 MOC——FDE/蜂群组织/工程师面试/产品观/智能通缩/个人焦虑，6 篇核心
+description: AI 时代个人发展与组织转型主题横切 MOC——FDE/蜂群组织/工程师面试/产品观/智能通缩/个人焦虑，7 篇核心
 created: 2026-06-11
-updated: 2026-06-11
+updated: 2026-07-01
 tags:
   - ai_agent
   - ai_career
@@ -15,9 +15,9 @@ source: vault_initiative - moc - ai_agent - ai_career - ai_philosophy
 
 > **横切 MOC**：跨 `02-Resources/AI and Agents/Agent Design & Patterns/` + `02-Resources/哲学与自我认知/` 的"AI 时代个人/职业/组织"主题笔记。
 >
-> **核心视角**（来自 [[所谓的agent开发到底是个啥岗位]]）：未来 Agent 开发岗（蜂群内最小节点）要的是"业务+技术+AI 协作"——本 MOC 围绕这个判断展开 6 篇笔记。
+> **核心视角**（来自 [[所谓的agent开发到底是个啥岗位]]）：未来 Agent 开发岗（蜂群内最小节点）要的是"业务+技术+AI 协作"——本 MOC 围绕这个判断展开 7 篇笔记。
 >
-> 6 篇核心 + 1 篇哲学 = 完整的"AI 时代个人地图"。
+> 7 篇核心 + 1 篇哲学 = 完整的"AI 时代个人地图"。
 
 ---
 
@@ -43,6 +43,7 @@ source: vault_initiative - moc - ai_agent - ai_career - ai_philosophy
 | 笔记 | 来源 | 核心判断 |
 |------|------|---------|
 | [[80% 的 App 未来会消失吗我不这么认为]] | 公众号（三元同学）| 产品的价值不在功能，在品味、复杂度封装、协同服务 |
+| [[Sitor AI - 解决人的信息幻觉]] | 公众号（三元同学）| 角色 ≠ 工具；解决"流畅性错觉"（人在吸收信息时的幻觉）；节点检验 + 图解笔记 + 对谈播客让学习留下痕迹 |
 
 ### 个人实践层
 
@@ -108,6 +109,6 @@ source: vault_initiative - moc - ai_agent - ai_career - ai_philosophy
 
 ## 维护
 
-- **总笔记数**：8 核心
-- **最后更新**：2026-06-15（新增 Founders Playbook）
+- **总笔记数**：9 核心
+- **最后更新**：2026-07-01（新增 Sitor AI - 解决人的信息幻觉）
 - **入选标准**：笔记主题直接讨论"AI 时代下的人/职业/组织/自我认知"（不是 Agent 本身的实现细节）
