@@ -9,7 +9,7 @@ created: 2026-07-01
 source: https://mp.weixin.qq.com/s/q0i77q32E-w_JNJ7Bp7doA
 description: "三元同学介绍 Sitor AI——以『角色』而非『工具』重塑学习体验，解决人在吸收信息时的『流畅性错觉』；通过苏格拉底式追问 / 连接个人经验 / 沉淀图解笔记 / 生成双人对谈播客重构人机共学"
 author:
-  - "三元同学"
+  - "[[三元同学]]"
 ---
 
 # Sitor AI：解决一种「信息幻觉」
@@ -187,11 +187,12 @@ Sitor 想做后者。效率工具解决「拿不到」，角色伙伴解决「�
 
 ## ⚠️ vault 维护提示
 
-**作者笔记缺位**：`[[三元同学]]` 在 vault 内已被引用 75 处（grep 验证），但尚无独立作者笔记。本笔记按 §10 反模式「死链 wikilink」原则，未在 author 字段用 wikilink 包裹。
-
-**建议（用户决策）**：
-1. 在 `02-Resources/AI and Agents/Authors/三元同学.md` 建立作者笔记（含简介 + 全部已收录笔记索引）
-2. 同步把 vault 内 75 处 `[[三元同学]]` 死链改为有效 wikilink（grep 用法：见 `99-System/scripts/vault-audit.py` 的「伪 wikilink」逻辑）
-3. 本次新笔记的 frontmatter `author` 字段可改为 `"[[三元同学]]"`
+**作者笔记已建**：`[[三元同学]]` 在 vault 内已被引用 75 处，2026-07-01 已在 `02-Resources/AI and Agents/Authors/三元同学.md` 建立作者笔记（vault 内 75+ 处 `[[三元同学]]` 自动变为有效 wikilink，本笔记的 frontmatter `author` 字段同步改为 `"[[三元同学]]"`）。
 
 **Sitor 收录链路完整性**：本文是三元同学介绍自己产品 Sitor 的公众号文。Sitor 作为产品本身在 vault 内的 `01-Areas/AI Agent Development/` 已有 30+ 篇课程笔记；本次收录并未进入该 MOC（因为是公众号文，不是课程章节）。
+
+**后续建议**（详见 [[三元同学]] 末尾"维护"段）：
+- [[用AI的这三年，想跟你分享这9条心得]]（卡兹克）作者笔记待建
+- [[魔术师卡颂]] 作者笔记待建
+- [[花叔]] 作者笔记待建
+- [[ConardLi]] 作者笔记待建

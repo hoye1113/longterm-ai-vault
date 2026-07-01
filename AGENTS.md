@@ -100,6 +100,10 @@ tags_approved:
     proposed_by: ai_agent
     proposed_at: 2026-06-25
     reason: "Loop Engineering 子主题——2 篇笔记（Loop Engineering 橙皮书 - 花叔；遇事留痕 - Loop Engineering 的基础 - 魔术师卡颂），Loop = Harness 上一层"
+  - name: author
+    proposed_by: ai_agent
+    proposed_at: 2026-07-01
+    reason: "作者 / 人物 / persona 标签——用于 Authors/ 目录下的作者笔记（如 [[三元同学]]），便于跨笔记找同一作者的所有作品"
 
 # 提议新 tag 时，先在此登记；3 个月未审核自动失效
 # tags_pending:
