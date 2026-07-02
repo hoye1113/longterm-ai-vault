@@ -2,228 +2,241 @@
 title: "30分钟精通OpenClaw（5个真实用例+设置+内存）"
 source: "B站视频 - Easonlee的AI笔记"
 source_url: "https://www.bilibili.com/video/BV1kWctzeEYK/"
-uploader: "Easonlee的AI笔记"
-speaker: "独立 AI 爱好者 / OpenClaw 早期用户"
-date: 2026-05-10
-duration: "28:52"
-saved: 2026-06-10
+speaker: "Peter（OpenClaw 早期用户，Bot 名 Zoe）"
+duration: "28:51"
+saved: 2026-07-02
 tags:
-  - openclaw
-  - setup
-  - security
-  - calendar
-  - docs
-  - voice
+  - ai_agent
+  - video_transcript
+  - bilibili
+  - skills
   - memory
-genre: "AI Agent 工具与实战"
+  - hooks
 created: 2026-06-09
+description: "Peter 用 Zoe 演示 OpenClaw 安全五步法、日历/文档/语音/日报/创作者周报五用例、Google Workspace OAuth 配置，以及 SOUL/USER/MEMORY 等 MD 人格与记忆文件。"
+transcript_source: "Recastory/workspace/bilibili-retranscribe/BV1kWctzeEYK/article.md"
+asr_version: v2
+curate_method: "vskill-vault-curate（读者向讲义 v2）"
 ---
 
 # 30 分钟精通 OpenClaw（5 个真实用例 + 设置 + 内存）
 
-## 一句话总结
+## 先搞懂这一期
 
-一位 OpenClaw 早期用户（用了一个星期）分享**安全设置 + 5 个真实用例** — 从 Mac mini 跑、专用凭证、Security Audit、日历管理、文档编辑、语音对话、每日简报到 Weekly Inside Report，并深入讲解如何让 Bot **真正个性化**（包括 memory 机制）。核心结论：OpenClaw 是他用过最好的个人 AI 助理，但仍是非常早期的软件。
+**这是什么节目？**  
+Peter（频道主，Bot **Zoe**）的 **~29 分钟实操教程**。在 Mac mini 上现场 demo：**安全 setup → 5 个真实用例 → Google Workspace 接入 → memory/人格 MD 文件**。
 
-## 核心洞察
+**这期在回答哪三个问题？**
 
-### 1. 安全设置 5 步走
+1. **OpenClaw 怎么设才相对安全？** Dedicated 机器、独立账号、audit、权限最小化？  
+2. **日常到底能干什么？** 五个他真在用的 task 是什么？  
+3. **怎么让 Bot 「像懂你的朋友」？** memory 存在哪、怎么编辑？
 
-> "Number one, run it on a dedicated computer."
+**用一条线串起来（没看视频也能复述）：**
 
-1. **专用电脑**：作者用 Mac mini 24x7 运行（任何旧 MacBook 都行）
-2. **独立凭证**：OpenClaw 用自己的 Apple ID + Gmail，不能访问主账户
-3. **Security Audit**：在 Terminal 跑 `cloudbot security audit --deep`
-4. **最小权限**：主账户只共享读权限 + 选择性文件写权限
-5. **永不共享 Bot**：**不要加群聊、不要放公开网站**（参考已经泄露的案例）
+结论先行：OpenClaw 是他用过 **最好的 personal AI assistant**，但仍 **early software**。  
+**安全五步**：① 专用机器（Mac mini/旧 MacBook，24/7）② Bot **独立 Apple/Gmail** ③ `openclaw security audit --fix` ④ **读日历、写选定文件**（非全盘 Drive）⑤ **绝不共享 Bot**（群聊/公开站 = 泄密风险，有 vibe-coded app 泄漏先例）。  
+**五用例 demo**：日历（查 Caltrain → 发 invite 到自己主 Gmail）、Google Doc/Sheet 编辑（共享文件给 Zoe）、**Edge TTS 语音** dad joke、**cron daily briefing**（天气/日历/内容排期/Twitter 趋势 + memory 个性化）、**weekly creator email**（yt-dlp YouTube 公数 + Substack 浏览器抓 stats + 竞品选题）。  
+**Google Workspace**：GCP 建项目 → 开 Gmail/Calendar/Drive/Docs/Sheets/Slides API → OAuth consent → desktop client 下载 JSON → ** paste 给 Zoe 配**。UI 烂，**让 Bot 一步步带**。  
+**Memory/人格**：`~/.clawdbot/`（ASR 作 cloudud）下 **SOUL.md**（价值观/语气）、**USER.md**、**IDENTITY.md**、**MEMORY.md**（长期记忆、open loops/tensions/patterns）、**HEARTBEAT.md**（30 分钟查 ongoing tasks）、**memory/YYYY-MM-DD.md** 日记；可手改或 chat 让 Zoe 改。  
+收尾：Peter Steinberger 一人开源、**builder 典范**；安全 setup → tinkering → 接 Workspace → 当朋友用。
 
-> "My bot can only talk to me and me alone."
+---
 
-### 2. 5 个真实用例
+## 背景：这期在 AI Agent 大图里的位置
 
-#### 用例 1：日历管理
+| 你可能已有的认识 | 这期补上的那一块 |
+|----------------|-----------------|
+| OpenClaw = 聊天 Bot | **cron + 工具链 + Workspace OAuth** 的 personal OS |
+| AI 助理 = ChatGPT App | **Telegram  texto + 语音 + 邮件周报**，24/7 在 dedicated 硬件 |
+| Memory = 向量库黑盒 | **本地 MD 文件**（SOUL/USER/MEMORY/daily notes）可读可改 |
+| 安全 = 别用 | **最小权限 + 独立账号 + audit** 的可操作清单 |
 
-- 把个人日历**共享**给 Zoe（OpenClaw Bot）
-- 文本指令："找周日上午 10 点左右的火车班次"
-- Zoe 自动 search + 推送 + 发送邀请到你的主账户
-- 用 Bot 的 calendar 邀请自己，主账户接受/拒绝
+---
 
-> "Just imagine I'm on the go and I want to quickly schedule something. It's just way easier to text Zoe than to actually go into Google calendar."
+## 分话题讲
 
-#### 用例 2：编辑文档
+### 1. 安全五步（必做）
 
-- 创建共享文档 `Peter-Zoe`
-- 文本指令："把今天的家庭出游计划写进那个文档"
-- Zoe 自动填充：交通、目的地、餐饮推荐（带 tips）
+**说法：**
 
-#### 用例 3：语音对话
+| 步 | 做法 |
+|----|------|
+| 1 | **Dedicated 电脑**，24/7 在线（Mac mini + 免费 keep-awake app） |
+| 2 | Bot **独立凭证**（独立 Gmail/Apple ID） |
+| 3 | Terminal 跑 **`openclaw security audit --fix`** |
+| 4 | **读**个人日历；**写**仅共享的 Doc/Sheet；不碰整个 Drive |
+| 5 | **Bot 只服务你一人**——不加群、不上公开网 |
 
-- Bot 支持 voice message
-- 可以直接用语音提问
+**例子：** 有人把 Bot 接 vibe-coded app，**机密漏到公网**。
 
-#### 用例 4：每日简报
+**和你何干：** Personal agent **权限越大，隔离越狠**——独立账号不是矫情，是底线。
 
-- Bot 自动生成每日简报
-- 整合日历 + 新闻 + 任务
+---
 
-#### 用例 5：Weekly Inside Report
+### 2. 用例一：日历（最小权限版）
 
-- 每周报告
-- 整合一周的事件、任务完成情况、关键数据
+**说法：**  
+Zoe 有 **自己的 Google Calendar**；Peter **只读共享**个人日历给 Zoe。  
+Telegram：「查 Caltrain 10am 班次 → 发 10:14 家庭出行 invite」→ Zoe 浏览查班次 → **以 attendee 发 invite 到主 Gmail**。  
+不如直接给主日历 API 强大，但 **安全**；比手开 Google Calendar 快。
 
-### 3. Memory 机制（让 Bot 真正个性化）
+**和你何干：** **Share read + Bot 发 invite** 是日历自动化的 pragmatic 折中。
 
-OpenClaw 有 **memory 系统**，让 Bot 记住：
-- 你的偏好
-- 你的习惯
-- 你的关系人
-- 过去的事件
+---
 
-这让它从"工具"变成"助理"。
+### 3. 用例二：文档与表格
 
-### 4. 关于"独立 Bot"的安全哲学
+**说法：**  
+共享 Doc「Peter-Zoe」→ 「写 ferry building 出行计划」→ 2 分钟填好路线、午餐、tips。  
+共享 **内容排期 Sheet** → 「加标题 Master OpenClaw in 20 minutes 到 2/4 格」→ 精确改 cell。  
+移动场景 ** texto Bot 改 Doc/Sheet** 比 ChatGPT 复制粘贴省太多。
 
-> "This last one is super important. Here's a tweet from an OpenCloud contributor on how most book someone's vibe coded app started leaking confidential stuff to the public."
+**和你何干：** **按文件共享** 而非全盘 Drive，是 Workspace 集成模板。
 
-**最常见错误**：把自己的 Bot 给别人用 → 数据泄露
-**正确做法**：每个用户只用自己的 Bot，永远不要分享
+---
 
-## 关键概念
+### 4. 用例三：语音（Edge TTS）
 
-| 概念 | 定义 |
+**说法：**  
+问 Zoe 有哪些 TTS → 选免费 **Microsoft Edge TTS**（300+ 声音）→ 「发 voice note 讲 dad joke」。  
+Setup：**让 Bot 自己配 gateway**——「set up edge TTS」即可。  
+可双向：Whisper 输入 + 语音回复；适合问候、口述摘要。
+
+**和你何干：** OpenClaw **「问 Bot 配 Bot」**——first-class 用法，别自己啃 config。
+
+---
+
+### 5. 用例四 & 五：Cron 简报
+
+**Daily briefing（cron）：**  
+拉 **天气、日历、内容排期、Twitter 读权限、memory** → 个性化提醒（例：「你整周 infrastructure mode，该 shipping 了」）。  
+**Weekly Inside Report（邮件）：**  
+- YouTube：**yt-dlp** 拉公数 + 竞品频道  
+- Substack：**无 API** → Zoe 作 **admin 用 browser** 抓 stats（核对过准确）  
+→ 邮件：选题建议 + 自己的 YT/Substack 数据。
+
+**和你何干：** **Cron + 多数据源** 是 personal agent 的 killer feature；Substack 案说明 **browser tool** 补 API 缺口。
+
+---
+
+### 6. Google Workspace 接入（痛苦但值得）
+
+**说法：**  
+GCP Console 建项目 → APIs & Services **逐个 enable**（Gmail/Calendar/Drive/Docs/Sheets/Slides…）→ OAuth consent（external + test user）→ **Desktop OAuth client** → 下载 JSON → Telegram 贴给 Zoe → OAuth 流程 Bot 代跑。  
+Google Cloud UI **很难用**；卡住就 **截图问 Zoe**。
+
+**和你何干：** 预算 **30 分钟 + Bot 向导**；写进 runbook 给第二次部署。
+
+---
+
+### 7. Memory 与人格：本地 MD
+
+**说法：**  
+关键文件（路径以 OpenClaw 实际为准，演讲示 `clawdbot` 目录）：
+
+| 文件 | 作用 |
 |------|------|
-| **Zoe** | 作者的 OpenClaw Bot 名字（个性化命名） |
-| **Mac mini** | 推荐的 OpenClaw 运行环境，24x7 不间断 |
-| **Security Audit** | `cloudbot security audit --deep` 内置安全检查命令 |
-| **独立凭证** | OpenClaw 用自己的 Apple ID + Gmail，与主账户隔离 |
-| **共享 vs 授权** | 主账户日历只**共享读**给 OpenClaw，OpenClaw 写自己的 calendar |
-| **Memory 系统** | OpenClaw 的个性化记忆层，让 Bot 理解用户偏好 |
-| **5 大用例** | 日历、文档、语音、每日简报、每周报告 |
-| **永不分享** | 关键安全原则：Bot 只跟自己对话 |
+| **IDENTITY.md** | 名字、emoji、语气（Zoe：warm, sharp, funny） |
+| **SOUL.md** | 价值观、voice rules（禁 AI 腔、active voice、少 emoji…） |
+| **USER.md** | 关于你的信息 |
+| **MEMORY.md** | 长期 curated 记忆；**open loops / tensions / patterns** |
+| **HEARTBEAT.md** | 每 30 分钟看有没有 ongoing tasks |
+| **memory/日期.md** | 每日对话 recap |
 
-## 实战最佳实践
+**MEMORY 高级用法：**  
+- **Open loops**：你提过但没闭环的事  
+- **Tensions**：公开自我 vs 私聊矛盾  
+- **Patterns**：Bot 观察到的行为模式（如「building  energizes you」）
 
-### 设置清单
+可 **直接编辑 MD** 或 chat 让 Zoe 更新；daily notes 可 feed 进 **更洞察的 briefing**。
 
-```
-□ 准备专用电脑（Mac mini 24x7）
-□ 创建独立 Apple ID + Gmail
-□ 安装 OpenClaw
-□ 运行 cloudbot security audit --deep
-□ 共享必要数据（最小权限）
-□ 自定义 Bot 名字（人格化）
-□ 启用 voice / calendar / docs 集成
-□ 配置 memory 系统
-```
+**和你何干：** Personal agent 差异化在 **MEMORY/SOUL 策展**，不在模型名。
 
-### 推荐安全等级
+---
 
-| 等级 | 适用场景 | 权限 |
-|------|---------|------|
-| **L1 探索** | 新手 | 只读 + 选择性写 |
-| **L2 日常** | 进阶用户 | 读 + 写共享文档 + 日历邀请 |
-| **L3 全权** | 完全信任 | 读 + 写主账户（**不推荐**） |
+## 关键概念（读完应能解释）
 
-### 5 大用例优先级
+| 词 | 白话 |
+|----|------|
+| **Zoe** | Peter 的 OpenClaw Bot 实例 |
+| **security audit --fix** | OpenClaw 内置安全加固命令 |
+| **Dedicated credentials** | Bot 独立 Gmail/Apple，与主账号隔离 |
+| **Edge TTS** | 免费 Microsoft 语音合成 |
+| **Cron jobs** | OpenClaw 定时任务（日报/周报） |
+| **yt-dlp** | 拉 YouTube 公开视频数据 |
+| **SOUL / USER / MEMORY** | 人格、用户、长期记忆 MD 文件 |
+| **Open loops** | 未闭环承诺/目标，供 Bot 提醒 |
 
-1. **日历管理** — 上手最快，立即有用
-2. **文档编辑** — 节省手动操作
-3. **语音对话** — 自然交互
-4. **每日简报** — 减少信息过载
-5. **每周报告** — 复盘工作
+---
 
-## 思维导图
+## 值得记住的原话
 
-```mermaid
-mindmap
-  root((30分钟精通OpenClaw))
-    安全设置
-      专用电脑
-        Mac mini 24x7
-        旧 MacBook
-      独立凭证
-        专属 Apple ID
-        专属 Gmail
-      Security Audit
-        cloudbot security audit --deep
-      最小权限
-        主账户只读
-        选择性写
-      永不分享
-        不加群聊
-        不放公开网站
-    5 大用例
-      日历管理
-        共享读权限
-        发送邀请到自己
-        文本指令调度
-      文档编辑
-        创建共享文档
-        自动填充内容
-        带 tips 推荐
-      语音对话
-        直接语音提问
-        自然交互
-      每日简报
-        自动生成
-        整合日历+新闻
-      Weekly Report
-        周复盘
-        事件汇总
-    个性化
-      Memory 系统
-        偏好记忆
-        习惯记录
-        关系人
-        事件历史
-      Bot 命名
-        Zoe (示例)
-        人格化
-```
+> **"OpenClaw is generally the best personal AI assistant that I've ever used... still really early software."**  
+> 是我用过最好的 personal AI；但仍是很早期的软件。
 
-## 原文金句（英中对照）
+> **"Run it on a dedicated computer... its own credentials... security audit... never share your bot."**  
+> 专用机、独立账号、安全审计、绝不共享 Bot。
 
-> **"Hey everyone, so a week in and I think OpenCloud is generally the best personal AI assistant that I've ever used. It truly feels like talking to a trusted friend who can actually get stuff done for me."**
-> 译：*大家好，用了一个星期，我觉得 OpenClaw 是我用过的最好的个人 AI 助理。它真的像在和一个能帮你搞定事情的可信朋友聊天。*
+> **"Someone's vibe coded app started leaking confidential stuff to the public."**  
+> 有人把 Bot 接公开 app，机密漏了。
 
-> **"Number one, run it on a dedicated computer. I installed it on a Mac mini, but any old MacBook would do. You have to keep it running 24 or 7, though, so that it stays on."**
-> 译：*第一，跑在专用电脑上。我装在 Mac mini 上，但任何旧 MacBook 都行。不过你得 24x7 保持开机，让它一直在。*
+> **"It's not as powerful as full calendar access, but this is the safe way."**  
+> 没全权日历强，但这是安全做法。
 
-> **"My OpenCloud uses its own Apple and Gmail ID. It does not have access to my main Gmail account other than the files that I've shared with it."**
-> 译：*我的 OpenClaw 用自己的 Apple ID 和 Gmail。除了我共享的文件，它访问不到我的主 Gmail。*
+> **"Just ask Zoe to set up edge TTS — it will do the whole thing for you."**  
+> 让 Zoe 配 TTS，它全包。
 
-> **"Never share your bot with anyone else. Don't add it to group chats or any websites. You know, this last one is super important."**
-> 译：*永远不要把 Bot 分享给别人。不要加群聊，不要放任何公开网站。这最后一点超级重要。*
+> **"Substack has no public API... added Zoe as admin... uses the browser."**  
+> Substack 无 API；Zoe 当 admin 用浏览器抓数。
 
-> **"Just imagine I'm on the go and I want to quickly schedule something. It's just way easier to text Zoe than to actually go into Google calendar and create an event and do all that crap."**
-> 译：*想象一下我在路上要快速安排事情，发文字给 Zoe 比真去 Google Calendar 创建活动再搞那些破事简单太多。*
+> **"Memory and personality is managed through a bunch of local MD files."**  
+> 记忆和人格就是一堆本地 MD 文件。
 
-> **"This is still really early software. So I want to do a deep dive on how to set it up safely."**
-> 译：*这还是相当早期的软件。所以我想深入讲讲如何安全地设置它。*
+> **"Not just something that gets stuff done — make a friend that guides you."**  
+> 不只是干活，要做成会引导你的朋友。
+
+---
+
+## 小结
+
+**这期最核心的判断：** OpenClaw 的个人助理价值 = **安全 isolated setup + Telegram/voice/cron 日常链 + Workspace 最小共享 + MD memory 策展**；早期但 **「问 Bot 配 Bot」** 把 GCP OAuth 等摩擦压到可接受。
+
+**读完应带走：**
+- **安全五步** 和 **五用例** 可直接抄作 personal agent checklist。  
+- Google 集成：**按文件/日历共享 + OAuth JSON 给 Bot**，别给主账号全权。  
+- **SOUL/MEMORY/open loops** 是「像朋友」的关键，不是更大模型。
+
+**和 vault 的关系：** OpenClaw 入门线，接 [[OpenClaw创始人-我是如何使用OpenClaw的？]]、[[OpenClaw实战-从本地到K8S部署]]、[[Taven创始人-将OpenClaw嵌入产品的实战经验]]。
+
+---
 
 ## 行动启示
 
-1. **安全第一** — 独立凭证、专用电脑、最小权限、永不分享
-2. **5 个用例按需启用** — 从日历开始，逐步加文档、语音、简报
-3. **Memory 是关键** — 让 Bot 真正个性化需要 memory 系统支持
-4. **Mac mini 是推荐环境** — 24x7 不间断、便宜、低功耗
-5. **Bot 命名很重要** — 人格化命名增强关系感（"Zoe" 案例）
-6. **不要泄露 Bot 凭证** — 一旦泄露，所有连接的服务都暴露
+1. **Mac mini/旧机 + 独立 Gmail** 起 OpenClaw，跑 **`security audit --fix`**。  
+2. **先日历+单 Doc 共享**，跑通 texto → invite / 写 Doc。  
+3. **加 daily cron briefing**，链 calendar + 一个 Sheet + 只读 Twitter。  
+4. **GCP OAuth 让 Bot 向导**；JSON paste Telegram，省自己读 doc。  
+5. **编辑 SOUL.md**：禁 AI 腔、主动语态、你的偏好写死。  
+6. **MEMORY 加 open loops**，让 daily briefing 催你闭环大目标。  
+7. **Bot 永不进群、不接公开站**。
 
-## 关联笔记
+---
 
-- [[MOC - Agent Theory and Design]] — AI Agent 总索引
-- [[MOC - Agent Theory and Design]] — B站视频知识库索引
-- [[OpenClaw 创始人-我是如何使用OpenClaw的？]] — 创始人视角
-- [[Claude Code负责人-AI原生团队如何使用AI]] — Claude Code 内部视角
-- [[AI Agent Development]] — AI Agent 开发系统知识
-- [[OpenClaw]] — OpenClaw 项目（待创建）
+## 相关阅读
+
+- [[OpenClaw创始人-我是如何使用OpenClaw的？]] — Peter Steinberger 创始人视角  
+- [[OpenClaw实战-从本地到K8S部署]] — 容器化与团队部署  
+- [[Taven创始人-将OpenClaw嵌入产品的实战经验]] — Pi/OpenClaw 企业嵌入  
+- [[WorkOS-创建和使用Skills方法论]] — Skills 与扩展  
+- [[IBM团队-Harness工程详解]] — harness、安全与 verify  
+
+---
 
 ## 来源
 
-- **原始视频**：[BV1kWctzeEYK - 30分钟精通OpenClaw（5个真实用例+设置+内存）](https://www.bilibili.com/video/BV1kWctzeEYK/)
-- **UP主**：[Easonlee的AI笔记](https://space.bilibili.com/3546559488723681/upload/video)
-- **生成工具**：Recastory（手动 ingest + faster-whisper 转录 + LLM distill）
-- **生成日期**：2026-06-10
-- **转录模型**：faster-whisper base（en）
-- **规范**：英文原文附中文翻译（[[kb-english-chinese-translation|记忆规则]]）
+- **视频**：[BV1kWctzeEYK](https://www.bilibili.com/video/BV1kWctzeEYK/)（B 站 *Easonlee的AI笔记*）  
+- **讲者**：Peter（OpenClaw 早期用户，Bot：Zoe）  
+- **时长**：~28:51  
+- **转写**：Recastory `bilibili-retranscribe/BV1kWctzeEYK/`（FunASR SenseVoice + cam++，**asr v2** 48 段）  
+- **版本**：v2 读者向讲义（2026-07-02）

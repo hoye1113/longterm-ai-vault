@@ -2,219 +2,251 @@
 title: "OpenAI员工：上下文工程和Agent记忆"
 source: "B站视频 - Easonlee的AI笔记"
 source_url: "https://www.bilibili.com/video/BV14nrMBKENb/"
-uploader: "Easonlee的AI笔记"
 speakers:
-  - "Kaelan (OpenAI Startup Marketing)"
-  - "Emory (OpenAI Solution Architect)"
-  - "Brian (OpenAI Solution Architect, Virtual)"
-date: 2026-04-10
-duration: "57:44"
-saved: 2026-06-10
+  - "Micah（OpenAI Startup Marketing）"
+  - "Emory（OpenAI Solution Architect）"
+  - "Brian（OpenAI Solution Architect，远程 Q&A）"
+duration: "57:43"
+saved: 2026-07-02
 tags:
+  - ai_agent
+  - video_transcript
+  - bilibili
   - openai
   - context_engineering
-  - agent-memory
-  - memory-patterns
-  - reshape-fit
-  - isolate-route
-  - extract-retrieve
-genre: "AI Agent 架构与平台"
+  - memory
+  - mcp
 created: 2026-06-09
+description: "OpenAI Build Hour：Emory 讲上下文工程与 Agent 记忆三大模式（Reshape & Fit / Isolate & Route / Extract & Retrieve），IT 故障 demo 演示 burst、trim、compact、summarize 与 cross-session 注入。"
+transcript_source: "Recastory/workspace/bilibili-retranscribe/BV14nrMBKENb/article.md"
+asr_version: v2
+curate_method: "vskill-vault-curate（读者向讲义 v2）"
 ---
 
 # OpenAI 员工：上下文工程和 Agent 记忆
 
-## 一句话总结
+## 先搞懂这一期
 
-OpenAI 解决方案架构师 Emory + Brian 在 Build Hour 系列中**系统讲解上下文工程和 Agent 记忆模式** — 从 context engineering 定义入手，覆盖 3 大核心记忆模式（Reshape & Fit、Isolate & Route、Extract & Retrieve），强调现代 LLM 性能**不只取决于模型质量，更取决于你给它的 context**。
+**这是什么节目？**  
+OpenAI **Build Hour** 系列第 N 期（Micah 主持 + 解决方案架构师 **Emory** 主讲），**~58 分钟** 幻灯片 + **双 Agent 并排 live demo**。主题不是 prompt 技巧，是 **Context Engineering** 与 **Agent Memory Patterns**——Build Hour 前序还有 Responses API、Agent RFT 等。
 
-## 核心洞察
+**这期在回答哪三个问题？**
 
-### 1. Context Engineering 的本质
+1. **Context Engineering 到底是什么？** 和 prompt engineering、RAG 什么关系？  
+2. **长运行 Agent 为什么会「忘事、爆窗、中毒」？** 四种 failure mode 长什么样？  
+3. **Trim / Compact / Summarize / Cross-session 各解决什么？** 怎么选？
 
-> "Context engineering is both an art and a science. So it's art because it involves judgment. So you have to decide what matters most at a given step of a reasoning or action processes. It's science because there are concrete patterns, methods, and miserable impacts to make context management more systematic and repeatable."
+**用一条线串起来（没看视频也能复述）：**
 
-**双重属性**：
-- **Art（艺术）**— 需要判断：每步推理/行动什么最重要
-- **Science（科学）**— 有具体模式：让 context 管理**系统化、可重复**
+Emory 引 **Andrej Karpathy**：context engineering = **艺术（判断每步什么最重要）+ 科学（可重复模式）**；现代 LLM 表现 **不只靠模型，更靠你给的 context**。  
+生态：**prompt、structured output、RAG、state/history、memory** 都在 **context engineering** 大球里。  
+**North Star**：**最小高信号 context** → 最大化 desired outcome。  
+**三大策略**：① **Reshape & Fit**（trim/compact/summarize）；② **Isolate & Route**（subagent 分流工具与 context）；③ **Extract & Retrieve**（memory tool、state object、向量检索）。  
+**短 vs 长记忆**：session 内技巧 vs **跨 session** 持久化。  
+**Failure modes**：**burst**（一次 tool  dump 3000+ token）、**conflict**（退款 policy 互斥指令）、**poisoning**（幻觉进 summary 传播）、**noise**（工具定义过多重叠）。  
+**Demo**：Next.js **IT 故障双 Agent**（Agents SDK）——左无 memory 多轮后忘 WiFi 过热；右有 memory 仍记得。  
+展示 **get_orders / get_refund** tool 致 **context burst** → 启用 **trim**（turn 6 丢旧 tool output）、**compact**（去旧 tool 留 placeholder）、**summarize**（turn 5 压成 **memory 组件** 注入）→ **cross-session** 把 summary 写进 system prompt，新 session **「你好，MacBook Sequoia 网还断吗？」**  
+Q&A：Agents SDK 实现 session 技巧；memory eval（completeness + long-task golden set）；**global vs session memory scope**；temporal tag / weight decay **prune  stale memory**；多用户 scale = **向量检索 vs 纯文本持久化** 两桶。
 
-> "Modern LLMs don't just perform based on the model quality, but they perform based on the context you give them."
+---
 
-**关键洞察**：模型质量不是唯一决定因素，**context 质量** 同样关键。
+## 背景：这期在 AI Agent 大图里的位置
 
-### 2. Context Engineering 生态体系
+| 你可能已有的认识 | 这期补上的那一块 |
+|----------------|-----------------|
+| Prompt engineering 够用 | **Context engineering** 统管 RAG、memory、tool hygiene |
+| 上下文满了就新开 chat | **Trim/compact/summarize** 有参数与 turn 边界规则 |
+| Memory = 向量库 | 还有 **state object、summary 注入、memory guardrails** |
+| 工具越多越好 | **Tool noise/conflict** 是独立 failure mode |
 
-**5 大组成层**：
-1. **Prompt Engineering** — 核心原则
-2. **Structured Output** — 结构化输出
-3. **RAG**（Retrieval-Augmented Generation）— 检索增强
-4. **State and History Management** — 状态与历史管理
-5. **Memory** — 持久化记忆（files、databases、memory tools）
+---
 
-Context Engineering = 上述所有 + 跨层协同
+## 分话题讲
 
-### 3. 3 大 Agent 记忆模式
+### 1. Context Engineering 定义与 North Star
 
-#### 模式 1：Reshape & Fit（重塑与适配）
+**说法：**  
+Karpathy 式定义：**艺术 + 科学**——每步推理/action 什么最重要（判断），又有 **reshape/isolate/extract** 等可测模式（科学）。  
+比 prompt engineering 宽：含 **structured output、RAG、session state、memory tools**。  
+目标：**smallest high-signal context**。
 
-> 把 context 重新组织成最合适的形式，让 LLM 能"消化"
+**和你何干：**  
+做 Agent 平台先画 **context budget 分配**，不是先挑最大模型。
 
-#### 模式 2：Isolate & Route（隔离与路由）
+---
 
-> 把不同的 context **隔离**到不同通道，**路由**给相关的 agent/任务
+### 2. 三大策略 + 短/长记忆
 
-#### 模式 3：Extract & Retrieve（抽取与检索）
+**说法：**
 
-> 长期信息**抽取**出来存储，需要时**检索**回来
+| 策略 | 手段 | 典型场景 |
+|------|------|----------|
+| **Reshape & Fit** | trim、compact、summarize | 长对话、tool-heavy |
+| **Isolate & Route** | subagent 分流 context/tools | 降 conflict/poisoning |
+| **Extract & Retrieve** | memory tool、state、向量检索 | 跨 session 个性化 |
 
-### 4. 上下文窗口的现实
+**短记忆** = session 内撑满 context window；**长记忆** = 多 session 收集再取回。
 
-> "Why it matters because long-running tools..."（长运行工具 → 上下文膨胀）
+**和你何干：**  
+Real-world harness **组合多种**，非单选。
 
-**痛点**：
-- Agent 长时运行 = 上下文持续增长
-- 工具调用 = 每次都增加 context
-- 模型有效 context 实际有限
-- 必须**主动管理**
+---
 
-### 5. OpenAI 之前 Build Hour 系列
+### 3. 四种 Failure Mode（带 IT demo 画面）
 
-> "When we started with how to build agents from scratch, using responses API, then moved into agent RFT, and today exploring agent memory patterns."
+**说法：**  
+- **Burst**：`get_refund` 一次塞进整份 policy → turn 2→3 **3000+ token spike**。对策：**控制 tool output 字段**，高信号即可。  
+- **Conflict**：system「无 warrant 不退款」vs tool「VIP 可退」→ Agent 乱承诺。对策：**prompt/tool 别互打架**。  
+- **Poisoning**：幻觉 summary 写入 memory **跨 turn 传播**。对策：summary prompt 写 **contradiction/hallucination control**。  
+- **Noise**：太多相似 tool definition → 选错 tool。对策：**小集合、清晰边界**。
 
-**系列脉络**：
-1. 第 1 期：如何用 Responses API 从零构建 Agent
-2. 第 2 期：Agent RFT（Reinforcement Fine-Tuning）
-3. 第 3 期：Agent 记忆模式（本期）
+**Demo 对照**：左 Agent 多轮后 **重问已答过的 WiFi/过热**；右 Agent **记得 F 更新、background sync**。
 
-## 关键概念
+**和你何干：**  
+上线前用 **context lifecycle 可视化**（system/user/tool/agent output/memory 占比）找 spike。
 
-| 概念 | 定义 |
-|------|------|
-| **Context Engineering** | 选择、构建、维护 LLM 上下文的过程（art + science） |
-| **Reshape & Fit** | 重塑 context 让 LLM 更好消化 |
-| **Isolate & Route** | 隔离不同 context，按需路由 |
-| **Extract & Retrieve** | 长时信息抽取 + 检索 |
-| **Persistent Storage** | 持久化存储（files / databases / memory tools） |
-| **Long-running Tools** | 长时运行工具，导致 context 膨胀 |
-| **RFT**（Reinforcement Fine-Tuning） | 强化学习微调 |
-| **Responses API** | OpenAI 的 Agent 基础 API |
-| **Memory Tools** | OpenAI 提供的持久化记忆工具 |
-| **State Management** | 状态管理（context 中保存执行状态） |
+---
 
-## 实战应用
+### 4. Reshape 技巧：Trim vs Compact vs Summarize
 
-### 3 大模式应用场景
+**说法：**
 
-| 模式 | 适用场景 | 示例 |
-|------|---------|------|
-| **Reshape & Fit** | context 太多/太少/格式不对 | 压缩长对话、重新组织 JSON、摘要替换原文 |
-| **Isolate & Route** | 多 agent 协作 | 销售 Agent vs 技术 Agent 各自隔离 context |
-| **Extract & Retrieve** | 长时记忆 | 用户偏好、过往决策、项目背景 |
+|  technique | 行为 | 优点 | 代价 |
+|-----------|------|------|------|
+| **Trim** | 丢最旧 turn，留最近 N turn | 快、无额外 latency | **丢历史** |
+| **Compact** | 丢旧 **tool result**，留 message 骨架 + placeholder | 仍保留对话叙事 | tool-heavy 场景佳 |
+| **Summarize** | 旧 turn 压成 **structured summary** 作 memory 注入 | **保留信息密度** | 多一次 model call、latency/cost |
 
-### Context Engineering 决策树
+**Heuristics**：  
+- 分析生产 session snapshot；**别 mid-turn 截断**（turn = user msg 到下一 user msg）。  
+- **40%/80% 阈值**  proactive 触发，别等撞 hard limit。  
+- 独立任务链 → trim；**跨 turn 依赖** → summarize。
 
-```
-Agent 运行遇到问题
-    ↓
-context 太长？
-    → 是 → Reshape & Fit（压缩/摘要/重新组织）
-    → 否 → context 不对？
-        → 是 → Extract & Retrieve（补充正确信息）
-        → 否 → 多 agent 协作？
-            → 是 → Isolate & Route（隔离 + 路由）
-            → 否 → 重新审视 Prompt Engineering
-```
+**Demo 参数例**：trim trigger turn 6 keep 3；summarize trigger turn 5 keep recent 3 → 出现橙色 **memory** 条，含设备型号、试过的步骤、时序。
 
-## 思维导图
+**和你何干：**  
+Summary prompt 要 **领域结构化**（IT：product/env/issues/tried steps/timeline/next steps），见 demo 的 MacBook Sequoia 案例。
 
-```mermaid
-mindmap
-  root((Context Engineering))
-    本质
-      Art (判断)
-      Science (模式)
-      Art + Science
-      关键论断
-        模型质量不是唯一
-        Context 质量也关键
-    5 大组成
-      Prompt Engineering
-      Structured Output
-      RAG
-      State/History Mgmt
-      Memory
-        持久化
-        Semi-持久化
-        Files
-        Databases
-        Memory Tools
-    3 大模式
-      Reshape & Fit
-        重塑
-        适配
-        压缩/摘要
-      Isolate & Route
-        隔离
-        路由
-        多 Agent
-      Extract & Retrieve
-        抽取
-        检索
-        长时记忆
-    OpenAI 系列
-      第1期
-        从零构建
-        Responses API
-      第2期
-        Agent RFT
-      第3期
-        记忆模式
-```
+---
 
-## 原文金句（英中对照）
+### 5. Cross-session 与 Memory Guardrails
 
-> **"Context engineering is both an art and a science. So it's art because it involves judgment. So you have to decide what matters most at a given step of a reasoning or action processes. It's science because there are concrete patterns, methods, and miserable impacts to make context management more systematic and repeatable."**
-> 译：*上下文工程既是艺术也是科学。作为艺术，它需要判断——你得决定在某个推理/行动步骤中什么最重要。作为科学，它有具体的模式和方法，让 context 管理更系统、可重复。*
+**说法：**  
+Turn 5 summary → **reset session** → **cross-session injection** 把 summary 写入 system prompt → 新 hi 得到 **「还在 Sequoia 更新后的网络问题吗？」**  
+Memory 指令要点：memory **可能 stale/incomplete**；**勿 over-weight memory**；**不存 secrets**；防 injection。  
+**Memory scope**：**global**（用户常住美国、偏好友好语气）vs **session**（这次要 window seat）——多次 session 偏好可 **graduate 到 global**。
 
-> **"Modern LLMs don't just perform based on the model quality, but they perform based on the context you give them."**
-> 译：*现代 LLM 的表现不只取决于模型质量，更取决于你给它的 context。*
+**和你何干：**  
+长期记忆 = **summary + guardrails**，不是无脑全量 chat log。
 
-> **"Context engineering is a broader discipline than any single technique like prompt engineering or retrieval."**
-> 译：*上下文工程是比任何单一技术（如 prompt engineering 或 retrieval）更宽泛的学科。*
+---
 
-> **"Using persistent or semi-persistent storage like files, databases, or memory tools to upload and retrieve key information."**
-> 译：*用持久化或半持久化存储（如文件、数据库、memory 工具）来上传和检索关键信息。*
+### 6. Isolate & Route + Extract & Retrieve（Deck 精要）
 
-> **"Why it matters because long-running tools..."**
-> 译：*这很重要，因为长时运行的工具……*（导致 context 膨胀）
+**说法：**  
+- **Isolate & Route**：**tool offloading 到 subagent** → 主 Agent fresh context，减 conflict/poisoning。  
+- **Extract**：live term 用 **memory tool** 存 1–2 句 note（JSON/markdown）；或 **state object**（goal 等）周期性 inject。  
+- **Retrieve**：类似 RAG——store → search/filter/rank → inject。  
+- Memory 形态：**从简单键值 evolve 到段落**；consolidate/prune 用 **temporal tag、weight decay**。
+
+**Scaling 两桶**：  
+1. **检索式** long-term memory → 向量库 sharding、embedding 优化。  
+2. **纯 persist 文本** → 磁盘/DB 存储管理。  
+Pilot：**小流量开 memory** 再看 memory 池演化（travel concierge vs life coach 信息量差几个数量级）。
+
+**和你何干：**  
+Build Hour demo 代码在 **GitHub build-hours**；实现首选 **OpenAI Agents SDK** session API。
+
+---
+
+### 7. Eval 与 Q&A 要点
+
+**说法：**  
+- Eval：常规 eval **with vs without memory**；memory-specific eval（summary 质量、injection 时机、long-running task golden set ~50 例）。  
+- **Hierarchical context**：项目级 + 任务级 **可以**，看 use case（Manus 式 offloading 同类）。  
+- Libraries：**Agents SDK** 起步，生态 fast evolving。
+
+**和你何干：**  
+Memory 功能 **没 uplift 可能因任务不够长**——先测是否触达 context 阈值。
+
+---
+
+## 关键概念（读完应能解释）
+
+| 词 | 白话 |
+|----|------|
+| **Context Engineering** | 统筹 prompt、RAG、memory、tool 的上下文优化学科 |
+| **Reshape & Fit** | trim/compact/summarize 把对话塞进 budget |
+| **Isolate & Route** | subagent 分流工具与 context |
+| **Extract & Retrieve** | 抽取记忆存入 store，按需检索注入 |
+| **Context burst** | 单 turn tool 输出导致 token 尖峰 |
+| **Context poisoning** | 错误信息写入 summary/memory 并传播 |
+| **Cross-session injection** | 上 session summary 写入新 session system prompt |
+| **Memory scope** | global 用户事实 vs session 临时偏好 |
+| **Turn block** | 从 user 消息到下一条 user 消息的不可分割单元 |
+
+---
+
+## 值得记住的原话
+
+> **"Modern LLMs perform based on the context you give them."**  
+> 现代 LLM 的表现取决于你给它的 context。
+
+> **"Aiming for the smallest high-signal context."**  
+> 目标是最小的高信号 context。
+
+> **"With memory off… it falls back to re-asking information the user already gave."**  
+> 没 memory 时会重问用户已经说过的信息。
+
+> **"Context burst… from 300–400 tokens to more than 3000."**  
+> 一次 tool dump 让 context 从几百涨到三千多。
+
+> **"Do not trim mid-turn and break turn blocks."**  
+> 别在 turn 中间 trim，会打断 turn 块。
+
+> **"Memory is not authoritative — treat as potentially stale."**  
+> Memory 非权威——当作可能过时或不完整。
+
+---
+
+## 小结
+
+**这期最核心的判断：** 长运行 Agent 的瓶颈是 **有限 context budget**；应用 **reshape（trim/compact/summarize）+ isolate（subagent）+ extract（memory tool/retrieve）** 组合，并显式防 **burst/conflict/poisoning/noise**；跨 session 靠 **结构化 summary + guardrails**，不是堆全文 log。
+
+**读完应带走：**
+- Tool 设计 **控制返回字段**，policy 别一次 dump 全书。  
+- **Turn 边界** 神圣；80% 阈值 proactive 压缩。  
+- Eval 要 **with/without memory** + long-context golden set。
+
+**和 vault 的关系：** 上下文工程官方 Build Hour，接 [[Manus创始人-深度干货-上下文工程的最佳实践]]、[[Claude Code实战-构建一个AI数据分析师]]。
+
+---
 
 ## 行动启示
 
-1. **Context Engineering 比 Prompt Engineering 范围更广** — 是更高级的 discipline
-2. **模型质量 + Context 质量** = 真正性能
-3. **3 大模式记牢** — Reshape & Fit / Isolate & Route / Extract & Retrieve
-4. **长时运行 Agent 必须做 context 管理** — 不然必崩
-5. **Memory 工具** — 用 OpenAI 提供的 files/databases/memory tools
-6. **多 Agent 协作** — 用 Isolate & Route 隔离 context
-7. **Build Hour 系列** — 是 OpenAI Agent 知识系统，建议看完
+1. **给 Agent 加 context lifecycle 监控**（system/tool/memory 分项）。  
+2. **Tool output 只返回高信号字段**；Refund policy 做分级检索而非全量 inject。  
+3. **Summarize prompt 写结构化模板 + 幻觉/矛盾控制**（Emory IT 模板可抄）。  
+4. **Cross-session 加 memory guardrails**（stale、secrets、over-weight）。  
+5. **Agents SDK 试点 trim vs summarize**，用 40/80% 阈值 + eval uplift 定参。
 
-## 关联笔记
+---
 
-- [[MOC - Agent Theory and Design]] — AI Agent 总索引
-- [[MOC - Agent Theory and Design]] — B站视频知识库索引
-- [[Manus创始人-深度干货-上下文工程的最佳实践]] — 上下文工程实战
-- [[Cursor副总裁-构建软件开发过程的Agent]] — Cursor Agent 团队
-- [[OpenAI官方-Codex新手教程]] — Codex CLI 入门
-- [[AI Agent Development]] — AI Agent 开发系统知识
-- [[Context Engineering]] — 上下文工程详解（待创建）
-- [[Agent Memory Patterns]] — 3 大记忆模式（待创建）
+## 相关阅读
+
+- [[Manus创始人-深度干货-上下文工程的最佳实践]] — Context offloading 与 Manus 实践  
+- [[Claude Code实战-构建一个AI数据分析师]] — 数据分析场景的 context 爆炸  
+- [[IBM团队-Harness工程详解]] — guardrails、verify、context 压缩 harness 视角  
+- [[DeepMind团队-当数百万Agent相遇]] — 多 Agent 与 HITL  
+- [[MOC - Agent Theory and Design]] — Agent 理论横切索引  
+
+---
 
 ## 来源
 
-- **原始视频**：[BV14nrMBKENb - OpenAI员工：上下文工程和Agent记忆](https://www.bilibili.com/video/BV14nrMBKENb/)
-- **UP主**：[Easonlee的AI笔记](https://space.bilibili.com/3546559488723681/upload/video)
-- **原始直播**：OpenAI Build Hour 系列第 3 期
-- **生成工具**：Recastory（手动 ingest + faster-whisper 转录 + LLM distill）
-- **生成日期**：2026-06-10
-- **转录模型**：faster-whisper base（en）
-- **规范**：英文原文附中文翻译（[[kb-english-chinese-translation|记忆规则]]）
+- **视频**：[BV14nrMBKENb](https://www.bilibili.com/video/BV14nrMBKENb/)（B 站 *Easonlee的AI笔记*）  
+- **讲者**：Emory、Micah、Brian（OpenAI Solution Architecture / Startup Marketing）  
+- **时长**：~57:43  
+- **转写**：Recastory `bilibili-retranscribe/BV14nrMBKENb/`（FunASR SenseVoice + cam++，**asr v2 后处理** 39 段）  
+- **Demo / 资源**：OpenAI Build Hours GitHub、Context Engineering Cookbook、Agents Python SDK  
+- **版本**：v2 读者向讲义（2026-07-02）

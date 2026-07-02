@@ -2,253 +2,251 @@
 title: "OpenAI官方：Codex新手教程"
 source: "B站视频 - Easonlee的AI笔记"
 source_url: "https://www.bilibili.com/video/BV19MzXBNESV/"
-uploader: "Easonlee的AI笔记"
 speakers:
-  - "Derek (OpenAI Customer Onboarding)"
-  - "Sterling (OpenAI Customer Onboarding)"
-  - "Charlie (OpenAI Engineer)"
-date: 2026-05-15
-duration: "53:02"
-saved: 2026-06-09
+  - "Derek（OpenAI Customer Onboarding）"
+  - "Charlie（OpenAI Engineer）"
+duration: "52:54"
+saved: 2026-07-02
 tags:
+  - ai_agent
+  - video_transcript
+  - bilibili
   - codex
   - openai
-  - coding_agent
-  - cli
   - mcp
-  - agents-md
-  - getting-started
-genre: "Coding Agent 工具与教程"
+  - harness_engineering
 created: 2026-06-09
+description: "OpenAI Derek 与 Charlie 官方 onboarding：Codex CLI/IDE 安装、AGENTS.md、config.toml 沙箱与审批、prompt 技巧、MCP/Context7、Codex Exec 结构化输出与 Agents SDK 多 Agent 编排。"
+transcript_source: "Recastory/workspace/bilibili-retranscribe/BV19MzXBNESV/article.md"
+asr_version: v2
+curate_method: "vskill-vault-curate（读者向讲义 v2）"
 ---
 
 # OpenAI 官方：Codex 新手教程
 
-## 一句话总结
+## 先搞懂这一期
 
-OpenAI 官方 onboarding 工程师（Derek、Sterling、Charlie）系统讲解 **Codex CLI/IDE 完整入门** — 涵盖安装、AGENTS.md 配置、prompt 最佳实践、CLI/IDE 技巧、MCP 配置、SDK 集成，以及如何把 Codex 嵌入团队的 7 阶段软件研发流程。
+**这是什么节目？**  
+OpenAI 客户 onboarding 团队的 **~53 分钟 Getting Started with Codex** 官方课（Derek + Charlie）。不是营销片，是 **CLI + VS Code 扩展** 手把手：clone agents.md 开源站、改 Hero、接 MCP、跑 review。
 
-## 核心洞察
+**这期在回答哪三个问题？**
 
-### 1. Codex 是什么
+1. **Codex 有哪些面、怎么装、怎么登录？** CLI / IDE / Cloud / SDK 各干什么？  
+2. **AGENTS.md + config.toml 怎么让 Agent 每次进门就懂项目？**  
+3. **从 prompt 到 MCP 到 headless `codex exec`，怎么嵌进 SDLC？**
 
-- **定位**：OpenAI 的 **coding agent**（不只是 coding assistant）
-- **多 surface**：CLI、IDE 扩展、Headless SDK
-- **最新模型**：**GPT 5.1 Codex Max**（专为 agented coding 训练）
-- **训练环境**：原生支持 Linux / Mac OS / Windows，遵守沙箱规则
+**用一条线串起来（没看视频也能复述）：**
 
-### 2. Codex 三大使用场景
+Codex = OpenAI **coding agent**（GPT-5.1 Codex Max 等在 Codex harness 里训）；面：**CLI**（轻量终端 + headless SDK）、**IDE 扩展**（任意 VS Code 系）、**Cloud**（关笔记本并行 async，如 PR review）。  
+客户用法：**PR 开 Codex Cloud review**、**Slack @Codex 读整 thread 出 PR**、**SDK 自有容器结构化输出**。  
+安装：`brew`/`npm` 装 CLI（更新频，顶栏提示新版本）；VS Code 搜官方 OpenAI Codex 扩展，**开 auto-update**。  
+登录：`codex login` / IDE splash → SSO；`/status` 看 model、sandbox、approval、剩余 context。  
+**AGENTS.md**：每次 session 零记忆 → 根目录 / 子目录 / `~/.codex` 全局 **AGENTS.md** 自动加载；`/init` 生成；**<100 行**、解锁 **test/lint 反馈环**、踩坑写回 agents.md；大任务指到 `plans.md` / `frontend.md` 做 **progressive discovery**。  
+**config.toml**：默认 model、reasoning effort、sandbox、approval policy、profiles（如 `codex -p fast`）、MCP、终端完成 **notification**。  
+Prompt：**@ 文件锚定**、小任务起步、verification steps、debug 贴 **full stack trace**、open-ended「下一步建什么」。  
+IDE 技巧：TODO → Implement with Codex、**截图改 UI**、`codex resume` 续 session、生成 **mermaid 序列图**。  
+MCP：`codex mcp add`；demo **cupcake MCP** + **Context7** 拉最新 OpenAI Responses API 做 agents.md 生成器。  
+进阶：**codex exec** + JSON schema 结构化 code quality 报告；Agents SDK 里 Codex 当 MCP tool 多 Agent handoff；自托管 PR review / autofix CI / issue auto-label。
 
-| 场景 | 说明 |
-|------|------|
-| **Code Review** | PR 打开时 Codex Cloud 自动 review、评论、找 critical bugs |
-| **Slack 集成** | Slack 中 `@Codex`，它读取整段对话线程，生成 PR |
-| **SDK 集成** | 程序化运行 Codex，可获取结构化输出，集成到自定义容器 |
+---
 
-### 3. AGENTS.md：让 Agent 永远懂你
+## 背景：这期在 AI Agent 大图里的位置
 
-> "Coding agents don't really retain any context between sessions. Every time you start it up, it's coming in with a fresh context window. The agents.md ensures that the instructions that you want to give the agent are always loaded automatically."
+| 你可能已有的认识 | 这期补上的那一块 |
+|----------------|-----------------|
+| Codex = ChatGPT 写代码 | **多 surface + Cloud 并行** + **headless exec** |
+| README 给 AI 看就行 | **AGENTS.md** 专给 agent loop；plans.md 做大任务 living doc |
+| MCP 可选装饰 | Context7 / 自建 doc MCP = **克服 knowledge cutoff** |
+| Code review 另一工具 | Codex review **只报 P0/P1**，噪声低才有人用 |
 
-**核心思想**：每次启动 Codex 都是新 context，AGENTS.md 是 Agent 必读的"项目 README"。
+---
 
-**三层 AGENTS.md 体系**：
+## 分话题讲
 
-| 层级 | 位置 | 用途 |
-|------|------|------|
-| **全局** | `~/.codex/AGENTS.md` | 全局配置（工具偏好、行为习惯） |
-| **项目根** | `<project>/AGENTS.md` | 项目概览、构建命令、整体工作流 |
-| **子目录** | `<project>/subdir/AGENTS.md` | 子服务/子模块的特定上下文 |
+### 1. Codex 产品面与模型
 
-**AGENTS.md 编写 4 大最佳实践**：
+**说法：**  
+- **CLI**：日常交互 + **`codex exec` headless** 进 CI/CD。  
+- **IDE 扩展**：Rich GUI，local / **cloud** 任务，chat vs agent vs full access。  
+- **Cloud**：笔记本合上也能跑 code review、mobile 触发。  
+- 模型在 **Linux/macOS/Windows + bash/PowerShell** 环境训，遵守 sandbox；擅长 **auto-compact** 长跑 refactor。
 
-1. **简短聚焦** — OpenAI 内部 AGENTS.md 平均**不到 100 行**，太多指令会让 Agent 困惑甚至解决冲突
-2. **解锁 agent loop** — 加入 lint、test、screenshot 等校验命令，让 Agent 自己验证
-3. **持续更新** — 看到 Codex 推导命令慢、犯错时，把解决方案写进 AGENTS.md
-4. **指向其他文件** — 主 AGENTS.md 保持通用，引用 `exec_plans.md`、`frontend.md`、`architecture.md` 等
+**和你何干：**  
+同一 harness 贯穿 **7 阶段 SDLC**（OpenAI《AI engineering team》指南）——今天入门，明天可挂 review/autofix。
 
-### 4. Codex 的 7 阶段软件研发集成
+---
 
-> "We broke it down into seven phases that span planning and design all the way to documentation and maintenance."
+### 2. 安装、登录、跟练仓库
 
-OpenAI 内部把 AI Native 团队的工程工作分为 7 阶段，Codex 都能在每个阶段提供加速：
+**说法：**  
+优先 **npm/brew** 装 CLI；开源可下 GitHub binary。IDE 认准 **OpenAI 官方**扩展。  
+Work + ChatGPT Enterprise SSO 登录后 CLI/IDE **共享会话**。  
+跟练：clone **agents.md** 微站 → `npm install && npm run dev` → 全程在同一 repo 上改 Hero、加按钮。
 
-**规划阶段**：需求分析、架构方案、任务分解
-**设计阶段**：API 设计、数据模型、UX
-**构建阶段**：编码、单元测试、code review
-**测试阶段**：集成测试、E2E、bug 复现
-**部署阶段**：CI/CD、发布管理
-**运维阶段**：监控、oncall、incident response
-**文档/维护**：文档生成、refactor、技术债清理
+**和你何干：**  
+官方刻意用 **agents.md 站** 教 AGENTS.md——meta 但好用。
 
-### 5. Codex 与 Claude Code 的关键差异
+---
 
-> "We trained the model to be able to accurately auto-compact long conversations so you can have Codex work for you on longer running tasks."
+### 3. AGENTS.md：每次 session 的 TL;DR
 
-- **Windows 支持** — 重要差异化
-- **超长任务** — GPT-5.1 Codex Max 训练为能 auto-compact 长对话，支持大规模 refactor
+**说法：**  
+Coding agent **不跨 session 记忆** → AGENTS.md 自动注入「项目怎么回事」。  
+层级：**~/.codex/AGENTS.md 全局**、repo 根、**子目录**（进目录加载服务上下文）。  
+推荐段落：overview、structure、build/test、常用 CLI、MCP 列表、**feature 端到端 workflow**、指向 task-specific md。  
+最佳实践：**短而聚焦**（OpenAI 内部 <100 行）；给 **lint/test 反馈**；Codex 卡壳的命令 **写进 AGENTS.md**；大 refactor 用 **plans.md 模板** checklist Living document（工程师 **10+ 小时 refactor** 案例）。
 
-## 关键概念
+**和你何干：**  
+AGENTS.md = harness 的 **静态 context 层**，和 [[2026 年 Agent 最重要的工程概念 Harness Engineering]] 里 docs-as-truth 同族。
 
-| 概念 | 定义 |
-|------|------|
-| **Codex** | OpenAI 的 coding agent 产品，CLI + IDE + SDK 三 surface |
-| **GPT 5.1 Codex Max** | OpenAI 最新的 coding 专用模型，专为 agented coding 训练 |
-| **AGENTS.md** | Agent 必读的项目说明文件，类似 README 但针对 agent 优化 |
-| **Codex Cloud** | 远程 task 执行环境，可关闭笔记本后台跑 async 任务（code review） |
-| **Headless SDK** | 编程式调用 Codex，获取结构化输出，集成到自定义容器 |
-| **Sandboxing** | 模型在 Bash/PowerShell 中执行的沙箱安全机制 |
-| **Auto-Compact** | GPT-5.1 Codex Max 自动压缩长对话的能力，支持超长任务 |
-| **Exec Plan** | 用 `exec_plans.md` 模板生成的多步骤计划，可作为 living document 持续更新 |
-| **MCP**（Model Context Protocol） | 用于给 Codex 集成外部工具的协议 |
-| **ChatGPT Enterprise / Team** | Codex 的企业版本，SSO 集成 |
+---
 
-## 安装与配置速查
+### 4. config.toml：默认行为与安全
 
-```bash
-# 安装 Codex CLI（推荐方式）
-brew install codex  # 或 npm install -g @openai/codex
+**说法：**  
+Rust 写的 CLI 用 **config.toml** 设：model、reasoning effort、**sandbox mode**、**approval policy**、web search 默认、MCP、profiles。  
+默认：**approval on-request**（要到 escalated 权限才问你）；**workspace-write sandbox**（只写当前目录）。  
+可改更严或更松；Charlie 爱 **terminal notification**——后台跑完响铃。
 
-# 登录（打开浏览器用 ChatGPT Enterprise 账户）
-codex login
+**和你何干：**  
+团队统一 **toml + AGENTS.md** = 新人 `codex` 进来行为一致。
 
-# 检查状态
-/status  # 看模型、目录、沙箱、approval policy、剩余 context
+---
 
-# 克隆并启动
-git clone https://github.com/agentsmd/agents.md
-cd agents.md
-npm install && npm run dev
-codex
-```
+### 5. Prompt 最佳实践
 
-### CLI 关键命令
+**说法：**  
+1. **`@file` 锚定**——防 agent 逛错目录。  
+2. **小任务起步**，熟了再变大；可让 Codex **纯 research 拆 task**。  
+3. **Verification steps**（tests/lint）写 prompt 或 AGENTS.md。  
+4. Debug：**整段 stack trace** 粘贴。  
+5. Open-ended：「这 feature 做完下一步建什么？」CLI 会给 **suggested next steps**。
 
-| 命令 | 作用 |
-|------|------|
-| `codex` | 启动交互式会话 |
-| `codex login` | 登录 ChatGPT 账户 |
-| `/status` | 查看当前配置状态 |
-| `/init` | 自动生成 AGENTS.md |
-| `/mcp` | 配置 MCP 服务器 |
+**Starter tasks：** explain codebase、写 README、fix bug、扩测试、跨文件 refactor、**写文档**。
 
-## 实战最佳实践
+**和你何干：**  
+Prompt 是 **ultimate context**，但 recurring 验证应 **沉到 AGENTS.md**。
 
-### 配置 `config.toml`
+---
 
-```toml
-# 自动批准某些安全命令
-approval_policy = "auto-edit"
+### 6. CLI / IDE 技巧
 
-# 沙箱模式
-sandbox_mode = "workspace-write"
+**说法：**  
+- CLI/IDE **`@` 文件**；IDE **Cmd+Shift+C** 绑「选中行加 context」。  
+- 代码里 **TODO → Implement with Codex**。  
+- **截图 prompt** 改 UI（inline chip 改橙色）——比「左边第三个按钮」可靠。  
+- **`codex resume`** / session ID 续聊；IDE 搜历史 task。  
+- 生成 **mermaid sequence diagram** 理解 repo 流程。  
+- Custom prompts：`~/.codex/prompts/add-test.md` → CLI 里 `@add-test` 拉单元测试模板。
 
-# 网络访问
-network_access = "enabled"
-```
+**和你何干：**  
+Session = **迷你项目容器**（front-end feature 一条 session、test 一条 session）。
 
-### Prompting 最佳实践
+---
 
-1. **具体明确** — 不要 "优化这个函数"，要 "把 O(n²) 改成 O(n log n)，保持原签名"
-2. **给出 context** — "在 `services/auth/` 中，这是 OAuth callback handler"
-3. **列出验证步骤** — "完成后跑 `npm test` 并截图"
-4. **分步引导** — 复杂任务用 AGENTS.md 引用 exec_plans.md
+### 7. MCP：Cupcake → Context7
 
-### IDE 扩展
+**说法：**  
+Codex 支持 stdio + HTTP MCP。常见：Figma、Jira/Linear、**Context7**（最新框架 doc）、Datadog。  
+Live：`codex mcp add` 注册 **cupcake MCP** → 改 agents.md 页脚显示 Rachel 订了 7 个 marble cupcake。  
+进阶：Context7 + **Responses API** 在 agents.md 站加 **「输入 prompt 生成 AGENTS.md」** 输入框；全局 AGENTS.md 可写「新 API **总是先搜 Context7**」。
 
-- 在 VS Code 扩展市场搜索 "OpenAI Codex"（注意是**官方**那个）
-- 支持 auto-update
-- 安装后用同一个 ChatGPT 账户登录
+**和你何干：**  
+MCP = harness **动态 context**；doc MCP 解决 **训练 cutoff**。
 
-## 思维导图
+---
 
-```mermaid
-mindmap
-  root((OpenAI Codex))
-    产品定位
-      Coding Agent
-      CLI + IDE + SDK
-      GPT 5.1 Codex Max
-      3 大使用场景
-        Code Review
-        Slack 集成
-        SDK 集成
-    AGENTS.md 体系
-      全局 ~/.codex/
-      项目根
-      子目录
-      最佳实践
-        简短聚焦
-        解锁 agent loop
-        持续更新
-        指向其他文件
-    7 阶段研发集成
-      规划
-      设计
-      构建
-      测试
-      部署
-      运维
-      文档维护
-    关键差异
-      Windows 支持
-      超长任务
-      Auto-Compact
-    实战
-      brew/npm install
-      codex login
-      /status /init /mcp
-      config.toml
-```
+### 8. Code Review 与进阶编排
 
-## 原文金句（英中对照）
+**说法：**  
+- CLI：`codex review`（对 base branch / uncommitted / 指定 commit + 自定义指令）。  
+- IDE：slash **code review**；只表面 **P0/P1**（太吵会被 ignore）。  
+- **`codex exec --output-schema`**：JSON schema 约束 code quality 报告 → CI/DB/API。  
+- **Agents SDK**：frontend agent / PM agent handoff，Codex 作 MCP tool；trace 可见每次 handoff。  
+- 自托管：**on-prem PR review**、**autofix CI**（测试失败自动 PR fix）、**issue auto-label**（Codex 开源 repo 在用）。
 
-> **"Codex is open AI's coding agent that developers can use across different surfaces, and we've seen firsthand how developers are delegating routine and time-consuming tasks to Codex, and spending more time on complex and novel challenges, like design and architecture."**
-> 译：*Codex 是 OpenAI 的 coding agent，开发者可在多种界面使用。我们亲眼看到开发者把日常、耗时的任务委托给 Codex，自己把更多时间投入到设计、架构等复杂且新颖的挑战中。*
+**和你何干：**  
+从 **交互式 codex** 到 **pipeline 里 silent exec** 是团队规模化分界线。
 
-> **"Codex is backed by our state of the art models, most recently, GPT 5.1 Codex Max, which is our best model for agented coding. So it's specifically trained in the Codex CLI harness."**
-> 译：*Codex 由 OpenAI 最先进的模型支撑，最新的是 GPT-5.1 Codex Max —— 这是我们为 agented coding 打造的旗舰模型，专门在 Codex CLI 的 harness 上训练。*
+---
 
-> **"We also trained the model to be able to accurately auto-compact long conversations so you can have Codex work for you on longer running tasks."**
-> 译：*我们还训练了模型自动精准压缩长对话的能力，让 Codex 能为你的超长时任务持续工作。*
+## 关键概念（读完应能解释）
 
-> **"Coding agents don't really retain any context between sessions. Every time you start it up, it's coming in with a fresh context window. The agents.md ensures that the instructions that you want to give the agent are always loaded automatically."**
-> 译：*Coding agent 在 session 之间不会保留任何 context。每次启动都是全新的 context window。AGENTS.md 正是确保你想给 agent 的指令每次都被自动加载。*
+| 词 | 白话 |
+|----|------|
+| **Codex CLI / IDE / Cloud** | 本地终端、VS Code 侧栏、云端并行容器 |
+| **AGENTS.md** | 每 session 自动加载的项目 Agent 说明书 |
+| **plans.md** | 大任务 checklist living doc，可 progressive discovery |
+| **config.toml** | CLI 默认 model、sandbox、approval、MCP |
+| **Approval policy / Sandbox** | 何时问权限、能写哪些路径 |
+| **codex exec** | Headless 模式 + 结构化 JSON 输出 |
+| **Context7 MCP** | 拉最新第三方库文档 |
+| **codex resume** | 恢复带完整 context 的旧 session |
+| **Progressive discovery** | AGENTS.md 指向子文档，按需读取 |
 
-> **"If you include too many instructions that can confuse the coding agent and it won't know exactly what to pay attention to or if they're conflicting, it can spend a lot of time figuring out how to resolve the conflicts."**
-> 译：*如果指令太多，会让 coding agent 困惑——它不知道该重点关注什么；如果互相矛盾，它会花大量时间尝试解决冲突。*
+---
 
-> **"We broke it down into seven phases that span planning and design all the way to documentation and maintenance."**
-> 译：*我们把工作拆成了 7 个阶段，从规划、设计一路延伸到文档与维护。*
+## 值得记住的原话
 
-> **"Most of OpenAI's agents, MD files, and we looked in the monitoring, but I figured this out, were less than 100 lines."**
-> 译：*OpenAI 大部分 AGENTS.md 文件——我们查过监控数据——都不到 100 行。*
+> **"Coding agents don't retain any context between sessions… AGENTS.md ensures instructions are always loaded automatically."**  
+> Agent 不记上次 session——AGENTS.md 保证说明每次自动加载。
+
+> **"Keep it brief… Most of OpenAI's AGENTS.md files are less than 100 lines."**  
+> 保持简短——OpenAI 内部 AGENTS.md 大多不到 100 行。
+
+> **"Give the agent feedback from tools like lint, tests… it accelerates how much the agent can do."**  
+> 给 lint/test 反馈环，Agent 能独跑更远。
+
+> **"Anchor it with @ mention… a lot of times it goes off the rails because it starts in the wrong part of the codebase."**  
+> 用 @ 文件锚定——跑偏常因从错误目录开始。
+
+> **"Code review can't be too noisy… trained to focus on P0/P1."**  
+> Review 不能吵——模型被训成只抓 P0/P1。
+
+> **"Codex exec… structured output… build into CI/CD pipeline."**  
+> Headless exec + 结构化输出，可塞进流水线。
+
+---
+
+## 小结
+
+**这期最核心的判断：** Codex 入门 = **AGENTS.md（项目记忆）+ config.toml（安全默认）+ 验证环**；熟练后接 **MCP 动态 doc** 与 **`codex exec` 结构化流水线**，Cloud/Slack 把同 harness 扩到 async 协作。
+
+**读完应带走：**
+- `/init` 生成 AGENTS.md，踩坑写回，大任务用 plans.md。  
+- Prompt 要 @ 锚定 + verification；UI 用截图。  
+- Review 要 quiet；exec + schema 才适合 CI。
+
+**和 vault 的关系：** Codex 官方入门锚点，接 [[Codex负责人-现场演示Codex]]、[[Codex实战-构建全能AI营销团队]]、[[MOC - Harness Engineering]]。
+
+---
 
 ## 行动启示
 
-1. **从 AGENTS.md 开始** — 不写 AGENTS.md 就用 Coding Agent 就像不带地图就上路
-2. **保持 AGENTS.md 简洁** — 100 行内最有效，过度反而有害
-3. **用三层 AGENTS.md 体系** — 全局 / 项目根 / 子目录，各司其职
-4. **解锁 agent loop** — 给 Agent 验证工具（lint、test、screenshot），让它自检
-5. **持续迭代 AGENTS.md** — 看到 Agent 反复犯错或推导命令慢，立刻更新
-6. **Codex 在 Windows 上有优势** — 如果团队是 Windows-first，Codex 比 Claude Code 体验更好
-7. **Codex Cloud 用于异步任务** — code review、长时任务可放云端跑，关笔记本也行
+1. **Repo 根放 AGENTS.md**（<100 行）+ build/test 命令 + 指向 frontend.md/plans.md。  
+2. **团队 config.toml** 统一 sandbox；个人 global AGENTS.md 放 Context7 规则。  
+3. **新功能先 research 拆 task**，再 agent mode 实现，结尾跑 review uncommitted。  
+4. **~/.codex/prompts/** 沉淀 add-test 等重复 prompt。  
+5. **试点 codex exec + JSON schema** 做安全 triage 或 changelog 自动化。
 
-## 关联笔记
+---
 
-- [[MOC - Agent Theory and Design]] — AI Agent 总索引
-- [[MOC - Agent Theory and Design]] — B站视频知识库索引
-- [[Cursor副总裁-构建软件开发过程的Agent]] — Cursor 副总裁的 STLC Agent 实践
-- [[Manus创始人-深度干货-上下文工程的最佳实践]] — Context Engineering 范式
-- [[AI Agent Development]] — AI Agent 开发系统知识
-- [[Workflow and Skill Management]] — Skill 与工作流管理
-- [[Codex]] — OpenAI Codex 项目（待创建）
+## 相关阅读
+
+- [[Codex负责人-现场演示Codex]] — 负责人级 knowledge work 与并行 demo  
+- [[Codex实战-构建全能AI营销团队]] — 创作者侧 Skills 栈  
+- [[2026 年 Agent 最重要的工程概念 Harness Engineering]] — OpenAI harness 实验叙事  
+- [[IBM团队-Harness工程详解]] — verify/guardrails 第一性原理  
+- [[MOC - Agent Theory and Design]] — Agent 理论横切索引  
+
+---
 
 ## 来源
 
-- **原始视频**：[BV19MzXBNESV - OpenAI官方：Codex新手教程](https://www.bilibili.com/video/BV19MzXBNESV/)
-- **UP主**：[Easonlee的AI笔记](https://space.bilibili.com/3546559488723681/upload/video)
-- **原始直播**：OpenAI 官方 Getting Started with Codex webinar
-- **生成工具**：Recastory（手动 ingest + faster-whisper 转录 + LLM distill）
-- **生成日期**：2026-06-09
-- **转录模型**：faster-whisper base（en）
-- **规范**：英文原文附中文翻译（[[kb-english-chinese-translation|记忆规则]]）
+- **视频**：[BV19MzXBNESV](https://www.bilibili.com/video/BV19MzXBNESV/)（B 站 *Easonlee的AI笔记*）  
+- **讲者**：Derek、Charlie（OpenAI Customer Onboarding / Engineer）  
+- **时长**：~52:54  
+- **转写**：Recastory `bilibili-retranscribe/BV19MzXBNESV/`（FunASR SenseVoice + cam++，**asr v2 后处理** 52 段）  
+- **跟练仓库**：[agents.md](https://agents.md/) 开源微站  
+- **文档**：developers.openai.com/codex、OpenAI Cookbook  
+- **版本**：v2 读者向讲义（2026-07-02）

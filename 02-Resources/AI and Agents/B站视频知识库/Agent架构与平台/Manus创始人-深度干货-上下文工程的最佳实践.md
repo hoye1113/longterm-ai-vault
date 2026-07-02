@@ -2,179 +2,277 @@
 title: "Manus创始人：深度干货！上下文工程的最佳实践"
 source: "B站视频 - Easonlee的AI笔记"
 source_url: "https://www.bilibili.com/video/BV12x1xB8E7b/"
-uploader: "Easonlee的AI笔记"
-speakers:
-  - "Lance (LangChain 创始人/工程师)"
-  - "Peek (Manus 联合创始人 & 首席科学家)"
-date: 2026-05-20
-duration: "1:00:53"
-saved: 2026-06-09
+speaker: "Peek / Pe（Manus 联合创始人 & 首席科学家）/ Lance（LangChain）"
+duration: "60:48"
+saved: 2026-07-02
 tags:
-  - agent
+  - ai_agent
+  - video_transcript
+  - bilibili
   - context_engineering
-  - manus
-  - langchain
-  - deep-agents
-  - tools
+  - multi_agent
+  - mcp
   - memory
-  - offload
-genre: "AI Agent 架构与平台"
 created: 2026-06-09
+description: "LangChain Lance 铺垫 context engineering 五主题；Manus Pe 讲生产 battle-tested 的非共识：compaction vs summarization、share-memory vs communicate、三层 action space、工具 offload，并警告 avoid context over-engineering。"
+transcript_source: "Recastory/workspace/bilibili-retranscribe/BV12x1xB8E7b/article.md"
+asr_version: v2
+curate_method: "vskill-vault-curate（读者向讲义 v2）"
 ---
 
 # Manus 创始人：上下文工程的最佳实践
 
-## 一句话总结
+## 先搞懂这一期
 
-LangChain 创始人 Lance 主持，与 Manus 联合创始人兼首席科学家 Peek 深入探讨**上下文工程（Context Engineering）** — 这是继 Prompt Engineering 之后的下一波浪潮，核心解决 Agent 在长时运行中上下文爆炸导致性能下降的根本挑战。
+**这是什么节目？**  
+LangChain 与 Manus 联办的 **~61 分钟 webinar + Q&A**。Lance 先梳理 industry 共识（offload / reduce / retrieve / isolate / cache），**Pe（Peek）** 再讲 Manus  July 博客之后的新干货——重点在 Lance 幻灯片 **「discourage / 非共识」** 列。
 
-## 核心洞察
+**这期在回答哪三个问题？**
 
-### 1. 为什么 Context Engineering 突然崛起？
+1. **为什么 Agent 时代要 Context Engineering，而不是继续 Prompt Engineering 或早 fine-tune？**  
+2. **上下文爆炸怎么治？** Compaction 和 summarization 有何本质区别？  
+3. **Manus 在 production 里怎么做 isolation、工具 offload、eval——以及什么时候该删脚手架？**
 
-- **时间线**：Prompt Engineering 在 ChatGPT 出现（2022.12）后兴起；Context Engineering 在 2024 年 5 月左右开始爆发（Google Trends 显示），恰好与"Agent 之年"重合。
-- **根本原因**：Agent 自主调用工具导致**上下文无限膨胀**，而我们已知**性能随上下文增长而下降**。
-- **关键数据点**：
-  - Manus：典型任务约 50 次工具调用
-  - Anthropic：生产 Agent 可达数百轮对话
-  - 每次工具调用 = 一次工具观察（tool observation）追加到消息列表
+**用一条线串起来（没看视频也能复述）：**
 
-### 2. 上下文工程的定义
+Agent 自主 tool call → message 列表 **无界膨胀** → **context rot**（性能随 context 变长下降）。Karpathy 式定义：** delicate art of filling the window with just what's needed for the next step**。  
+Industry 五招：**offload**（重 payload 进文件系统）、**reduce**（prune/summarize）、**retrieve**（glob/grep vs 向量）、**isolate**（subagent 分窗）、**cache**（KV cache）。  
+Manus 加深：**compaction 可逆**（只留 path/query，内容在外部状态）、**summarization 不可逆**（用 schema 表单式摘要，保留最近几条 full tool result）；**communicate vs share-memory** 两种 subagent 模式；**三层 action space**（atomic function call → sandbox CLI → Python/API）把 MCP 膨胀推出 function 层；最大跃迁往往来自 **简化架构**，不是加层。
 
-> "You can think about context engineering as the delicate art and science of filling the context window with just the right information needed for the next step."
+---
 
-**关键含义**：
-- 不是把所有信息塞进 context window
-- 而是精确选择下一步决策所需的最少信息
-- 像"用吸管喝水" — 只取所需，不要全部灌入
+## 背景：这期在 AI Agent 大图里的位置
 
-### 3. 解决上下文爆炸的四大策略
+| 你可能已有的认识 | 这期补上的那一块 |
+|----------------|-----------------|
+| Context engineering = 塞满 context window | **精确填下一步所需**；与 prompt engineering 时间线对照（ChatGPT 后 prompt ↑，2025 agent 年 context ↑） |
+| Subagent = 多角色 org chart | Manus **不按 designer/coder 分角色**——人类 org 是 context 限制产物 |
+| 向量库检索上下文 | Manus session 级 sandbox **不用 index DB**，偏 Claude Code 式 **glob/grep** |
+| Fine-tune 做垂直 agent | Pe：**尽量久靠 general model + context engineering**；MCP 让 fixed action space RL 极难 |
+| Open deep research 三阶段 | Lance 用同一框架对照 offload/isolate/reduce 如何组合 |
 
-#### 策略一：Context Offloading（上下文外存）
+---
 
-**核心思想**：把不需要一直驻留在 context window 的信息挪到外部，需要时可检索。
+## 分话题讲
 
-**典型实现**：文件系统作为外部记忆
-- Manus 使用
-- LangChain 的 Deep Agents 项目
-- Open Deep Research
-- Plot code（编程 Agent）
+### 1. 为什么需要 Context Engineering
 
-> "You can take information and offload it, send it somewhere else. So it's outside the context window, but it can be retrieved."
+**说法：**  
+Prompt engineering 随 ChatGPT（2022.12）兴起；**context engineering** 与 **year of agents** 同步爆发。根因：agent **LLM + tools + loop**，每次 tool call 把 **observation** 追加进 messages——Manus 典型 **~50 次** tool call，Anthropic 生产 agent **数百 turn**；context 涨，**quality 跌**（context rot / fraud）。
 
-#### 策略二：（其他策略由 Peek 后续展开）
+**Pe 的边界论：**  
+创业早期 **别过早 specialized model**——迭代速度被训练周期锁死；产品成熟后 fine-tune 也危险：**MCP 一夜改 action space**，on-policy RL 假设崩塌。  
+**Application vs model 的分界线：context engineering**。
 
-视频中 Peek 后续会分享更多新想法（基于 Manus 几个月前发布的博客文章）。
+**和你何干：**  
+默认栈：**frontier model + 上下文策略**；fine-tune/自训是第二阶段，不是 day one。
 
-## 关键概念
+---
 
-| 概念 | 定义 |
-|------|------|
-| **Context Engineering**（上下文工程） | 在每个步骤为 Agent 准备"刚好够用"的信息，区别于把所有内容都放进 prompt |
-| **Prompt Engineering**（提示工程） | 上一波浪潮，关注如何措辞单个 prompt |
-| **Tool Observation**（工具观察） | Agent 调用工具后，工具返回的结果消息（每次调用都追加到消息历史） |
-| **Context Offloading**（上下文外存） | 把大段内容（如 web 搜索结果、文件内容）存储到外部，context 中只保留指针 |
-| **Long-running Agent**（长时运行 Agent） | 跨多轮对话、调用大量工具的 Agent，上下文积累是核心挑战 |
-| **Deep Agents** | LangChain 的一个项目，使用文件系统作为 Agent 的外部记忆 |
-| **Open Deep Research** | LangChain 的开源深度研究项目，agent state 起到类似外部文件系统的作用 |
+### 2. Context Offloading：重 payload 不进 history
 
-## 实战参考
+**说法：**  
+不必让所有 context 活在 message list。Tool 输出（如 web search）token 极重 → **写入文件系统 / 外部 state**，回给 agent 的只是一行 **path / 摘要指针**；需要时再 retrieve。  
+Claude Code、Manus、Open deep research、Deep agents、cognition 等均采用。
 
-### Manus 的实践
+**和你何干：**  
+设计 tool 返回格式时问：**默认回传全文还是 handle？**
 
-- 产品定位：通用 Agent 框架
-- Peek 角色：设计 Agent Framework 的核心架构
-- 几个月前发布过 Context Engineering 的博客文章，引发行业关注
-- 典型任务量：~50 次工具调用/任务
+---
 
-### LangChain 生态
+### 3. Context Reduction：Prune 与 Summarize
 
-- Deep Agents：文件系统作为 context 的范式实现
-- Open Deep Research：agent state 模拟外部文件系统
-- 都在用 context offloading 的思路
+**说法：**  
+- **Pruning**：删掉旧 tool call + output（Claude 4.5 SDK 已内置）。  
+- **Summarization / compaction trigger**：Claude Code 达 context 比例自动 compact；cognition 在 agent handoff 时 summarize。  
+Open deep research：research 阶段对 **token-heavy search** 做 summarize observation。
 
-## 思维导图
+**和你何干：**  
+Reduction 是 **默认能力**，不是高级优化；要配 **threshold**（见 §4）。
 
-```mermaid
-mindmap
-  root((Context Engineering))
-    背景
-      2022.12 ChatGPT 出现
-      Prompt Engineering 兴起
-      2024.05 Context Engineering 兴起
-      关键驱动: Agent 之年
-    根本挑战
-      Agent 自主调用工具
-      Context 无限膨胀
-      性能随 Context 增长而下降
-      50次工具调用 / 任务
-      数百轮对话
-    定义
-      Delicate art & science
-      填充 Context Window
-      刚好足够的信息
-      准备下一步决策
-    策略
-      Context Offloading
-        文件系统作为外存
-        Manus 使用
-        Deep Agents
-        Open Deep Research
-        Plot code
-        Long-running Agents
-      其他策略待续
-    关键人物
-      Peek (Manus)
-      Lance (LangChain)
-```
+---
 
-## 原文金句（英中对照）
+### 4. Retrieve 与 Isolate：怎么找、怎么分窗
 
-> **"We have an LLM bound to some number of tools that LLM can call tools autonomously in a loop. The challenge is for every tool called, you get a tool observation back, and that's appended to this chat list. These messages grow over time."**
-> 译：*我们有一个 LLM 绑定了若干工具，LLM 可以在循环中自主调用这些工具。挑战在于每调用一次工具，就会得到一个工具观察结果，并被追加到对话列表中。这些消息会随时间不断增长。*
+**Retrieve 辩论：**  
+Cursor（Lee Robinson）：**语义索引 + grep** 混合；Claude Code：**仅文件系统 + glob/grep**（不用向量）。Manus per-session 新 sandbox **没时间建 index**，同 Claude Code 路线；长期 memory / 企业 KB 仍可能需要 **外部向量库**——取决于 **信息规模**。
 
-> **"You can think about context engineering as the delicate art and science of filling the context window with just the right information needed for the next step."**
-> 译：*你可以把上下文工程理解为：精心填充上下文窗口的艺术与科学 — 只放入下一步所需的最准确信息。*
+**Isolate：**  
+Subagent **各自 context window**，分工 concerns。Manus wide research、Claude subagents、Open deep research multi-agent 均用。
 
-> **"So there's a few common themes I want to highlight that we've seen across a number of different pieces of work, including Manus."**
-> 译：*我想强调一些我们观察到的、在不同工作中（包括 Manus）反复出现的共同主题。*
+**和你何干：**  
+代码库 / sandbox 规模 → **glob/grep 优先**；全库企业知识 → 再考虑 index。
 
-> **"The central idea is, you don't need all context to live in this message's history of your agent. You can take information and offload it, send it somewhere else."**
-> 译：*核心思想是：你不需要把所有 context 都留在 Agent 的消息历史里。你可以把信息挪出来，存到别的地方去。*
+---
 
-> **"Web search result that's very token heavy, isn't spanned into your context window for perpetuity."**
-> 译：*像 web 搜索结果这种 token 量极大的内容，不会永远占据你的上下文窗口。*
+### 5. Context Caching：KV cache 与成本
 
-> **"Performance drops as context grows."**
-> 译：*性能随上下文增长而下降。*
+**说法：**  
+Manus 强调 **KV cache**（Anthropic input caching 等）。Agent **input 远大于 output** 时，cache 命中决定成本；open source 自托管 **distributed KV 难**，frontier API 有时 **更便宜**。  
+**Share-memory subagent** 因 system prompt / action space 不同 **无法复用 KV**，prefill 全价——隔离有 **cache 税**。
 
-> **"The paradox through this challenge in situation, agents utilize lots of context because of tool calling. But we know that performance drops as context grows."**
-> 译：*这一矛盾在于：Agent 因为工具调用需要大量上下文；但我们知道性能会随上下文增长而下降。*
+**和你何干：**  
+架构要在 **isolate 收益 vs cache 成本** 间权衡。
+
+---
+
+### 6. Compaction vs Summarization：可逆 vs 不可逆
+
+**说法（Manus 核心区分）：**  
+- **Compaction**：每个 tool call/result 有 **full** 与 **compact** 两格式；compact 去掉可从文件系统 **重建** 的字段（如 write_file 只留 path）。**可逆 reduction**——10 步后某旧 action 可能突然重要。  
+- **Summarization**：信息 **真正丢失**；必须在 summarize **前** 把关键块 offload 到文件 / log，以便 grep 找回。
+
+**触发策略：**  
+- 模型标称 1M context，**实际 rot 常从 ~128k–200k 开始**——用 eval 定 **rot threshold**，接近则 reduction。  
+- **先 compaction**（如最旧 50% tool calls compact，新的保持 full 作 few-shot），不够再 summarization。  
+- Summarize 时用 **full 版** 数据，且 **保留最近若干条完整 tool result**，避免 summarize 后 tone/风格漂移、不知道停在哪。
+
+**Summarize prompt：**  
+别 free-form；用 **schema 表单**（改了哪些文件、用户目标、停在哪）填字段 → **high recall 结构化**。
+
+**和你何干：**  
+Search tool：简单 query 可 full → 靠 compaction；复杂 multi-query → **subagent / agent-as-tool** 固定 output schema。
+
+---
+
+### 7. Context Isolation：Communicate vs Share-Memory
+
+**说法（借 Go 谚语「不要通过共享内存通信」的变体）：**  
+- **Communicate（经典 subagent）**：主 agent 写 prompt → 子 agent **仅见该指令**，只回 **最终输出**。适合短、清晰任务（ codebase 搜 snippet）。Claude Code **Task tool** 典型。  
+- **Share-memory / share-context**：子 agent **见完整 tool history**，但 **独立 system prompt + action space**。适合 deep research——中间搜索/笔记都影响终稿；全塞文件再让子 agent 重读 **浪费 latency + token**。
+
+**Wide Research / MapReduce：**  
+主 agent spawn 多 subagent；信息共享靠 **同一 sandbox 文件系统**（传 path 而非复制全文）。  
+Subagent 回传：**Submit Result** tool + **constrained decoding** 到主 agent 定义的 **output schema**（像 spreadsheet）。
+
+**Manus 角色观：**  
+**不按 designer/programmer/manager  anthropomorphize**——那是人类公司 context 限制；Manus 只有 **general executor + planner + knowledge manager** 等少数 agent，其余 **agent-as-tool**。
+
+**和你何干：**  
+短任务 → communicate；长链依赖中间态 → share sandbox + schema 契约。
+
+---
+
+### 8. 三层 Action Space：Function / Sandbox / Packages
+
+**说法：**  
+MCP 工具定义本身占 context → **context confusion**（错 tool、假 tool）。动态 RAG 加载 tool 描述会 **KV reset**，且模型 **仍记得已移除的 tool**。
+
+**Manus 分层：**  
+1. **Function calling**：~10–20 **atomic** 函数（读写在文件、shell、搜网、浏览器等）——schema 清晰、可 KV-friendly。  
+2. **Sandbox utilities**：预装 CLI（格式转换、ASR、Manus 版 MCP 全在 shell 里调，**不注入 function 列表**）；大输出写文件，用 cat/less 处理。  
+3. **Packages & APIs**：Python 脚本调预授权 API（3D、金融等）；**重计算在 runtime，只把 summary 回 context**（CodeAct 思想，但 code 难 constrained decode，要选对场景）。
+
+三层对模型仍表现为 **标准 function call**（shell、file 等），接口简单。
+
+**Tool 数量经验：**  
+General agent **native function ≤~30**；Manus **~10–20 atomic** + shell **图灵完备**扩展。  
+**纯 CodeAct** 试过——难用 constrained decoding，**hybrid** 更稳。
+
+**和你何干：**  
+工具爆炸时 **下沉到 shell/script 层**，别全塞进 JSON schema。
+
+---
+
+### 9. 避免 Over-Engineering 与 Production 纪律
+
+**说法：**  
+五维（offload / reduce / retrieve / isolate / cache）**互相牵制**——更多 isolate/reduce 伤 cache；engineering 是 **多目标平衡**，很难。  
+Pe 最重要警告：**avoid context over-engineering**。Manus 上线后最大跃迁常来自 **删层、简化**，不是 clever retrieval。目标：**让模型 job 更简单，不是更难**。  
+Manus 已 **重构 5 次**（3 月→10 月）；模型 **行为变**，不能停。Eval 法：**固定架构换弱/强模型**——若换强模型增益大，架构 **不够 future-proof**（弱模型明天≈今天强模型）。  
+Eval 三板斧：**用户 1–5 星** > 可验证 internal tests + execution benchmark > 实习生人工（网站、可视化等「品味」任务）。  
+Guardrail：sandbox 出网检查、敏感操作 **人工确认**；browser login 持久化与 prompt injection 仍难，渐进式 **user takeover**。  
+RL on harness：MCP 下 **fixed action space 不成立**，别重复造 foundation layer；个性化走 **parameter-free online learning**（如 CJK 字体等集体纠正）。  
+Planning：早期 **todo.md 更新占 1/3 action** 已弃；现 **planner subagent（agent-as-tool）**，可用不同模型（如 Grok）做外审。
+
+**和你何干：**  
+每季度问：**哪层 scaffolding 可以因为模型变强而删掉？**
+
+---
+
+## 关键概念（读完应能解释）
+
+| 词 | 白话 |
+|----|------|
+| **Context engineering** | 为下一步决策精确填充 context window |
+| **Context rot** | context 过长后重复、变慢、质量降（常早于标称上限） |
+| **Offload** | 重信息存文件/外部 state，history 只留指针 |
+| **Compaction** | 可逆压缩 tool 消息（去可重建字段） |
+| **Summarization** | 不可逆摘要；用 schema 保 recall |
+| **Communicate pattern** | Subagent 只看任务 prompt，只回结果 |
+| **Share-memory pattern** | Subagent 见全 tool history + 独立 system |
+| **Agent-as-tool** | 对外像 function，对内是 workflow/subagent |
+| **Layered action space** | Function → sandbox CLI → code/API |
+| **Context confusion** | 工具太多导致错 call / 幻觉 tool |
+
+---
+
+## 值得记住的原话
+
+> **"Context engineering is the delicate art and science of filling the context window with just the right information needed for the next step."**  
+> 上下文工程是为下一步精确填充窗口的艺术与科学。
+
+> **"Context engineering is the clearest boundary between application and model."**  
+> 上下文工程是应用与模型之间最清晰的分界线。
+
+> **"Compaction is reversible… summarization behaves very differently."**  
+> Compaction 可逆；summarization 完全不同。
+
+> **"Do not communicate by sharing memory… [for agents:] by communicating or by sharing memory."**  
+> 两种 subagent 协作模式：传话 vs 共享上下文。
+
+> **"Please avoid context over-engineering… the biggest leaps came from simplifying."**  
+> 别过度工程上下文；最大进步来自简化。
+
+> **"The goal of context engineering is to make the model's job simple, not harder."**  
+> 目标是让模型更好干，不是更难干。
+
+> **"We do not divide by role… that's how human companies work due to human context limits."**  
+> 别按人类岗位拆 agent——那是人脑限制，不是 AI 必需。
+
+---
+
+## 小结
+
+**这期最核心的判断：** Context engineering 是 agent 应用的 **主战场**——在 general model 上用 **offload + 可逆 compaction + 谨慎 summarization + 选对 isolation 模式 + 工具分层** 对抗 context rot；与 fine-tune/RL 比，**边界更清晰、迭代更快**。
+
+**读完应带走：**
+- **先 compaction 后 summarize**；summarize 用 **schema**，保留最近 full tool traces。  
+- Subagent：**短任务 communicate，长链 research share sandbox + output schema**。  
+- **≤20 atomic tools + shell/API 层** 控制 tool context；MCP 能力进 sandbox 而非全进 schema。  
+- 模型变强 → **删脚手架**；用 weak/strong 模型切换测 architecture 寿命。
+
+**和 vault 的关系：** Context engineering 主笔记，接 [[Agent实战-打造一个AI Agent的完整教程]]、[[IBM团队-Harness工程详解]]、[[DeepMind-模型将吞噬Harness]]。
+
+---
 
 ## 行动启示
 
-1. **重新审视 Prompt Engineering** — 单一 prompt 已不够，Context Engineering 才是 Agent 时代的关键技能
-2. **把外部存储当一等公民** — 文件系统、向量数据库、外部 state 都是 Agent 的"长期记忆"
-3. **避免"Context 通胀"** — 不要把所有信息都堆进 context window，要按需检索
-4. **工具调用是 Context 的双刃剑** — 每次工具调用带来信息，但也是 Context 增长的主因
-5. **学习 Deep Agents 范式** — LangChain 的 Deep Agents 是文件作为外存的典型实现
+1. **测 rot threshold**：在你任务上找到 quality 开始掉的 context 长度（别信标称 1M）。  
+2. **Tool 返回默认 compact**：path/query/一行摘要，全文落盘。  
+3. **Summarize 前 dump full log** 到文件；摘要字段固定 schema。  
+4. **Subagent 选型**：搜 snippet → Task/communicate；research 报告 → 共享 sandbox。  
+5. **工具>30 时**：下沉 CLI/script，别堆 function definitions。  
+6. **每 1–2 月**：换弱模型跑 eval，决定删哪层 context 管理。
 
-## 关联笔记
+---
 
-- [[MOC - Agent Theory and Design]] — AI Agent 总索引
-- [[MOC - Agent Theory and Design]] — B站视频知识库索引
-- [[Cursor副总裁-构建软件开发过程的Agent]] — Cursor 副总裁的 Agent 团队实践
-- [[AI Agent Development]] — AI Agent 开发系统知识
-- [[Workflow and Skill Management]] — Skill 与工作流管理
-- [[OpenDeepResearch]] — Open Deep Research 项目（待创建）
-- [[Deep Agents]] — LangChain Deep Agents（待创建）
+## 相关阅读
+
+- [[Agent实战-打造一个AI Agent的完整教程]] — agents.md、MCP、Skills 入门栈  
+- [[IBM团队-Harness工程详解]] — harness verify/guardrails 与 context 管理并列  
+- [[DeepMind-模型将吞噬Harness]] — 模型 upstream 后 scaffolding 会否被吞  
+- [[WorkOS-创建和使用Skills方法论]] — Skills 与 context 分工  
+- [[Loop-Agent Loop到底是什么]] — 长 loop 与 token/context 代价  
+- [[MOC - Harness Engineering]] — Harness / context 横切索引  
+
+---
 
 ## 来源
 
-- **原始视频**：[BV12x1xB8E7b - Manus创始人：深度干货！上下文工程的最佳实践](https://www.bilibili.com/video/BV12x1xB8E7b/)
-- **UP主**：[Easonlee的AI笔记](https://space.bilibili.com/3546559488723681/upload/video)
-- **原始直播**：LangChain 主持的 Manus 创始人访谈
-- **生成工具**：Recastory（手动 ingest + faster-whisper 转录 + LLM distill）
-- **生成日期**：2026-06-09
-- **转录模型**：faster-whisper base（en）
-- **规范**：英文原文附中文翻译（[[kb-english-chinese-translation|记忆规则]]）
+- **视频**：[BV12x1xB8E7b](https://www.bilibili.com/video/BV12x1xB8E7b/)（B 站 *Easonlee的AI笔记*）  
+- **讲者**：Pe（Peek），Manus 联合创始人 & 首席科学家；Lance，LangChain  
+- **时长**：~60:48  
+- **转写**：Recastory `bilibili-retranscribe/BV12x1xB8E7b/`（FunASR SenseVoice + cam++，**asr v2** 49 段）  
+- **参考**：Manus context engineering 博客（2025-07）；Lance 幻灯片（webinar 共享）  
+- **版本**：v2 读者向讲义（2026-07-02）

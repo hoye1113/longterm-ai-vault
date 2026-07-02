@@ -2,211 +2,201 @@
 title: "Alchemy CPO：从代码审查到自动代理"
 source: "B站视频 - Easonlee的AI笔记"
 source_url: "https://www.bilibili.com/video/BV1i9E366EAr/"
-uploader: "Easonlee的AI笔记"
-speakers:
-  - "主持人"
-  - "Matthias (Alchemy CPO, 前 Facebook 开发者平台)"
-date: 2026-04-08
-duration: "29:50"
-saved: 2026-06-10
+speaker: "Matthias（Alchemy CPO，前 Facebook 开发者平台）"
+duration: "29:45"
+saved: 2026-07-02
 tags:
-  - alchemy
-  - code-review
-  - codec
+  - ai_agent
+  - video_transcript
+  - bilibili
+  - codex
   - skills
-  - prd
-  - customer-feedback
-  - developer-evolution
-genre: "AI Agent 实战与组织转型"
 created: 2026-06-09
+description: "Alchemy CPO Matthias 分享 Codex 进公司的三个转折点：Slack 改文档、事故回溯 code review、PR 里与 Codex 来回改；以及 Linear+Skills 让 Codex 离线干活的个人 side project 体系。"
+transcript_source: "Recastory/workspace/bilibili-retranscribe/BV1i9E366EAr/article.md"
+asr_version: v2
+curate_method: "vskill-vault-curate（读者向讲义 v2）"
 ---
 
 # Alchemy CPO：从代码审查到自动代理
 
-## 一句话总结
+## 先搞懂这一期
 
-Alchemy CPO **Matthias**（前 Facebook 开发者平台背景）分享他们用 AI（Codex）**改造公司工作流**的 3 个关键时刻 — 从 Slack 文档编辑 → Code Review 回溯性"AI 是否能抓到" → PR 协作反馈循环，并讨论了 AI 时代"开发者画像"如何被重塑。
+**这是什么节目？**  
+OpenAI Codex 团队访谈 **Alchemy CPO Matthias**（非工程师出身，做过 consumer product、Facebook 早期开发者平台，现管 crypto 基础设施产品）。前半讲 **公司内 Codex 落地**，后半 **屏幕共享** 他的 personal project 流水线。
 
-## 核心洞察
+**这期在回答哪三个问题？**
 
-### 1. 第一个时刻：Slack 文档编辑
+1. **企业什么时候真信 AI coding？** 不是 demo 漂亮，是 **code review 能抓到真实 bug**，且工程师愿意在 PR 里跟 Codex 来回改。  
+2. **基础设施公司怎么改产品思维？** 开发者客户已经在用 AI 写代码，平台要同时服务 **人类开发者 + 自主 agent 开发者**。  
+3. **个人 builder 怎么「人不在电脑旁，Codex 还在干」？** Skills + Linear + agent.md + feature flag 实验。
 
-> "The first thing we used it for was to make small edits to our documentation or developer docs from Slack."
+**用一条线串起来：**
 
-- 1 年前开始用 Codex
-- 第一场景：**Slack 里直接编辑文档**
-- 之前：本地跑 site → 复杂流程
-- 现在：Slack docs 频道 → `@codex make changes`
+Slack 里 @Codex 改文档 → 大迁移事故后 **retro 跑 Codex review，它抓到了 race condition** → 工程师 PR 里 `@codex review` 循环改 → 公司内 **共享 Skills repo**（PM 写 PRD、分析用户反馈）→ 副业：**Linear 当 backlog，159 个 issue 全是 Codex 建的** → 睡前 dispatch research+build，醒来 toggle feature flag → 写作 Mac/iOS app 用 **Codex App Server** 走 ChatGPT 订阅 → OpenClaw「Lou」+ Apple Watch 语音触发 Codex job → **Snapcat** 十年 hackathon 项目当 personal eval，GPT-5.5 一夜 one-shot。
 
-### 2. 第二个时刻：Code Review 回溯
+---
 
-> "We had a small incident that was related to a big migration that had happened months prior. We fixed it and someone on the team had the idea to retroactively run code review from codecs to see if codecs would have caught the bug."
+## 背景：这期在 AI Agent 大图里的位置
 
-**突破性实验**：
-- 出 bug → 修复 → 内部 postmortem
-- **新点子**：让 Codex **回溯** review 那个 PR，看它是否能抓到 bug
-- **结果**：能抓到！
+| 你可能已有的认识 | 这期补上的那一块 |
+|----------------|-----------------|
+| Codex = 写代码 | **Code review 是企业 adoption 第一拐点**（Datadog 也曾说 1/5 incident 本可拦住） |
+| Skills = Claude 专属 | **跨职能共享 repo**，非 PM 也能跑 PM skills |
+| Side project = 周末手搓 | **agent.md + plan skill + build**，人走开几小时 |
+| 模型越强越好 | 输出 surprise 多半是 **假设没对齐**， upfront clarify 比改 prompt 重要 |
 
-> "That was a bit of a turning point in terms of model capability and a lot of the ingredients were right for teams to start adopting those tools more."
+---
 
-**关键数据**：
-- Datadog 1 月报告：1/5 incidents 可被 Codex 抓到
-- GPT-5.5 后比例更高
+## 分话题讲
 
-### 3. 第三个时刻：工程师与 Codex 协作
+### 1. 公司内 Codex 三个转折点
 
-> "He submitted a PR that I saw go through Slack. I clicked through it and I saw how to do at codecs review, address the comments that codecs would come up with. Then review again, do that again and he was just doing this back and forth with codecs."
+**第一刻 — Slack 改文档**  
+Docs 频道 @Codex，不用本地跑站。小改动，但 **workflow 从「开 IDE」变成「聊天改文档」**。
 
-**观察到的转变**：
-- 工程师把 Codex 当作**团队成员**
-- PR 走完 Slack → 点开 → 看 Codex review
-- 改 → 再 review → 再改
-- **back-and-forth 协作**
+**第二刻 — 事故回溯 review**  
+大 migration 数月后出 race condition；fix 后有人提议：**用 Codex retro review 旧 PR，看能不能抓到**。抓到了。团队反复 replay 类似场景，**模型能力 + 大型 code base + 生产级代码** 三条线对齐。
 
-> "People were getting over the hurdle of thinking that LLMs were good enough to help in a professional setting with a really large complex code base with code that needs to be good enough to be served to a lot of people."
+**第三刻 — PR 里把 Codex 当队友**  
+工程师提 PR → `@codex review` → 按 comment 改 → 再 review，**Slack 里点进去能看到人机来回**。跨过「LLM 不够专业」的心理门槛。
 
-**心理突破**：从"AI 不够专业" → "AI 能帮大型 code base"。
+**和你何干：**  
+想推 AI coding，先找 **可 replay 的历史 incident + code review**，比泛泛 demo 有说服力。
 
-### 4. Skills 共享：公司级复用
+---
 
-> "We've created all these skills internally to help us do the PM job more easily and better and faster. That includes writing PRDs, analyzing customer feedback, doing all those things. I use codecs for that and several members of the team reuse those skills as well. We have this shared repo of skills across the company."
+### 2. 今天 Alchemy 怎么用 Codex
 
-**Skills 体系**：
-- 公司级 **shared repo of skills**
-- 跨部门复用（不只 PM 用）
-- 涵盖：写 PRDs、分析客户反馈、典型 PM 任务
-- **不只快** — 还能让非 PM 的人做 PM 工作
+**PM 线：** 写 PRD、分析 customer feedback；**公司内部 Skills repo**，多职能复用。  
+**平台线：** 假设 **100% 开发者在 AI 辅助下写软件**；还要想 **autonomous agent** 来链上集成——注册、调 API、跑任务，**人类开发者与 agent 开发者需求仍不同，长期可能收敛**。
 
-### 5. AI 时代的"开发者画像"重塑
+**和你何干：**  
+做 developer platform 要问：**你的 API 文档、鉴权、沙箱，agent 能自助走完吗？**
 
-> "We have to think about these agents and making sure that tools like codecs can actually integrate openAI, ZPI, Alchemy's infrastructure are very quickly."
+---
 
-> "Now we are very much assuming that 100% of developers are building software with the help of AI."
+### 3. 创业时间线对比：七年前 vs 现在
 
-**核心转变**：
-- 不再把开发者当"纯人类"
-- 也要为 **Agent as user** 设计
-- 假设 **100% 开发者** 都用 AI 辅助
-- **开发者平台**必须支持 Agent
+Matthias 当年：copy-paste 原型 → 融钱 → **3–4 工程师几个月 MVP**。  
+Alchemy 级产品：**~15 工程师一年半** 到 V1。  
+他的判断：同样 Apple Watch 级 idea，**今天一个人不到一周** 能出第一版。
 
-## 关键概念
+**和你何干：**  
+有 idea 就先 **试 build**，别等「凑齐团队」。
 
-| 概念 | 定义 |
-|------|------|
-| **Alchemy** | 加密/Web3 基础设施公司，CPO 来自 Facebook 开发者平台 |
-| **Code Review 回溯** | 用 AI 重新 review 过去的 PR，看是否抓到 bug |
-| **Slack docs 编辑** | 通过 Slack 直接让 Codex 改文档（替代本地 site 流程） |
-| **Shared Skills Repo** | 公司级 skills 仓库，跨部门复用 |
-| **PRDs** | 产品需求文档（用 Skill 写） |
-| **Customer Feedback Analysis** | 客户反馈分析（用 Skill 自动） |
-| **Developer-as-Agent** | 把开发者当 Agent 服务的思维 |
-| **Codex as Team Member** | 工程师把 Codex 当团队成员协作 |
+---
 
-## 实战工作流
+### 4. Side project 体系：焦虑 → dispatch → 醒来验收
 
-### Codex 3 大使用场景
+他曾焦虑「AI 这么好，不在电脑前就是浪费」。解法：**Skills + 流程**，让 Codex **plan → implement → test → 通知完成**，或 **research 竞品功能 → feature flag 实验批量上线**。
 
-```
-场景 1：Slack 文档协作
-  @codex make changes
-    ↓
-  Slack 频道直接编辑 docs
-    ↓
-  替代本地 site + git commit
+**Linear 用法：**  
+12 个项目并行，单个项目 **159 个 done issue，零人工创建**——他只 **口述需求 + agent.md（工作偏好）+ create plan skill → build the plan**。
 
-场景 2：Code Review 回溯
-  修复 bug
-    ↓
-  回顾历史 PR
-    ↓
-  retro: codex review that PR
-    ↓
-  验证 AI 能否抓到
-    ↓
-  建立信任
+**核心：** LLM 输出让你不爽，通常是 **它做了你没说的假设**。他的流程 ** upfront 澄清**，再放手 build。
 
-场景 3：Skills 库复用
-  PM 写 PRD Skill
-    ↓
-  公司 shared repo
-    ↓
-  任何人都能用
-    ↓
-  提升非 PM 人员的 PM 能力
-```
+---
 
-## 思维导图
+### 5. Demo：写作助手 + Codex App Server
 
-```mermaid
-mindmap
-  root((Alchemy Codex 实战))
-    3 大时刻
-      1. Slack 文档
-        替代本地流程
-        docs 频道 @codex
-      2. Code Review 回溯
-        验证 AI 能力
-        retro review
-        1/5 incidents 可防
-      3. PR 协作
-        back-and-forth
-        团队成员化
-        心理突破
-    Skills 体系
-      写 PRD
-      客户反馈分析
-      跨部门复用
-      shared repo
-    开发者画像重塑
-      Developer-as-Agent
-      100% AI 辅助
-      平台适配 Agent
-      不可逆
-```
+Mac 全局快捷键（Cmd+Shift+Space）→ 语音输入 → **professional mode** 重写 Slack 文案。  
+背后 **Codex App Server**，走 **ChatGPT 订阅**，不是单独 API key。  
+同一套逻辑做了 **iOS keyboard extension**。
 
-## 原文金句（英中对照）
+**和你何干：**  
+Codex 订阅不只写代码；**App Server = 任意 app 的后端 inference**。
 
-> **"The first thing we used it for was to make small edits to our documentation or developer docs from Slack. So we went from having to run the site locally and doing that whole process that is fairly involved to just being able to add codecs on Slack in the docs channel in our company Slack and to be able to just tell it to make changes."**
-> 译：*我们用它做的第一件事是在 Slack 里直接改我们的文档和开发文档。从之前要在本地跑站点、经过那套复杂的流程，到现在只需要在公司 Slack 的 docs 频道加一个 Codex，告诉它"做改动"就行。*
+---
 
-> **"We had an internal postmortem about the incident and we basically identified what the race condition was. We fixed it and someone on the team had the idea to retroactively run code review from codecs to see if codecs would have caught the bug."**
-> 译：*我们做了一次内部 postmortem，找到了 race condition。修完之后，团队里有人想到一个点子——回溯地用 Codex 跑 code review，看它能不能抓到那个 bug。*
+### 6. OpenClaw Lou、Watch、Computer Use
 
-> **"I remember talking to many companies were just getting into AI coding. Code review was the first moment when they realized that many incidents they had could be caught actually by codecs automatically. They replayed some of those similar to alchemy. I remember a data doc, for instance, back in January said that one incident out of five could have been saved by codecs."**
-> 译：*我聊过很多刚开始用 AI 编程的公司。Code review 是他们第一个意识到"原来我们很多事故其实可以由 Codex 自动抓到"的时刻。Datadog 1 月的报告就说 1/5 的事故本可由 Codex 避免。*
+- **Lou（OpenClaw）**：Discord 频道绑 repo，手机走路也能 dispatch 家里跑的 Codex。  
+- **Apple Watch**：短语音 → skills repo 里 test.md → iPhone 转写 → 路由 GitHub → Codex App Server 执行。  
+- **Computer Use**：SSH 进树莓派，浏览器里 tedious 复制粘贴 admin panel URL，**全程看 agent 干活**（像看 Cursor 动画）。
 
-> **"We have this shared repo of skills across the company, across all the different functions. So that not only we can do the same job and the same tasks faster and better, but also more people who are not necessarily PMs are able to do that."**
-> 译：*我们有一个全公司跨职能共享的 skills 仓库。这不仅让我们把同样的工作做得更快更好，也让那些不是 PM 的人也能做 PM 的事。*
+**Snapcat eval：** 给猫玩的自拍 app（红点 + 前置摄像头）。十年前 hackathon **5 人一天**；昨晚 **one-shot + skills + 5.5**；UI 用 **生成参考图 → 让 Codex 按图实现 → 再统一 redesign 各页**。
 
-> **"Now we are very much assuming that 100% of developers are building software with the help of AI. Right."**
-> 译：*现在我们坚定地假设 100% 的开发者都在用 AI 辅助构建软件。*
+---
+
+### 7. 给 builder 的三条假设
+
+1. **Assume it's possible** — 有 idea 多半能做。  
+2. **Assume you can do it** —  blocker 常是「我觉得我不行」。  
+3. **Assume it's your fault** — LLM 没做好，先想 **沟通/上下文**，再试；**多试几次** 才走远。
+
+---
+
+## 关键概念（读完应能解释）
+
+| 词 | 白话 |
+|----|------|
+| **Code review 拐点** | 用历史 bug 证明 AI review 能抓 production 级问题 |
+| **PR 内 @codex review** | 把 review-fix 循环放在 PR comment，像结对队友 |
+| **共享 Skills repo** | 公司级任务模板（PRD、反馈分析）跨职能复用 |
+| **agent.md** | 个人工作偏好/风格，新项目 initialize 时注入 |
+| **Codex App Server** | 用 ChatGPT 订阅跑 inference，可嵌进自研 app |
+| **Feature flag 实验** | 睡前 batch build 功能，醒来 toggle 决定去留 |
+| **Snapcat eval** | 固定 side project 测新模型 one-shot 与 UI 质量 |
+
+---
+
+## 值得记住的原话
+
+> **"We retroactively run code review with Codex to see if Codex would have caught the bug. And it did."**  
+> 我们回溯用 Codex 做 code review，看能不能抓到 bug——抓到了。
+
+> **"He was essentially using codex review in pull request comments as his teammate."**  
+> 他在 PR comment 里把 Codex review 当队友来回改。
+
+> **"I did not create or write a single one of these [Linear issues]. Codex did."**  
+> 这些 Linear issue 我一个没写，全是 Codex 建的。
+
+> **"If the LLM produces something surprising in a negative way… it had to make assumptions and didn't make them the way you would."**  
+> 输出让你意外，通常是假设和你不一致。
+
+> **"Assume you haven't found a way to communicate what you want yet. And try again."**  
+> 先假设是你还没说清楚，再试。
+
+---
+
+## 小结
+
+**这期最核心的判断：** 企业信 AI coding 的开关是 **code review 可验证 + PR 内人机协作**；个人 builder 的开关是 **Skills/agent.md 把偏好写死 + Linear 当 agent 的项目界面**，让人离开电脑也能并行很多实验。
+
+**读完应带走：**
+- Alchemy 同时改 **内部工作方式** 和 **对外 developer/agent 平台**。  
+- Side project 不是「更努力坐在电脑前」，是 **dispatch Research+Build+Feature flags**。  
+- 模型 eval 可以很简单：**十年老项目一夜 rebuild，看细节与设计**。
+
+**和 vault 的关系：** Codex 企业落地链，接 [[Codex负责人-现场演示Codex]]、[[WorkOS-创建和使用Skills方法论]]、[[MOC - Agent Theory and Design]]。
+
+---
 
 ## 行动启示
 
-1. **从 Slack 文档开始** — 最低门槛的 AI 应用场景
-2. **Code Review 回溯** — 用历史 PR 验证 AI 能力，建立信任
-3. **PR back-and-forth** — 把 AI 当团队成员
-4. **Shared Skills Repo** — 公司级 skills 库，跨部门复用
-5. **不只快** — Skills 还能让非专家做专家工作
-6. **100% AI 辅助假设** — 产品设计要为 Agent 服务
-7. **Code Review 是转折点** — 大多数公司的 AI 启蒙都从这开始
+1. **选 1 个历史 incident**，用 Codex review 旧 diff，有结果再对内宣传。  
+2. **建公司级 skills repo**，先从 PM 最高频任务（PRD、反馈摘要）开始。  
+3. **个人项目写 agent.md**，新项目复制 initialize，减少「它猜错」surprise。  
+4. **Linear/Jira 当 agent backlog**，你只提 intent，issue 生命周期交给 Codex。  
+5. **固定一个 eval 小项目**（如 Snapcat），新模型出来只问「比上次好多少」。
 
-## 关联笔记
+---
 
-- [[MOC - Agent Theory and Design]] — AI Agent 总索引
-- [[MOC - Agent Theory and Design]] — B站视频知识库索引
-- [[OpenAI官方-Codex新手教程]] — Codex 官方视角
-- [[Codex实战-构建全能AI营销团队]] — Codex 实战
-- [[IBM团队-Harness工程详解]] — Harness 工程
-- [[Taven创始人-将OpenClaw嵌入产品的实战经验]] — Skills 架构
-- [[AI Agent Development]] — AI Agent 开发系统知识
-- [[Code Review Patterns]] — AI 辅助 Code Review（待创建）
+## 相关阅读
+
+- [[Codex负责人-现场演示Codex]] — Codex 官方 multi-agent、Skills 演示  
+- [[WorkOS-创建和使用Skills方法论]] — Skills 跨 Claude/Codex/Cursor 方法论  
+- [[OpenClaw创始人-我是如何使用OpenClaw的]] — OpenClaw + Codex 移动端 dispatch  
+- [[Loop-Agent Loop到底是什么]] — code review 闭环 vs 开放式 loop  
+- [[MOC - Agent Theory and Design]] — Agent 主题横切索引  
+
+---
 
 ## 来源
 
-- **原始视频**：[BV1i9E366EAr - Alchemy CPO：从代码审查到自动代理](https://www.bilibili.com/video/BV1i9E366EAr/)
-- **UP主**：[Easonlee的AI笔记](https://space.bilibili.com/3546559488723681/upload/video)
-- **生成工具**：Recastory（手动 ingest + faster-whisper 转录 + LLM distill）
-- **生成日期**：2026-06-10
-- **转录模型**：faster-whisper base（en）
-- **规范**：英文原文附中文翻译（[[kb-english-chinese-translation|记忆规则]]）
+- **视频**：[BV1i9E366EAr](https://www.bilibili.com/video/BV1i9E366EAr/)（B 站 *Easonlee的AI笔记*）  
+- **嘉宾**：Matthias，Alchemy CPO  
+- **时长**：~29:45  
+- **转写**：Recastory `bilibili-retranscribe/BV1i9E366EAr/`（FunASR SenseVoice + cam++，**asr v2**）  
+- **版本**：v2 读者向讲义（2026-07-02）

@@ -1,8 +1,8 @@
 ---
 title: MOC - Harness Engineering
-description: Harness Engineering 主题横切 MOC——跨课程、公众号、B站视频的 Harness 相关笔记，8 篇核心 + 跨 MOC 链接
+description: Harness Engineering 主题横切 MOC——跨课程、公众号、B站视频的 Harness 相关笔记，10 篇核心 + 跨 MOC 链接
 created: 2026-06-11
-updated: 2026-06-25
+updated: 2026-07-02
 tags:
   - ai_agent
   - harness_engineering
@@ -16,7 +16,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 >
 > **核心定义**（来自 [[2026 年 Agent 最重要的工程概念 Harness Engineering]]）：harness = 围绕 Agent 的工程系统（工具、约束、反馈、安全、记忆），让 AI 从"能力强但不可预测"变成"稳定可靠能交付"。
 >
-> 8 篇核心笔记 + 跨 MOC 链接 = 完整的 Harness 主题地图。
+> 10 篇核心笔记 + 跨 MOC 链接 = 完整的 Harness 主题地图。
 
 ---
 
@@ -27,11 +27,13 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 | 1 | [[2026 年 Agent 最重要的工程概念 Harness Engineering]] | 公众号（特工宇宙翻译 OpenAI 官方）| **OpenAI 5 个月实验** | harness = docs/ 当 source of truth + linter 强制不变量 + 黄金原则 |
 | 2 | [[祝贺Claude Code成功越狱，获得永生]] | 公众号（花叔）| **Anthropic 源码逆向** | harness 内部 6 大模块：system prompt / 四层权限 / 记忆 / 9 段式压缩 / swarm / grep |
 | 3 | [[Anthropic Agent 工程实战指南 - 从入门到生产落地]] | 公众号（Anthropic 官方汇编）| **Anthropic 完整方法论** | 15 篇博客按"入门-进阶-核心-高级-生产"5 模块系统化 |
-| 4 | [[IBM团队-Harness工程详解]] | B站视频 | **工程可靠性视角** | Harness = 登山绳 + 黑盒模型对抗；可靠性比聪明重要 |
+| 4 | [[IBM团队-Harness工程详解]] | B站视频 | **工程可靠性视角** | 现场 demo：guardrails→verify→login handler；不改 prompt 完成任务 |
 | 5 | [[别再搭 Harness 了，先把你的痛点解决，用最笨的方式]] | 公众号（三元同学）| **反规范视角** | 马斯克五步法：先痛点后系统，不先搭系统 |
 | 6 | [[Loop Engineering 橙皮书 - 花叔]] | GitHub 橙皮书系列（花叔）| **Loop = Harness 上一层** | 别再自己一句句指挥 agent；五动作循环 + 六零件 + 四笔代价 |
 | 7 | [[Harness 实践 - 将任何文字编辑成精美的文章 - ConardLi]] | 公众号（ConardLi）| **Harness 迁移实战** | 用同一套骨架（8 Phase + 3 Checkpoint + Reacticle）将任意文字编辑成精美网页文章 |
 | 8 | [[遇事留痕 - Loop Engineering 的基础 - 魔术师卡颂]] | 公众号（AI 机会 / 魔术师卡颂）| **Loop Engineering 基础** | 遇事留痕 = Session Log + GitHub issue/PR 都是项目自我优化的燃料 |
+| 9 | [[DeepMind-模型将吞噬Harness]] | B站视频（Logan Kilpatrick）| **模型吞噬 harness** | Antigravity 主线；模型=expanding system；6 个月内 harness alpha upstream |
+| 10 | [[Loop-Agent Loop到底是什么]] | B站视频（Ross Mikita）| **Loop 反 hype** | HITL vs Agent Loop；开放式 loop=token 焚烧；code review closed loop 才合理 |
 
 ---
 

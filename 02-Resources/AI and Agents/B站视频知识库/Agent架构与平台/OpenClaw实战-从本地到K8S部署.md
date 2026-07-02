@@ -2,220 +2,236 @@
 title: "OpenClaw实战：从本地到K8S部署"
 source: "B站视频 - Easonlee的AI笔记"
 source_url: "https://www.bilibili.com/video/BV18LV66aEG9/"
-uploader: "Easonlee的AI笔记"
-speaker: "Red Hat 工程师 (10 年容器/Linux 经验)"
-date: 2026-04-15
-duration: "21:56"
-saved: 2026-06-10
+speaker: "Sally（Red Hat，10 年容器/Linux/K8s 安全）"
+duration: "21:46"
+saved: 2026-07-02
 tags:
-  - openclaw
-  - kubernetes
-  - openshift
-  - red-hat
-  - container
-  - deployment
-genre: "AI Agent 工具与实战"
+  - ai_agent
+  - video_transcript
+  - bilibili
+  - harness_engineering
+  - skills
+  - mcp
 created: 2026-06-09
+description: "Red Hat 工程师 Sally 用容器跑 OpenClaw：反驳「安全噩梦」、四好处（可重现/隔离密钥/便携/备份）、Podman Secrets、团队 baseline 镜像愿景。"
+transcript_source: "Recastory/workspace/bilibili-retranscribe/BV18LV66aEG9/article.md"
+asr_version: v2
+curate_method: "vskill-vault-curate（读者向讲义 v2）"
 ---
 
 # OpenClaw 实战：从本地到 K8S 部署
 
-## 一句话总结
+## 先搞懂这一期
 
-一位有 10 年容器/Linux 安全经验的 **Red Hat 工程师**分享把 **OpenClaw 跑在容器/K8S/OpenShift 上**的实战经验 — 包含如何让企业（Red Hat）内部接受"安全噩梦"般的 AI Agent、容器化的 4 大好处（可重现、隔离、便携、备份），以及 ForeverClaw 的人格化设计。
+**这是什么节目？**  
+Red Hat 工程师 **Sally** 在 meetup 上的 **~22 分钟分享 + 现场 demo**。主题：用 **Podman/Docker/K8s/OpenShift** 跑 OpenClaw，以及为什么容器党认为「AI Agent 安全噩梦」反而是机会。
 
-## 核心洞察
+**这期在回答哪三个问题？**
 
-### 1. 企业内"安全噩梦"vs"我们的机会"
+1. **OpenClaw 装工作笔记本真的「安全噩梦」吗？** 容器/Linux 安全老兵怎么看？  
+2. **为什么 Agent 应该跑在容器里？** 比「本机 npm install」强在哪？  
+3. **从本地一个命令到 K8s 集群，路径长吗？** 现场 spin up 要几秒？
 
-> "I went back to work, I'm like, guys, check out OpenClaw, this is so cool. And a couple people on Slack are like, it's a security nightmare, do not use OpenClaw, don't put it on the work laptop."
+**用一条线串起来（没看视频也能复述）：**
 
-> "I'm like, guys, what have I been doing the past 10 years? We can take any application and run it securely. That's what REL is. If we can't take an application and run it securely, come on. This is our golden opportunity to show everyone."
+Sally 背景：Red Hat 10 年，前 7 年 **容器 + Linux 安全 + OpenShift**，后转 emerging tech / AI。  
+休假试 OpenClaw → 回公司 Slack 被喊 **security nightmare** → 反驳：**我们 10 年干的就是把任意应用安全跑起来**。  
+她的 **ForeverClaw Shira** + 两个 sub-agent（Joy 占星、Bruno Bruins 季后赛简报）——问 Shira「为啥跑容器」，得到四词：**reproducible、isolate secrets、portable、backup**。  
+容器还能 **mount 整个 agent 目录**（tools/skills/MCP）一次启动；**Podman Secrets → OpenClaw secret ref 双层指针**，日志里不见明文 key。  
+愿景：AI workload 会像普通 app 一样 **local dev → lift to K8s**；NVDIA 10 个工程师各跑 K8s OpenClaw 做 model eval，**≈6 人工作量**。  
+职场 OpenClaw：**公司 baseline 镜像**（批准 MCP、auth、团队 skills）fan-out 给新人，再个性化。  
+Demo：自研 installer，`npm run dev` 式 **一条命令** spin Podman 实例（Joe），配 OpenRouter/Gemma、Anthropic fallback、可选 OTel；同一套 **Kind/OpenShift** 上跑 Carl。
 
-**Red Hat 内部对话**：
-- 一些人说："OpenClaw 是安全噩梦，别装！"
-- 工程师反驳："10 年了我们做的就是这事儿！"
-- **机会**：展示"AI Agent 也能安全运行"
+---
 
-### 2. 容器化的 4 大好处
+## 背景：这期在 AI Agent 大图里的位置
 
-**为什么跑容器**（ForeverClaw 自己回答）：
+| 你可能已有的认识 | 这期补上的那一块 |
+|----------------|-----------------|
+| OpenClaw = Mac mini 个人助理 | **生产级容器/K8s 部署**与团队 baseline |
+| Agent 安全 = 别装 | **隔离密钥 + sandbox + 显式 host 权限** 的工程路径 |
+| K8s 跑传统微服务 | **ForeverClaw + PVC +  nightly backup** 同样适用 |
+| 写代码还是工程师主业 | Sally：**几个月没手写 code**，AI 写得更好了 |
 
-| 好处 | 说明 |
+---
+
+## 分话题讲
+
+### 1. 「安全噩梦」vs 金色机会
+
+**说法：**  
+同事：别装工作本。Sally：Red Hat 10 年 **REL**——**任何应用都能安全跑**；OpenClaw 是向全公司证明的 **golden opportunity**。
+
+**和你何干：**  
+会容器/K8s 的人，Agent 时代 **技能更值钱**——不是回避，是 **硬化部署**。
+
+---
+
+### 2. 容器四好处（ForeverClaw 版）
+
+**说法：**
+
+| 好处 | 含义 |
 |------|------|
-| **Reproducible**（可重现） | 任何环境都一样 |
-| **Isolate Secrets**（隔离密钥） | secrets 不在主机文件系统 |
-| **Portable**（便携） | 跨基础设施一致（laptop/x86/Mac/K8s） |
-| **Backup/Recovery**（备份恢复） | Volumes 简化备份故事 |
+| **Reproducible** | 镜像一致，环境不漂 |
+| **Isolate secrets** | API key 不进主机明文 |
+| **Portable** | laptop / x86 / Mac / K8s 同一故事 |
+| **Backup/Recovery** | Volume + 每晚 systemd 备份 |
 
-> "If you were reading, but it's reproducible. You can isolate your secrets. It's portable across infrastructure. I can run on my laptop. I can run it on my x86. I can run it on my Mac. I can run it in Kubernetes. Backed by volumes, which gives a really nice story for backup and recovery."
+**说法补：**  
+容器 = **天然 sandbox**；给 host 什么权限要 **显式声明**。Sally：**本机原生跑东西很 messy**，她一切都 containerize。
 
-### 3. ForeverClaw 人格化
+**和你何干：**  
+个人 ForeverClaw 也应用 **volume + 定时备份**——Agent 状态是资产。
 
-> "I asked my ForeverClaw... I have Joy, anyone know Jotish astrology? Sheesh, every time I ask, no one knows what it is. This is a very scientific astrology. So she's an astrology expert, and she gives me my weekly readings."
+---
 
-**两位 Sub-Agent**：
-- **Joy** — 占星专家（每周 readings）
-- **Bruno** — Bruins 队每日简报（季后赛追踪）
+### 3. Secrets：Podman + OpenClaw 双层 ref
 
-**设计哲学**：给 Agent **人格 + 角色** = 更好交互
+**说法：**  
+- **Podman Secrets**：key 存系统 secret，容器里只是 **ref**  
+- **OpenClaw secret ref**：容器内再一层指针  
+- 不完美，但 **日志里不刷明文 API key**
 
-### 4. 每天跑容器的心路历程
+K8s 侧同理：**Secret ref → env**，不是裸 env 字符串。
 
-> "I run everything in containers. It's kind of foreign to me to just run something natively. It's messy, it just puts stuff on my computer that I have to clean up later. I don't like it."
+**和你何干：**  
+部署 OpenClaw 时 **两层 secret  indirection** 值得抄。
 
-**个人原则**：所有东西都跑在容器里，本地原生运行很乱。
+---
 
-### 5. Container + OpenClaw 实战
+### 4. Mount agent 目录：skills/MCP 一次就绪
 
-```
-开发期：
-  - 本地 container (docker / podman)
-  - OpenClaw 镜像自建
-  
-部署期：
-  - OpenShift (Red Hat K8s)
-  - Persistent Volume (备份)
-  - SystemD 服务（自动备份）
-  - Tailscale SSH（远程配置）
-```
+**说法：**  
+把整个 **agent 目录**（tools、skills、MCP servers）mount 进容器，启动即就绪——不用每次手工装插件。
 
-## 关键概念
+**和你何干：**  
+团队 baseline 镜像 = **curated 目录 + mount**，新人 clone 即用。
 
-| 概念 | 定义 |
-|------|------|
-| **OpenClaw** | 个人 AI 助理（WhatsApp 集成） |
-| **OpenShift** | Red Hat 的 K8s 发行版 |
-| **Container** | 容器化部署 |
-| **ForeverClaw** | 长期运行的个人 Claw 助理 |
-| **Sub-Agent** | Joy（占星）+ Bruno（体育） |
-| **Reproducible** | 可重现部署 |
-| **Isolate Secrets** | 隔离密钥（容器特性） |
-| **Tailscale** | Tailscale VPN 远程访问 |
-| **SystemD Service** | Linux 系统服务管理（用于自动备份） |
-| **Persistent Volume** | K8s 持久化存储 |
-| **MVP Anti-Pattern** | 创业公司"做最少到 MVP"在新 Agent 时代要反过来 |
+---
 
-## 实战：4 大容器化好处
+### 5. AI 改变工程师分工（不是全员失业）
 
-### 1. Reproducible（可重现）
+**说法：**  
+NVDIA 朋友：10 工程师各跑 K8s OpenClaw 盯 model eval，**像 6 个人的活**。  
+Sally：**几个月没写 code**；org meeting 宣布「不用 AI 写代码是 missing out」——顶级工程师 **挑眉**，但她坚持 AI **1000x  better at writing code**。  
+结果：团队做 **outside the box、creative** 的事， tedious code 交给 AI。
 
-```dockerfile
-FROM python:3.11
-RUN pip install openclaw
-COPY config.yaml /app/
-CMD ["openclaw", "--config", "/app/config.yaml"]
-```
+**和你何干：**  
+Leverage 在 **设计/运维 Agent 工厂**，不在手写 CRUD。
 
-任何环境拉这个镜像都一样。
+---
 
-### 2. Isolate Secrets（隔离密钥）
+### 6. 职场愿景：baseline + 个性化
 
-```yaml
-# K8s Secret
-apiVersion: v1
-kind: Secret
-metadata:
-  name: openclaw-secrets
-data:
-  API_KEY: <base64>
-  WHATSAPP_TOKEN: <base64>
-```
+**说法：**  
+新员工入职 → 拿到 **公司批准版 OpenClaw**：  
+- 批准 MCP 列表  
+- 公司 auth  
+- 团队 skills（Google Drive 等）  
+→ **fan-out 全团队**，个人再定制。  
+对比：坐同事旁边 copy repo 自己拼。
 
-容器读 secret，**不**写到主机文件系统。
+**和你何干：**  
+企业 Agent 落地先定 **golden image**，再谈个人 sub-agent（Joy/Bruno 模式）。
 
-### 3. Portable（便携）
+---
 
-- 同一镜像：laptop / x86 server / Mac / K8s
-- 不用为不同环境改代码
+### 7. Demo：一条命令 spin 实例
 
-### 4. Backup/Recovery（备份恢复）
+**说法：**  
+自研 installer（GitHub 开源，Sally 自用）：  
+- 给 pod 取名、 bump port（8899）  
+- **Podman secret mappings** 自动转 OpenClaw secret ref  
+- 选 provider：OpenRouter（Gemma）、Anthropic fallback、本地 endpoint  
+- 可选 **OpenTelemetry + Jaeger**  
+- **SSH sandbox**：OpenClaw 在远程 workspace 跑命令  
+- 现场 **2 秒** 起 Joe；K8s 上 Carl、OpenShift 可切换
 
-```bash
-# 每天自动备份
-systemd timer: 0 0 2 * * /backup-openclaw-vol.sh
-```
+**Mac 坑：** 容器里 spawn 容器在 Mac 上难（VM 套 VM）；Linux 可以。
 
-K8s PersistentVolume + 定时备份 = 完整数据安全。
+**和你何干：**  
+「OpenClaw 难装」——** opinionated installer** 可压到秒级；Docker 友称在测。
 
-## 思维导图
+---
 
-```mermaid
-mindmap
-  root((OpenClaw 容器化))
-    企业对话
-      安全噩梦
-        有人反对
-        我们的机会
-        10 年经验
-    4 大容器好处
-      Reproducible
-        镜像一致
-      Isolate Secrets
-        K8s Secret
-      Portable
-        跨基础设施
-      Backup
-        Persistent Volume
-        SystemD 备份
-    ForeverClaw
-      长期运行
-      Joy
-        占星
-        每周 readings
-      Bruno
-        体育简报
-        季后赛
-    架构
-      Container
-        Docker / Podman
-      OpenShift
-        K8s
-      Tailscale
-        远程配置
-      SystemD
-        备份服务
-```
+## 关键概念（读完应能解释）
 
-## 原文金句（英中对照）
+| 词 | 白话 |
+|----|------|
+| **ForeverClaw** | 长期运行的个人 OpenClaw 实例（Sally 的叫 Shira） |
+| **Sub-agent** | 专责子任务（Joy 占星、Bruno 体育） |
+| **Podman Secrets** | 密钥与容器解耦的存储/挂载 |
+| **OpenClaw secret ref** | 配置里指向外部 secret 的指针 |
+| **PVC / Volume** | Agent 运行时状态持久化 |
+| **Baseline 镜像** | 公司批准 MCP/skills/auth 的标准 OpenClaw |
+| **SSH sandbox** | Agent 在指定远程 workspace 执行命令 |
 
-> **"I went back to work, I'm like, guys, check out OpenClaw, this is so cool. And a couple people on Slack are like, it's a security nightmare, do not use OpenClaw, don't put it on the work laptop. I'm like, guys, what have I been doing the past 10 years? We can take any application and run it securely. That's what REL is."**
-> 译：*我回去上班，跟大家说，看看 OpenClaw，太酷了。Slack 上几个人立刻说"这是安全噩梦，别用 OpenClaw，别装到工作笔记本上"。我说：兄弟们，我过去 10 年做的就是这事儿！我们能让任何应用安全运行。这就是我们 Red Hat 干的事。*
+---
 
-> **"If we can't take an application and run it securely, come on. This is our golden opportunity to show everyone."**
-> 译：*如果我们不能让一个应用安全地运行，那算什么。这是我们向大家展示的金色机会。*
+## 值得记住的原话
 
-> **"It's reproducible. You can isolate your secrets. It's portable across infrastructure. I can run on my laptop. I can run it on my x86. I can run it on my Mac. I can run it in Kubernetes. Backed by volumes, which gives a really nice story for backup and recovery."**
-> 译：*它可重现。你可以隔离密钥。它跨基础设施可移植——我能跑在笔记本、x86、Mac、Kubernetes 上。用 volumes 支撑，备份恢复的故事就很完整。*
+> **"It's a security nightmare, do not use OpenClaw." / "What have I been doing the past 10 years?"**  
+> 「安全噩梦别装」/「我过去 10 年干的就是这个？」
 
-> **"I run everything in containers. It's kind of foreign to me to just run something natively. It's messy, it just puts stuff on my computer that I have to clean up later. I don't like it."**
-> 译：*我所有东西都跑在容器里。本地原生运行对我来说很陌生——乱、会在电脑上留一堆东西要清理。我不喜欢。*
+> **"If we can't take an application and run it securely, come on. This is our golden opportunity."**  
+> 不能让应用安全跑起来，还叫什么。这是金色机会。
+
+> **"Reproducible... isolate your secrets... portable... backup and recovery."**  
+> 可重现、隔离密钥、便携、备份恢复。
+
+> **"I run everything in containers... natively is messy."**  
+> 我什么都跑容器；本机原生很乱。
+
+> **"Doing the job of six engineers"**（NVDIA model eval 团队）  
+> 像六个工程师的活（10 人各跑 OpenClaw）。
+
+> **"If you're not using AI for everything, you're missing out."**  
+> 不用 AI 搞定一切，你在错过。
+
+> **"Spin up OpenClaw... took two seconds."**  
+> 起 OpenClaw 两秒（边讲边 demo）。
+
+---
+
+## 小结
+
+**这期最核心的判断：** OpenClaw 的「安全噩梦」叙事，对 **会容器化的人** 是机会——**reproducible + secret 隔离 + volume 备份 + K8s 规模化**，和跑任何 enterprise app 同一套；个人 ForeverClaw 与职场 baseline 镜像 **同一技术栈**。
+
+**读完应带走：**
+- 四词：**可重现、密钥隔离、便携、可备份**——Agent 更该容器化，不是更该裸奔本机。  
+- **Podman/K8s Secret + OpenClaw secret ref** 双层，减日志泄密。  
+- **公司 baseline OpenClaw → fan-out → 个性化**，是可落地的 onboarding 模型。
+
+**和 vault 的关系：** OpenClaw 部署线，接 [[30分钟精通OpenClaw]]、[[PlanetScale-Agent时代的基础设施]]、[[IBM团队-Harness工程详解]]。
+
+---
 
 ## 行动启示
 
-1. **容器化是 AI Agent 的最佳载体** — 4 大好处
-2. **企业内部"安全噩梦"vs"我们的机会"** — 容器安全工程师的机会
-3. **OpenShift / K8s 是生产级选择** — 不是 toy
-4. **Persistent Volume** — 备份 + 恢复
-5. **SystemD 自动备份** — Linux 最佳实践
-6. **Tailscale SSH** — 远程配置
-7. **ForeverClaw + Sub-Agents** — 人格化 + 专业化
+1. **Personal OpenClaw 上 Podman/Docker + volume**，每晚备份 state。  
+2. **API key 走 secret ref**，别写进 config 明文。  
+3. **skills/MCP 目录 mount 进容器**，重建环境零手工。  
+4. **local Podman → Kind/OpenShift** 同一 installer 故事，先 dev 后 prod。  
+5. **团队定 golden image**：批准 MCP、auth、共享 skills，再允许 sub-agent 个性化。  
+6. **Mac 用户**：接受「容器套容器」限制，或 dedicated Linux/Mac mini 宿主机。
 
-## 关联笔记
+---
 
-- [[MOC - Agent Theory and Design]] — AI Agent 总索引
-- [[MOC - Agent Theory and Design]] — B站视频知识库索引
-- [[OpenClaw创始人-我是如何使用OpenClaw的？]] — OpenClaw 创始人视角
-- [[30分钟精通OpenClaw]] — OpenClaw 入门
-- [[Taven创始人-将OpenClaw嵌入产品的实战经验]] — OpenClaw 企业嵌入
-- [[IBM团队-Harness工程详解]] — Harness 工程
-- [[AI Agent Development]] — AI Agent 开发系统知识
+## 相关阅读
+
+- [[30分钟精通OpenClaw]] — 个人助理安全设置与用例  
+- [[OpenClaw创始人-我是如何使用OpenClaw的？]] — 创始人用法  
+- [[Taven创始人-将OpenClaw嵌入产品的实战经验]] — Pi/OpenClaw 企业嵌入  
+- [[PlanetScale-Agent时代的基础设施]] — Agent 时代基础设施观  
+- [[IBM团队-Harness工程详解]] — harness 与可靠性  
+
+---
 
 ## 来源
 
-- **原始视频**：[BV18LV66aEG9 - OpenClaw实战：从本地到K8S部署](https://www.bilibili.com/video/BV18LV66aEG9/)
-- **UP主**：[Easonlee的AI笔记](https://space.bilibili.com/3546559488723681/upload/video)
-- **生成工具**：Recastory（手动 ingest + faster-whisper 转录 + LLM distill）
-- **生成日期**：2026-06-10
-- **转录模型**：faster-whisper base（en）
-- **规范**：英文原文附中文翻译（[[kb-english-chinese-translation|记忆规则]]）
+- **视频**：[BV18LV66aEG9](https://www.bilibili.com/video/BV18LV66aEG9/)（B 站 *Easonlee的AI笔记*）  
+- **讲者**：Sally，Red Hat（容器/Linux/K8s 安全）  
+- **时长**：~21:46  
+- **转写**：Recastory `bilibili-retranscribe/BV18LV66aEG9/`（FunASR SenseVoice + cam++，**asr v2** 14 段）  
+- **版本**：v2 读者向讲义（2026-07-02）

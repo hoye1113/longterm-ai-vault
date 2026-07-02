@@ -2,212 +2,225 @@
 title: "Taven创始人：将OpenClaw嵌入产品的实战经验"
 source: "B站视频 - Easonlee的AI笔记"
 source_url: "https://www.bilibili.com/video/BV1dZLS66E3m/"
-uploader: "Easonlee的AI笔记"
-speaker: "Taven 创始人"
-date: 2026-04-25
-duration: "20:42"
-saved: 2026-06-10
+speaker: "Tablen AI 创始人（欧洲小型 Agent 公司）"
+duration: "20:31"
+saved: 2026-07-02
 tags:
-  - taven
-  - openclaw
+  - ai_agent
+  - video_transcript
+  - bilibili
   - skills
-  - agent
-  - enterprise
-  - excel
-genre: "AI Agent 工具与实战"
+  - harness_engineering
+  - context_engineering
 created: 2026-06-09
+description: "Tablen AI 创始人讲 Pi/OpenClaw 企业嵌入：Agent=Goals+Context+Tools 循环；Excel Skill 用小 CLI 组合；一客户一 Agent+AGENTS.md 处理 RFP 邮件。"
+transcript_source: "Recastory/workspace/bilibili-retranscribe/BV1dZLS66E3m/article.md"
+asr_version: v2
+curate_method: "vskill-vault-curate（读者向讲义 v2）"
 ---
 
 # Taven 创始人：将 OpenClaw 嵌入产品的实战经验
 
-## 一句话总结
+## 先搞懂这一期
 
-Taven 创始人（一家欧洲小型 Agent 公司）在一次会议演讲中分享**用 OpenClaw 做企业产品**的实战经验 — 用 Ken Thompson "do one thing and do it well" 哲学打造 Co-Work（Claude Desktop），自建 Excel skill 解决 Excel 集成问题，以及让 Agent 易访问性的架构模式。
+**这是什么节目？**  
+Tablen AI 创始人在 Pi/OpenClaw 社区 meetup 上的 **~20 分钟实战演讲**。不是产品发布，是「我们怎么用 Pi 内核做企业 Agent」的 field notes。
 
-## 核心洞察
+**这期在回答哪三个问题？**
 
-### 1. "Fuck around and find out" 时代
+1. **Coding Agent 时代，产品该怎么设计？** 单一职责、小工具组合，还是大而全？  
+2. **Agent 和 Coding Agent 差在哪？** 核心 loop 一样，多出来的是 runtime + shell + extension。  
+3. **OpenClaw/Pi 怎么嵌进真实业务流程？** 以 B2B 销售 RFP 邮件处理为例，一客户一 Agent + harness 文档。
 
-> "We are in the fuck around and find out phase for coding agents."
+**用一条线串起来（没看视频也能复述）：**
 
-> "Everything that I'm going to show you is what I know today. And I'm going to do the talk again in a couple of weeks. And it's going to most likely be different."
+开场承认：**coding agent 还在 fuck around and find out 阶段**，几周后再讲可能全变——鼓励大家自己 tinkering。  
+Ken Thompson「**do one thing well**」→ Co-Work（Claude Desktop）的 Excel Skill 案例：不直接「对话 Excel」，而是 **pandas/openpyxl/LibreOffice CLI 打包成 Skill**。  
+Agent 本质极简：**Goals + Context（agents.md）+ Tools，循环**；Coding Agent 在此基础上加 **bash runtime + extension API**（session events、UI interaction）。  
+Demo 链：CRM lead qualifier（3 文件 TypeScript）→ 同一逻辑做成 Pi extension（`/pipeline` + UI select）→ Pi 问它自己搭 web UI，同一 extension 机制。  
+OpenClaw = Pi 多通道版：`runEmbeddedPiAgent`、sessions、Pi AI 统一 LM 抽象；OpenClaw 自研 plugin（multichannel、subagent gateway）。  
+**企业案例**：监控销售 inbox → gateway 路由 → **一客户一 Agent**（AGENTS.md + customer.md）→ CLI 暴露 CRM/ERP → 输出 **draft email**，人留在邮箱里改。  
+收尾：coding agent 是软件系统的 **core building block**；Pi 最小可拆，请去 tinkering；sandbox 看 **NVidia open-shell policy**。
 
-**现状**：每几周内容就过时，需要**快速实验、快速迭代**。
+---
 
-### 2. Ken Thompson 哲学 + Coding Agent
+## 背景：这期在 AI Agent 大图里的位置
 
-> "Write programs that do one thing and one thing well. And I really like that because that's kind of like works to our advantage with agents."
+| 你可能已有的认识 | 这期补上的那一块 |
+|----------------|-----------------|
+| OpenClaw = 个人 WhatsApp 助理 | **Pi 内核 + 企业多 Agent 路由** 的产品化路径 |
+| Skill = prompt 技巧 | **小 CLI 工具集打包**（Excel 案例） |
+| Agent = 复杂框架 | **三要素 loop**，其余是 use case 魔法 |
+| Coding Agent 只写代码 | Extension API 可 **驱动 UI、slash command、web** |
 
-- 每个 Agent / Skill 做一件事
-- 做到极致
-- 组合而非庞大单体
+---
 
-### 3. Co-Work（Claude Desktop）的 Excel 案例
+## 分话题讲
 
-> "This is co-work, Claude's desktop. And they're basically abandoning their coding agent into something where they feel is more applicable. And to be honest, I've seen very good receptions around this. And when you use it with financing tools, with their finance tools, you always need to work with Excel, right? So they have this Excel skill now and there."
+### 1. 「边做边学」阶段：别等权威教材
 
-**实战问题**：金融场景永远要处理 Excel
+**说法：**  
+没有 pattern 书可写；coding agent 领域 **每几周就变**。Mario 的 minimal Pi 就是给你 **fool around** 的。
 
-**解法**：
-- 不让 Agent 直接"对话"Excel（它不行）
-- 改用**小工具集**：pandas、openpyxl、LibreOffice 工具
-- **打包成 Skill** 让 Agent 调用
+**例子：**  
+演讲者几周后会再讲一遍，内容大概率不同。
 
-> "It uses a set of small tools, small CLIs, pandas, open-pikes, stuff from Libre Office and packaged this into their own skill to make it up and running."
+**和你何干：**  
+别等「最佳实践定稿」才动手；用 Pi/OpenClaw **小步试**，比读十篇综述有用。
 
-### 4. Agent 的本质：简化版
+---
 
-> "An agent is actually just an LM agent that runs tools in a loop, right? So you have some goals, you have some context information, agents MD in many cases, and then you do tool calls, right?"
+### 2. Do one thing well：Excel Skill 的启示
 
-**Agent 三要素**：
-1. **Goals**（目标）
-2. **Context**（agents.md 等）
-3. **Tools**（可调用的工具）
-- 循环到完成为止
+**说法：**  
+Co-Work 面向金融等场景，用户总要碰 Excel。Agent **不能直接「和 Excel 对话」**——用 **pandas、openpyxl、LibreOffice CLI** 等小工具，**打包成 Skill**。
 
-> "That's it, right? There's not much more. The rest is magic trying to put it in your use case."
+**和你何干：**  
+「老大难集成」（Excel、SAP、老 CRM）→ **拆成 Agent 擅长的 CLI**，别逼模型直接操作二进制格式。
 
-### 5. 架构模式：让 Coding Agent 易访问
+---
 
-> "One architectural pattern that we're seeing is that make it easy for coding agents, right? Like, make not. Don't try to be very complex on things. But think about the coding agent, what is it good at? And how do I build my system so that the agent is easy, make it accessible?"
+### 3. Agent 三要素 + Coding Agent 增量
 
-**核心问题**：
-- 不要做太复杂
-- 想清楚 Agent 擅长什么
-- 设计**让 Agent 易访问**的系统
+**说法：**  
+- **Core Agent**：LM + tools in a loop；Goals、Context（agents.md）、tool calls、结果，循环。  
+- **Coding Agent**：同上 + **runtime + shell（bash）** + extension。  
+- OpenClaw 语音消息案例：当时没有 voice 插件，Agent **自己调 ffmpeg**——外面像「学会了」，里面是 **又一个 tool call**。
 
-### 6. CRM Lead Qualifier 示例
+**和你何干：**  
+设计系统时先画 **core loop**，再决定要不要 shell、extension、多通道。
 
-> "Small TypeScript application, three files, really easy. And you can see this, right? You have a couple of commands that you can execute and you know, show me all leads and score them."
+---
 
-**实际例子**：
-- TypeScript 应用
-- 3 个文件
-- 命令：`show me all leads` → `score them`
-- 3 行命令完成 lead qualification
+### 4. 架构模式：让 Coding Agent 易访问
 
-## 关键概念
+**说法：**  
+别堆复杂抽象。问：**coding agent 擅长什么？** 系统怎么 **accessible**？  
+CRM lead qualifier：TypeScript **3 文件**，终端命令 `show leads` / `score them`；hook 在 tool call 前做 **RBAC/校验**。
 
-| 概念 | 定义 |
-|------|------|
-| **Taven** | 欧洲小型 Agent 公司（"Tavenay Eye"），做企业 Agent |
-| **Co-Work** | Claude 的桌面产品（vs Claude Code） |
-| **Excel Skill** | 包装 pandas/openpyxl/LibreOffice CLI 的 Skill |
-| **"Do one thing well"** | Ken Thompson 哲学应用于 Agent 设计 |
-| **Agent 三要素** | Goals + Context + Tools（循环执行） |
-| **Fuck around and find out** | 现阶段 Agent 现实，每几周内容就过时 |
-| **Agent SDK** | Pi、Agent Core 等各种 Agent 开发框架 |
-| **Extension/Skill** | 可下载或自建的 Agent 扩展 |
+**和你何干：**  
+企业 Agent 优先 **CLI + 小 repo**，比 REST 巨 API 更适合当前 coding agent。
 
-## 实战最佳实践
+---
 
-### Agent 产品设计原则
+### 5. Extension：从终端到 Web 同一机制
 
-1. **让 Agent 易访问** — 不要过度复杂
-2. **Do one thing well** — 单一职责
-3. **工具集优于大接口** — 用 CLI 集而非直接 API
-4. **包装成 Skill** — 用户不感知底层复杂度
-5. **快速迭代** — 每几周重新评估
+**说法：**  
+Pi extension 关注 **session events + UI interaction**。`/pipeline` slash command 可 **load context、UI select、dropdown**。  
+Pi 被要求搭 web UI 时，**同一 extension 机制** 复用到浏览器端（框架还在整理，方向清楚）。
 
-### Excel Skill 实现思路
+**和你何干：**  
+一次写 extension，多端（TUI/Web）复用——比为每个界面重写 agent 逻辑省。
 
-```
-用户需求：分析 Excel 数据
-    ↓
-不要：让 Agent 直接读写 xlsx 文件
-不要：训练专门模型
-    ↓
-而是：组合现有 CLI 工具
-  - pandas (Python)
-  - openpyxl (Python)
-  - LibreOffice (命令行)
-    ↓
-包装为 Skill
-  - 用户说"分析 Sheet1 的销售数据"
-  - Skill 调用 pandas.read_excel
-  - Skill 调用 pandas 分析
-  - Skill 输出结果
-```
+---
 
-## 思维导图
+### 6. OpenClaw 与 Pi 的包关系
 
-```mermaid
-mindmap
-  root((Taven OpenClaw 实战))
-    时代特征
-      Fuck around and find out
-      每几周内容过时
-      快速实验
-    Ken Thompson 哲学
-      Do one thing well
-      单一职责
-      组合优于单体
-    Co-Work Excel 案例
-      Claude Desktop
-      金融场景
-      Excel skill
-        pandas
-        openpyxl
-        LibreOffice
-        包装为 Skill
-    Agent 本质
-      Goals
-      Context
-        agents.md
-      Tools
-      循环
-    架构模式
-      让 Agent 易访问
-      不要过度复杂
-      适配 Agent 能力
-    CRM 示例
-      TypeScript 3 文件
-      show leads
-      score leads
-```
+**说法：**  
+OpenClaw 用 Pi 的 **core packages**：`runEmbeddedPiAgent`、sessions、agent-core、coding agent、**Pi AI**（统一 LM）、terminal UI。  
+OpenClaw 自研 **plugin**：multichannel routing、provider orchestration、subagent gateway——**use case 不同，要求不同**。
 
-## 原文金句（英中对照）
+**和你何干：**  
+嵌 OpenClaw/Pi 时：**内核复用，外围 plugin 自研**。
 
-> **"We are in the fuck around and find our own face for coding agents. So everything that I'm going to show you is what I know today. And I'm going to do the talk again in a couple of weeks. And it's going to be most likely be different."**
-> 译：*我们正处在 coding agent 的"边做边学"阶段。今天给你看的全是我现在知道的。几周后我再讲一次，几乎肯定会不一样。*
+---
 
-> **"Write programs that do one thing and one thing well. And I really like that because that's kind of like works to our advantage with agents."**
-> 译：*写只做一件事、把它做好的程序。我很喜欢这个，因为它在 Agent 场景下对我们很有利。*
+### 7. 企业 RFP 案例：一客户一 Agent
 
-> **"An agent is actually just an LM agent that runs tools in a loop, right? So you have some goals, you have some context information, agents MD in many cases, and then you do tool calls, right? And you get some results, and you know, you basically do it in a loop, right? That's it, right? There's not much more."**
-> 译：*Agent 实际上就是一个 LM agent 在循环里跑工具。你有一些目标、一些 context（很多时候是 AGENTS.md），然后调用工具，拿到结果，在循环里一直跑。就这些，没别的了。*
+**说法：**  
+监控销售 inbox → gateway **按客户路由** → 每个客户一个 Agent：  
+- **AGENTS.md**：角色、系统用法、输入输出规范  
+- **customer.md**：该客户 workflow、折扣、权限  
+- **按 case 复用 session**，保留上下文  
+- 工具：**CLI 暴露 CRM/ERP**（agent 擅长跑 CLI），数据进 sandbox  
+- 输出：**draft email**；用户 **留在邮箱** 编辑，dashboard 只是 admin
 
-> **"Pretty please, don't open the curtain, play around with it."**
-> 译：*请别光看不练，自己上手玩玩。*
+**和你何干：**  
+B2B 自动化模板：**文档 harness（AGENTS.md/customer.md）+ CLI 工具 + session  per case + 人审 draft**。
 
-> **"One architectural pattern that we're seeing is that make it easy for coding agents, right? Like, make not. Don't try to be very complex on things. But think about the coding agent, what is it good at? And how do I build my system so that the agent is easy, make it accessible?"**
-> 译：*我们看到一个架构模式 — 让 coding agent 用起来简单。别试图搞太复杂。想想 coding agent 擅长什么，我要怎么构建我的系统，让 Agent 容易访问？*
+---
+
+## 关键概念（读完应能解释）
+
+| 词 | 白话 |
+|----|------|
+| **Pi** | Mario 做的 minimal open-source agent/coding agent 内核 |
+| **OpenClaw** | 基于 Pi 的多通道个人/团队 Agent 平台 |
+| **Co-Work** | Claude Desktop，bundling coding agent 到非 IDE 场景 |
+| **Excel Skill** | 小 CLI 工具集打包，非直接读写 xlsx |
+| **Agent 三要素** | Goals + Context + Tools（循环） |
+| **Extension API** | session events、UI interaction、slash commands |
+| **AGENTS.md / customer.md** | 企业 harness：角色 vs 客户专属上下文 |
+| **CLI-first 集成** | 用命令行暴露 CRM/ERP，供 agent 调用 |
+
+---
+
+## 值得记住的原话
+
+> **"We are in the fuck around and find out phase for coding agents."**  
+> Coding agent 还在边做边学阶段。
+
+> **"Write programs that do one thing and one thing well."**  
+> 写只做一件事、把它做好的程序。（Ken Thompson）
+
+> **"It doesn't talk to Excel. Instead, it uses a set of small tools... packaged into their own skill."**  
+> 它不跟 Excel 对话，而是用一堆小工具打包成 Skill。
+
+> **"An agent is actually just an LM agent that runs tools in a loop... That's it. There's not much more."**  
+> Agent 就是 LM 在循环里跑工具。就这些。
+
+> **"Make it easy for coding agents... think about what is it good at?"**  
+> 让 coding agent 用起来简单——想想它擅长什么。
+
+> **"From the outside it looks like learning, but inside it's actually just another tool call."**  
+> 外面像学会了，里面是又一个 tool call（OpenClaw + ffmpeg）。
+
+> **"One agent per customer... AGENTS.md... customer.md... let users stay in email."**  
+> 一客户一 Agent；harness 文档分层；用户留在邮箱里改 draft。
+
+> **"Coding agents are and will be a core building block for your software systems."**  
+> Coding agent 会是软件系统的核心积木。
+
+---
+
+## 小结
+
+**这期最核心的判断：** 企业嵌 Agent 不必等大框架成熟——**Pi/OpenClaw 内核 + 小 CLI Skill + AGENTS.md 类 harness + 一客户一 session**，就能把 inbox→draft 这类流程跑通；Excel 案例说明 **「do one thing well」比直接 API 对话可靠**。
+
+**读完应带走：**
+- Agent 本体很薄（Goals/Context/Tools loop）；magic 在 **use case 包装和 harness 文档**。  
+- Coding Agent = core agent + shell/runtime + extension；OpenClaw 在此基础上加 **多通道 plugin**。  
+- 企业落地：**CLI 暴露后端、draft 输出、人留在熟悉工具（邮箱）里审**。
+
+**和 vault 的关系：** 接 [[WorkOS-创建和使用Skills方法论]]、[[IBM团队-Harness工程详解]]、[[30分钟精通OpenClaw]] 的 OpenClaw 实战线。
+
+---
 
 ## 行动启示
 
-1. **现在就是试错时代** — 每几周重新评估你的 Agent 实现
-2. **Do one thing well** — Agent / Skill 单一职责
-3. **Excel 等"老大难"** — 用小工具组合而非直接 API
-4. **打包成 Skill** — 隐藏底层复杂度
-5. **让 Agent 易访问** — 比功能全更重要
-6. **从简单开始** — 3 个文件 + 几行命令的 CRM lead qualifier
-7. **Pi / Agent Core / Claude Code** — 都值得尝试
+1. **Pick 一个「Excel 级」痛点**：拆成小 CLI，打包成 Skill，别逼 LLM 直接操作复杂格式。  
+2. **写 AGENTS.md + 客户/场景 md**：角色与实例上下文分开，方便一客户一 Agent。  
+3. **CRM/ERP 用 CLI 暴露**：当前 coding agent 对 terminal 最熟。  
+4. **输出 draft，人审后发**：自动化止于草稿，人在邮箱/Slack 里拍板。  
+5. **Clone Pi，改 extension**：3 文件 demo（lead qualifier）比读架构图上手快。  
+6. **关注 NVidia open-shell policy**：sandbox 方向之一。
 
-## 关联笔记
+---
 
-- [[MOC - Agent Theory and Design]] — AI Agent 总索引
-- [[MOC - Agent Theory and Design]] — B站视频知识库索引
-- [[Agent实战-打造一个AI Agent的完整教程]] — Agent 入门
-- [[OpenClaw创始人-我是如何使用OpenClaw的？]] — OpenClaw 创始人视角
-- [[30分钟精通OpenClaw]] — OpenClaw 实战
-- [[Claude Code实战-构建一个AI数据分析师]] — Claude Code 实战
-- [[AI Agent Development]] — AI Agent 开发系统知识
+## 相关阅读
+
+- [[WorkOS-创建和使用Skills方法论]] — Skills 原子单元与 harness 设计  
+- [[IBM团队-Harness工程详解]] — verify、guardrails 等企业 harness  
+- [[30分钟精通OpenClaw]] — OpenClaw 个人助理设置与安全  
+- [[OpenClaw创始人-我是如何使用OpenClaw的？]] — 创始人视角  
+- [[Loop-Agent Loop到底是什么]] — Agent loop 与 harness 分层  
+
+---
 
 ## 来源
 
-- **原始视频**：[BV1dZLS66E3m - Taven创始人：将OpenClaw嵌入产品的实战经验](https://www.bilibili.com/video/BV1dZLS66E3m/)
-- **UP主**：[Easonlee的AI笔记](https://space.bilibili.com/3546559488723681/upload/video)
-- **生成工具**：Recastory（手动 ingest + faster-whisper 转录 + LLM distill）
-- **生成日期**：2026-06-10
-- **转录模型**：faster-whisper base（en）
-- **规范**：英文原文附中文翻译（[[kb-english-chinese-translation|记忆规则]]）
+- **视频**：[BV1dZLS66E3m](https://www.bilibili.com/video/BV1dZLS66E3m/)（B 站 *Easonlee的AI笔记*）  
+- **讲者**：Tablen AI 创始人（欧洲小型 Agent 公司）  
+- **时长**：~20:31  
+- **转写**：Recastory `bilibili-retranscribe/BV1dZLS66E3m/`（FunASR SenseVoice + cam++，**asr v2** 14 段）  
+- **版本**：v2 读者向讲义（2026-07-02）

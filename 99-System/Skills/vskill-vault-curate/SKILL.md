@@ -3,9 +3,9 @@ title: vskill-vault-curate
 name: vskill-vault-curate
 description: 从外部（URL / PDF / 视频 / 公众号 / 截图 / 用户粘贴）收录内容到 vault——执行 AGENTS.md §8 SOP 7 步：收素材 → 抓内容 → 选位置 → 写 frontmatter → 打 tag → 找反向链 → 更新 MOC。
 created: 2026-06-27
-updated: 2026-06-27
+updated: 2026-07-02
 status: available
-version: 0.1
+version: 0.2
 tags:
   - skills
   - vskill
@@ -307,6 +307,15 @@ target_para: "auto"
    3. [[MOC - Harness Engineering]]
 6. **MOC**：自动加入 `MOC - Harness Engineering`
 7. **报告**：路径 + frontmatter + 反向链 + MOC 更新
+
+## 子文档（按内容形态）
+
+| 文档 | 适用 |
+|------|------|
+| [SUBDOC - B站视频转写收录.md](./SUBDOC%20-%20B站视频转写收录.md) | Recastory ASR → vault 读者向讲义 v2（含 **小结** 九段模板） |
+| [SUBDOC - ASR后处理与manifest.md](./SUBDOC%20-%20ASR后处理与manifest.md) | manifest、asr v2 后处理、canonical 路径、批量顺序 |
+
+B 站 / 视频转写收录时 **优先读 SUBDOC**，再执行本节 Step 1–8。
 
 ## 关联
 
