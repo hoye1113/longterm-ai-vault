@@ -15,7 +15,7 @@
 
 ---
 
-## 流水线
+## 流水线（闭环）
 
 ```
 transcript.json
@@ -23,9 +23,13 @@ transcript.json
 article.md（### [mm:ss] Speaker N 分段）
     ↓ Pass1 reader-outline（distill/ 或内联）
     ↓ Pass2 SUBDOC 九段 → vault
+    ↓ 若 duration ≥45min → Spot check（脚本 + 人工 P0 清零）
+vault 笔记 + MOC + manifest（Recastory）
 ```
 
 **不要**用 distill Phase D 的 IBM mindmap 模板直出 vault。
+
+Spot check 见 [SUBDOC - Spot check（长视频 factual）](./SUBDOC%20-%20Spot%20check（长视频%20factual）.md)；`vault_v2_done` **不替代** spot check。
 
 ---
 
@@ -47,6 +51,8 @@ article.md（### [mm:ss] Speaker N 分段）
 - `asr_status`: `asr_ready` | `asr_legacy_article_only` | `asr_missing`
 - `vault_status`: `vault_legacy` | `vault_v2_done` | `vault_v2_pilot` | `vault_pending`
 - `priority`: 1=试点 · 2=legacy 批量 · 3=knowledge 已 v2
+
+vault 笔记可选 frontmatter：`spot_check: YYYY-MM-DD`（≥45 min 且 factual 通过）。manifest 未来可同步 `spot_check_done`（**backlog**）。
 
 更新 manifest：运行 `workspace/bilibili/_build_manifest.py`。
 

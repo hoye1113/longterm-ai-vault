@@ -112,8 +112,10 @@ tags:
   - {细分 tag}
 created: YYYY-MM-DD
 description: "≤100 字，检索用；不是正文小结"
-transcript_source: "Recastory/workspace/knowledge/{id}/article.md"
+transcript_source: "Recastory/workspace/bilibili-retranscribe/<BV>/article.md"
+asr_version: v2
 curate_method: "vskill-vault-curate（读者向讲义 v2）"
+spot_check: YYYY-MM-DD          # 可选；≥45 min 且 Spot check 通过后填
 ---
 ```
 
@@ -136,6 +138,7 @@ curate_method: "vskill-vault-curate（读者向讲义 v2）"
 - [ ] 反向链 ≥1，且非凑数（§7）
 - [ ] tag 全在 AGENTS.md §4 字典
 - [ ] 朗读关：无 §10 反翻译腔信号词
+- [ ] **≥45 min**：跑 [Spot check SUBDOC](./SUBDOC%20-%20Spot%20check（长视频%20factual）.md)（`99-System/scripts/bilibili-spot-check.py` + 人工 P0 清零）
 
 ---
 

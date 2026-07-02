@@ -5,6 +5,7 @@ source_url: "https://www.bilibili.com/video/BV18bjG6fEi7/"
 speaker: "Nick & Zack (WorkOS Applied AI / DX Engineers)"
 duration: "1:21:03"
 saved: 2026-07-02
+spot_check: 2026-07-02
 tags:
   - ai_agent
   - video_transcript
@@ -294,9 +295,6 @@ Public skills 用 **evals framework**：
 
 > **"All of that context is gold... rich context for a skill creator to mine."**  
 > 失败和摩擦的 context 是 Skill 金矿。
-
-> **"If you're not on the two hundred dollar month plan, this shouldn't even be a thought."**  
-> （另一期 loop 语境，但同样适用）——别在错误预算下烧 token；Skill 是为了 **省重复劳动**，不是替代思考。
 
 ---
 

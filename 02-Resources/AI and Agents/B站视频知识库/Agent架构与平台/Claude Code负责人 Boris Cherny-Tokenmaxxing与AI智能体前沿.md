@@ -7,6 +7,7 @@ speakers:
   - "Boris Cherny（Claude Code 负责人，Anthropic）"
 duration: "57:08"
 saved: 2026-07-02
+spot_check: 2026-07-02
 tags:
   - ai_agent
   - video_transcript

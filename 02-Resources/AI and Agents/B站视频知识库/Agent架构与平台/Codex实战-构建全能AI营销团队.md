@@ -5,6 +5,7 @@ source_url: "https://www.bilibili.com/video/BV1BLGH6REyX/"
 speaker: "Riley Brown（创作者 / 营销，Chorus Skills 作者）"
 duration: "49:22"
 saved: 2026-07-02
+spot_check: 2026-07-02
 tags:
   - ai_agent
   - video_transcript
@@ -117,7 +118,7 @@ Readwise 不只 Kindle 高亮——Riley 在 AI Twitter 看到推文 **bookmark 
 
 **说法：**  
 - **Excalidraw diagram skill**：解释 plugins/skills，可叠 YouTube + Readwise 取 Riley 口吻；Skill 文件夹含 scripts/assets/**outputs**；默认少字多图，可改 Skill 加正文。  
-- **慢？** 说「YouTube / Readwise 用 **subagent**」——主 Agent spawn xeno、hys 并行，~11 分钟出 share URL。  
+- **慢？** 说「YouTube / Readwise 用 **subagent**」——主 Agent spawn 多个 subagent 并行，~11 分钟出 share URL。  
 - **Paper MCP**：HTML 级 **动画 explainer**（类 AI版 Figma）；开 steering 截图说「别 overlap、改单列」→ 画布 **live 改**；导出 PNG 做 thumb / landing ideation。
 
 **和你何干：**  

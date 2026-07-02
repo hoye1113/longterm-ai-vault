@@ -7,6 +7,7 @@ speakers:
   - "Charlie（OpenAI Engineer）"
 duration: "52:54"
 saved: 2026-07-02
+spot_check: 2026-07-02
 tags:
   - ai_agent
   - video_transcript

@@ -5,6 +5,7 @@ source_url: "https://www.bilibili.com/video/BV12x1xB8E7b/"
 speaker: "Peek / Pe（Manus 联合创始人 & 首席科学家）/ Lance（LangChain）"
 duration: "60:48"
 saved: 2026-07-02
+spot_check: 2026-07-02
 tags:
   - ai_agent
   - video_transcript
@@ -58,7 +59,7 @@ Manus 加深：**compaction 可逆**（只留 path/query，内容在外部状态
 ### 1. 为什么需要 Context Engineering
 
 **说法：**  
-Prompt engineering 随 ChatGPT（2022.12）兴起；**context engineering** 与 **year of agents** 同步爆发。根因：agent **LLM + tools + loop**，每次 tool call 把 **observation** 追加进 messages——Manus 典型 **~50 次** tool call，Anthropic 生产 agent **数百 turn**；context 涨，**quality 跌**（context rot / fraud）。
+Prompt engineering 随 ChatGPT（2022.12）兴起；**context engineering** 与 **year of agents** 同步爆发。根因：agent **LLM + tools + loop**，每次 tool call 把 **observation** 追加进 messages——Manus 典型 **~50 次** tool call，Anthropic 生产 agent **数百 turn**；context 涨，**quality 跌**（**context rot**）。
 
 **Pe 的边界论：**  
 创业早期 **别过早 specialized model**——迭代速度被训练周期锁死；产品成熟后 fine-tune 也危险：**MCP 一夜改 action space**，on-policy RL 假设崩塌。  

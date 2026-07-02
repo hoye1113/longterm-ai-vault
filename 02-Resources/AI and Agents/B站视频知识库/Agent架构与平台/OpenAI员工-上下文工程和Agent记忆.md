@@ -8,6 +8,7 @@ speakers:
   - "Brian（OpenAI Solution Architect，远程 Q&A）"
 duration: "57:43"
 saved: 2026-07-02
+spot_check: 2026-07-02
 tags:
   - ai_agent
   - video_transcript
@@ -100,7 +101,7 @@ Real-world harness **组合多种**，非单选。
 - **Poisoning**：幻觉 summary 写入 memory **跨 turn 传播**。对策：summary prompt 写 **contradiction/hallucination control**。  
 - **Noise**：太多相似 tool definition → 选错 tool。对策：**小集合、清晰边界**。
 
-**Demo 对照**：左 Agent 多轮后 **重问已答过的 WiFi/过热**；右 Agent **记得 F 更新、background sync**。
+**Demo 对照**：左 Agent 多轮后 **重问已答过的 WiFi/过热**；右 Agent **记得 OS 更新、background sync**。
 
 **和你何干：**  
 上线前用 **context lifecycle 可视化**（system/user/tool/agent output/memory 占比）找 spike。

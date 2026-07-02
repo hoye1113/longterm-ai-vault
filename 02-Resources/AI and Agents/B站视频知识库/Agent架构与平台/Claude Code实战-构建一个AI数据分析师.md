@@ -5,6 +5,7 @@ source_url: "https://www.bilibili.com/video/BV1Mpf9B5Egk/"
 speaker: "Brex 数据团队工程师（与主持人对谈）"
 duration: "51:46"
 saved: 2026-07-02
+spot_check: 2026-07-02
 tags:
   - ai_agent
   - video_transcript
@@ -129,7 +130,7 @@ MCP 建好后：
 - 「哪个 AI coding tool momentum 最高？」→ **Cursor #1**（大 Series A、A16Z 等）；数据集局限：公司改名、被收购会 **丢 thread**（如 Windsurf/Cognition 混淆）。
 
 **Brex 支出侧：**  
-Cursor **startup + enterprise 双杀**；OpenAI enterprise 强（ChatGPT Pro 渗透）；Anthropic **startup 产品内嵌 agent 选 Claude** 多；11 Labs 是 **voice 附加首选**。
+Cursor **startup + enterprise 双杀**；OpenAI enterprise 强（ChatGPT Pro 渗透）；Anthropic **startup 产品内嵌 agent 选 Claude** 多；ElevenLabs 是 **voice 附加首选**。
 
 **和你何干：**  
 **三条种子 query** 决定 MCP 上限——质量 > 数量；eval 问题要 **domain 相关**。

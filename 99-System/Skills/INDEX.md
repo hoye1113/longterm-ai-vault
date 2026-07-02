@@ -27,7 +27,7 @@ source: vault_initiative - skills_index
 |---|---|---|---|---|
 | `vskill-vault-discuss` | ✅ v0.2 可用（3 模式）| 基于 vault 笔记进行结构化讨论：summary / roundtable / companion 三模式 | `kb-retriever` + `ljg-roundtable` + `ljg-read` | [SKILL.md](./vskill-vault-discuss/SKILL.md) |
 | `vskill-vault-write` | ✅ v0.1 可用 | 5 步切刀写一篇 1000-1500 字观点笔记（基于 vault anchor_notes）| `ljg-writes` | [SKILL.md](./vskill-vault-write/SKILL.md) |
-| `vskill-vault-curate` | ✅ v0.2 可用 | 从外部（URL/PDF/视频/文本）收录到 vault——§8 SOP 7 步；B 站转写见 SUBDOC | `wiki-ingest` + `kimi-webbridge` | [SKILL.md](./vskill-vault-curate/SKILL.md) · [B站 SUBDOC](./vskill-vault-curate/SUBDOC%20-%20B站视频转写收录.md) |
+| `vskill-vault-curate` | ✅ v0.2 可用 | 从外部（URL/PDF/视频/文本）收录到 vault——§8 SOP 7 步；B 站见 SUBDOC（含 ≥45min Spot check） | `wiki-ingest` + `kimi-webbridge` | [SKILL.md](./vskill-vault-curate/SKILL.md) · [B站](./vskill-vault-curate/SUBDOC%20-%20B站视频转写收录.md) · [Spot check](./vskill-vault-curate/SUBDOC%20-%20Spot%20check（长视频%20factual）.md) |
 | `vskill-vault-relate` | ✅ v0.1 可用 | 给定笔记，扫描 vault 输出 top-N 反向链候选（4 维评分 + warnings）| `kb-retriever` + `vskill-vault-discuss` | [SKILL.md](./vskill-vault-relate/SKILL.md) |
 | `vskill-vault-moc-builder` | ✅ v0.1 可用 | 降秩 + 9 种取景框——合并 / 拆分 / 新建 / 审计 vault MOC | `ljg-rank` + `wiki-ingest` | [SKILL.md](./vskill-vault-moc-builder/SKILL.md) |
 

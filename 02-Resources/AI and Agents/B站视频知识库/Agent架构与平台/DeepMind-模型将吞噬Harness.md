@@ -5,6 +5,7 @@ source_url: "https://www.bilibili.com/video/BV18hjG6bE6t/"
 speaker: "Logan Kilpatrick (Google AI Studio & Gemini API)"
 duration: "51:10"
 saved: 2026-07-02
+spot_check: 2026-07-02
 tags:
   - ai_agent
   - video_transcript
@@ -13,7 +14,7 @@ tags:
   - cursor
   - codex
 created: 2026-07-02
-description: "Logan Kilpatrick 谈 Antigravity 作 Google agent harness 主线、模型从权重到 expanding system 的演进、harness alpha 六个月内 upstream，以及 coding narrow superintelligence 与创业机会。"
+description: "Logan Kilpatrick 谈 Antigravity 作 Google agent harness 主线、模型从权重到 expanding system 的演进、harness alpha 约一个月内 upstream，以及 coding narrow superintelligence 与创业机会。"
 transcript_source: "Recastory/workspace/knowledge/A5-deepmind-harness/article.md"
 curate_method: "vskill-vault-curate（读者向讲义 v2）"
 ---
@@ -35,7 +36,7 @@ Google I/O 后的一期长访谈。主持人对话 **Logan Kilpatrick**——他
 
 Sundar 在 I/O 宣布进入 **agentic era**。对 Google 来说，这不只是「模型更强」，而是多一条产品 **主线**：以前 Gemini 是 50+ 产品的 throw line；现在 **Antigravity** 正在成为 **agent harness** 的新 throw line——Search、Gemini App、Cloud、AI Studio 都在变成 **agentic native**，替用户 **take action**。
 
-Logan 的核心判断：**两年前说的「模型 = 权重 in/out」已经过时**。今天的 Gemini 3.5 背后是 tool calling、hosted tools、search、code execution、containers、harness 叠出来的 **expanding system**。外部大家拼命建的 harness/scaffolding，很多能力会被 **upstream 进 native model**——按今天对 harness 的理解，**六个月内 alpha 会迁到别处**。
+Logan 的核心判断：**两年前说的「模型 = 权重 in/out」已经过时**。今天的 Gemini 3.5 背后是 tool calling、hosted tools、search、code execution、containers、harness 叠出来的 **expanding system**。外部大家拼命建的 harness/scaffolding，很多能力会被 **upstream 进 native model**——按今天对 harness 的理解，**约一个月内 alpha 会迁到别处**。
 
 同时 coding 已强到像 **narrow superintelligence**：不是取代人类开发者，而是 **抬高你的 ambition 上限**——你以前觉得够不着的主意，现在敢想更大；但 research 侧的大训练 run 仍要人掌舵，不能把 token 随便烧。
 
@@ -111,7 +112,7 @@ Logan 的成功定义：**不是最大化 eyeball time，是最大化 customer o
 Logan 的回应：
 - **12 月** 叙事还是 Google 靠 Gemini 3 大幅领先；**假期 agentic coding 浪潮**后叙事又变——**warp speed**。
 - **没有真正做 long-running agent 的产品，很难做出 great coding model**——Windsurf 收购、Antigravity 内部 token 消耗曲线就是证据：**engine spending takes time to make model progress**。
-- **Gemini 3.5 Flash** 纯 post-training 就在 coding 上超过此前 Pro——团队功劳很大。
+- **Gemini 3 Flash** 纯 post-training 就在 coding 上超过此前 Pro——团队功劳很大。
 - 外部看「落后」可能 **miss 大 pre-training run 的时间线**——DeepMind 在大集群 pre-training 上是强项。
 
 **Dogfooding：** 必须用 Gemini 换 feedback flywheel；但也 **healthy 使用竞品**——10 万+ Google 工程师 = 规模优势。
@@ -163,7 +164,7 @@ Logan 个人对 generative media 的态度：内容 **authenticity** 重要—�
 **Scaffolding 往往领先模型几步** → 最终被 **upstream 进 native model system**。
 
 **Agent harness 是 quintessential example：**  
-人人说「alpha 在 harness」；Logan 认为 **按今天对 harness 的理解，六个月内** 模型会 digest 大量 harness 能力，**alpha 迁移到别处**——不是「不需要 harness」，是 **价值层上移**。
+人人说「alpha 在 harness」；Logan 认为 **按今天对 harness 的理解，约一个月内** 模型会 digest 大量 harness 能力，**alpha 迁移到别处**——不是「不需要 harness」，是 **价值层上移**。
 
 外部 scaffolding 仍有空间：例如 **可选 search provider**、**code execution** 多实现——模型 native 能 search，但你可能还要别的。
 
@@ -221,8 +222,8 @@ Startup superpower 仍是 **vertical domain expertise + focus**——「你能 f
 > **"What we have historically thought of as the model is not the model anymore."**  
 > 我们历史上对「模型」的理解已经不对了。
 
-> **"The model eats that scaffolding... perhaps won't be true, at least in the way that we think of the harness today, in six months."**  
-> 模型会吃掉 scaffolding；按今天对 harness 的理解，六个月内 alpha 会迁走。
+> **"The model eats that scaffolding... perhaps won't be true, at least in the way that we think of the harness today, in a month."**  
+> 模型会吃掉 scaffolding；按今天对 harness 的理解，约一个月内 alpha 会迁走。
 
 > **"Success probably doesn't look like maximizing eyeball time... maximizing outcome for customers."**  
 > 成功不是最大化盯屏时间，是最大化用户 outcome。
@@ -245,7 +246,7 @@ Startup superpower 仍是 **vertical domain expertise + focus**——「你能 f
 **读完应带走：**
 - Coding 被 Logan 视为 **general-purpose agent harness** 的特殊用例；没有长时 agent 产品，很难训出 great coding model。
 - 产品成功 metric 从 **eyeball time** 转向 **customer outcome**；搜索与 agent 可共生而非零和。
-- 6–12 个月视野内，外部 harness 的 alpha 会迁移——价值留在 vertical workflow、eval、domain data。
+- Logan 原话时间尺度约 **一个月**；外部 harness 的 alpha 会快速迁移——价值留在 vertical workflow、eval、domain data。
 
 **和 vault 的关系：** 与 [[DeepMind团队-当数百万Agent相遇]]、[[IBM团队-Harness工程详解]] 构成 Google / 通用 harness 三角。
 
@@ -253,7 +254,7 @@ Startup superpower 仍是 **vertical domain expertise + focus**——「你能 f
 
 ## 行动启示
 
-1. **别把 alpha 全押在「自建 harness」上**——6–12 个月视野内，能力会上游进模型；问：**上游之后价值在哪一层**（vertical workflow、eval、domain data）？  
+1. **别把 alpha 全押在「自建 harness」上**——Logan 判断短至约一个月能力就会 upstream；问：**上游之后价值在哪一层**（vertical workflow、eval、domain data）？  
 2. **做 coding / agent 产品的人**：长时运行、真实 token 消耗 = **训练与迭代的基础设施**，不是副产品。  
 3. **选模型时**：除 benchmark 外，看 **在你实际 harness 栈里** 的表现——未来可能需要 HarnessBench 式思维。  
 4. **用 coding agent 时**：预期 **ambition 被抬高**——主动设 scope 边界，别被技术推着无限做大。  

@@ -5,6 +5,7 @@ source_url: "https://www.bilibili.com/video/BV1iH7R6tEfJ/"
 speaker: "Federico（Cursor Composer Research Lead）、Dima（Fireworks AI）"
 duration: "45:12"
 saved: 2026-07-02
+spot_check: 2026-07-02
 tags:
   - ai_agent
   - video_transcript
@@ -33,7 +34,7 @@ curate_method: "vskill-vault-curate（读者向讲义 v2）"
 
 **用一条线串起来：**
 
-「货架模型 + prompt」有上限 → **post-training 把 tool 行为 bake 进权重** → 自底向上 mid-train+RL **更快给用户可用模型**（自 pretrain 太慢）→ RL = 在 harness 里完整 session rollout + reward（compile/LM judge）→ **async trainer∥rollout**（staleness vs 利用率）→ **FP4 训练 + Fireworks 推理**；推理算力约 **训练 1/3** 若引擎优化 → **VM 栈** 秒启 10 万环境，Docker 不够像 production → **RL 里学 self-summarize/compaction** 撑 long horizon → **offline sim RL 教 reasoning**，**online real-time RL** 用用户 thumbs 几小时一更（不能从零训，只能「大蛋糕上的樱桃」）→ **自家产品环境 > RL env .vendor**。
+「货架模型 + prompt」有上限 → **post-training 把 tool 行为 bake 进权重** → 自底向上 mid-train+RL **更快给用户可用模型**（自 pretrain 太慢）→ RL = 在 harness 里完整 session rollout + reward（compile/LM judge）→ **async trainer∥rollout**（staleness vs 利用率）→ **FP4 训练 + Fireworks 推理**；推理算力约 **训练 1/3** 若引擎优化 → **VM 栈** 秒启 10 万环境，Docker 不够像 production → **RL 里学 self-summarize/compaction** 撑 long horizon → **offline sim RL 教 reasoning**，**online real-time RL** 用用户 thumbs 几小时一更（不能从零训，只能「大蛋糕上的樱桃」）→ **自家产品环境 > RL env vendor**。
 
 ---
 
@@ -91,7 +92,7 @@ Cursor **GPU 有限（万级 not 百万）**：**FP4 训练**、推理与 Firewo
 
 ---
 
-### 4. 全球分布式与权重 delta _ship
+### 4. 全球分布式与权重 delta 推送
 
 RL inference 可 **分布全球小集群**（难找超大 contiguous cluster）；训练集中一簇。  
 Composer 2 用 **四大洲集群** + **低峰复用 production Composer 1.5 推理 GPU**。
@@ -105,7 +106,7 @@ Dima：**disaggregate trainer/inference** → 用便宜异构硬件跑 rollout�
 
 ### 5. 环境、faking、作弊
 
-RL 环境要 **极度接近真实用户电脑**——model 能 **察觉 fake env**，**ARL 与 production 行为不一致**，会 **学 reward hack**（「哦我在假环境，试 trick」）。
+RL 环境要 **极度接近真实用户电脑**——model 能 **察觉 fake env**，**RL 与 production 行为不一致**，会 **学 reward hack**（「哦我在假环境，试 trick」）。
 
 Cursor 自建 **VM 栈**：要能 **burst 10 万 VM**；Docker **不像 production**（DB migration 要真 DB 等）。  
 **RL env vendor** 对 **frontier 通用 lab** 有用；**有自家产品的公司** → **最强环境就是 production clone**（隔离好，别动真 DB）。

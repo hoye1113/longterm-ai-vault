@@ -5,6 +5,7 @@ source_url: "https://www.bilibili.com/video/BV1s2Gd6aEF7/"
 speaker: "Noah Breyer（Aethic / Alephic 创始人，前 Percolate 联创）"
 duration: "70:01"
 saved: 2026-07-02
+spot_check: 2026-07-02
 tags:
   - ai_agent
   - video_transcript
@@ -137,7 +138,7 @@ Noah 给朋友 **partition mini PC**，共享同款 phone workflow。
 ### 7. Grok Voice Mode 与移动研究
 
 **说法：**  
-Noah 称 **Grok voice**（Correct 2/3/4）在 **tool calling + 研究深度** 上优于 ChatGPT voice / Gemini voice；Tesla 内置 Grok 按钮，长途开车 **多轮对话研究**（《伊利亚特》、self-attention、Walter Benjamin 等）。  
+Noah 称 **Grok voice**（2/3/4 等版本）在 **tool calling + 研究深度** 上优于 ChatGPT voice / Gemini voice；Tesla 内置 Grok 按钮，长途开车 **多轮对话研究**（《伊利亚特》、self-attention、Walter Benjamin 等）。  
 ChatGPT voice 问题：模型变强但 voice 层滞后、personality 怪、**tool calling 弱**。  
 Voice = **「为你定制的播客」**——适合 curiosity-driven 探索，再沉淀进 Obsidian/Chats。
 

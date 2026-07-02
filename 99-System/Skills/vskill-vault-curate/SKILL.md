@@ -314,6 +314,7 @@ target_para: "auto"
 |------|------|
 | [SUBDOC - B站视频转写收录.md](./SUBDOC%20-%20B站视频转写收录.md) | Recastory ASR → vault 读者向讲义 v2（含 **小结** 九段模板） |
 | [SUBDOC - ASR后处理与manifest.md](./SUBDOC%20-%20ASR后处理与manifest.md) | manifest、asr v2 后处理、canonical 路径、批量顺序 |
+| [SUBDOC - Spot check（长视频 factual）.md](./SUBDOC%20-%20Spot%20check（长视频%20factual）.md) | ≥45 min  factual 对读；脚本 `99-System/scripts/bilibili-spot-check.py` |
 
 B 站 / 视频转写收录时 **优先读 SUBDOC**，再执行本节 Step 1–8。
 

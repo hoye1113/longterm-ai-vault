@@ -5,6 +5,7 @@ source_url: "https://www.bilibili.com/video/BV1PnQfBvEs3/"
 speaker: "Remi Gasiglia（AI Agent 教育者）/ Greg Eisenberg（主持人）"
 duration: "58:54"
 saved: 2026-07-02
+spot_check: 2026-07-02
 tags:
   - ai_agent
   - video_transcript
