@@ -65,99 +65,288 @@ MCP：`codex mcp add`；demo **cupcake MCP** + **Context7** 拉最新 OpenAI Res
 
 ## 分话题讲
 
-### 1. Codex 产品面与模型
+### 1. Codex 产品面与模型（~00:07–03:38）
 
-- **CLI**：日常交互 + **`codex exec` headless** 进 CI / CD。  
-- **IDE 扩展**：Rich GUI，local / **cloud** 任务，chat vs agent vs full access。  
-- **Cloud**：笔记本合上也能跑 code review、mobile 触发。  
-- 模型在 **Linux / macOS / Windows + bash / PowerShell** 环境训，遵守 sandbox；擅长 **auto-compact** 长跑 refactor。
+| Surface | 能力 |
+|---------|------|
+| **CLI** | 日常交互 + **`codex exec` headless** 进 CI/CD |
+| **IDE 扩展** | 任意 VS Code 系；local / **cloud** 任务；chat / agent / full access 模式 |
+| **Cloud** | 笔记本合上并行跑 code review；mobile 触发 |
+| **SDK** | 自有容器 programmatic 调用 + **structured output** |
+
+**模型：** GPT-5.1 Codex Max 等，在 **Linux/macOS/Windows + bash/PowerShell** 环境训，遵守 sandbox；擅长 **auto-compact** 长跑 refactor（Windows 支持与长跑任务是两大 feature request 已落地）。
+
+**客户工作流示例：**
+
+- PR 打开 → Codex Cloud review → merge 前抓 critical bug  
+- Slack **@Codex** → 读整 thread → 出 PR  
+- SDK → 结构化 JSON 进自有 pipeline  
+
+**SDLC 七阶段：** OpenAI 发布《AI engineering team》指南——planning/design 到 documentation/maintenance，Codex 可加速全程。
 
 **和你何干：**  
-同一 harness 贯穿 **7 阶段 SDLC**（OpenAI《AI engineering team》指南）——今天入门，明天可挂 review / autofix。
+同一 harness 贯穿 STLC——今天入门，明天可挂 review / autofix。
 
 ---
 
-### 2. 安装、登录、跟练仓库
+### 2. 安装、登录、跟练仓库（~03:38–07:15）
 
-优先 **npm / brew** 装 CLI；开源可下 GitHub binary。IDE 认准 **OpenAI 官方**扩展。  
-Work + ChatGPT Enterprise SSO 登录后 CLI / IDE **共享会话**。  
-跟练：clone **agents.md** 微站 → `npm install && npm run dev` → 全程在同一 repo 上改 Hero、加按钮。
+**安装 CLI（推荐 npm / brew，更新最快）：**
+
+```bash
+# brew 或 npm 安装（官方推荐，团队每周多次发版）
+# 备选：GitHub 下 binary（CLI 开源）
+# 会话顶栏会提示有新版本
+```
+
+**IDE 扩展：**
+
+1. VS Code → Extensions → 搜 **OpenAI Codex**（认准 OpenAI 官方）  
+2. **开启 auto-update**  
+3. 可选 pre-release / release candidate
+
+**登录（Work + ChatGPT Enterprise SSO）：**
+
+```bash
+codex login    # 浏览器 SSO；CLI 与 IDE 共享会话
+```
+
+**跟练仓库 [agents.md 微站](https://agents.md/)：**
+
+```bash
+git clone <agents.md repo>
+cd agents-md
+npm install
+npm run dev    # 本地跑通后再全程在同一 repo 上改 Hero、加按钮
+```
+
+**CLI 常用 slash 命令：**
+
+| 命令 | 作用 |
+|------|------|
+| `/status` | 当前 model、目录、sandbox、approval policy、**剩余 context**、session ID |
+| `/init` | 在当前目录 **自动生成 AGENTS.md** |
+| `/models` | 切换 reasoning effort（low / medium / high） |
 
 **和你何干：**  
 官方刻意用 **agents.md 站** 教 AGENTS.md——meta 但好用。
 
 ---
 
-### 3. AGENTS.md：每次 session 的 TL;DR
+### 3. AGENTS.md：每次 session 的 TL;DR（~07:15–12:33）
 
-Coding agent **不跨 session 记忆** → AGENTS.md 自动注入「项目怎么回事」。  
-层级：**~/.codex/AGENTS.md 全局**、repo 根、**子目录**（进目录加载服务上下文）。  
-推荐段落：overview、structure、build / test、常用 CLI、MCP 列表、**feature 端到端 workflow**、指向 task-specific md。  
-最佳实践：**短而聚焦**（OpenAI 内部 <100 行）；给 **lint / test 反馈**；Codex 卡壳的命令 **写进 AGENTS.md**；大 refactor 用 **plans.md 模板** checklist Living document（工程师 **10+ 小时 refactor** 案例）。
+Coding agent **不跨 session 记忆** → AGENTS.md 在启动目录 **自动注入**。
+
+**三层级：**
+
+| 位置 | 用途 |
+|------|------|
+| `~/.codex/AGENTS.md` | **全局**：Context7 规则、个人偏好 |
+| repo 根 | 项目 overview，通常在此启动 Codex |
+| **子目录** | 进目录加载该服务上下文（微服务 monorepo） |
+
+**推荐段落：**
+
+- Project overview + structure（文件去哪找）  
+- **Build / test 命令**（给 agent 反馈环）  
+- 常用 CLI（如 `gh`）  
+- 已接 **MCP 列表**  
+- Feature **端到端 workflow**  
+- 指向 task-specific md（progressive discovery）
+
+**最佳实践：**
+
+1. **短而聚焦**——OpenAI 内部 AGENTS.md **大多 <100 行**  
+2. **解锁 agent loop**：lint / test / compile 反馈 → agent 独跑更远  
+3. **踩坑写回**：Codex 找 test 命令找了很久 → **把那行命令写进 AGENTS.md**  
+4. **大任务指 plans.md**：checklist living doc；工程师 **10+ 小时 refactor** 成功案例
+
+**Progressive discovery 示例：**
+
+```markdown
+## Task-specific documentation
+- Large refactors → read plans.md
+- Frontend work → read frontend.md
+- Architecture changes → read architecture.md
+```
+
+Codex 读 AGENTS.md 知道有这些文件，**按需再读**，不一次塞满 context。
 
 **和你何干：**  
-AGENTS.md = harness 的 **静态 context 层**，和 [[2026 年 Agent 最重要的工程概念 Harness Engineering]] 里 docs-as-truth 同族。
+AGENTS.md = harness **静态 context 层**，与 [[2026 年 Agent 最重要的工程概念 Harness Engineering]] docs-as-truth 同族。
 
 ---
 
-### 4. config.toml：默认行为与安全
+### 4. config.toml：默认行为与安全（~12:33–15:10）
 
-Rust 写的 CLI 用 **config.toml** 设：model、reasoning effort、**sandbox mode**、**approval policy**、web search 默认、MCP、profiles。  
-默认：**approval on-request**（要到 escalated 权限才问你）；**workspace-write sandbox**（只写当前目录）。  
-可改更严或更松；Charlie 爱 **terminal notification**——后台跑完响铃。
+CLI 用 **Rust 编写**，配置在 **config.toml**（`~/.codex/`）：
+
+| 配置项 | 说明 |
+|--------|------|
+| default model | 会话默认模型 |
+| reasoning effort | 推理深度 |
+| **sandbox mode** | 默认 **workspace-write**（只写当前目录） |
+| **approval policy** | 默认 **on-request**（需 escalated 权限才问你） |
+| web search | 默认 **off**，可 toml 或 flag 打开 |
+| **profiles** | 例：`codex -p fast` → 最快 model + 最低 reasoning |
+| MCP servers | cupcake、Context7 等 |
+| terminal notifications | 后台跑完 **响铃**（Charlie 个人偏好） |
+
+**approval + sandbox 组合：** 可改更严或更松；团队统一 toml + AGENTS.md = 新人行为一致。
 
 **和你何干：**  
-团队统一 **toml + AGENTS.md** = 新人 `codex` 进来行为一致。
+安全默认值 + 项目 AGENTS.md = 可预期的 agent 行为。
 
 ---
 
-### 5. Prompt 最佳实践
+### 5. Prompt 最佳实践（~15:10–17:17）
 
-1. **`@file` 锚定**——防 agent 逛错目录。  
-2. **小任务起步**，熟了再变大；可让 Codex **纯 research 拆 task**。  
-3. **Verification steps**（tests / lint）写 prompt 或 AGENTS.md。  
-4. Debug：**整段 stack trace** 粘贴。  
-5. Open-ended：「这 feature 做完下一步建什么？」CLI 会给 **suggested next steps**。
+1. **`@file` 锚定**——防 agent 从错误目录开始逛（跑偏主因）  
+2. **小任务起步**；熟了再变大——也可让 Codex **纯 research 拆 task**  
+3. **Verification steps**——prompt 或 AGENTS.md 写 `run tests` / `run lint`  
+4. Debug：**整段 stack trace** 粘贴  
+5. Open-ended：`What would you consider building next?`——CLI 会给 **suggested next steps**
 
-**Starter tasks：** explain codebase、写 README、fix bug、扩测试、跨文件 refactor、**写文档**。
+**Starter tasks：**
+
+- explain codebase / write README  
+- fix bug（贴 stack trace）  
+- expand test coverage（问 edge cases）  
+- cross-file refactor（抽 generic component）  
+- **写文档**（工程师不爱写，Codex 擅长）
+
+**IDE demo：** chat mode 问 `Can you tell me about this project?` → 可读 **git history**（谁改了什么）——Codex 当 repo historian。
 
 **和你何干：**  
-Prompt 是 **ultimate context**，但 recurring 验证应 **沉到 AGENTS.md**。
+Prompt 是 **ultimate context**，recurring 验证应 **沉到 AGENTS.md**。
 
 ---
 
-### 6. CLI / IDE 技巧
+### 6. CLI / IDE 技巧（~17:17–28:19）
 
-- CLI / IDE **`@` 文件**；IDE **Cmd+Shift+C** 绑「选中行加 context」。  
-- 代码里 **TODO → Implement with Codex**。  
-- **截图 prompt** 改 UI（inline chip 改橙色）——比「左边第三个按钮」可靠。  
-- **`codex resume`** / session ID 续聊；IDE 搜历史 task。  
-- 生成 **mermaid sequence diagram** 理解 repo 流程。  
-- Custom prompts：`~/.codex/prompts/add-test.md` → CLI 里 `@add-test` 拉单元测试模板。
+**@ 文件：**
+
+- CLI：直接 `@path/to/file`  
+- IDE：**Cmd+Shift+C**（Charlie 自绑）→ 选中行加入 context
+
+**Hero 按钮 live demo（agent mode）：**
+
+```
+Can you implement hero buttons to:
+- download the repo
+- link to GitHub
+- copy the markdown of the site
+```
+
+IDE 显示 **file pills** 可点进跟随；agent 改 hero 组件 → 浏览器可见 Download / GitHub / Copy markdown。
+
+**TODO → Implement with Codex：** 代码里写 TODO → 右键 **Implement with Codex** → 侧栏跑 task。
+
+**截图改 UI（~24:03）：**
+
+- 截 agents.md 页 setup commands 的 inline code chips  
+- Prompt：`Can you make the inline code chips orange?`  
+- CLI 粘贴截图或 IDE **+ Add image** → Codex 定位 CSS/组件改色
+
+**Session 管理：**
+
+```bash
+codex resume              # 列出历史 session，续聊
+codex resume <session-id> # 直达特定 session（免 scroll）
+```
+
+IDE：搜索历史 task 继续。**Session = mini project 容器**（frontend 一条、tests 一条）。
+
+**其他：**
+
+- IDE：`Provide me a clean mermaid sequence diagram for this codebase`  
+- Web search（默认 off）：config 设 `web_search=true` 或 session flag → 例：加 Next.js 15 最新 news footer  
+- **Custom prompts：** `~/.codex/prompts/add-test.md` → CLI 里 `@add-test` 对 changed files 生成单元测试（改 prompts 后需 **quit 重启 codex**）
 
 **和你何干：**  
-Session = **迷你项目容器**（front-end feature 一条 session、test 一条 session）。
+UI 改动用截图比「左边第三个按钮」可靠；session 续聊保 context。
 
 ---
 
-### 7. MCP：Cupcake → Context7
+### 7. MCP：Cupcake → Context7（~28:19–35:28）
 
-Codex 支持 stdio + HTTP MCP。常见：Figma、Jira / Linear、**Context7**（最新框架 doc）、Datadog。  
-Live：`codex mcp add` 注册 **cupcake MCP** → 改 agents.md 页脚显示 Rachel 订了 7 个 marble cupcake。  
-进阶：Context7 + **Responses API** 在 agents.md 站加 **「输入 prompt 生成 AGENTS.md」** 输入框；全局 AGENTS.md 可写「新 API **总是先搜 Context7**」。
+Codex 支持 **stdio + HTTP** MCP。常见：Figma、Jira/Linear、**Context7**、Datadog。
+
+**注册 MCP：**
+
+```bash
+codex mcp add <name> <params...>   # 写入 config.toml；也可直接编辑 toml
+```
+
+**Cupcake MCP demo：**
+
+```
+Add a section at the bottom of the agents.md page
+that fetches Rachel's cupcake order.
+```
+
+→ 调用 `cupcake MCP search` → 页脚显示：**Rachel ordered 7 marble cupcakes for pickup**
+
+**Context7 + Responses API demo（IDE，GPT-5.1 Codex mini, medium）：**
+
+```
+Implement an input on the agents.md page where people can
+generate their own AGENTS.md file using a small prompt,
+calling OpenAI's Responses API —
+use Context7 for the latest API spec.
+```
+
+→ Context7 拉最新 doc → 读 repo → **~300 行** 三文件 diff → 页上 AGENTS.md 生成器 input。
+
+**Global AGENTS.md 规则（免每次指定 Context7）：**
+
+```markdown
+When implementing features with external libraries or APIs,
+always search Context7 for relevant documentation first.
+```
 
 **和你何干：**  
 MCP = harness **动态 context**；doc MCP 解决 **训练 cutoff**。
 
 ---
 
-### 8. Code Review 与进阶编排
+### 8. Code Review 与进阶编排（~35:28–45:02）
 
-- CLI：`codex review`（对 base branch / uncommitted / 指定 commit + 自定义指令）。  
-- IDE：slash **code review**；只表面 **P0 / P1**（太吵会被 ignore）。  
-- **`codex exec --output-schema`**：JSON schema 约束 code quality 报告 → CI / DB / API。  
-- **Agents SDK**：frontend agent / PM agent handoff，Codex 作 MCP tool；trace 可见每次 handoff。  
-- 自托管：**on-prem PR review**、**autofix CI**（测试失败自动 PR fix）、**issue auto-label**（Codex 开源 repo 在用）。
+**Review 入口：**
+
+| 方式 | 命令/操作 |
+|------|-----------|
+| CLI | `codex review` — 对 base branch / uncommitted / 指定 commit + **custom instructions** |
+| IDE | slash **code review** → review uncommitted / against branch |
+| 指南外置 | `code_review_guidelines.md` 在 AGENTS.md 里引用，避免 AGENTS.md 过长 |
+
+**噪声控制：** 模型训成只 surface **P0 / P1**（偶发 P2/P3）；太吵会被 ignore——「不修就 production 炸」级别才报。
+
+**Headless 结构化输出（~39:31）：**
+
+```bash
+codex exec \
+  --output-schema codex_output_schema.json \
+  "Analyze this codebase for code quality issues"
+```
+
+- schema = OpenAI structured output JSON（files analyzed、issues array、severity、line numbers、score 0–100）  
+- 输出 valid JSON → 可 jq / 进 DB / CI pipeline  
+- 用途：security triage、test coverage spot、refactor automation、release changelog
+
+**Agents SDK 多 Agent（~41:46）：**
+
+- Codex 作 **MCP tool** 被 frontend agent / PM agent / backend agent 调用  
+- 各 agent 自有 context + MCP；**handoff** 彼此  
+- Agents SDK 自动 **traces**（谁 handoff 给谁、给了 Codex 什么 context）
+
+**自托管模式：**
+
+| 模式 | 说明 |
+|------|------|
+| On-prem PR review | 同 Codex Cloud，跑自有容器 + structured output |
+| **Autofix CI** | 测试失败 → Codex checkout branch → 开 fix PR → merge |
+| Issue auto-label | Codex 开源 repo 在用——新 issue 创建时自动 categorization |
 
 **和你何干：**  
 从 **交互式 codex** 到 **pipeline 里 silent exec** 是团队规模化分界线。
@@ -245,4 +434,4 @@ MCP = harness **动态 context**；doc MCP 解决 **训练 cutoff**。
 - **转写**：Recastory `bilibili-retranscribe/BV19MzXBNESV/`（FunASR SenseVoice + cam++，**asr v2** 52 段）  
 - **跟练仓库**：[agents.md](https://agents.md/) 开源微站  
 - **文档**：developers.openai.com/codex、OpenAI Cookbook  
-- **版本**：v3 读者向讲义（2026-07-03）
+- **版本**：v3 读者向讲义加深（2026-07-03）

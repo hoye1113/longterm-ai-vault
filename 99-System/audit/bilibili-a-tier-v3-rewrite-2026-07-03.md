@@ -34,18 +34,19 @@ description: "A 级分轨完成：12 A-dialogue canonical-asr + 5 A-lecture 九�
 | BV1UajG6oEvj | a16z-AI并非泡沫 | 5 | ASR |
 | BV1EwK96AEyU | OpenAI评估 | 5 | ASR |
 
-## A-lecture（5 · 九段讲义，保留）
+## A-lecture（5 · 九段讲义加深 ✓）
 
-| BV | 讲义 | 理由 |
-|----|------|------|
-| BV1NpAHzZEcc | Karpathy-AutoResearch | 单人解读 |
-| BV1PnQfBvEs3 | Agent实战-完整教程 | 教程 walkthrough |
-| BV19MzXBNESV | OpenAI-Codex新手 | 官方教程 |
-| BV1Mpf9B5Egk | Claude Code实战-数据分析师 | 实操 |
-| BV1kWctzeEYK | 30分钟精通OpenClaw | 教程 |
+| BV | 讲义 | 加深内容 |
+|----|------|----------|
+| BV1NpAHzZEcc | Karpathy-AutoResearch | loop 命令、Colab GPU、9 类用例操作流 |
+| BV1PnQfBvEs3 | Agent实战-完整教程 | demo1/2/3、MCP/Skill 链、cron |
+| BV19MzXBNESV | OpenAI-Codex新手 | slash 命令表、config.toml、MCP/exec |
+| BV1Mpf9B5Egk | Claude Code实战-数据分析师 | 种子 SQL、Snowflake CLI、Skills 护栏 |
+| BV1kWctzeEYK | 30分钟精通OpenClaw | GCP OAuth、Edge TTS、cron、SOUL 摘录 |
 
-## 后续（可选）
+来源：**v3 读者向讲义加深（2026-07-03）**
 
-- [ ] MOC 脚注更新：A 级 12 篇为 dialogue-asr
+## 后续（非阻塞）
+
+- [x] MOC 脚注 · A 级分轨
 - [ ] 手补 column_url → 可升 S 级覆盖 ASR 版
-- [ ] A-lecture 5 篇若需更高密度，可加深九段（非对谈体）

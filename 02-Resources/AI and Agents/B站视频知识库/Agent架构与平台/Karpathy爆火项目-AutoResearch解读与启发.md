@@ -65,17 +65,25 @@ Greg 列 **9 类商业方向**：niche agent-in-a-box、营销 A/B、research-as
 
 ### 1. AutoResearch loop 本体（~01:10）
 
-**说法：**
-1. 你定 **goal** + 「better 指什么」（更便宜 leads、更高转化、更好 model score…）
-2. Agent **plan 实验**（改 settings/code）
-3. **~5 分钟 GPU 训练/跑**
-4. **读 metrics** → 更好则 **save config**，否则 log 丢弃
-5. **plan 下一个** → 循环
+**五步循环（Greg 原话顺序）：**
 
-**例子：** 小模型变聪明；Toby 版：任意软件优化。
+1. **定 goal**——例：`Make this small AI model smarter`；或业务侧「更便宜 leads / 更高转化 / 更好 model score」
+2. **Agent plan**——决定改哪些 settings、哪些 code
+3. **改 Python + GPU 短训**——约 **5 分钟**一轮
+4. **读 metrics**——更好 → **save config**；更差 → **log attempt + discard config**
+5. **plan 下一个实验**——循环，直到你醒来取 best version
+
+**Toby 泛化版（任意软件）：**
+
+```
+mkdir auto/
+# 写 program.md（markdown「程序说明」）
+# 建 bench + git branch
+let it rip
+```
 
 **和你何干：**  
-任何 **可度量 + 可快速试错** 的任务，都可套这个 recipe——不限 ML。
+任何 **可度量 + 可快速试错** 的任务都可套——不限 ML。关键是写死「better 指什么」。
 
 ---
 
@@ -90,56 +98,154 @@ Greg 联系自己讲的 **Ralph loop**：engineering 24/7，醒来有新进展�
 
 ### 3. Research boss 四步（非 ML 也适用）
 
-1. **写清 task**（改 model score / 竞品报告 top5…）
-2. **给权限**（code、GPU、internet、docs）
-3. **Bot loop**：plan → act（跑 code/搜索）→ read → update plan
-4. **你回来收**：logs、charts、**自然语言 summary**
+| 步 | 做什么 | 具体例子 |
+|----|--------|----------|
+| 1. 写清 task | 一句话可验收 | ML：`Improve this model test score`；商业：`Figure out top 5 competitors for product XYZ and make a short report` |
+| 2. 给权限 | code + GPU（ML）/ internet + docs（研究） | 读 filings、竞品页、CRM 导出 |
+| 3. Bot loop | plan → act（跑 code / search）→ read → update plan | 无人值守 6–20 小时 |
+| 4. 你回来收 | logs、charts、metrics、**自然语言 summary** | 不是 raw log，是人话结论 |
 
 **和你何干：**  
 设计 autonomous agent 时，**summary artifact** 和 **metric log** 同样重要。
 
 ---
 
-### 4. 商业用例精选（Greg 九类）
+### 4. 商业用例精选（Greg 九类 + 操作细节）
 
-| # | 方向 | 要点 |
-|---|------|------|
-| 1 | **Niche agent-in-a-box** | 亚马逊 listing/邮件序列/SaaS 定价… 月费，247 实验出 winner |
-| 2 | **营销 A/B**（~05:40） | 落地页/广告 variant 自动测转化，像 Optimizely 下一代 |
-| 3 | **Research-as-a-service**（~08:10） | 竞品/合规/尽调 **living memo**，按报告或订阅收费 |
-| 4 | **SaaS 内「Optimize」按钮** | 现有产品嵌 mini research loop，Pro/Enterprise 加价 |
-| 5 | **优化 agency** | 「比别家多跑 100 倍实验」— Shopify 转化/邮件 subject line |
-| 6 | **AutoQuant** | 一 GPU 过夜大量简单 backtest，留 promising（**人要 HITL**） |
-| 7 | **CRM lead 评分** | 测规则/消息，销售只跟高意向 |
-| 8 | **财务 ops** | 发票匹配、费用报告、异常检测，持续改 prompt/rules |
-| 9 | **内部 productivity lab** | 公司 KPI（响应时间、结案率）上跑 workflow 迭代 |
+#### #1 Niche agent-in-a-box
+
+- **打包**：tiny auto-research loop，垂直一个痛点
+- **例子**：Amazon listing 实验器、realtor 邮件序列调优、SaaS 定价优化器
+- **卖法**：月费；价值主张 = **247 跑实验，只给你 winner 点 accept**
+- **流程**：选 niche → 设计 tiny loop → 自动实验 → 最佳 setup → 简单 agent 产品 → 订阅
+
+#### #2 营销 A/B（~05:40）
+
+- **落地页**：agent 写 headline/layout/offer variant → 推流量 → 测转化 → 迭代
+- **广告**：测 creative、angle、audience → 留低 CAC / 高 ROAS 组合
+- **卖法**：自用或 **$5k/月 retainer**——「每月最好 landing page 进 inbox」
+- **控制逻辑**：新版本 beat current best → promote 为 new control；否则保留 control，再要新 idea
+
+#### #3 Research-as-a-service（~08:10）
+
+- **循环**：search → read → summarize → compare → repeat
+- **场景**：竞品/定价/功能 gap  living report；投融资尽调；crypto/healthcare/finance 合规跟踪
+- **收费**：按报告或 **月度订阅 dashboard**
+- **流程**：client question → auto research → report/dashboard → deliver → 付费
+
+#### #4 SaaS 内「Optimize」按钮
+
+- 现有产品嵌 **mini research loop**：调 prompt、选 pricing、排 supplier
+- **Upsell**：Pro/Enterprise 档；或全员邮件推「一键优化」
+- **流程**：现有 SaaS → 加 Optimize → 用户跑 loop → 更好 settings/prices → 升级套餐
+
+#### #5 优化 agency
+
+- **pitch**：「同样费用，我们跑 **100×** 实验」
+- **垂直**：Shopify 转化 lab、B2B SaaS 定价实验、邮件 subject line 优化
+- **收费**：月 retainer + **KPI lift 绩效费**（rev share）
+- **流程**：agency → 大量 auto-research 测试 → 展示更多实验与 win → 月费 + bonus
+
+#### #6 AutoQuant（~12:14）
+
+- **做法**：一 GPU 过夜，大量简单 backtest（LLM factor screen、sentiment filter 等）
+- **输出**：留 promising 策略 → 自用或卖 signal/report
+- **Greg 警告**：**必须 HITL**——盲信 auto loop 上真金会有人亏惨
+- **流程**：定义规则 → 过夜 backtest → 人审 performance → 保留策略 → 交易或卖数字产品
+
+#### #7 CRM lead 评分（~13:19）
+
+- 接 Salesforce 等 CRM；测 rules + follow-up messages
+- **输出**：lead 打分、next action、draft follow-up；销售只跟高意向
+- **流程**：CRM 接入 → 测消息/规则 → rank by buy likelihood → draft follow-up → revenue/hour ↑
+
+#### #8 财务 ops（~14:42）
+
+- **任务**：invoice matching、expense report、exception detection；持续改 prompt/rules
+- **卖法**：「AP 时间砍半」——软件或 **op service + 小团队 + agent**
+- **Greg 判断**：易被 fintech/大行收购
+- **流程**：ingest 发票/费用 → 改 rules/prompts → 匹配+异常检测 → 干净报表 → 减人工
+
+#### #9 内部 productivity lab（~16:05）
+
+- 把公司当 Karpathy GPU lab：定 KPI（响应时间、结案率、ticket 解决时长）
+- Agent 迭代 workflow、template、routing rule → 少开会、少手工，人只碰高影响决策
+- **流程**：定 KPI → 测新 workflow → 改 template/rules → 减会议 → 团队聚焦高价值
+
+#### #10 Done-for-you 尽调 shop（同段）
+
+- 啃 docs、filings、产品页、reviews → **living memo**
+- 卖给 investor/acquirer/exec：**快速 brief + 月度 update pack**（非一次性手工 research）
 
 **和你何干：**  
 选你 **懂 niche + 有 fast metric** 的垂直，比泛化「AI 平台」易落地。
 
 ---
 
-### 5. 医疗/科学想象 + Agent Hub（~16:40）
+### 5. 医疗/科学想象 + Agent Hub（~16:40–19:22）
 
-**Morgan Linton：** clinical trial design 像 **hyperparameter search**——agent swarm 在小 proxy 实验上优化 protocol，**人后置审**（Greg 非医生，强调 HITL）。
+**Morgan Linton（medicine）：**
 
-**Agent Hub**（Karpathy 新项目）：**GitHub for agents**——无 main branch/PR/merge，**DAG commits 四面八方** + **agent 协作 message board**；比 AutoResearch 更 general 的 **agent-first collab**。
+- clinical trial design ≈ **hyperparameter search**
+- agent swarm 在小 proxy 实验上优化 protocol → promote 候选 → **人后置审**
+- Greg 非医生，强调 HITL；但 health/disease treatment 是 AI 影响最大的方向之一
+
+**Agent Hub（Karpathy 新项目）：**
+
+| 属性 | 说明 |
+|------|------|
+| 定位 | **GitHub for agents**——agent-first collab platform |
+| 与 AutoResearch | first use case，但 **更 general** |
+| 结构 | **barren repo** + **message board**，供 agent swarm 协作同一 codebase |
+| 刻意去掉 | **无 main branch、无 PR、无 merge** |
+| commits | **sprawling DAG**，四面八方 |
+| 协作 | agent 间 **message board** 协调 |
 
 **和你何干：**  
 Karpathy 在 **speed-run 一人 billion-dollar company** 叙事下，AutoResearch 是 first use case，Hub 是 platform bet。
 
 ---
 
-### 6. 怎么开始（硬件现实）
+### 6. 怎么开始（硬件现实 + 命令级步骤）
 
-- **必需 NVIDIA GPU**（repo 在 H100 测；其他 NV GPU 可试）
-- 工具链：**uv**、clone repo、prepare data、run experiment
-- 没 GPU：**Lambda Labs / Vast.ai / RunPod / Google Colab** 租
-- Greg 用 **Claude Code** 读 GitHub 装；M1 Mac **别硬跑**
-- Repo 已 **~25k stars**，极早期，**fog 里有机会**
+**Greg 实际路径（~20:23）：**
+
+1. 打开 **Claude Code**
+2. 粘贴 Karpathy **AutoResearch GitHub repo** 链接（解读时 **~25k stars**）
+3. Prompt：`I need help installing AutoResearch by Karpathy`
+4. Claude Code 返回安装清单：
+
+| 步骤 | 内容 |
+|------|------|
+| 硬件 | **NVIDIA GPU**（repo 在 **H100** 测过；其他 NV GPU 可试） |
+| 包管理 | 安装 **uv** |
+| 克隆 | `git clone` Karpathy autoresearch repo |
+| 依赖 | uv 装 dependencies |
+| 数据 | prepare data |
+| 跑通 | run a training experiment |
+
+**没本地 NVIDIA GPU：**
+
+| 服务 | 说明 |
+|------|------|
+| Lambda Labs | 租云 GPU |
+| Vast.ai | 租云 GPU |
+| RunPod | 租云 GPU |
+| **Google Colab** | Greg 个人首选（信任 Google）；部分有 free tier |
+
+**Colab 最小流程：**
+
+1. 打开 `colab.google.com` → New notebook
+2. **Runtime → Change runtime type → GPU**
+3. 把 Claude Code 给的命令 **逐条 paste** 进 cell 运行
+
+**别踩的坑：**
+
+- **MacBook M1/M2**：跑不了；repo 提 MLX backend，Greg 明确 **No, I'm not going to do that**
+- 入门成本：**~$50 云 GPU + Claude Code 助手** 即可 tinkering，不必等 H100
 
 **和你何干：**  
-**$50 云 GPU + Claude Code 助手** 即可 tinkering；别等买 H100。
+fog 期（大家还在摸 use case）才是 asymmetry；Karpathy/Toby 动的东西要 **pay attention、tinker、have fun**。
 
 ---
 
@@ -189,8 +295,8 @@ Karpathy 在 **speed-run 一人 billion-dollar company** 叙事下，AutoResearc
 
 **要点：**
 - Loop 五步：**goal → plan → act/train → metrics → keep/discard**。
-- **9 类用例** 共性：247 实验 + 人审 winner + 订阅/retainer。
-- **NVIDIA 或云 GPU** + Claude Code 安装，是现实入门路径。
+- **9+ 类用例** 共性：247 实验 + 人审 winner + 订阅/retainer。
+- **uv + clone + 云 GPU/Colab** + Claude Code 安装，是现实入门路径。
 
 **和 vault 的关系：** 接 [[Loop-Agent Loop到底是什么]]、[[Loop Engineering 橙皮书 - 花叔]]、[[YC论文俱乐部-5篇论文揭示AI研究趋势]] 的自主 loop / eval 线。
 
@@ -226,4 +332,4 @@ Karpathy 在 **speed-run 一人 billion-dollar company** 叙事下，AutoResearc
 - **时长**：~24:21
 - **转写**：Recastory `bilibili-retranscribe/BV1NpAHzZEcc/`（FunASR SenseVoice + cam++，**asr v2** 15 段）
 - **参考项目**：[Karpathy/autoresearch](https://github.com/karpathy/autoresearch)（解读时 ~25k stars）
-- **版本**：v3 读者向讲义（2026-07-03）
+- **版本**：v3 读者向讲义加深（2026-07-03）

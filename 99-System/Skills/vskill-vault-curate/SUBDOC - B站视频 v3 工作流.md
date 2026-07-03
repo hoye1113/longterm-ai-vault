@@ -193,6 +193,30 @@ Codex 试点 ✓；其余 14 篇按 P1→P2 队列。
 
 ---
 
+## Phase 5：新增 BV 收录 SOP
+
+```bash
+# 1. Recastory ingest + enrich
+python -m tools.ingest.bilibili_backfill --bv BVxxxx --force
+
+# 2. 对账定级
+python 99-System/scripts/bilibili-ingest-reconcile.py
+
+# 3. 分轨落盘
+#    S（有 column ≥3k + 对话体）→ vskill-vault-write mode=dialogue · 专栏主源
+#    A-dialogue（访谈/webinar）→ ASR 主源 canonical-asr
+#    A-lecture（教程/solo）→ 九段讲义 v3
+
+# 4. 质量门 + 反向链 + MOC
+python 99-System/scripts/bilibili-v3-gap-check.py   # 须全绿
+
+# 5. 更新 MOC - Agent Theory and Design 脚注
+```
+
+**禁止**：产 `{主题} - 对谈稿.md` 双文件。
+
+---
+
 ## 关联
 
 - [B站视频转写收录 SUBDOC](./SUBDOC%20-%20B站视频转写收录.md)

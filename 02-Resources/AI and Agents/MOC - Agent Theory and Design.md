@@ -180,7 +180,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 - [[MOC - Prompt 工程]] — Prompt + Skills 横切 MOC
 
 ### 数据源
-- **公众号**：24 篇（`02-Resources/AI and Agents/Agent Design & Patterns/`）
+- **公众号**：**28** 篇（`02-Resources/AI and Agents/Agent Design & Patterns/`）
 - **B 站视频**：32 篇 · S **15** canonical（专栏）+ A **12** dialogue-asr + A **5** lecture
   - **v3 工作流**（2026-07-03）：`99-System/Skills/vskill-vault-curate/SUBDOC - B站视频 v3 工作流.md` · 进度 `99-System/audit/bilibili-v3-rollout-2026-07-03.md`
   - 单篇 canonical **27/32**（S 15 + A-dialogue 12）；`- 对谈稿.md` **0**
@@ -191,7 +191,8 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ## 维护
 
-- **总笔记数**：47（B 站 32 · v3 分轨完成 2026-07-03）
+- **总笔记数**：**57**（B 站 32 + 公众号等；2026-07-03 新增魔术师卡颂 8 篇 + Founder Park/极客公园 2 篇）
+- **Inbox**：已清空（wechat 快照 → `99-System/Attachments/wechat-snapshots/`）
 - **最后更新**：2026-07-03（A-dialogue 12 + A-lecture 5 + S canonical 15）
 - **更新机制**：每收录 1 篇新笔记，**必须**更新本 MOC（按 §8 SOP 步骤 7）
 - **孤立判定**：MOC 内的笔记被 `[[MOC - Agent Theory and Design]]` 链入 = 破孤（按 §7 "MOC 入口破孤"）
