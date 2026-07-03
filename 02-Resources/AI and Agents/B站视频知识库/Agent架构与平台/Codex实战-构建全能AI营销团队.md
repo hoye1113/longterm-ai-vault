@@ -18,199 +18,313 @@ created: 2026-06-09
 description: "Riley Brown 用 Codex 超级 App + 7 个 Skills/Plugins 跑通营销全流程：YouTube/Readwise 接地、Excalidraw/Paper 可视化、Remotion 动效、FAL Gen Media 迷你 App、Gmail 品牌合作与 Buffer 自动化。"
 transcript_source: "Recastory/workspace/bilibili-retranscribe/BV1BLGH6REyX/article.md"
 asr_version: v2
-curate_method: "vskill-vault-curate（读者向讲义 v2）"
+material_tier: S
+ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1BLGH6REyX/ingest"
+column_url: "https://www.bilibili.com/read/cv49574805/"
+source_original_date: "2026-05-18"
+host_name: "Host"
+guest_name: "Riley Brown"
+guest_title: "创作者 / Chorus Skills 作者（约 150 万粉丝）"
+speaker_inference: "column_monologue_repackaged"
+speaker_confidence: "high"
+author:
+  - "[[Riley Brown]]"
+concepts:
+  - id: grounding
+    zh: 接地
+    en: grounding
+    one_line: 把 AI 绑到 YouTube 字幕、Readwise 书签等真实参考，而非裸生成
+  - id: skill_layer
+    zh: 技能层
+    en: skill layer
+    one_line: 叠在 Codex 上的可复用指令文件，把 API 与审美偏好写进去
+  - id: steering
+    zh: 转向
+    en: steering
+    one_line: 截图标注 + 实时注入提示，人机协作修布局
+  - id: mini_app_skill
+    zh: 含应用的技能
+    en: skill with embedded app
+    one_line: 人改界面最后一成，代理调同一 API 批量出图
+column_source: "Recastory/workspace/bilibili-retranscribe/BV1BLGH6REyX/ingest/column_article.md"
+curate_method: "vskill-vault-write canonical-dialogue v3.2"
+dialogue_version: v3.2
+genre: Host-Guest canonical
+updated: 2026-07-03
 ---
+# Riley Brown：没有技能层，Codex 只是空壳超级应用
 
-# Codex 实战：构建全能 AI 营销团队
-
-## 先搞懂这一期
-
-**这是什么节目？**  
-创作者 **Riley Brown**（约 150 万粉丝）的 **~50 分钟 Codex 实战教程**。不是官方发布会，是一个人讲自己每天用 Codex 做 **95% 内容与营销工作** 的 7 个 Skills + 插件栈，目标年底冲到 1000 万粉丝。
-
-**这期在回答哪三个问题？**
-
-1. **Codex 当「超级 App」到底能干什么？** 和 Claude Desktop 分栏体验有什么不同？  
-2. **Skills 和 Plugins 怎么分工？** `/` 和 `@` 各管什么，怎么叠成可复用工作流？  
-3. **Grounding（接地）为什么比裸写 prompt 重要？** 怎么把 AI 绑到你的品味、第二大脑和参考素材上？
-
-**用一条线串起来（没看视频也能复述）：**
-
-Riley 开场：电脑里 **95% 营销任务已在 Codex 里完成**。  
-**Codex 定位**：OpenAI 把 chat + cowork + code **合成一个超级 App**——对话中间栏 + 右侧动态预览（表格 / 幻灯片 / 浏览器 / App），带 computer use、browser use，越用越能控电脑。  
-**操作语法**：`/` 调 **Skill**（指令文件）；`@` 调 **Plugin**（Skills 捆绑包，如 Vercel、Gmail、Calendar）。  
-**Skill 1–2（Grounding）**：`YouTube researcher` 拉 transcript 仿 Theo/Andrej Karpathy 风格写 intro；`Readwise CLI` 读 Twitter 书签第二大脑 → 30 条选题，可叠 YouTube researcher，再 **一键变每天 8 点 automation**。  
-**Skill 3–4（可视化）**：Excalidraw diagram skill（可 spawn subagent 并行）；Paper MCP 做 Figma 级动画 explainer + steering 实时改布局。  
-**Skill 5（动效）**：Remotion / Hyperframes 插件做片头 overlay、手机 demo 动画，截图 + 注释改 timeline。  
-**Skill 6（Gen Media）**：自 vibe code 的 FAL API **迷你 App**——人能用 grid 改图，Agent 也能调同一 API 批量出 thumbnail。  
-**Skill 7 + Bonus**：Gmail + Calendar **品牌合作 researcher** 筛 inbox → 优先级表；Buffer publisher 把 memory 里选题灌进排期。  
-收尾：Skills 在 chorus.com/skills 一键装到 Codex / Claude Code。
-
----
-
-## 背景：这期在 AI Agent 大图里的位置
-
-| 你可能已有的认识 | 这期补上的那一块 |
-|----------------|-----------------|
-| Codex = 写代码的 Agent | **Knowledge work 超级 App**：表格、Deck、浏览器、本地文件同一 harness |
-| Skills = Claude Code 专属 | **Codex / Claude Code 通用** Skills 文件；Plugin = 技能包 |
-| Prompt 写好就能出好内容 | **Grounding**：YouTube transcript、Readwise 书签才是「你的品味」 |
-| Agent 只能替你点按钮 | **迷你 App 双入口**：人改最后一成，Agent 批量 cook |
-
----
-
-## 分话题讲
-
-### 1. Codex 超级 App：一个窗口干完营销
-
-**说法：**  
-Codex 像 Claude Desktop，但 **chat + cowork + code 合一**。选模型后 Agent 能 **增删改本地文件**；左侧会话、中间对话、右侧 **任务相关预览**（App / 网页 / 表格 / PPT）。Computer use + browser use 让 Agent 能 **看见并操作浏览器**（鼠标移动可见）。
-
-**和你何干：**  
-营销不再切 5 个工具——**预览栏即交付物**，适合内容创作者把「研究 → 视觉 → 排期」锁在一个 harness 里。
+**Host：** Host（观众视角）  
+**Guest：** Riley Brown（创作者 / Chorus Skills）  
+**形态：** Host-Guest 对谈稿 v3.2（solo 教程重排 · 中文口语化 · 术语表带英文 · 双语金句）  
+**主源：** Recastory `BV1BLGH6REyX/ingest/column_article.md`  
+**B 站：** [BV1BLGH6REyX](https://www.bilibili.com/video/BV1BLGH6REyX/)
 
 ---
 
-### 2. Skills vs Plugins：`/` 与 `@`
+## 开场：为什么现在聊这个
 
-**说法：**
+创作者 **Riley Brown** 约 **150 万**粉丝，目标明年年底冲到 **1000 万**。他有一天在笔记本上干活，突然意识到：**95% 的内容和营销任务，已经在 Codex 里完成了**——不是靠裸聊，是靠叠在 Codex 上的 **7 套 Skills 和插件栈**。
 
-| 概念 | 含义 | 唤起方式 |
-|------|------|----------|
-| **Skill** | 给 Agent 的 **指令文件**（workflow recipe） | `/skill-name` |
-| **Plugin** | **Skills + 能力捆绑**（如 Vercel 含多个 deploy skill） | `@plugin-name` |
+这期不是 OpenAI 发布会，是一个人讲自己每天怎么跑通：从 YouTube 字幕接地、Readwise 第二大脑选题，到 Excalidraw/Paper 可视化、Remotion 动效、FAL 迷你应用，再到 Gmail 筛品牌合作。Skills 可在 [chorus.com/skills](https://chorus.com/skills) 一键装进 Codex 或 Claude Code。
 
-左上角 **Plugins** 面板安装；Vercel 例：`@vercel` 让 Agent 自选子 skill；`/vercel-sandbox` 可点名具体 skill。
+**Host：** 你开头说 95% 营销都在 Codex——对没用过的人，Codex 到底是什么？跟 Claude Desktop 差在哪？
 
-**和你何干：**  
-先建 **原子 Skill**，测通后再 `@` 插件或 **Automation** 定时跑——Riley 的 Readwise 早报就是这么来的。
+**Riley：** Codex 是 OpenAI 的超级应用，把 chat、cowork、code **揉进一个窗口**。我选它，是因为不用再切三个 App。
 
----
+左侧是代理聊天，中间是对话，右侧是**动态预览**——你要表格就现 spreadsheet，要网页就现浏览器，要幻灯片就现 deck。代理对你电脑有完整控制权：能增删改本地文件。还有**电脑使用**和**浏览器使用**：你能看见鼠标在屏幕上动，它真在点你的浏览器。超级应用在「控电脑」这条线上越来越狠，这是我每天打开 Codex 而不是只开 ChatGPT 的原因。
 
-### 3. Grounding Skill 1：YouTube researcher
+模型本身不知道你的品味。你得靠 **Skills**——给代理的指令文件——把特定工具的 API 和你的审美绑在一起。没有这层，Codex 再强也只是空壳。我昨天意识到 **95% 营销任务**已经在这完成，靠的就是技能层，不是单靠模型变聪明。
 
-**说法：**  
-裸 ChatGPT 写脚本 = OpenAI 的 RLHF 品味，不是你的 niche。**Grounding = 把 Agent 指到高质量参考点**。  
-`/youtube-researcher`：拉 Theo、t3.gg 等 **最新视频 transcript**，生成 5 个 hook；也可仿 Andrej Karpathy 口吻解释 skills/plugins。需 **Supadata** 等 API 拉 YouTube/Instagram/TikTok/X transcript。
+**术语速查（后文对话用中文；英文原文在此统一对照解读）**
 
-**例子：**  
-并行开两个 chat：一个写 Theo 风 intro，一个查 Cleo Abram shorts 选题——Codex **多会话并行**，蓝点表示完成。
-
-**和你何干：**  
-内容团队的第一性原理：**先接地再生成**，比堆 adjective 的 prompt 更稳。
-
----
-
-### 4. Grounding Skill 2：Readwise / 第二大脑
-
-**说法：**  
-Readwise 不只 Kindle 高亮——Riley 在 AI Twitter 看到推文 **bookmark → Readwise**（Chrome 扩展可即时同步 + 备注「下条视频用」）。  
-`/readwise-cli`：读近一周收藏 → **30 条短视频选题**，找主题聚类；叠 `/youtube-researcher` 再对照自己的 YouTube 历史。  
-迭代 Skill：**输出必须带原帖链接**——对话里说一句「以后都要带 URL」，Skill 文件即更新。  
-满意后：**「每天早上 8 点在这个 chat 跑同样流程」** → Automations 里出现 `morning-readwise-shortform-ideas`。
-
-**和你何干：**  
-**先手工跑通 → 固化 Skill → 再 Automation**，和 [[WorkOS-创建和使用Skills方法论]] 同构。
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 超级应用 | super app | chat + 文档 + 表格 + 浏览器 + 本地文件，一窗搞定 |
+| 技能 | skill | 斜杠 `/` 调用的指令文件，教代理怎么干某类活 |
+| 插件 | plugin | 艾特 `@` 调用的能力包，把多个技能捆在一起 |
+| 接地 | grounding | 把 AI 绑到 YouTube 字幕、书签等真实参考，别裸生成 |
+| 子代理 | sub-agent | 主代理分出去的小代理，并行干活提速 |
+| 转向 | steering | 截图标注 + 实时改提示，人机协作修视觉 |
+| 技能堆叠 | skill stacking | 多个技能/插件串成一条工作流 |
+| 含应用的技能 | skill with embedded app | 代理调 API，人也用同一界面微调 |
+| 自动化 | automation | 测通一次后，定时重复跑 |
 
 ---
 
-### 5. 可视化：Excalidraw、Paper、Subagent
+## 01 斜杠调技能，艾特调插件
 
-**说法：**  
-- **Excalidraw diagram skill**：解释 plugins/skills，可叠 YouTube + Readwise 取 Riley 口吻；Skill 文件夹含 scripts/assets/**outputs**；默认少字多图，可改 Skill 加正文。  
-- **慢？** 说「YouTube / Readwise 用 **subagent**」——主 Agent spawn 多个 subagent 并行，~11 分钟出 share URL。  
-- **Paper MCP**：HTML 级 **动画 explainer**（类 AI版 Figma）；开 steering 截图说「别 overlap、改单列」→ 画布 **live 改**；导出 PNG 做 thumb / landing ideation。
+**Host：** 你说模型不懂品味——那 `/` 和 `@` 到底怎么分？日常最先装哪几个？
 
-**和你何干：**  
-复杂营销资产 = **主 Agent 编排 + subagent 取上下文**，别让一个 loop 串行爬完 YouTube 又读 Readwise。
+**Riley：** 两个命令记牢就行。**斜杠 `/`** 调 **Skill**，比如 `/youtuberesearcher`、`/Excalidraw`、Remotion 最佳实践。**艾特 `@`** 调 **Plugin**——电脑使用、Gmail、日历、Vercel 都是插件。
 
----
+插件是能力的集合，技能是指令文件。我常把应用部署到 Vercel：点 Vercel 插件，里面挂着 1、2、3 好几项技能。输入 `@Vercel`，代理通常能猜你要哪项；输入 `/Vercel` 再点名沙盒技能，就直接进沙盒环境，不用绕弯子。
 
-### 6. 动效与 Gen Media 迷你 App
+Codex 界面我天天用，左上是一排功能按钮，中间是对话，右边是预览。你让它做 App，右边就是浏览器预览；让它做表格或 PPT，右边就切到对应视图——这就是我说「超级应用」的原因，任务一变，预览跟着变。代理还能选模型，对你电脑上的文件想改就改、想删就删。电脑使用和浏览器使用越来越顺：鼠标在屏幕上动你能看见，它真在控浏览器。
 
-**说法：**  
-- **@remotion / @hyperframes**：插件做片头「七大能力」弹字、手机 UI demo；timeline 级 prompt（「8 秒 zoom in」「11 秒 zoom out」）；**截图 + 圈注** 改 composition，render 进 Premiere。  
-- **Gen Media + FAL**：自写本地 DB 迷你 App，人类 grid 里 drag 改图（「nighttime + pink tiger」）；Agent 也可 **调同一 FAL API** 批量出 Riley 元素 thumbnail，人做 **最后 10%** 精修。
+左上角「插件」图标管 Skills 和 Plugins。自动化跟技能配套——我 Gmail + 日历筛品牌邮件，测通后设成每天自动生成联系人表，**发邮件给自己**。就算没开 Codex，收件箱里也有同样表格，早上扫一眼就能决策。这就是 cron：到点自己跑。
 
-**和你何干：**  
-Riley 强调的机会：**Skill 内嵌 mini app**——Agent cook，人类在 App 里收束；比 one-shot 生成更贴创作者工作流。
+Claude cowork 或 Claude Code 的用户别慌——**Skills 文件两边通用**，chorus.com/skills 描述里一键装。视频里七套是插件和技能混着用，逻辑永远一样：**先跑通一件事 → 说「请固化成某某 Skill」→ 测几轮 → 「每天 X 点执行」**。我粉丝从 150 万往 1000 万冲，靠的就是这套可重复栈，不是每天重新发明 prompt。
 
----
+还有个细节：选模型在对话里就能换。代理出错时我会换更强模型重跑，但更多时候是 Skill 写得不清楚——改 Skill 比改 prompt 一劳永逸。Vercel 那类插件把部署、沙盒、环境变量捆在一起，@ 一下它自己挑子技能，省得你记十几个名字。
 
-### 7. 商务栈：Gmail、Calendar、Buffer
+我保证你看完能带走至少一项能影响业务的技能——七套都会在视频描述链到 chorus.com/skills，点 Excalidraw、YouTube 研究员就能装。别纠结先学哪个：你若做视频，从 YouTube 研究员开始；若刷 Twitter 收藏多，从 Readwise 开始；若接品牌邮件多，先装 Gmail 插件。语法就两条：`/` 技能，`@` 插件。
 
-**说法：**  
-- **Brand deal researcher Skill**：搜 inbox 付费合作 → 去重 → 对照 YouTube 研究是否 fit → **优先级表格**（Hyperagent、Cursor、Canva…）；Gmail 插件 + Calendar 插件建议下周空档，人批准后再发邮件。  
-- **Automation**：每日早晨把合作表 **email 给自己**。  
-- **Bonus `/buffer-publisher`**：读 Codex memory + 近期研究 → **5 条 Buffer 草稿 idea**。
+再补一句什么是「插件图标」里能看见的东西：每个 Plugin 展开是一组 Skill，像 Vercel 里沙盒、部署分开列；Skill 则是单个 md 指令，写清输入输出、调哪些 API、失败怎么办。你第一次用 Codex 可能会慌——它真能删文件——所以我建议先在沙盒或副本目录试 Skill，满意再接到真收件箱、真日历。
 
-**和你何干：**  
-Skill **栈叠**：Gmail Skill 里再调 YouTube researcher——企业营销 harness 也是 **小 Skill 组合**，不是一个大 prompt。
+这期我按营销链路讲七套，但核心就一句：**Codex 是操作系统，Skill 是你的个人工作流**。没有 Skill，它不知道「Riley 说研究 YouTube」该拉字幕；有了 Skill，同一句话每天可重复、可定时、可堆叠。Claude Desktop 也能聊天，缺的是这一层可复用指令栈——这是我从 150 万往 1000 万冲时最省时间的杠杆。
 
----
+最后提醒自动化菜单：每个 cron 任务都能点进去看上次运行结果、改时间、暂停。品牌邮件那条我设成「发给自己的邮件」——就算出差只看手机邮箱，也能批会议时段。别小看这一步，它把 Codex 从「打开才干活」变成「后台一直替你跑」。
 
-## 关键概念（读完应能解释）
+> **金句 · Riley**
+> **中文：** 模型不知道你的流程——「研究 YouTube」该拉字幕、比钩子，这得写进 Skill。
+> **原文：** The model doesn't automatically know that when Riley says 'research YouTube,' the right move is Supadata transcripts, compare hooks, and synthesize patterns — that knowledge has to live somewhere, and that's skills.
 
-| 词 | 白话 |
-|----|------|
-| **Super App** | Codex 把对话、文档、表格、浏览器、代码预览合成一体 |
-| **Grounding** | 把生成任务绑到 YouTube transcript、书签等外部参考 |
-| **Skill** | Agent 可复用的指令文件；`/name` 调用 |
-| **Plugin** | 多 Skill + 集成能力包；`@name` 调用 |
-| **Automation** | 定时/重复跑已验证 Skill 工作流 |
-| **Subagent** | 主 Agent 派生子 Agent 并行取上下文 |
-| **Steering（Paper）** | 边看画布边注入修改 prompt |
-| **Mini App** | Skill 内人类+Agent 共用的本地工具（如 FAL grid） |
-| **Supadata** | 拉各平台 video transcript 的 API |
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 技能 | skill | `/` 调用的指令文件，定义步骤和输出格式 |
+| 插件 | plugin | `@` 调用的捆绑包，如 Gmail、Calendar、Vercel |
+| 电脑使用 | computer use | 代理操控整台电脑，不限于浏览器 |
+| 浏览器使用 | browser use | 代理在浏览器里点选、导航，鼠标可见 |
+| 自动化 | automation | 定时任务，如每天 8 点跑 Readwise 汇总 |
+
+**本章小结**
+
+- Codex = 超级 App：预览栏即交付物，代理能控本地文件和浏览器
+- `/` = Skill，`@` = Plugin；先跑通再固化，再加定时自动化
+- 没有技能层，模型不知道你的业务逻辑和审美
 
 ---
 
-## 值得记住的原话
+## 02 接地才出你的味：YouTube 字幕 + Readwise
 
-> **"95% of the tasks that I do on my computer for content and marketing is inside Codex."**  
-> 我电脑上内容和营销的事，95% 在 Codex 里干完。
+**Host：** 裸写 prompt 出不来你的风格——「接地」具体怎么做？能现场走一遍吗？
 
-> **"Plugins are bundles of skills. Skills are instruction files for an AI agent."**  
-> Plugin 是技能包；Skill 是给 Agent 的指令文件。
+**Riley：** ChatGPT 裸写脚本，用的是训练数据里「什么叫好内容」——跟你的领域、你的钩子没关系。**接地**就是把代理绑到一个有高质量范例的地方。我最常用 YouTube。
 
-> **"Grounding is connecting your AI agent to a useful reference point."**  
-> Grounding 就是把 Agent 接到有用的参考点上。
+**YouTube 研究员**：`/youtuberesearcher`，我说「按 Theo（T3.gg）风格写 intro」，贴大纲。它去 YouTube 拉字幕，扫最新 10 条找最贴的，吐五个 hook。Theo 那种经典开头它真能写出来——「几个月前它是我要代码帮助才打开的东西，现在是我处理几乎所有事的地方：研究、文档、内容规划、邮件、脚本、缩略图、发布，全在这里。」我愣了一下，这太像他了。
 
-> **"Do a useful thing… then say please turn this into a skill… then automate it every day at X time."**  
-> 先做出有用输出 → 固化成 Skill → 再定时自动化。
+Codex 能多线程。Command+N 开新聊，让 Cleo Abram 短视频字幕给五个选题，两个任务并行，蓝点告诉你哪个先完。学概念也行：「用 Karpathy 在 LLM 视频里的口气解释 Skills 和 Plugins。」回复真的像他——「Codex 是围在语言模型外的小操作系统；中心能读能写能推理，但它不知道 Riley 说『研究 YouTube』该用 Supadata 拉字幕、比钩子——这些知识得住在 Skill 里。」
 
-> **"The agent can also use the app… I control the app and the agent controls the app as well."**  
-> Agent 也能用这个 App——人和 Agent 共用同一套 API。
+字幕靠 **Supadata** API，YouTube、Instagram、TikTok、X 都能抽，谷歌搜一下就能接。技能本身很简单：任何创作任务都能绑 YouTube 字幕，即时拉数据。
 
-> **"I don't like to rely on AI to do everything… I want to take it the final 10%."**  
-> 我不让 AI 包到底——最后 10% 价值在人手里。
+**Readwise CLI** 是第二大脑那条线。很多人以为 Readwise 只存 Kindle 高亮——我主要在 Twitter 收藏 AI 讨论，Chrome/Arc 扩展一键保存，还能备注「下条视频用」。`/readwise CLI`：「根据上周收藏提 **30 个**短视频概念，找共性。」跑完有「每个初创公司都需要内容团队」「Codex 正在成为专业消费者工作空间」这类点子，全基于我存的推文。缺链接我就说「必须带原始 URL，请更新 Skill」——它当场改文件，以后每次输出都带链。
+
+**组合提示**更强：Readwise 看收藏，YouTube 研究员看我频道历史，两技能一起跑，30 个点子更贴我。满意了：「每天早上 **8 点**，把过去三天收藏整理成文档，一周七天。」自动化叫「早晨 Readwise 简短想法」，菜单里能点。这就是我建 Skills 的路：**先有用 → 固化 → 定时**。我可能会每天用 Readwise 想选题——你试一次就知道差别。
+
+有人问我 API 会不会太难——Supadata、Readwise CLI 都是「通行密码」，Skill 里写清楚步骤，你只管下指令。编辑 Skill 更简单：直接说「从今往后输出必须怎样」，它改 md 文件，下次自动生效。比如 Readwise 输出缺链接，我一句话就修了，不用碰代码。接地不是一次性配置，是越用越贴你频道和书签库。
+
+Readwise 那条「每个初创公司都需要内容团队」点子还引了两条推文——一条说搜索社交流量难直接变现，要建立权威品牌。这就是接地威力：不是 GPT 编造的行业观察，是我真收藏过的讨论串。YouTube 接地则保证 hook 像某个具体创作者，而不是「平均 YouTube 腔」。两项技能一叠，选题从「像谁」到「说什么」都有锚点。
+
+自动集成 Readwise 通常一天同步一次；若要立刻入库，用浏览器扩展点一下就行，还能加备注「下条视频用」。这种「第二大脑」不是摆设——代理读的是你真实保存的高价值片段，不是全网平均观点。我建议创作者至少试一周：每天 8 点自动化 + 手动 `/readwise CLI` 补一次，对比裸 ChatGPT 写脚本的差别，体感会非常明显。
+
+> **金句 · Riley**
+> **中文：** 接地之后，Theo 的钩子我都能想象他真会那么说——那是他的声音，不是 GPT 的平均味。
+> **原文：** It's interesting — I can really imagine him saying this; that's his voice. That's why I love this skill.
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 接地 | grounding | 绑到 YouTube 字幕、书签等真实参考 |
+| 第二大脑 | second brain | Readwise 存的推文/高亮，代理可读 |
+| 命令行接口 | CLI | Readwise CLI 让代理检索你所有收藏 |
+| 组合提示 | combo prompt | 多个 Skill 同时跑，输出交叉综合 |
+| 外部工具接口 | API | 如 Supadata，从平台拉字幕的通行密码 |
+
+**本章小结**
+
+- 裸 prompt 出平庸内容；YouTube 字幕 + Readwise 书签才是「你的品味」
+- Skill 可迭代：「以后必须带原始链接」→ 当场改 Skill 文件
+- 测通 → 固化 → 每天 8 点自动化，是建工作流的标准三步
 
 ---
 
-## 小结
+## 03 子代理并行，转向修掉视觉最后一成
 
-**这期最核心的判断：** Codex 对创作者不是「多一个 chat」，而是 **Skills 层叠的超级 App**；**Grounding（YouTube + 第二大脑）** 决定内容像不像你，**可视化 / 动效 / Gen Media** 决定传播形态，**Gmail + Automation** 决定商务与日程能不能 autonomous 一半。
+**Host：** 接地解决文案——图表、动画、B-roll 你怎么在 Codex 里搞？出错怎么收？
 
-**读完应带走：**
-- `/` = Skill，`@` = Plugin；先手工迭代 Skill，再 Automation。  
-- 重任务用 **subagent** 并行；Paper / Remotion 用 **截图 steering** 比纯文字改稿快。  
-- **迷你 App + Skill** 是 Riley 认为的市场空白——Agent 批量，人类 grid 精修。
+**Riley：** 第三个是 **Excalidraw 图表**。我所有内容几乎都用它：`/Excalidraw`，用我口吻解释 Skills vs Plugins，叠 YouTube 研究员找声音素材、Readwise 当第二大脑。步骤多，我说「用**子代理**跑 YouTube 和 Readwise」——主代理分叉 Xeno、Hygens 并行，**大约 10 分 50 秒**全完。子代理在后台跑真的省时间，比串行快一截。
 
-**和 vault 的关系：** Codex 实战线，接 [[Codex负责人-现场演示Codex]]、[[OpenAI官方-Codex新手教程]]、[[WorkOS-创建和使用Skills方法论]]。
+输出是 Excalidraw 共享 URL，右键浏览器打开，点「替换我的内容」。技能文件夹里有 md、脚本、参考、示例——文档像演示文稿，直观。我偏好少字多图，文字后期自己加。全屏、关侧边栏，直接改节点，给视频做大纲特别顺。
+
+要更交互，用 **Paper**——像 Figma，给 AI 代理做的 HTML 画布，内置 MCP 连 Codex。`/Paper` 做 Skills/Plugins 动画解释器：第一段静止，后面每块动起来。它实时更新，你能看见幻灯片一条条长出来，Skills 和 Plugins 绕 Codex 技术栈展开，动画幅度可以后调。
+
+出错别忍——我默认开**转向**，截屏圈重叠，回 Codex：「修重叠，每行单独放，别挤两列。」它实时改排版，宽间距，整洁多了。Paper 上还能改字，比如把标题改成 Banana 试效果。导出 PNG 进下载文件夹，放大很清晰。我用来做 Instagram 构思、品牌规划、登录页十个方案、引流磁铁、缩略图——跟 Excalidraw 类似，但更「网站感」，设计完可以说「把这个变成真网站」，Codex 照做。
+
+第五个是 **Remotion** 和 **Hyperframes**，`@Remotion` 引用，得手动启用。Hyperframes 物理感稍好，Remotion 我更熟、更专业。两个提示词做手机边框 + 群聊 demo 动画——像 Premiere 时间线，能滚到第 8 秒说「放大手机」，改完立刻预览。我还加：0 秒左侧飞入、第 10 秒渐变变红、离场 360 度转、聊天消息「砰」地弹出——默认动画偏呆，得你指挥。
+
+近期一条 **12 万**播放的视频开头就用这个：Codex 七个功能各一段 overlay，观众一眼看懂大纲。模板能复用：「除了那七个技能，再建一个叫『技能大纲』的合成，风格模仿虚线组件，再加三个变体。」它建多场景合成，第一个像原版，第二个按类别分，第三个绕圈排——文字多了就截图说「太挤，修」。注释功能也行，选中一块标「修复」，注释进上下文。
+
+渲染完拖进 Premiere。Hyperframes 和 Remotion 底层我还没完全摸清，两个都试，看哪个顺手。描述里我有 Remotion 详细教程链接。
+
+做视频的人常忽略一点：这些图形不是替代剪辑，是**降低 B-roll 门槛**。以前动效要找专人或学 After Effects，现在在 Codex 里描述时间线，截图改帧，渲染导出——专业动态图形变成营销工作流里的一环。Excalidraw 偏「提纲」，Paper 偏「动效说明书」，Remotion 偏「可播的成片素材」，三层叠起来，一条视频从脚本到视觉大纲到片头叠加层都能在一个工作台里跑。
+
+Excalidraw 默认文字可能偏多——下载技能后你可以说「更新技能，少字多图」或「每块下面加两三行说明」，完全随你。Paper 更重，有时希望在当前浏览器开画布，它会在 Codex 外开——重量在那儿，但实时**转向**值得。Remotion 右边界面像本地小 App，点渲染就落盘，这种「预览即交付」跟 Codex 超级 App 哲学一致。子代理那 **10 分 50 秒** 对我这种常同时跑三四个任务的人，是日常标配。
+
+> **金句 · Riley**
+> **中文：** 它出错了你就得转向——截图圈出来，别等它自己悟。
+> **原文：** When you see it mess up, you have to steer it — screenshot, inject the prompt, make it fit.
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 子代理 | sub-agent | 主代理并行派出的小代理，提速多源检索 |
+| 转向 | steering | 截图/注释 + 实时提示，修布局重叠 |
+| 动效合成 | composition | Remotion 里多场景模板，可复用改文案 |
+| 屏幕叠加 | screen overlay / B-roll | 片头大纲、手机 demo 等视频内图形 |
+| 渲染 | render | 导出成视频文件，进剪辑软件 |
+
+**本章小结**
+
+- Excalidraw 适合思维导图式提纲；Paper 适合 Figma 级动画 explainer
+- 子代理并行把「拉 YouTube + 读 Readwise + 画图」从串行变并行
+- Remotion/Hyperframes：时间线级精修靠截图 + 转向，不是重写 prompt
 
 ---
 
-## 行动启示
+## 04 迷你应用双入口，邮件堆栈你只点批准
 
-1. **先选一条 grounding 源**：YouTube 对标频道或 Readwise 书签，再写内容 Skill。  
-2. **Skill 输出格式写死**：原帖链接、Excalidraw 少字多图——用对话改 Skill 文件，别每次重 prompt。  
-3. **并行 chat + subagent**：研究、视觉、邮件分轨，避免一个 context 挤爆。  
-4. **验证后再 Automation**：Readwise 早报是模板——失败工作流不要 cron。  
-5. **Gen 资产留 human grid**：FAL /  thumbnail 流程设计成「Agent 填充、人改最后一屏」。
+**Host：** 你说 Gen Media 和 Gmail 是最后两块——「含应用的 Skill」和「技能堆叠」什么意思？
+
+**Riley：** 第六个是我还在深挖的 **Gen Media**。老观众知道我写过 FAL 图像 App——第一个版本 **40 分钟**跑完，遍历 FAL 所有图像/视频 API。本地数据库存图，写「莱利骑着老虎」就生成；切 FAL 模式能选任意模型，图像转视频、Topaz 放大都行。
+
+关键区别：**我 vibe 出来的 App，代理也能用**。我说「为 YouTube 缩略图生成四张 Riley 照片进网格」——我不碰界面，代理自选 GPT 图像还是 FAL API，结果进同一网格。我控 App，代理也控 App。**市场上巨大的机会，就是「含应用的 Skill」**。
+
+Gen Media 教代理调 FAL，同时给人界面。代理出图给链接，我打开网格，拖一张：「加白字『天哪』、背景压暗、电影感。」**代理干前 90% 素材堆砌，我收最后 10% 审美**——价值在这最后一笔。App 里有**元素**库：我的照片、YouTube 上抓的 Matt Wolfe 缩略图。我说「生成 Matt Wolfe 风格的 Riley」，代理查数据库插参考，我也能手动搜「Matt Wolfe」插进去。逻辑复杂，但方向清楚：**人机共享同一控制台**。
+
+第七个是 **品牌合作经理**，自主性稍低但省时间。搜收件箱、滤低价和重复、研究品牌、调 YouTube 研究员看频道，输出优先级表——Hyper Agent、Airwallex、Minimax、HubSpot、Cursor、Canva、Opus 高优先级排上面，不太熟的中等。我并行开窗口：「跑品牌合作研究员，整理过去一周表格。」
+
+Gmail 插件演示：「总结过去 **72 小时**赞助邮件，查日历，建议下周通话时段，我批准再约。」跑完大约 **七分钟**，文档列「品牌赞助外联」——空闲时间和建议 slot 清清楚楚。我说「就这些时段安排」，它照做。我大部分时间原来耗在滤垃圾邮件上，代理记得我的偏好，知道我要什么。
+
+自动化：联系人表每天自动生成，**发邮件给自己**——没开 Codex 也能看。Bonus **Buffer**：`/Buffer`，查研究记录、记忆、聊天记录，筛五个值得做的选题灌进 Buffer。Buffer 是我社媒排期器，新 API 已授权 Codex——有视频它能建草稿，但我最爱**存创意**：每天清理，把想法付诸创作或删掉。Codex 把杂事「卸载」到 Buffer，想法不蒸发。
+
+以上 Skills 全在 chorus.com/skills，持续更新，Codex 和 Claude Code 都能一键装。
+
+**技能堆叠**是关键词：品牌合作经理不是孤立 Skill，它内部调 YouTube 研究员、Gmail 插件、日历插件——像搭乐高。你筛邮件最耗的是记偏好、查档、对档期，堆叠后变成「批不批」决策。Gen Media 加 Buffer 则是把「创作」和「排期」闭环：代理在 Codex 里研究、出图、记记忆，Buffer 技能再把记忆转成可排期草稿。我理想的一天：早上 Readwise 自动化给选题，白天 Paper/Remotion 出视觉，代理筛邮件约会议，晚上 Buffer 收点子——**95% 在 Codex 里转，我只做审美把关和批准**。
+
+FAL App 里基本模式只用 GPT 图像，FAL 模式能换任意托管模型——代理挑哪条路由你看不见，但结果进同一网格，这很重要：人跟代理不抢界面，抢的是同一资产池。品牌表我还能问「帮我回复这几家吗？」——它给概览，我批文案再发。行政从「翻收件箱两小时」缩成「看表十分钟」。Buffer 那条看似小，却解决「Codex 里想了十个点子，下班全忘」——记忆检索 + 排期接口，把创作流最后一公里接上。
+
+> **金句 · Riley**
+> **中文：** 我不喜欢 AI 包办到底——它出一大堆选项，最后一笔审美必须我来。
+> **原文：** I don't like relying on AI for everything — I want tons of options, and I do the last 10% until I'm fully happy. That's where the value is.
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 含应用的技能 | skill with embedded app | 代理调 API + 人类用 UI 微调同一资产 |
+| 技能堆叠 | skill stacking | Gmail + Calendar + YouTube 研究员串成品牌筛单 |
+| 元素 | elements | 缩略图参考库，如自己的照片、他人风格样本 |
+| 氛围编程 | vibe coding | 一个提示词搭出能跑的 FAL 图像 App |
+| 内容排期 | content scheduling | Buffer API 把记忆里的点子变成可发布草稿 |
+
+**本章小结**
+
+- Gen Media：人改 grid 最后一成，代理批量出图，共享同一 FAL API
+- 品牌邮件 = 技能堆叠 + 自动化：筛收件箱 → 优先级表 → 日历约会议 → 你点批准
+- Buffer 把 Codex 记忆「卸载」成排期草稿，防想法蒸发
 
 ---
 
-## 相关阅读
+## 总结：95% 在 Codex，价值在最后 10%
+
+| 维度 | 要点 |
+|------|------|
+| 定位 | Codex 是营销超级 App，不是纯代码助手；预览栏即交付 |
+| 语法 | `/` Skill 写流程，`@` Plugin 接 Gmail/日历/Remotion；先跑通再自动化 |
+| 接地 | YouTube 字幕 + Readwise 第二大脑，比裸 prompt 更接近你的钩子 |
+| 视觉 | Excalidraw/Paper + 子代理并行；出错靠转向截图修 |
+| 动效 | Remotion/Hyperframes 时间线精修，渲染进 Premiere |
+| 双入口 | Gen Media 迷你 App：代理批量、人类收 10% 审美 |
+| 行政 | Gmail 堆栈筛品牌合作，Buffer 防选题丢失 |
+
+> **金句 · Riley（封底）**
+> **中文：** 模型是操作系统，Skill 才是你的个人工作流——没有它，Codex 不知道 Riley 是谁。
+> **原文：** Think of Codex as a small operating system around the language model — it doesn't know your workflows until skills tell it what to do when you say 'research YouTube.'
+
+### 对个人的启示
+
+- 从 **一个 Skill 一件事** 开始（YouTube 研究员或 Readwise），满意了再叠自动化
+- 视觉和动效别追求一次完美——**转向 + 截图** 比重写长 prompt 快
+- 最后一成审美留给自己：AI 出选项，你点批准
+
+### 对团队/产品的启示
+
+- 「含应用的 Skill」是新品类：API + UI 双入口，人跟代理共用同一资产池
+- 技能堆叠（Gmail + 日历 + 研究员）把行政从小时缩到「批不批」
+- chorus.com/skills 一键分发，Codex 与 Claude Code 共用同一套 Skills 文件
+
+---
+
+---
+
+## 附录
+
+### 章节时间戳
+
+| 时间 | 主题 |
+|------|------|
+| 05:15 | 技能是 AI 代理的指令灵魂 |
+| 07:30 | 建立基于 YouTube 的内容接地 |
+| 11:45 | 联动 Readwise 构建第二大脑自动化 |
+| 16:20 | 视觉资产的交互式生成与微调 |
+| 23:10 | 视频 B-roll 与动态图形的自动化生产 |
+| 30:45 | 迷你应用：AI 与人类共享的控制台 |
+| 38:20 | 智能邮件过滤与品牌合作管理 |
+
+### 素材路径
+
+- **ingest**：`Recastory/workspace/bilibili-retranscribe/BV1BLGH6REyX/ingest`
+- **ASR**：`Recastory/workspace/bilibili-retranscribe/BV1BLGH6REyX/article.md`
+- **专栏主源**：https://www.bilibili.com/read/cv49574805/
+- **B 站**：https://www.bilibili.com/video/BV1BLGH6REyX/
+- **时长**：49:22
+
+### 相关阅读
 
 - [[Codex负责人-现场演示Codex]] — OpenAI 官方 knowledge work + 并行 Agent 演示  
 - [[OpenAI官方-Codex新手教程]] — CLI / AGENTS.md / MCP 系统入门  
@@ -220,11 +334,12 @@ Skill **栈叠**：Gmail Skill 里再调 YouTube researcher——企业营销 ha
 
 ---
 
-## 来源
+### 收录说明
 
 - **视频**：[BV1BLGH6REyX](https://www.bilibili.com/video/BV1BLGH6REyX/)（B 站 *Easonlee的AI笔记*）  
 - **讲者**：Riley Brown（创作者；Chorus Skills）  
 - **时长**：~49:22  
 - **转写**：Recastory `bilibili-retranscribe/BV1BLGH6REyX/`（FunASR SenseVoice + cam++，**asr v2 后处理** 38 段）  
 - **Skills 入口**：chorus.com/skills（视频中提及）  
-- **版本**：v2 读者向讲义（2026-07-02）
+- **版本**：canonical Host-Guest v3.2（2026-07-03；原讲义已合并）
+

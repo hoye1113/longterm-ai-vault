@@ -1,19 +1,25 @@
 ---
 title: vskill-vault-write
 name: vskill-vault-write
-description: 基于 vault 已有笔记写一篇 1000-1500 字的观点型笔记（"切刀"模式）。5 步工序：观点上台 → 切第一刀 → 切第二刀 → 切到底 → 合起来看。借鉴 ljg-writes 写作引擎。
+description: 基于 vault 已有笔记或访谈素材写长文——两种模式：① 5 步切刀观点文（1000-1500 字）；② Host-Guest 对谈稿（4 章对话体 + 小结 + 总结）。借鉴 ljg-writes。
 created: 2026-06-27
-updated: 2026-06-27
+updated: 2026-07-03
 status: available
-version: 0.1
+version: 0.3
 tags:
   - skills
   - vskill
 inputs:
   - name: viewpoint
     type: string
-    required: true
-    description: 一个观点（一个判断 / 一句断言 / 一个反直觉的洞察）
+    required: false
+    description: blade 模式必填——一个观点（判断 / 断言 / 反直觉洞察）；dialogue 模式不需要
+  - name: target_para
+    type: enum
+    values: ["01-Areas", "02-Resources", "00-Inbox"]
+    required: false
+    default: "01-Areas"
+    description: 输出 PARA 位置（blade 默认 Areas；dialogue 收录访谈通常 02-Resources）
   - name: anchor_notes
     type: list
     required: false
@@ -24,12 +30,33 @@ inputs:
     required: false
     default: mixed
     description: 风格（oral 公众号 / concise 古文 / academic 学术 / mixed 混合——默认按 vault 现有风格画像）
-  - name: target_para
+  - name: mode
     type: enum
-    values: ["01-Areas", "02-Resources", "00-Inbox"]
+    values: [blade, dialogue]
     required: false
-    default: "01-Areas"
-    description: 输出 PARA 位置（默认长期主题 Areas；一过性 Inbox；参考资料 Resources）
+    default: blade
+    description: blade=5步切刀观点文；dialogue=Host/Guest 对谈稿（读 SUBDOC - Host-Guest 对谈稿.md）
+  - name: host_name
+    type: string
+    required: false
+    description: 对谈稿模式：提问者名（如 Lenny）
+  - name: guest_name
+    type: string
+    required: false
+    description: 对谈稿模式：受访者名
+  - name: guest_title
+    type: string
+    required: false
+    description: 对谈稿模式：受访者一句话身份
+  - name: raw_transcript
+    type: string
+    required: false
+    description: 对谈稿模式：访谈全文/转写（可与 source URL 二选一）
+  - name: chapter_count
+    type: number
+    required: false
+    default: 4
+    description: 对谈稿模式：章节数（默认 4）
 outputs:
   - name: note
     type: markdown
@@ -38,22 +65,38 @@ outputs:
 
 # vskill-vault-write
 
-> **核心一句话**：对准一个观点下刀，一层层剥开，挖到底。1000-1500 字，不多不少。
+> **核心一句话**：两种模式——**blade** 对准一个观点下刀（1000–1500 字）；**dialogue** 把访谈收成 Host/Guest 对谈稿（4 章 + 小结 + 总结）。
 >
-> **借鉴来源**：ljg-writes 写作引擎（5 步切刀流程 + 反风格自查表 + 中文重写两稿择优）
+> **借鉴来源**：ljg-writes 写作引擎 + Founder Park 式对谈稿形态（见 SUBDOC）
 
 ## 何时使用
 
-✅ **使用**：
+✅ **blade 模式**：
 - 用户说"基于知识库写一篇关于 X 的笔记"
 - 用户给一个观点 / 一句断言 / 一个反直觉洞察，要 vault 出产一篇
 - `vskill-vault-discuss` 输出后，用户说"把这份讨论写成笔记"
 
+✅ **dialogue 模式**（`mode: dialogue`，**必须先读 [SUBDOC - Host-Guest 对谈稿.md](./SUBDOC%20-%20Host-Guest%20对谈稿.md)**）：
+- 用户要 **Founder Park / Lenny 式** 对话体，不要第三人称摘要
+- 素材是播客转写、访谈译稿、Host-Guest 公众号
+- `vskill-vault-curate` 抓完访谈后，用户要 **发布形态** 对谈稿
+
 ❌ **不使用**：
 - 用户要"搜索 X 笔记"——用 `vskill-vault-discuss` 或 grep
-- 用户要"收录新笔记"——用 `vskill-vault-curate`（计划中）
+- 用户要"收录"且未要求对谈体——用 `vskill-vault-curate`（讲义/默认 article）
 - 用户要"对比 A 和 B"——用 `vskill-vault-discuss`
-- 笔记无观点、纯描述型——用其他模式
+- blade：笔记无观点、纯描述型
+
+## 模式选择
+
+| mode | 输入 | 输出 | 文档 |
+|------|------|------|------|
+| `blade`（默认） | `viewpoint` + `anchor_notes` | 1000–1500 字观点文 | 下文「5 步切刀」 |
+| `dialogue` | `raw_transcript` + host/guest 元数据 | 4 章对谈 + 小结 + 总结 | [SUBDOC - Host-Guest 对谈稿](./SUBDOC%20-%20Host-Guest%20对谈稿.md) |
+
+**dialogue 执行顺序**：读 SUBDOC → 划 4 章锚点 → 写开场 → 逐章 Host 问 / Guest 答 / 本章小结 → 大总结 → 质量门 → frontmatter + 反向链。
+
+**IRON LAW（dialogue）**：Guest 正文禁止「他表示 / 她认为」式摘要；数字与原话金句保留，英译中须口语化。
 
 ## 姿态
 
@@ -80,7 +123,9 @@ outputs:
 
 所有图表用纯 ASCII 字符。允许：`+ - | / \ > < v ^ * = ~ . : # [ ] ( ) _ , ; ! ' "` 和空格。禁止 Unicode 绘图符号（→ ← ┌─┐ ● ◆ 等）。
 
-## 过程（5 步切刀）
+## 过程
+
+### blade：5 步切刀
 
 边想边写。每一步既是思考，也是段落。
 
@@ -131,7 +176,18 @@ outputs:
 
 总量：1000-1500 字。少于 1000 → 没挖够；多于 1500 → 没砍够。
 
-## 写作手法（随时可用）
+### dialogue：对谈稿
+
+**不执行切刀**。完整规范见 [SUBDOC - Host-Guest 对谈稿.md](./SUBDOC%20-%20Host-Guest%20对谈稿.md)。摘要：
+
+1. 开场（背景 + 核心问题 + 四章预告）
+2. 01–04：各 **Host 1 问 → Guest 答 → 本章小结**
+3. 总结（跨章 mental model + 封底金句双语块）
+4. 过 SUBDOC 质量门 + §10 朗读关
+5. **B 站 S 级**：落盘 **`{主题}.md` 单篇 canonical**（正文对谈 + `## 附录`）；勿另建 `- 对谈稿.md`
+6. 其他来源可选文末 `## 讲义索引`（vault 检索用，≤ 一页 bullet）
+
+## 写作手法（blade 随时可用）
 
 - **场景代替论证**：不说"这是错的"，造一个场景让读者自己看到它错
 - **让步弯道**：最强势的判断之后踩一脚刹车。"话说回来""别误会"——承认对面有道理，然后再断言
@@ -251,7 +307,8 @@ target_para: "01-Areas"
 
 ## 关联
 
-- 上游：`vskill-vault-discuss` 的输出
+- 子文档：[SUBDOC - Host-Guest 对谈稿.md](./SUBDOC%20-%20Host-Guest%20对谈稿.md)（dialogue 模式）
+- 上游：`vskill-vault-discuss` 的输出；`vskill-vault-curate` 的访谈转写
 - 下游：`vskill-vault-curate`（自动把新笔记加入 MOC）
 - 索引：[INDEX.md](../INDEX.md)
 - 协议：[AGENTS.md](../../../AGENTS.md) §3 / §4 / §6 / §7 / §10

@@ -14,216 +14,293 @@ tags:
   - skills
   - multi_agent
 created: 2026-06-09
-description: "Cursor VP 讲第三纪元 Agent 团队：98% merge 由 AI 写但企业常卡 40% 增效；瓶颈在 STLC 全链；PM/EM/Security/Growth 四类自治 Agent 与 Skills 原子单元。"
 transcript_source: "Recastory/workspace/bilibili-retranscribe/BV1MQVf6SEST/article.md"
 asr_version: v2
-curate_method: "vskill-vault-curate（读者向讲义 v2）"
+material_tier: S
+ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1MQVf6SEST/ingest"
+column_url: "https://www.bilibili.com/read/cv49940231/"
+source_original_date: "2026-05-13"
+description: "Cursor 副总裁 Tido Carriero：98% merge 由 AI 写但客户常卡 40% 增效；STLC 全链 Agent 团队；PM/EM/Security/Growth 自治代理与 Skills 原子单元；AgentX 文化与新团队配比。"
+host_name: "Conference Host"
+guest_name: "Tido Carriero"
+guest_title: "Cursor 副总裁"
+speaker_inference: "conference_talk_reframed_as_qa"
+speaker_confidence: "high"
+author:
+  - "[[Tido Carriero]]"
+concepts:
+  - id: sdlc_phase3
+    zh: 第三纪元
+    en: Phase 3 / agent teams era
+    one_line: 不只换写代码一角，整条软件开发生命周期链上代理团队
+  - id: forty_percent_plateau
+    zh: 四成增效天花板
+    en: 40% productivity plateau
+    one_line: 第二阶段编码助手常见吞吐量停滞线
+  - id: how_skill
+    zh: 如何做技能
+    en: how skill
+    one_line: 教云代理严格检查代码库的原子技能
+  - id: agentic_risk_detection
+    zh: 代理风险检测
+    en: agentic risk detection
+    one_line: PR 创建时评风险，极低风险可免人工审查直接合并
+column_source: "Recastory/workspace/bilibili-retranscribe/BV1MQVf6SEST/ingest/column_article.md"
+curate_method: "vskill-vault-write canonical-dialogue v3.2"
+dialogue_version: v3.2
+genre: Host-Guest canonical
+updated: 2026-07-03
 ---
+# Cursor VP：98% 合并提交是 AI 写的，增速却卡在四成
 
-# Cursor 副总裁：构建软件开发过程的 Agent
-
-## 先搞懂这一期
-
-**这是什么节目？**  
-Cursor 副总裁在大会上的 **~21 分钟 field notes**。不是产品发布，是 **「我们怎么建 Agent 团队」** 的战术分享——进入 **第三纪元：人类 × Agent 协作**。
-
-**这期在回答哪三个问题？**
-
-1. **为什么 AI 写代码暴涨，生产力却只涨 ~40% 就 plateau？**  
-2. **STLC 各阶段，人还要做什么？Agent 该产出什么 artifact？**  
-3. **Cursor 内部实际跑了哪些「Agent 团队」？** 怎么从 bug 报告一路链到 PM/EM/Security/Growth？
-
-**用一条线串起来（没看视频也能复述）：**
-
-动机：2025 初企业 **0% AI 代码** → 现在 ~15–20%（企业）到 Cursor 自身 **~98% merge commits by AI**——变化史上最大。  
-但客户 rollout：**先爽一波，一年后卡在 ~40% 增效**——因为 **只换了 STLC 里写代码那一小段**，瓶颈挪到 plan/ship/retro。  
-框架：**intelligence（模型+harness）→ Agent 系统 → 人类**。人类 job = **审 polished artifacts + 高保真 feedback**；中间系统要产出 **决策清单 + 像素级 demo**。  
-案例 1 — **Issue Glass**（内测 Glass）：Slack 报 bug → cloud agent 常卡住 → Lauren 建 **how skill + why skill** → **bug reporter agent** 追问细节（有时直接当 support 关闭）→ 上层 **PM agent**（P0/P1/P2 分拣）+ **EM agent**（experimental，路由负责人）。  
-案例 2 — **Security bot**：PR 触发，模拟 appsec 工程师挖漏洞，**200+ 自动修**。  
-案例 3 — **Agentic risk detection**：PR 创建 → agent 评风险；低风险 **免人工 review 直接 merge**；中高风险 **比 CODEOWNERS 更准的路由**。  
-案例 4 — **Growth 四 Agent**：实验 audit、Notion↔Linear↔Statsig 同步、24h 监控指标、胜者 PR 清 feature flag——实验吞吐 **暴涨**。  
-文化：**AgentX channel**（agent 抱怨 devx）；Lauren 类 **meta 思维 champion**；团队配比变（2 SWE + DS + designer + PM 的 growth pod 极有效）。
-
----
-
-## 背景：这期在 AI Agent 大图里的位置
-
-| 你可能已有的认识 | 这期补上的那一块 |
-|----------------|-----------------|
-| Cursor = IDE 里写代码 | **STLC 全链 Agent 团队** + artifact 审阅 UX |
-| Copilot 增效 30–40% | 那是 **Phase 2 天花板**；Phase 3 要 **链系统** |
-| Skills = 文档技巧 | **how skill** 是 cloud agent 挖 codebase 的 **关键原子** |
-| Code review 靠 CODEOWNERS | **Agent 风险评分** 可更准路由 reviewer |
-
----
-
-## 分话题讲
-
-### 1. 40% plateau：只换了 STLC 的一角
-
-**说法：**  
-直觉：R&D 60–80% 花在「手写代码」→ 模型写好代码应 **3–4x**。现实很多团队 **~40% throughput** 就停——因为还在 **Phase 2：coding assistance**，没 graduate 到 **Agent 系统链 STLC**。
-
-**STLC 五段：** plan → build → ship/validate → retro。AI 写了 build 里大块代码，但 **plan 要人看 rigorous plan**；build 要人看 **架构决策、风险百行、demo**；ship 要 **人名 on production**；retro 要人喂 outcome。
-
-**和你何干：**  
-别只测「AI 写了多少行」——测 **端到端 STLC 周期** 哪段还卡人。
+**Host：** Conference Host（AI 工程大会主持）  
+**Guest：** Tido Carriero（Cursor 副总裁）  
+**形态：** Host-Guest 对谈稿 v3.2（中文口语化 · 术语表带英文 · 双语金句）  
+**主源：** Recastory `bilibili-retranscribe/BV1MQVf6SEST/ingest/column_article.md`  
+**B 站视频：** [BV1MQVf6SEST](https://www.bilibili.com/video/BV1MQVf6SEST/)
 
 ---
 
-### 2. 人类工作 = 审 artifact + 高保真 feedback
+## 开场
 
-**说法：**  
-把 intelligence 变成 software：**模型+harness** 在下，**人类在上**审 artifacts。  
-Agent 系统中间层要输出：  
-- **清晰 synthesis**（agent 做了什么）  
-- **待人类决策点**  
-- **像素/ demo**（PR 带截图、demo link 永远最香）  
-- **IO loop**：人类 feedback  agent 能 pick up 继续跑
+**Host：** 台下很多人用 Cursor 写代码已经一年了——先爽一波，然后增速好像摸到头了。你说 Cursor 自己 **98% 的合并提交**是 AI 写的，可跟客户聊下来，平均增效却卡在 **四成左右**。这反差到底怎么回事？今天二十分钟，你想让大家带走什么？
 
-新 Cursor IDE 迭代：**review polished artifacts + 反馈** 是核心 UX。
+**Tido：** 我想聊 **怎么真开始建代理团队**——不是口号，是我们在 Cursor 内部怎么干的实地笔记。进入 **第三纪元** 之后，工程负责人面对的难题跟两年前完全不一样：AI 写代码的量从 **2025 年初企业里基本是零**，飙到迈克尔说的 **15% 到 20%**，更夸张的数字有人提到 **75%**；在我们自己这儿，大约 **98% 的合并提交**是 AI 写的。我职业生涯里没见过这么猛的变革。
 
-**和你何干：**  
-你建的每个 agent workflow，问：**最后给人什么 artifact？决策点写清了吗？**
+怪事也在这儿：客户上了 Cursor，头几个月生产力明显上去；大概一年后，曲线就平了——各家略有差别，但 **平均就停在四成增效** 附近，很难再往上拱。我作为代理系统构建者，工作就是让这个数字 **远高于四成**。今天四章：先讲为啥会卡；再讲软件开发生命周期里人还要干什么；然后拆我们内部的 PM 代理、安全机器人、增长工厂；最后聊组织怎么跟着变。
 
----
+**术语速查（后文对话用中文；英文原文在此统一对照解读）**
 
-### 3. PM Agent + EM Agent：从 Issue Glass 长出来
-
-**说法：**  
-Launch Glass 内测 → `#issue-glass` 每天 10–20 条 paper cut → oncall Lauren 发现：**@cursor fix** 的 cloud agent 常 stuck。  
-她手动试 pattern：  
-1. **how skill** — 教 harness **rigorous inspect codebase**  
-2. **why skill** — 更深解释代码在干嘛  
-3. **bug reporter agent** — Slack 触发，**反向追问**报 bug 的人（有时 sass，有时当 support 关掉）  
-4. **PM agent** — 分拣 P0/P1/P2  
-5. **EM agent**（实验）— 「两个 remote SSH bug 来了，@工程师」——**ownership map 还不完美**
-
-架构：**EM agent（自治，日/周跑）**  synthesize 下层 automation；各层用 skills + tools。
-
-**和你何干：**  
-Meta 问题（triage、路由）适合 **更高阶 agent synthesize  lower automations**——从 primitive curiosity 几周长成。
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 软件开发生命周期 | SDLC / software development lifecycle | 计划、构建、发布验证、回顾的整条研发链 |
+| 第三纪元 | Phase 3 / agent teams era | 不只编码助手，而是 STLC 全链代理团队 |
+| 四成增效天花板 | 40% productivity plateau | 第二阶段编码助手常见的吞吐量停滞线 |
+| 合并提交 | merge commit | 代码合进主分支的那次提交 |
+| 精炼产物 | polished artifacts | 给人类审的综合成果：做了什么、哪要拍板、带演示 |
+| 技能原子单元 | skills as atomic unit | 小技能组合成更大代理体验的基本砖块 |
+| 云代理 | cloud agent | 在云端异步跑、修 bug 或审 PR 的自治代理 |
+| 代理风险检测 | agentic risk detection | PR 创建时评风险，极低风险可走快速合并通道 |
+| 问题玻璃频道 | Issues Glass | Cursor 内测 Glass 时全员报 bug 的 Slack 频道 |
 
 ---
 
-### 4. Security bot：无限 appsec 的杠杆
+## 01 四成天花板：只换了研发预算里那一小块写代码
 
-**说法：**  
-PR publish 触发；跑一系列 prompt 找 **critical/high/medium/low**；**200+ 漏洞自动修**；appsec 团队 **不必按同速扩招**——且 **每 PR 更 thorough**（「got a guy」）。
+**Host：** 直觉上，研发预算 **六成到八成**花在「手写代码的人」上——模型写得又快又好，吞吐量不该翻 **三到四倍** 吗？为啥现实里很多人就停在 **四成**？
 
-**和你何干：**  
-STLC **ship 前** 插 autonomous security agent，ROI 清晰。
+**Tido：** 你算得没错，但那是 **第二阶段编码助手** 的天花板。你可以更勤快地用补全、用聊天写代码，除非进入 **下一个阶段**，吞吐量大概率就趴在这个水平。更频繁地点接受、更用力地催模型——没用，瓶颈不在键盘上，在生命周期别的段。
 
----
+我们跟客户聊，模式很一致：喜欢 Cursor，部署下去，头几个月爽；一年后平了，**四成左右** 是常见数。我管这个叫 **氛围数**——每家略有差别，但平均就停在这儿，很难再拱。为啥？因为你只替换了软件开发生命周期里 **很小一角**——主要是 **构建阶段里写代码** 那块。计划、发布、验证、回顾，瓶颈全挪过去了。你让模型写得更快，拉取请求堆得更多，可 **谁来做分拣、谁来做安全审计、谁来看指标有没有挂**？没人干，系统就堵。
 
-### 5. Agentic risk detection：低风险 fast path
+变化速度本身也吓人。2025 年初，企业里 AI 写的代码量基本 **零**；到现在常见 **15% 到 20%**，迈克尔提过更近期的 **75%**——爆发式增长。我职业生涯里没见过比这更猛的工程变革。在一些更前瞻的公司，合并提交 **98% 由 AI 写**——Cursor 自己就在这档。数字听着兴奋，也逼你面对：**写代码不再是唯一战场**。
 
-**说法：**  
-改 policy 后 PR 常撞 **8 个 reviewer**（code owners）——小改也堵。  
-Agent 读 PR → **风险评分**；观察一周后：**very low risk → merge 无需人**；medium/high 还审，且 agent 能指 **谁最懂这块 code**（比 CODEOWNERS 准）。
+在我们内部，也在拼命把代理往外推：**计划里的元问题、发布前的安全、增长实验的管理琐事**——产品经理、安全、增长团队花的时间，编码助手根本碰不到。我这份工作，就是让「四成」变成「还能继续拱」的那套 **代理团队**，不是再卖你一个更好的自动补全。客户爱我们，因为第一阶段确实白捡生产力；要再捡一轮，得动 **整条生命周期**，把智能转化成覆盖全链的系统。
 
-**和你何干：**  
-**更多 review 政策** 和 **agent 风险评估** 可以并存——严但不堵低风险。
+你要是只盯着工程师键盘，会错过真正的大头：**发布前安全审计、实验指标有没有挂、Slack 里谁该修啥**——这些才是第三纪元要接的线。我们自己在合并提交上已经极度依赖 AI，但若不同步建 **流程侧的代理**，照样会在组织层面摸到天花板。这就是我说的 **第三时代**：不是模型再强一点，是 **把各段系统串起来**。
 
----
+**Host：** 所以「AI 写了多少行」是错指标？
 
-### 6. Growth 四 Agent：实验工厂
+**Tido：** 对。你该量 **端到端周期**：从想法到上线，哪段还卡人。只自动化写代码这一块，就像只给流水线一头换了更快的机器——中间质检、包装、发货还是人工，总产出照样卡死。研发预算里手写代码人力占 **六成到八成**，直觉上换掉这块该 **三到四倍**——现实却卡在四成，就是因为 **只换了这一块**。我作为代理系统构建者，目标很明确：让这个数 **远高于四成**。第三纪元要的是 **把各段系统串起来**，让代理干大部分活，人类盯 **该盯的决策点**。后面三章就讲我们怎么串。
 
-**说法：**  
-Growth pod：~2 工程师，目标 **月 20–30 实验**；栈 Statsig + Linear + Notion + code。痛点：setup 错 metric、Notion/Linear 复制粘贴、**6 天才发现 metric 挂了**。  
-四个 agent：  
-- **Audit setup**（metric 对不对）  
-- **Sync docs**（Notion ↔ Linear ↔ Statsig）  
-- **Monitor run**（24h 看 bonkers）  
-- **Suggest winner + PR 清 flag**（人选 variant B → agent 提 PR 删 Statsig 分支代码）
+> **金句 · Tido**
+> **中文：** 我们只换了软件开发生命周期里很小一块，新瓶颈反而全冒出来了。
+> **原文：** We've only replaced like a tiny part of the SDLC... we found all of these new bottlenecks.
 
-人仍 **最终选 variant**；实验吞吐上去，**dead branch 减少**。
+**本章概念**
 
-**和你何干：**  
-非 build 阶段的 **admin/triage** 是 Agent 团队第一批高 ROI 场景。
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 第二阶段编码助手 | Phase 2 coding assistance | 以 IDE 内写代码为主，常见 ~40% 增效上限 |
+| 研发预算结构 | R&D budget split | 手写代码人力常占 60–80%，但不是唯一瓶颈 |
+| 吞吐量 | throughput | 单位时间交付的功能/修复量，不只行数 |
+| 三到四倍直觉 | 3–4x intuition gap | 只换写代码换不来全链加速 |
 
----
+**本章小结**
 
-### 7. 组织与文化：Factory 思维
-
-**说法：**  
-- **DevX channel** → 有人建 **AgentX**（cloud agent 抱怨 devx，试验 auto-fix）  
-- **Champions**（Lauren）：empower **meta 改造**  
-- **Team 配比变**：growth pod **2 SWE + 1 DS + 1 designer + 1 PM** 极有效——agent 干脏活后的 **新黄金比例**
-
-**和你何干：**  
-招/组 team 时按 **「agent 干多少 admin/code」** 重算 headcount 结构。
+- 客户常见模式：先爽后平，平均增效约四成——是阶段问题，不是 Cursor 失灵
+- 只自动化构建阶段写代码，瓶颈挪到计划、发布、验证、元管理
+- 正确指标是 STLC 端到端，不是 AI 行数占比
 
 ---
 
-## 关键概念（读完应能解释）
+## 02 人还审什么：计划签字、风险百行、演示链接
 
-| 词 | 白话 |
-|----|------|
-| **STLC** | Software Testing/Lifecycle：plan/build/ship/retro |
-| **40% plateau** | Phase 2 coding assistance 常见增效天花板 |
-| **Polished artifacts** | 给人类审的 synthesis + 决策点 + demo |
-| **how skill / why skill** | 教 agent rigorously 读 codebase 的 skill 原子 |
-| **Issue Glass** | Cursor 内测 Glass 的 dogfood bug 频道 |
-| **Agent manager (EM agent)** | 自治、周期性 synthesize 下层 automation |
-| **Agentic risk detection** | PR 风险评分 → 低风险 fast path |
-| **Skills 原子单元** | 小 skill 组合成更大 agentic experience |
+**Host：** 那反向想——假设代理能把大部分活干了，**人**到底还该留在哪些环节？别讲空话，你们工程、产品、设计团队现在怎么划？
 
----
+**Tido：** 我喜欢问一句：**我们究竟希望人类保留哪些职能？** 把生命周期摊开：计划、构建、发布和验证、基础设施、回顾。Cursor 的工程、产品、设计团队不只在写代码——规划、构建、发布验证、保基础设施、从错误里学习，五段都要人。
 
-## 值得记住的原话
+**计划阶段**，代理可以帮你收用户访谈、做市场调研、甚至探索方案——但在你砸大钱去构建、营销、销售之前，还得有一个人类盯着一份 **严谨的计划**，拍板：这方向值不值得投。代理擅长收集和发散； **投不投** 这件事，人担着。
 
-> **"About 98% of merge commits are being written by AI."**（Cursor）  
-> 约 98% 的 merge commits 由 AI 写（Cursor 自身）。
+**构建阶段**，大块代码可能是代理写的。你不必逐行啃两万行的拉取请求——但你要看 **架构决策说明**、**风险最高的那几百行**，还有 **演示**。我审拉取请求最爱带截图或演示链接的；有演示，体验差一大截。同事待会演示：代理能 **自动生成演示产物**——这很快会变成标配。上线前呢？总得有个负责任的人签字：**行，可以上生产**。审查和批准，人走不掉。
 
-> **"The vibe number... plateau is maybe 40-ish percent."**  
-> 平均 plateau 大概 40% 增效。
+**发布和回顾**也一样。你可以让尽可能多的 AI 站点可靠性工程师盯生产——代理卡死、系统挂了，你还是希望有人接 **PagerDuty**。人类得对结果给反馈，从错误里吸取教训，系统才能越跑越强。我们目前只替换了生命周期一小角，却触发了 **所有这些新瓶颈**——坦白说我们也还在早期，过去几个月就死磕怎么消这些堵点。
 
-> **"We've only replaced like a tiny part of the SDLC... we found all of these new bottlenecks."**  
-> 我们只换了 SDLC 一小角……新瓶颈全冒出来了。
+中间那层才是我们要建的 **代理团队系统**。我把它想成：**智能**（模型加框架）在下，**人类**在上审产物。系统得输出 **高度综合的工作成果**——代理干了啥、哪些决策要人介入、视觉细节得够，让你能 **精准预见** 代理的提议。还得有 **高效反馈环**：人给高保真反馈，代理立刻接住、修、继续跑。缺了这层，你只是在更快地生产 **需要人收拾的烂摊子**。
 
-> **"What are the things we still want humans to do?"**  
-> 哪些步骤还要人做？——从这角度设计 agent 系统。
+我们新版 Cursor IDE 的迭代，越来越围着 **审查精炼产物、给反馈、从反馈学习** 转。你建代理团队，中间这个模块就是核心——不是侧边栏聊天，是 **主工作流**。当你思考这种代理团队时，可以把它看作中间那个 **核心模块**：上面是人类决策，下面是模型和框架，中间这层决定你能不能真的 **规模化** 协作。
 
-> **"Skills are the atomic unit."**  
-> Skills 是原子单元。
+**Host：** 跟「智能转化成软件」那张抽象图怎么对应？
 
-> **"I've got a guy on it."**（= booted a cloud agent）  
-> 「我派了人」= 起了 cloud agent。
+**Tido：** 底层是模型和框架，顶层是人类思考和拍板。中间是你搭的 **系统或代理团队**——最难的是想清楚 **系统该输出什么**。不是把日志扔给人，是 **决策清单加像素级演示**，包括所有视觉细节，让你能预见代理的提议会是什么样。人类的工作从「写每一行」变成 **审产物、指路、担责**——这转变比换模型难，也值钱得多。我们把工作看成 **把智能转化成软件**：智能是模型和框架；软件是用户摸得着的东西；中间那层系统，决定转化顺不顺。理想状态是 **精美的、高度综合的工作成果**——你一眼看懂代理做了什么、哪几处要你拍板。
 
-> **"Fixed over 200 vulnerabilities, almost all automatically fixed."**  
-> 修 200+ 漏洞，几乎全自动。
+> **金句 · Tido**
+> **中文：** 该问的不是代理能干什么，而是哪些步骤我们还想让人来做。
+> **原文：** What are the things we still want humans to do?
 
-> **"Why do humans get this channel and the agents don't?"**（→ AgentX）  
-> 为啥人有 DevX 频道，cloud agent 没有？
+**本章概念**
 
----
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 精炼产物 | polished artifacts | 综合说明 + 待决策点 + 演示/截图，不是裸 diff |
+| 高保真反馈环 | high-fidelity feedback loop | 人指哪打哪，代理马上改、继续跑 |
+| 架构决策产物 | architecture decision artifact | 解释关键设计取舍，供人审高风险段 |
+| 生产签字 | production sign-off | 上线前负责任的人点头 |
+| 智能转化成软件 | intelligence to software | 模型能力经代理系统变成可交付软件 |
 
-## 小结
+**本章小结**
 
-**这期最核心的判断：** 第三纪元不是「AI 写更多代码」，而是 **STLC 全链建 Agent 团队 + 人类审 polished artifacts**；卡在 40% 是因为 **只 automate 了 build 一角**——Cursor 用 PM/EM/Security/Growth agent 证明 **plan/ship/growth 的 meta 任务** 同样可链 skills 自治化。
-
-**读完应带走：**
-- **how skill** 这类原子 skill，是让 cloud agent 「挖 codebase」从 stuck 到有用的关键。  
-- **Artifact 设计**：每段 STLC 给人 **决策清单 + demo**，不是 dump 2 万行 PR。  
-- **组织**：factory 文化 + champion + 新 team 配比，和工具同等重要。
-
-**和 vault 的关系：** 接 [[Cursor-128个Agent团队协作]]、[[IBM团队-Harness工程详解]]、[[WorkOS-创建和使用Skills方法论]]、[[MOC - Harness Engineering]]。
+- 计划要人拍投资方向；构建要人审风险段和演示；发布要人签字和接告警
+- 代理系统中间层要产出决策清单和可预见提议，不是堆日志
+- 新 IDE 重心：审产物、反馈、学习——第三纪元 UX 核心
 
 ---
 
-## 行动启示
+## 03 从 Slack 频道长出产品经理代理：技能是原子砖
 
-1. **画 STLC，标人类必审节点**——再决定 agent 产什么 artifact。  
-2. **从 annoyance 出发**（Issue Glass）→ skill → 小 automation → 高层 synthesize agent。  
-3. **写 how skill**：教 harness 如何 rigorous inspect codebase。  
-4. **PR 加 agent 风险分**：低风险 fast path，高风险 smart route。  
-5. **Growth/PM/Security 的 admin 链**：Often 比再加一个 coding agent ROI 高。  
-6. **设 AgentX/DevX 对称频道**：agent 失败模式也要可见、可修。
+**Host：** 一个月前听说 Cursor 要做 **产品经理代理** 和 **工程经理代理**，我大概会觉得你疯了。现在怎么从报 bug 长出来的？**技能**在这套里到底什么地位？
+
+**Tido：** 故事从 **问题玻璃频道** 说起。我们内测 Glass——新代理窗口——鼓励全公司把每个小问题、Bug、细节都扔进 Slack 这个频道。每天 **十到二十条**。劳伦当时是值班工程师，她发现一个尴尬事：有人报问题，我们就启动云代理说「Cursor，修这个」——内部玩笑叫 **「我派人去办了」**，意思是起了个云代理。可这些「人」经常 **卡住**，修复发不出去，发布节奏被拖住。
+
+劳伦想：要求更严一点会怎样？她手动试了几轮，摸出一个 **固定模式**。她做了两个技能：一个叫 **如何做**，教框架 **更严格地检查代码库**；一个叫 **为什么**，要求 **更细地解释代码在干嘛**。她还加了系统提示。Bug 报告的人常常只给模糊信息——她的自动化以 Slack 消息为触发，去研究代码库，几分钟内 **带着一堆追问** 回来，像 Bug 报告代理在跟报告人 **抬杠**。你会看到频道里很有意思的对话——几乎像代理在反驳报告人。有时查完代码库、答完问题，工单自己就关了，跟支持工单一样；多数时候确实是 Bug，或者演化成功能请求。
+
+这是第一层：**Bug 报告代理**。往上叠 **产品经理代理** 和 **工程经理代理**——大量高质量问题流经频道后，有了更清晰的汇总。一个代理做 **P0、P1、P2 分拣**；另一个实验性的工程经理代理会说：「嘿，两个新的远程 SSH Bug 进来了，你能直接找工程师看看吗？」第二个还没完全好用——我们还没有完美的 **组件归属映射表**，正在教它认谁负责哪块代码，分配才准。但进化过程本身很酷：**短短几周**，从劳伦的好奇心，到手动试，到自动化，再到更高阶自动化。
+
+架构上，这些都是 **完全自治** 的。**代理管理器**——就是那个工程经理代理——独立跑，我不记得是每天还是每周，它在顶层 **综合** 下面围绕 Bug 报告跑的自动化；每个自动化又调用特定技能和工具，把现状理清给团队。我不坐在旁边点确认——它自己跑。
+
+这已经 **超出构建阶段**，贴近 **计划阶段的元问题**——把工程师烦死的分拣活变得更快、更省事。劳伦识别的是 **更本质的管理痛点**：不是「再写一个修 Bug 的 prompt」，而是 **把技能和自动化原语串起来**，造出一种奇妙的体验。我们还得让工程经理代理从 **过去任务成功率** 里学，给这些工作流加 **知识层和记忆**——路还长，但投入精力，体验会抬一截。
+
+**Host：** 技能为什么你强调是「原子单元」？
+
+**Tido：** 因为以前把云代理丢进任务，缺的就是 **如何做** 这种技能——对代码库挖得不够深，搞不清发生了什么，所以老卡住。Slack 消息进来，必须调这个技能、那个技能，再从最终用户那抠细节——整件事才像 **代理体验**，不是单次聊天。技能是方程里 **极其重要** 的一块；我们在这上面花了很多时间，要 **详尽且精确**。没有原子砖，你堆不出 PM 代理和 EM 代理那种上层建筑——这是我今天最想带走的一个洞察。
+
+> **金句 · Tido**
+> **中文：** 技能是原子单元——缺了「如何做」那种砖，云代理在代码库里就是瞎摸。
+> **原文：** Skills are the atomic unit.
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 如何做技能 | how skill | 教代理严格检查代码库、摸清现状 |
+| 为什么技能 | why skill | 要求更深解释代码行为，支撑追问循环 |
+| Bug 报告代理 | bug reporter agent | Slack 触发，反向追问报告人补细节 |
+| 产品经理代理 | PM agent | 对流入问题做 P0/P1/P2 分拣 |
+| 工程经理代理 | EM agent | 实验性，尝试把任务路由给最熟代码的人 |
+| 代理管理器 | agent manager | 顶层自治代理，综合下层自动化 |
+
+**本章小结**
+
+- Issue Glass 狗食 → 云代理常卡 → how/why 技能 → Bug 报告代理 → PM/EM 上层
+- 元问题（分拣、路由）适合更高阶代理综合下层自动化
+- 技能是原子砖；缺 rigorous inspect codebase，云代理任务易 stuck
 
 ---
 
-## 相关阅读
+## 04 安全、增长、抱怨频道：代理工厂不只写代码
+
+**Host：** 构建阶段之外，你们还在哪插了代理？安全、代码审查、增长实验——听说还有给云代理开的 **抱怨频道**？
+
+**Tido：** 好几块，我快说——都在利用别人花时间的地方：产品经理、安全、增长，他们都在找 **建小型代理团队** 的法子。
+
+**安全机器人** 是我们安全团队的活。触发点通常是 **拉取请求发布时**。有无限应用安全人力的话，你可以让每个拉取请求都被工程师审几小时，挖高、中、低危漏洞——我们没有那么多人。特拉维斯想：让代理干行不行？又是一套自动化，跑一系列提示词，找安全工程师会找的问题。代理常能抓到 **容易修** 的那类洞——**我们已经修了 200 多个漏洞，几乎全是自动修的。** 应用安全团队没按老速度扩招，审查却更彻底——因为「有人干这个」了，我们负担得起对每个拉取请求更狠。某种意义上，我们对每个拉取请求的审查 **比以前更彻底**，因为我们请得起。
+
+另一块改的是 **代码审查政策**。我们改了政策，各种情况下都要 **更多审查**——听起来更严，对吧？以前用 **代码所有者** 机制，一个拉取请求有时挂 **八个审查者**——改个小字符串也全员上阵，工程师骂娘，流程堵死。我们让代理 **读拉取请求给风险评估**，起初 **没直接启用**，先观察了一周左右，看评分靠不靠谱。确认后定规矩：**极低风险** 可以直接合进生产，**不用人工审查**。副作用也很妙：中高风险时，代理还能指 **谁最懂这块代码**——比代码所有者文件准，因为它真读过仓库。严了，但不堵低风险——工程师反而更买账。
+
+**增长团队** 更偏业务，但同样酷。大概 **两名工程师**，每月跑 **二十到三十个实验**——栈是 Statsig 做 A/B、Linear 管待办、Notion 记高层思考，再加代码。流程是：计划、启动、跑、决策、发布、清理代码。痛点是琐事：设实验常忘挂对指标；产品经理在 Notion 干、工程师在 Linear 和 Statsig 干， **大量复制粘贴**；有时实验跑了 **六天** 才发现指标挂了，或者根本没量对其中一个，整周白费——得重新部署修埋点，从头再来。
+
+他们建了 **四个代理**：第一个 **审计设置**，看指标挂对了没；第二个 **同步文档**，把 Notion、Linear、Statsig 对齐；第三个 **监控运行**，想法是 **二十四小时内** 确保实验没疯——这用代理很好解；第四个 **读 Statsig 建议赢家**——变体仍由人最终拍板。还有个烦人的：宣布赢家后 **功能标志** 没及时清，死分支堆生产。代理会主动提 PR：你选变体 B，它删干净 Statsig 分支代码、让 B 生效——工程师还得审合并，但生产里少一堆僵尸开关。**实验吞吐量已经飙升**——人专注押注和设计，不泡在管理琐事里。增长工程师自己说的：大量时间浪费在各种管理开销上，代理把时间 **杠杆** 回来了。
+
+组织上，我们得 **转型**。大家有 **开发者体验频道**，工程师抱怨工具难用——昨晚还有人提：这不公平，人类有频道抱怨， **云端跑的代理没地方喊**。于是他们建了 **Agent X 频道**，一整串代理反馈「干不下去」的问题，像代理在「沮丧」。还在试能不能 **自动修代理抱怨的阻碍**——实验进行中，但文化已经在变：人人想 **工厂**，人人造技能，找早期拥护者。
+
+劳伦这种 **早期拥护者** 很关键——新员工，却在推动大家用 **更元** 的方式想工厂；我们在授权她跨组织推更大的改变。团队配比也在变：增长小组 **两名软件工程师、一名数据科学家、一名设计师、一名产品经理**——跟我过去习惯的很不一样，但极其高效——代理干大部分脏活后， **这种新比例反而更好**。你发展组织时，不妨按这个方向想：不是堆更多写代码的人，是 **更精简的人配更高效的代理集群**。
+
+> **金句 · Tido**
+> **中文：** 为啥人类有开发者体验频道，云上的代理就没有？——Agent X 就这么来的。
+> **原文：** Why do humans get this channel and the agents don't?
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 安全机器人 | security bot | PR 触发，自动挖漏洞并修，已修 200+ |
+| 极低风险快速通道 | very low risk fast path | 代理评极低风险可免人工审查直接合并 |
+| 增长四代理 | growth four-agent stack | 审计设置、同步文档、24h 监控、赢家清理 PR |
+| Agent X 频道 | Agent X channel | 云代理反馈受阻的 Slack 频道，试验自动修复 |
+| 工厂思维 | factory mindset | 人人想怎么建代理工厂，而不只是自己写代码 |
+| 新团队配比 | new team ratios | 更少工程师 + 代理集群，增长 pod 实证高效 |
+
+**本章小结**
+
+- 安全机器人：拉取请求触发，200+ 漏洞自动修，杠杆式应用安全
+- 代理风险检测：极低风险免审，高风险智能路由，比代码所有者更准
+- 增长四代理拉高实验吞吐；AgentX + champion + 新配比是组织配套
+
+---
+
+## 总结：第三纪元是软件开发生命周期全链代理团队，不是更猛的补全
+
+| 维度 | 要点 |
+|------|------|
+| 增效悖论 | 98% 合并提交由 AI 写，客户却常卡四成——只换了构建阶段写代码 |
+| 人类职能 | 审精炼产物：计划拍板、风险段+演示、生产签字、告警接手、回顾反馈 |
+| 系统中间层 | 智能→代理团队→人类；输出决策清单+演示，高保真反馈环 |
+| 从烦事生长 | 问题玻璃频道→如何做/为什么技能→分拣与路由代理；几周长成多层自动化 |
+| 全链外延 | 安全 200+ 自动修；低风险拉取请求快通；增长四代理抬实验吞吐 |
+| 组织 | 代理抱怨频道对称开发者体验频道；拥护者推元改造；代理干脏活后的新团队配比 |
+
+### 对个人的启示
+
+画一张 **软件开发生命周期** 图，标出你 **必须人审** 的节点，再倒推代理该产什么产物——别从「再加一个写代码的智能体」起手。从一个 **烦死你的频道或工单** 出发，像劳伦那样：手动试模式 → 写 **如何做** 类技能 → 小自动化 → 上层综合代理。
+
+### 对团队/产品的启示
+
+拉取请求链路加 **代理风险评分**：政策可以更严，低风险别堵死。安全、增长、分拣这类 **元任务**，往往比再加一个写代码智能体划算。给云代理 **可见的失败反馈**（代理抱怨频道），跟给人开发者体验频道一样认真。组团队时按 **代理能干多少管理琐事** 重算人头结构。
+
+### 仍待核实
+
+- 企业 AI 代码占比「75%」为演讲引用迈克尔口径，与 15–20% 区间并存，需对照原大会出处。
+- EM 代理运行频率原文为「每天或每周」，以 Cursor 内部最新配置为准。
+
+> **金句 · Tido（封底）**
+> **中文：** 我派人去办了——意思是起了个云代理；第三纪元，你要建的是派活的那套工厂。
+> **原文：** I've got a guy on it. (= booted a cloud agent)
+
+---
+
+---
+
+## 附录
+
+### 章节时间戳
+
+| 时间 | 主题 |
+|------|------|
+| 01:45 | 编码助手存在 40% 的生产力提升瓶颈 |
+| 07:12 | 引入 PM 与 EM 代理解决研发流程中的元问题 |
+| 11:30 | 安全与代码审查代理实现无限资源下的高强度审计 |
+| 14:45 | 增长实验代理化让小规模团队实现高吞吐实验 |
+| 18:20 | 组织文化转型：为 AI 代理建立抱怨频道 |
+
+### 素材路径
+
+- **ingest**：`Recastory/workspace/bilibili-retranscribe/BV1MQVf6SEST/ingest`
+- **ASR**：`Recastory/workspace/bilibili-retranscribe/BV1MQVf6SEST/article.md`
+- **专栏主源**：https://www.bilibili.com/read/cv49940231/
+- **B 站**：https://www.bilibili.com/video/BV1MQVf6SEST/
+- **时长**：20:39
+
+### 相关阅读
 
 - [[Cursor-128个Agent团队协作]] — Cursor 大规模 multi-agent 编排  
 - [[WorkOS-创建和使用Skills方法论]] — Skills 创建与使用  
@@ -233,10 +310,11 @@ Growth pod：~2 工程师，目标 **月 20–30 实验**；栈 Statsig + Linear
 
 ---
 
-## 来源
+### 收录说明
 
 - **视频**：[BV1MQVf6SEST](https://www.bilibili.com/video/BV1MQVf6SEST/)（B 站 *Easonlee的AI笔记*）  
 - **讲者**：Cursor 副总裁  
 - **时长**：~20:39  
 - **转写**：Recastory `bilibili-retranscribe/BV1MQVf6SEST/`（FunASR SenseVoice + cam++，**asr v2** 10 段）  
-- **版本**：v2 读者向讲义（2026-07-02）
+- **版本**：canonical Host-Guest v3.2（2026-07-03；原讲义已合并）
+

@@ -5,7 +5,7 @@ description: 从外部（URL / PDF / 视频 / 公众号 / 截图 / 用户粘贴�
 created: 2026-06-27
 updated: 2026-07-02
 status: available
-version: 0.2
+version: 0.3
 tags:
   - skills
   - vskill
@@ -312,11 +312,15 @@ target_para: "auto"
 
 | 文档 | 适用 |
 |------|------|
-| [SUBDOC - B站视频转写收录.md](./SUBDOC%20-%20B站视频转写收录.md) | Recastory ASR → vault 读者向讲义 v2（含 **小结** 九段模板） |
+| [SUBDOC - B站视频 v3 工作流.md](./SUBDOC%20-%20B站视频%20v3%20工作流.md) | **总流程**：S→canonical 单篇 v3.2 · A→讲义 v3 九段 · batch 仅 A 级 |
+| [SUBDOC - B站视频转写收录.md](./SUBDOC%20-%20B站视频转写收录.md) | Recastory ASR → vault 讲义 v3（九段 + 关键概念三列 + 要点） |
 | [SUBDOC - ASR后处理与manifest.md](./SUBDOC%20-%20ASR后处理与manifest.md) | manifest、asr v2 后处理、canonical 路径、批量顺序 |
 | [SUBDOC - Spot check（长视频 factual）.md](./SUBDOC%20-%20Spot%20check（长视频%20factual）.md) | ≥45 min  factual 对读；脚本 `99-System/scripts/bilibili-spot-check.py` |
+| [SUBDOC - Host-Guest 对谈稿.md](../vskill-vault-write/SUBDOC%20-%20Host-Guest%20对谈稿.md) | 访谈/播客/对谈公众号 → 发布形态对谈稿；配合 `vskill-vault-write mode=dialogue` |
 
 B 站 / 视频转写收录时 **优先读 SUBDOC**，再执行本节 Step 1–8。
+
+**访谈 / 对谈公众号**：Step 2 抓内容后，若用户要 Founder Park 式对话体 → 转 `vskill-vault-write mode=dialogue`（读 Host-Guest SUBDOC），勿默认压成第三人称讲义。
 
 ## 关联
 

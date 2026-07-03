@@ -2,9 +2,16 @@
 title: "Claude Code实战：构建一个AI数据分析师"
 source: "B站视频 - Easonlee的AI笔记"
 source_url: "https://www.bilibili.com/video/BV1Mpf9B5Egk/"
-speaker: "Brex 数据团队工程师（与主持人对谈）"
-duration: "51:46"
+speaker: "Sumeet（Brex 数据主管）/ Peter（主持人）"
+duration: 51:46
 saved: 2026-07-02
+created: 2026-06-09
+updated: 2026-07-03
+description: "Brex 数据主管演示用 Claude Code + Snowflake MCP 复刻数据分析师四步循环（监控-调查-故事-影响），强调查询结果 token 爆炸、窄语义层与 data analysis Skills 护栏。"
+material_tier: A
+ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1Mpf9B5Egk/ingest"
+transcript_source: "Recastory/workspace/bilibili-retranscribe/BV1Mpf9B5Egk/article.md"
+curate_method: "vskill-vault-curate v3-ingest（讲义 v3）"
 spot_check: 2026-07-02
 tags:
   - ai_agent
@@ -14,11 +21,7 @@ tags:
   - claude
   - mcp
   - context_engineering
-created: 2026-06-09
-description: "Brex 工程师演示用 Claude Code + Snowflake MCP 复刻数据分析师四步循环（监控-调查-故事-影响），强调查询结果 token 爆炸、窄语义层与 data analysis Skills 护栏。"
-transcript_source: "Recastory/workspace/bilibili-retranscribe/BV1Mpf9B5Egk/article.md"
 asr_version: v2
-curate_method: "vskill-vault-curate（读者向讲义 v2）"
 ---
 
 # Claude Code 实战：构建一个 AI 数据分析师
@@ -26,7 +29,7 @@ curate_method: "vskill-vault-curate（读者向讲义 v2）"
 ## 先搞懂这一期
 
 **这是什么节目？**  
-**Brex** 数据团队工程师与播客主持人的 **~52 分钟对谈 + 现场 demo**。不是 SQL 教程，是用 **Claude Code 搭「像数据科学家一样想问题」的 Agent**——含 Snowflake MCP 从零生成、公开融资数据集问答、以及 Brex 真实支出数据洞察。
+**Brex** 数据主管 **Sumeet** 和播客主持人的 **~52 分钟对谈 + 现场 demo**。不是 SQL 教程，是用 **Claude Code 搭「像数据科学家一样想问题」的 Agent**——含 Snowflake MCP 从零生成、公开融资数据集问答、以及 Brex 真实支出数据洞察。
 
 **这期在回答哪三个问题？**
 
@@ -34,10 +37,10 @@ curate_method: "vskill-vault-curate（读者向讲义 v2）"
 2. **为什么数据分析 Agent 要单独做 MCP，还要管 context？** 和「写代码的 Claude」有何不同？  
 3. **PM 自助查数会不会干掉数据岗？** Brex 内部实际发生了什么？
 
-**用一条线串起来（没看视频也能复述）：**
+**用一条线串起来：**
 
-开场：八个月前 AI 只会 debug SQL，现在能写 **boilerplate + 进阶分析**；客户已用数据选出 **Cursor 是 coding tool 首选**。  
-**分析师四循环**：① **监控**已有 dashboard/query；② **调查**异常（可下钻客户/交易）；③ **故事化**给业务（需人指导「好故事」）；④ **影响**——改按钮、跑实验、再循环（端到端尚未完全自动）。  
+八个月前 AI 只会 debug SQL，现在能写 **boilerplate + 进阶分析**；客户已用数据选出 **Cursor 是 coding tool 首选**。  
+**分析师四循环**：① **监控**已有 dashboard / query；② **调查**异常（可下钻客户 / 交易）；③ **故事化**给业务（需人指导「好故事」）；④ **影响**——改按钮、跑实验、再循环（端到端尚未完全自动）。  
 **比邮件图表强在哪**：可 **按角色定制** 周报；Claude **总会读、总会追问**，不像 dashboard 被 ignore。  
 **跨工具上下文**：Slack 事故 thread 能解释 metric 异常——**不只 warehouse**。  
 **Demo 主线**：公开 **startup funding** 数据集 → 3 条「真实在跑的」SQL 作种子 → planning mode 生成 **Startup Funding MCP**（query tool + analyze tool + eval + token 护栏）→ 问「谁最可能 Series B」「哪个 AI coding tool momentum 最高」→ Cursor 排第一。  
@@ -61,17 +64,15 @@ curate_method: "vskill-vault-curate（读者向讲义 v2）"
 
 ### 1. 数据分析师四步循环：AI 能接哪几棒
 
-**说法：**
-
 | 阶段 | Agent 能力 | 人的角色 |
 |------|-----------|----------|
 | **监控** | 代跑 query、读 trend、摘要 dashboard | 定监控什么 |
-| **调查** | 下钻 + Slack/Linear 等 **外部上下文** | 定 investigation 方向 |
+| **调查** | 下钻 + Slack / Linear 等 **外部上下文** | 定 investigation 方向 |
 | **故事化** | 侧向深挖、补 Google Doc 评论里的洞 | **教什么是好故事** |
-| **影响** | 查 codebase 历史实验、估 impact | 批准改产品/跑实验 |
+| **影响** | 查 codebase 历史实验、估 impact | 批准改产品 / 跑实验 |
 
 **例子：**  
-PM 把现有 dashboard 的 query **扔进 Claude Code 每天/每周跑**——数据人 cut out，但 PM **问题更好**，数据人做更深分析。
+PM 把现有 dashboard 的 query **扔进 Claude Code 每天 / 每周跑**——数据人 cut out，但 PM **问题更好**，数据人做更深分析。
 
 **和你何干：**  
 别指望一个 prompt 端到端；**先自动化最烦的监控与 boilerplate SQL**。
@@ -80,8 +81,7 @@ PM 把现有 dashboard 的 query **扔进 Claude Code 每天/每周跑**——�
 
 ### 2. 周报 vs Dashboard：为什么「有人读」 matters
 
-**说法：**  
-传统周一邮件/charts：有人扫一眼，有人 ignore。Claude 版可 **按职能定制**（只看某产品线用户），且 **「Claude 总会读、总会提 follow-up 问题」**——甚至尝试 **自己答** 那些问题。
+传统周一邮件 / charts：有人扫一眼，有人 ignore。Claude 版可 **按职能定制**（只看某产品线用户），且 **「Claude 总会读、总会提 follow-up 问题」**——甚至尝试 **自己答** 那些问题。
 
 **例子：**  
 Brex 内部 weekly review：metric 变了，Agent 去 Slack 发现 **data incident**，解释「不是客户流失，是 pipeline 坏了」——省周一早上 panic。
@@ -93,10 +93,9 @@ Agent 监控的价值 = **interpretation + 跨源关联**，不是多一张静�
 
 ### 3. 为什么用 MCP：Rails 给所有人同一起点
 
-**说法：**  
 没有 MCP：每人扔 ad-hoc SQL，**没有数据团队文档化的 join 模式**。  
-MCP = **结构化、可重复** 地连 Snowflake，让 PM/工程师 **从同一套 rails 起跑**，再偏离。  
-起步：**一个 domain 3 条 query**（含 join、典型分析，如 funding velocity）；从 **Snowflake query history / 现有 dashboard**  scrape，别让 Claude 瞎编没人用的 SQL。
+MCP = **结构化、可重复** 地连 Snowflake，让 PM / 工程师 **从同一套 rails 起跑**，再偏离。  
+起步：**一个 domain 3 条 query**（含 join、典型分析，如 funding velocity）；从 **Snowflake query history / 现有 dashboard** scrape，别让 Claude 瞎编没人用的 SQL。
 
 **Demo prompt 要素：**  
 建 startup funding MCP → weekly reporting + deep dive + trend monitor → **3 条 eval 问题** → planning mode 澄清（本地 vs prod、alerting 等）。
@@ -108,14 +107,12 @@ MCP = **结构化、可重复** 地连 Snowflake，让 PM/工程师 **从同一�
 
 ### 4. 数据分析 Agent 特有问题：Context 管理
 
-**说法：**
-
 | 问题 | 原因 | 对策 |
 |------|------|------|
 | **Token 爆炸** | 一条 query 1 万～200 万行进 context | 指令里写 **LIMIT**、分步分析；提醒「上条有 limit ≠ 全表」 |
 | **分段混淆** | 8 种 customer segmentation 全给 | **Tight semantic context**：一次只暴露一种 |
-| **字段歧义** | 列名/doc 不清；同义不同名 | 显式命名、synonym、**表文档给 Agent 看** |
-| **只有数没有事** | 缺 Slack/Jira 等 | 接 **Glean MCP**；**每个连接建 subagent** |
+| **字段歧义** | 列名 / doc 不清；同义不同名 | 显式命名、synonym、**表文档给 Agent 看** |
+| **只有数没有事** | 缺 Slack / Jira 等 | 接 **Glean MCP**；**每个连接建 subagent** |
 
 **和你何干：**  
 写 doc / navigate codebase 的 Claude 套路 **不能直接 copy** 到 analytics——第一步就可能炸窗。
@@ -124,10 +121,9 @@ MCP = **结构化、可重复** 地连 Snowflake，让 PM/工程师 **从同一�
 
 ### 5. Live Demo：Series B 预测与 Cursor momentum
 
-**说法：**  
 MCP 建好后：  
 - 「最近 Series A 谁最可能 Series B？」→ 结合 **金额、行业（AI vs healthcare 61% vs 73%）、velocity query**。  
-- 「哪个 AI coding tool momentum 最高？」→ **Cursor #1**（大 Series A、A16Z 等）；数据集局限：公司改名、被收购会 **丢 thread**（如 Windsurf/Cognition 混淆）。
+- 「哪个 AI coding tool momentum 最高？」→ **Cursor #1**（大 Series A、A16Z 等）；数据集局限：公司改名、被收购会 **丢 thread**（如 Windsurf / Cognition 混淆）。
 
 **Brex 支出侧：**  
 Cursor **startup + enterprise 双杀**；OpenAI enterprise 强（ChatGPT Pro 渗透）；Anthropic **startup 产品内嵌 agent 选 Claude** 多；ElevenLabs 是 **voice 附加首选**。
@@ -139,10 +135,9 @@ Cursor **startup + enterprise 双杀**；OpenAI enterprise 强（ChatGPT Pro 渗
 
 ### 6. 护栏：Skills 防 PM 拖垮库
 
-**说法：**  
 PM 自助 fear：**random query 打挂库** + **token 成本失控**。  
 **data analysis Skill**：强制 limit 50、join 超时 2–3 分钟 kill 重写、**computational story mapping**（SQL 当叙事链）、导出 CSV skill。  
-PM 用 Skill → 数据人 review **join  leaps** 再 productionize。
+PM 用 Skill → 数据人 review **join leaps** 再 productionize。
 
 **和你何干：**  
 Self-serve analytics = **MCP + Skills 护栏 + 数据人可见的 join 披露**，不是裸 Claude。
@@ -151,7 +146,6 @@ Self-serve analytics = **MCP + Skills 护栏 + 数据人可见的 join 披露**�
 
 ### 7. 入门三步（TL;DR）
 
-**说法：**  
 1. 定 domain，挑 **2–3 条真实在用的 core queries**（含 join + 一条稍复杂分析）。  
 2. 写 **context**：表含义、为何 business care、common joins。  
 3. 进 Claude Code MCP，或 **同一套 context 灌进 Hex 等 BI**——AI BI 工具也不会替你做这步。
@@ -163,16 +157,16 @@ Self-serve analytics = **MCP + Skills 护栏 + 数据人可见的 join 披露**�
 
 ## 关键概念（读完应能解释）
 
-| 词 | 白话 |
-|----|------|
-| **Monitoring agent** | 代跑已有 query、解读 trend |
-| **Startup Funding MCP** | Demo 中 Snowflake 融资域工具包 |
-| **Tight semantic context** | 一次只给 Agent 一种客户分段/语义层 |
-| **Seed queries** | 从生产 query history 挑出的 MCP 模板 SQL |
-| **Data analysis Skill** | limit/timeout/join 披露的护栏技能包 |
-| **Glean MCP** | 企业内 Slack/Drive 统一检索接 Claude |
-| **Computational story mapping** | 把 SQL 步骤当叙事链，非孤立查询 |
-| **Self-serve analytics** | PM 用 MCP+Skill 查数，数据人审 productionize |
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 监控代理 | Monitoring agent | 替你把 dashboard 里的 query 跑一遍，看趋势有没有异常 |
+| 融资域 MCP | Startup Funding MCP | Demo 里连 Snowflake 的融资数据工具包 |
+| 窄语义层 | Tight semantic context | 一次只给 Agent 一种客户分段，别八种全塞 |
+| 种子查询 | Seed queries | 从生产 query history 挑出的 MCP 模板 SQL |
+| 数据分析技能 | Data analysis Skill | limit / timeout / join 披露的护栏技能包 |
+| 企业检索 MCP | Glean MCP | 企业内 Slack / Drive 统一检索接 Claude |
+| 计算叙事链 | Computational story mapping | 把 SQL 步骤当叙事链，非孤立查询 |
+| 自助分析 | Self-serve analytics | PM 用 MCP + Skill 查数，数据人审 productionize |
 
 ---
 
@@ -200,10 +194,10 @@ Self-serve analytics = **MCP + Skills 护栏 + 数据人可见的 join 披露**�
 
 ## 小结
 
-**这期最核心的判断：** Claude Code 做数据分析，.harness 核心是 **MCP rails + 窄语义 context + 结果集 token 管理**；Agent 价值在 **监控解读 + Slack 等外源**，不是替代数据科学家讲故事与定实验。
+**这期最核心的判断：** Claude Code 做数据分析，harness 核心是 **MCP rails + 窄语义 context + 结果集 token 管理**；Agent 价值在 **监控解读 + Slack 等外源**，不是替代数据科学家讲故事与定实验。
 
-**读完应带走：**
-- 四循环里 **监控/调查** 最先自动化；故事与实验仍要人。  
+**要点：**
+- 四循环里 **监控 / 调查** 最先自动化；故事与实验仍要人。  
 - MCP 从 **真实 query history** 长出来，带 eval 与 limit 指令。  
 - **Skills** 给 PM self-serve 上锁，别裸跑大 join。
 
@@ -214,16 +208,16 @@ Self-serve analytics = **MCP + Skills 护栏 + 数据人可见的 join 披露**�
 ## 行动启示
 
 1. **Scrape 3 条生产 query** 作 MCP 种子，别让 Agent 发明没人用的 join。  
-2. **System prompt 写清**：大结果集先 LIMIT、注明「带 limit 的结果≠全表」。  
+2. **System prompt 写清**：大结果集先 LIMIT、注明「带 limit 的结果 ≠ 全表」。  
 3. **一次一种 segmentation** 暴露给 Agent，文档写 synonym 防歧义。  
-4. **接 Slack/Jira MCP**，调查阶段才像真人分析师。  
+4. **接 Slack / Jira MCP**，调查阶段才像真人分析师。  
 5. **Publish data analysis Skill** 给 PM：limit、timeout、join 说明模板。
 
 ---
 
 ## 相关阅读
 
-- [[OpenAI员工-上下文工程和Agent记忆]] — trim/compact/summarize 与长期记忆模式  
+- [[OpenAI员工-上下文工程和Agent记忆]] — trim / compact / summarize 与长期记忆模式  
 - [[Manus创始人-深度干货-上下文工程的最佳实践]] — Context Engineering 另一视角  
 - [[Claude Code负责人-AI原生团队如何使用AI]] — Anthropic 内部 Agent 工作流  
 - [[Databricks-企业级Agent生产实践]] — 企业级 Agent 生产  
@@ -233,9 +227,11 @@ Self-serve analytics = **MCP + Skills 护栏 + 数据人可见的 join 披露**�
 
 ## 来源
 
+- **ingest**：`Recastory/workspace/bilibili-retranscribe/BV1Mpf9B5Egk/ingest`
+- **video_description**：`{ingest}/video_description.md`
 - **视频**：[BV1Mpf9B5Egk](https://www.bilibili.com/video/BV1Mpf9B5Egk/)（B 站 *Easonlee的AI笔记*）  
-- **讲者**：Brex 数据团队工程师（访谈）  
+- **讲者**：Sumeet（Brex 数据主管，Claude Code 团队推荐）  
 - **时长**：~51:46  
-- **转写**：Recastory `bilibili-retranscribe/BV1Mpf9B5Egk/`（FunASR SenseVoice + cam++，**asr v2 后处理** 57 段）  
+- **转写**：Recastory `bilibili-retranscribe/BV1Mpf9B5Egk/`（FunASR SenseVoice + cam++，**asr v2** 57 段）  
 - **公开数据**：Brex Blog 月度 AI 支出 benchmark（视频中提及）  
-- **版本**：v2 读者向讲义（2026-07-02）
+- **版本**：v3 读者向讲义（2026-07-03）

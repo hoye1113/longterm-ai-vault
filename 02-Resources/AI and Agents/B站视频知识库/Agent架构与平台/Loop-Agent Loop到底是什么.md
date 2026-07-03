@@ -1,10 +1,25 @@
 ---
 title: "Loop：Agent Loop 到底是什么？"
-source: "B站视频 - Startup Ideas Podcast"
+source: "B站视频 - Startup Ideas Podcast（Easonlee 转载）"
 source_url: "https://www.bilibili.com/video/BV1cVjN6oEwx/"
-speaker: "Ross Mikita (YouTube: Ross Mikita)"
-duration: "22:33"
+source_original_date: 2026-06-10
+host_name: "Greg"
+guest_name: "Ross Mikita"
+guest_title: "YouTube @Ross Mikita · agentic loop 实践者"
+material_tier: A
+ingest_dir: "Recastory/workspace/knowledge/A7-loop-agent-loop/ingest"
+speaker: "Greg / Ross Mikita"
+duration: 22:33
 saved: 2026-07-02
+created: 2026-07-02
+updated: 2026-07-03
+description: "Greg × Ross Mikita：HITL 与 Agent Loop 图解、开放式 autoloop 的 token 陷阱、Greptile 评分驱动的 code review 闭环——Human-in-the-loop is the best loop。"
+transcript_source: "Recastory/workspace/knowledge/A7-loop-agent-loop/article.md"
+curate_method: "vskill-vault-write canonical-dialogue v3.2-asr"
+dialogue_version: v3.2
+genre: Host-Guest canonical (ASR primary)
+speaker_inference: "asr_heuristic + video_description"
+speaker_confidence: high
 tags:
   - ai_agent
   - video_transcript
@@ -12,219 +27,241 @@ tags:
   - loop_engineering
   - harness_engineering
   - ai_coding
-created: 2026-07-02
-description: "Ross Mikita 区分 Human-in-the-Loop 与 Agent Loop，批判 Boris/Peter 式开放式 autoloop 为 token 焚烧与老虎机，给出 Graphite 评分驱动的 code review 闭环作为唯一日常可用范例。"
-transcript_source: "Recastory/workspace/knowledge/A7-loop-agent-loop/article.md"
-curate_method: "vskill-vault-curate（读者向讲义 v2）"
+concepts:
+  - id: hitl
+    zh: 人在回路
+    en: human-in-the-loop
+    one_line: 人每步 prompt、测试、审批
+  - id: agent_loop
+    zh: 智能体循环
+    en: agent loop / agentic loop
+    one_line: 人 fire 一次，产出喂回 agent 自迭代
+  - id: closed_loop
+    zh: 受限反馈循环
+    en: closed loop
+    one_line: 固定 scorer + 明确 stop 条件
+  - id: grep_loop
+    zh: Greptile 审查循环
+    en: grep loop
+    one_line: 读 review 分 → fix → push 直到 ≥4/5
 ---
 
 # Loop：Agent Loop 到底是什么？
 
-## 先搞懂这一期
-
-**这是什么节目？**  
-**Startup Ideas Podcast** 一期约 23 分钟的对话。嘉宾 **Ross Mikita**（YouTube 同名）被请来 **讲清楚 agentic loop 是什么**——因为他觉得行业里大多数人 **要么不懂，要么 hype 过头**。语气很冲，但有一个 **可复制的 closed-loop 实例**。
-
-**这期在回答哪三个问题？**
-
-1. **Human-in-the-Loop（HITL）和 Agent Loop 差在哪？** 图表上差「谁在中途审批」。
-2. **Boris / Peter 说的「我不写 prompt，我 generate loops」**——普通人该跟吗？  
-3. **有没有今天就能用的、合理的 loop？** 有，但在 **code review**，不在「一条 PRD 建整个 App」。
-
-**用一条线串起来（没看视频也能复述）：**
-
-**HITL（你我在用的）：** 你 prompt → agent 出结果 → **你**看、测、再 prompt → 循环。你是 **导演**。
-
-**Agent Loop（ hype 版）：** 你 **只 fire 一次**（PRD.md / slash goal）→ agent 产出 → **产出喂回给自己** → 继续改 → 人不 intermediate。像雇了一个 **从不问你的超级程序员** 闷头干到底。
-
-Ross 的立场：**开放式 App Loop 对普通人 = 烧 token + 错误假设 + 老虎机**——Peter 一个月能烧 **130 万美元 token**，你有吗？Plan 文档 **永远盖不全** product vision（agency 的人都懂「你还漏了这个」）。**Slash goal / slash loop** 各工具名字不同，本质一样。
-
-**唯一他 daily 用的 loop：** Cursor + GitHub + **Graphite** code review——review 给 **1–5 分**，低于 4 不 merge；**grep loop** Skill 读 review → fix → push → 等新区 review，直到 ≥4 或跑满 5 轮。**反馈函数固定**，目标 binary-ish，这才叫 closed loop。
-
-**结论句：Human-in-the-loop is the best loop**——至少现在、至少对要做有品味产品的 startup builder。
+**Host：** Greg（Startup Ideas Podcast）  
+**Guest：** Ross Mikita（YouTube 同名）  
+**形态：** Host-Guest canonical v3.2（**ASR 主源** · 中文口语化）  
+**辅源：** B 站简介导读时间戳 · 无专栏主源  
+**B 站：** [BV1cVjN6oEwx](https://www.bilibili.com/video/BV1cVjN6oEwx/)
 
 ---
 
-## 背景：这期在 AI Agent 大图里的位置
+## 开场
 
-| 你可能已有的认识 | 这期补上的那一块 |
-|----------------|-----------------|
-| [[Loop Engineering 橙皮书 - 花叔]] 讲 Loop = Harness 上一层 | 这期是 **反 hype 科普 + 边界条件** |
-| [[Claude Code负责人 Boris Cherny-Tokenmaxxing与AI智能体前沿]] Boris 不谈 prompt | Ross **解释普通人不能无脑 copy 的原因** |
-| [[Alchemy CPO-从代码审查到自动代理]] 审查自动化 | 与 **grep loop** 同一脉络：review 分闭环 |
-| Agent 自主跑三天 | **需要 meta-harness（测试、浏览器截图）** 才 maybe  work——你没有 |
+人人都在聊 agentic loop，但 Ross 认为多数人**要么不懂，要么 hype 过头**。这期他要讲三件事：loop 是什么、为什么 Boris/Peter 那套对普通人可能是**可怕错误**、以及他**唯一 daily 在用的** concrete 用例。
+
+四章预告：**HITL vs Agent Loop 一张图** → **开放式 App Loop 为何像老虎机** → **slash goal 适用边界** → **Greptile + grep loop 的 closed loop**。
 
 ---
 
-## 分话题讲
+## 01 HITL 与 Agent Loop：一张图讲清差别
 
-### 1. 两种循环：一张图讲清
+**Greg：** 听众听完要能搞懂 loop 是什么、大佬们为何狂热、以及为什么对大多数人可能是 mistake——除非你有钱可烧。最后你还会秀一个今天就能用的例子。先画个图？
 
-```
-HITL:
-  你 ──prompt──▶ Agent ──result──▶ 你（测试/审批）──▶ 再 prompt ...
+**Ross：** 左边是你我这种**普通 builder**——用 Cursor、Claude、Codex 都行。你 **prompt** → agent **出结果** → 你**看、测、再 prompt**。做 todo app：先做 landing，满意再做 auth，再做 backend。**每一步都是你 govern**。这叫 **human-in-the-loop**——agent 在干，但**导演是你**。
 
-Agent Loop:
-  你 ──fire once（PRD/spec）──▶ Agent ⇄ result feedback ⇄ Agent ...
-                                    （人不在环里）
-```
+右边是 Boris、Peter 那帮人讲的 **agent loop**：人只在环里**出现一次**——fire 一份 `spec.md` / `PRD.md`——之后 agent 产出 → **结果喂回给自己** → 继续改，**人不在中间**。像雇了个从不问你的超级 dev，闷头做到「done」。
 
-**HITL 日常：** 做 todo app——先 landing page，满意再做 auth，再做 backend；**每一步你 govern**。
+**Greg：** 听起来很 future。错在哪？
 
-**Agent Loop 叙事：** 一份 spec.md 够 agent 自己 loop 直到「done」——**听起来**像未来，**实践中**对 meaningful product 问题很大。
+**Ross：** 理论酷，实践对 meaningful product **很容易 terrible wrong**。后面细说。
 
----
+> **金句 · Ross**
+> **中文：** 人在环里，是目前最好的 loop。
+> **原文：** Human in the loop is the best loop.
 
-### 2. 开放式 Loop 为什么容易翻车
+**本章概念**
 
-**① Token 预算**  
-不是 $200/月 tier 就别想。大佬可以 **unlimited tickets** 做 research；你烧完额度得 **捐钱给即将万亿估值的公司**。
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 人在回路 | human-in-the-loop (HITL) | 你每步 prompt、测试、审批 |
+| 智能体循环 | agent loop / agentic loop | 你只启动一次，agent 自反馈迭代 |
+| 开环 | open loop | 目标模糊、反馈靠 agent 自己猜（建整个 app） |
+| 闭环 | closed loop | 固定 feedback engine + 明确 stop 条件 |
 
-**② Plan 永远不够**  
-雇一个聪明 dev **不 consult 你** 闷头做完——会做满 **错误假设**（架构、UI、edge case）。人类 agency 都 extract 不全需求，何况一份 markdown。
+**本章小结**
 
-**③ 老虎机 / Full Self-Driving 类比**  
-Miami → Charleston 按 GO，**不能** halfway 下车吃 Fried chicken、给用户看半成品收反馈。Startup 要靠 **给人看 app 换反馈**——open loop **缺这一环**。
-
-**④ 即使 Boris/Peter**  
-Ross 猜他们有 **test suite + browser screenshot + insane meta-harness**——不是 slash goal 三个字。普通人 **没有这套 infra**。
+- HITL = 你是导演；Agent Loop hype 版 = 你只点火，后面人不插手
+- 差别不在工具名，在**中途有没有人审批**
 
 ---
 
-### 3. Slash Goal / Slash Loop：名字不同，一回事
+## 02 开放式 App Loop：token 老虎机与「计划盖不全」
 
-Cursor 有 `/loop`，别的工具有 `/goal`——**同一模式**：
+**Greg：** 给 agent 一份 markdown，让它 loop 到完——像 Full Self-Driving， Miami 一路 GO 到 Charleston，中途不能下车吃 fried chicken。Startup 得**给人看半成品换反馈**，open loop 缺这一环。你 basically 说这就是 slot machine？
 
-- 高层 prompt + 可选 attach markdown  
-- 「build entire thing, don't stop, no mistakes」  
+**Ross：** **Basically。** 几个硬理由：
 
-**适用边界（Ross 承认）：**
-- ✅ **Experimentation**：他做过 Among Us AI benchmark simulator，**1.5 小时**搞定，细节错也无所谓  
-- ✅ **Prototype / 不在乎审美**  
-- ❌ **有意义的 product + 品味 + 有限 budget**  
+**① Token**——不是 $200/月 tier 就别想。Boris/Peter 可以 unlimited tickets 做 research；你烧完额度等于**给即将万亿市值的公司捐钱**。Peter 推文：一个月 **130 万美元 token**。我有 unlimited 吗？没有。
 
-教 startup listener「用 loop 做百万美元 App」——**misleading**（除非你就是想 burn tokens 做 research）。
+**② Plan 永远不够**——雇个聪明 dev **不 consult 你**闷头做完，架构、UI、edge case 全错假设。做 agency 的都懂：「你还漏了这个。」人类互相都 extract 不全需求，何况一份 `.md`。
+
+**③ 老虎机**——Ralph loop、slash goal 各工具名字不同，本质一样：高层 prompt + attach markdown +「build entire thing, don't stop」。适合 **experiment**（他做过 Among Us AI benchmark simulator，1.5 小时，细节错无所谓）；不适合**有品味的 SaaS**。
+
+**④ 大佬背后有 meta-harness**——我猜 Boris/Peter 有 **test suite、browser screenshot、insane harness**，不是 slash goal 三个字。普通人没有。
+
+**Greg：** 不是说他们恶意——他们必须 experiment self-healing agents。问题是 content 教普通人 copy。
+
+**Ross：** 「Oh this is marshmallow crispy」——除非你想捐 token。**现在不对普通 startup builder 推荐 open app loop**。将来 maybe，**不是 2026 年 6 月**。
+
+> **金句 · Ross**
+> **中文：** （开放式 app loop） basically 老虎机。
+> **原文：** It's basically a slot machine.
+
+> **金句 · Ross**
+> **中文：** 你以为 plan 盖全了——永远不会。
+> **原文：** You think your plan doc covers everything — it never does.
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 代币黑洞 | token burn | 开放式 loop 预算失控 |
+| 元.harness | meta-harness | 测试、浏览器截图等让 loop 能跑的外层 |
+| 老虎机效应 | slot machine effect | 烧 token 赌一次「能不能成」 |
+
+**本章小结**
+
+- Open loop 缺 mid-flight 用户反馈——与 startup 迭代方式冲突
+- Plan doc 盖不全 + 无 fixed feedback → loop 不收敛，只烧钱
+- 大佬 narrative 背后常有**你没有的 harness 预算**
 
 ---
 
-### 4. Grep Loop：唯一推荐的 Closed Loop
+## 03 Slash goal 与 hype 叙事的边界
 
-**栈：** Cursor（harness）+ GitHub + **Graphite**（code review agent；CodeRabbit 等同类）
+**Greg：** Slash goal 也在 trending——跟 loop 一回事吗？
 
-**流程：**
-1. Push feature → Graphite 自动 review AI 生成的 code  
-2. 输出问题 + **1–5 分**  
-3. 规则：**≥4 才允许上 production**  
-4. 触发 **grep loop** Skill：读 GitHub review → fix → push → Graphite 新 review  
-5. 循环直到 ≥4/5 或 **最多 5 轮**
+**Ross：** **同一模式**。Cursor 叫 `/loop`，别的叫 `/goal`：slash → 给 prompt → 可选 attach markdown →「don't stop until done, no mistakes」。
+
+**适用：**
+- ✅ Experimentation、throwaway prototype、不在乎审美
+- ❌ 有意义的产品 + 有限 budget + 要品味
+
+教 listener「用 loop 做百万美元 App」——**misleading**。Output **binary**（SEO 300 页同模板、code review 过/不过）才有 room for loop；**creative product 不是**。
+
+**Greg：** Boris/Peter 将来 maybe 行？
+
+**Ross：** **不否认**将来 meta-harness 成熟后 open loop 可能 work——**不是现在**。我不 fault 他们；我 fault 的是**教所有人 copy**。
+
+**本章小结**
+
+- Slash goal = slash loop = 一键 autoloop，名字不同而已
+- Binary 任务可 loop；creative SaaS 默认 HITL
+- 内容创作者别把 research budget 包装成 universal playbook
+
+---
+
+## 04 Greptile + grep loop：唯一 daily 用的 closed loop
+
+**Greg：** 你 said 有一个 side 你 actually use——code review？
+
+**Ross：** 栈：**Cursor**（harness）+ **GitHub** + **Greptile**（code review agent；CodeRabbit 同类）。每次 push feature → Greptile **自动 review AI 生成的 code** → 问题列表 + **1–5 分**。我的规则：**≥4 才上 production**。
+
+分数不够 → 在 Cursor 里跑 **grep loop** Skill：读 GitHub 上 Greptile 的 review → fix → push → Greptile **新 review**。循环直到 **≥4/5** 或 **最多 5 轮**。
 
 **为何这算「真 loop」：**
-- **Fixed feedback engine**（评分 + 具体 comment）  
-- **Goal 明确**（分数门槛）  
-- **范围 closed**（只改 review 指出的）  
+- **Fixed feedback engine**（评分 + 具体 comment）
+- **Goal 明确**（分数门槛）
+- **范围 closed**（只改 review 指的）
 
 **仍会 break：**
-- 单次 push **>1000 行** diff → 很难 5/5 → 要拆 PR  
+- 单次 push **>1000 行** → 很难 5/5 → **拆 PR**，小步快跑
 - Loop **不 perfect**——但比 open-ended app loop **现实得多**
 
-这和本期 sponsor CodeRabbit 同类——**binary-ish output**（过/不过）才适合 autoloop。
+**Greg：** 输出 binary 的地方 loop 合理——code review、SEO 批量页。做 startup App 的人若以为「AI loop 帮我做百万美元产品」——?
+
+**Ross：** **Misleading。** 唯一 sensible 的 daily loop：**窄流程 + 固定 scorer**。Full self-driving 式「一条 PRD 建 App」缺 halfway 分享——train 已经开了，你下不了车。
+
+> **金句 · Ross**
+> **中文：** Loop 只在该窄、反馈固定的地方合理——code review。
+> **原文：** The only place a loop makes sense is in a very confined process with a very fixed feedback loop — code review.
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| Greptile 审查循环 | grep loop | Greptile review → fix skill → push 循环 |
+| 固定反馈 | fixed feedback loop | 评分 rubric，输出可验证 |
+| PR 粒度 | small PR | <1k 行 diff review loop 才收敛 |
+
+**本章小结**
+
+- Greptile 1–5 分 + merge 门槛 = binary-ish feedback
+- grep loop Skill 把 review 变成可自动迭代的 closed loop
+- 控制 diff 大小是 loop 能否收敛的关键操作细节
 
 ---
 
-### 5. 什么时候 Loop 合理：Binary vs Creative
+## 总结
 
-| 场景 | Loop 合理？ | 原因 |
-|------|------------|------|
-| Code review 评分 | ✅ | 固定 rubric，输出可验证 |
-| SEO 批量 300 页同模板 | ✅ maybe | 样式一致即可 |
-| 做有品味的 SaaS / App | ❌ now | 需要人 mid-flight 反馈 |
-| 科学 benchmark toy | ✅ experiment | 细节错可接受 |
+| 维度 | 要点 |
+|------|------|
+| 默认策略 | **HITL** 做 product；open loop 限 experiment / throwaway |
+| Hype 叙事 | Boris/Peter 式 loop 对普通人 = token 老虎机 + 错误假设 |
+| 唯一 daily loop | **Greptile 评分 → grep loop fix → push**，≥4/5 才 merge |
+| 工程细节 | 单次 push <1k 行；无 fixed scorer 不要 autoloop |
+| 与 vault | 接 [[Loop Engineering 橙皮书 - 花叔]]——本期是**哪种 loop 现在别盲目上**的刹车片 |
 
-**Future：** Ross **不否认** 将来 meta-harness 成熟后 open loop **可能** work——**不是 2026 年 6 月录音时的建议**。
-
----
-
-### 6. 与 Boris/Peter 叙事的关系（不扣帽子）
-
-Ross **不是说他们恶意**——他们 **必须** experiment self-healing agents；token 对他们 **不重要**。
-
-问题在 **content 教普通人 copy**——「oh this is marshmallow crispy」除非你想 **donate to trillion-dollar cos**。
-
-**Human-in-the-loop is the best loop** = 对 **startup builder 的默认策略**。
+> **金句 · Ross（封底）**
+> **中文：** 人在环里，是目前最好的 loop。
+> **原文：** Human in the loop is the best loop.
 
 ---
 
-## 关键概念（读完应能解释）
+## 概念索引
 
-| 词 | 白话 |
-|----|------|
-| **Human-in-the-Loop (HITL)** | 人每步 prompt、测试、审批 |
-| **Agent Loop** | 人 fire 一次，agent 自反馈循环 |
-| **Open loop** | 目标模糊、反馈靠 agent 自己猜（建整个 app） |
-| **Closed loop** | 固定 feedback engine + 明确 stop 条件 |
-| **Slash goal / loop** | 各工具 CLI 的一键 autoloop 命令 |
-| **Grep loop** | Graphite review → fix skill → push 循环 |
-| **Meta-harness** | 测试、浏览器、review 等让 loop 可运行的外层 |
-| **Slot machine effect** | 烧 token 赌一次「能不能成」 |
+| id | 中文 | 英文 | 一句话 |
+|----|------|------|--------|
+| hitl | 人在回路 | human-in-the-loop | 人每步 govern |
+| agent_loop | 智能体循环 | agent loop | fire once 自迭代 |
+| closed_loop | 受限反馈循环 | closed loop | 固定 scorer + stop 条件 |
+| grep_loop | Greptile 审查循环 | grep loop | review 分驱动 fix 循环 |
 
 ---
 
-## 值得记住的原话
+## 附录
 
-> **"Human in the loop is the best loop."**  
-> 人在环里，是目前最好的 loop。
+### 章节时间戳（B 站简介）
 
-> **"It's basically a slot machine."**  
-> （开放式 app loop） basically 老虎机。
+| 时间 | 主题 |
+|------|------|
+| 03:15 | 警惕全自动驾驶陷阱 |
+| 06:42 | AI 无法在缺乏沟通下创造「灵魂」 |
+| 09:50 | 适用场景：实验 vs SaaS |
+| 12:18 | Greptile code review 受限反馈循环 |
+| 15:40 | >1000 行 push 导致 loop 失效 |
 
-> **"The only place a loop makes sense is in a very confined process with a very fixed feedback loop — code review."**  
-> Loop 只在该窄、反馈固定的地方合理——code review。
+### 素材路径
 
-> **"You think your plan doc covers everything — it never does."**  
-> 你以为 plan 盖全了——永远不会。
+- **ingest**：`Recastory/workspace/knowledge/A7-loop-agent-loop/ingest`
+- **ASR 主源**：`Recastory/workspace/knowledge/A7-loop-agent-loop/article.md`
+- **video_description**：`{ingest}/video_description.md`
+- **B 站**：[BV1cVjN6oEwx](https://www.bilibili.com/video/BV1cVjN6oEwx/)
+- **时长**：22:33
+- **专栏主源**：无（A 级 partial enrich）
 
-> **"Unless you want to donate money to companies about to go public at trillion dollar evaluation — this just doesn't make sense."**  
-> 除非你想给万亿市值公司捐 token 钱——现在别这么干。
+### 相关阅读
 
----
-
-## 小结
-
-**这期最核心的判断：** **Human-in-the-loop 仍是默认最优**；开放式 app autoloop 对普通人像 **老虎机烧 token**——唯一日常合理的是 **固定 scorer 的窄 loop**（如 Graphite code review → fix → push）。
-
-**读完应带走：**
-- Agent Loop ≠ 无脑 while-true；没有 fixed feedback，loop 不收敛。
-- Plan doc 永远盖不全；open loop 只适合 experiment / throwaway prototype。
-- 与 Boris 式 loop 叙事对照：背后常有 **你没有的 harness budget**。
-
-**和 vault 的关系：** 接 loop_engineering 与 [[MOC - Harness Engineering]]——补「哪种 loop 现在别盲目上」的刹车片。
-
----
-
-## 行动启示
-
-1. **默认 HITL** 做 product；把 open loop 限在 **experiment / throwaway prototype**。  
-2. **若要 autoloop**：先找 **fixed scorer**（review 分、测试 pass、lint zero）——没有 scorer 不要 loop。  
-3. **抄 grep loop 模式**：review agent + Skill「读 review → fix → push」+ merge 门槛。  
-4. **控制 diff 大小**（<1k lines）让 review loop 能收敛。  
-5. **读 Boris 叙事时加一层 filter**：他的 loop 背后有 **你没有的 harness budget**。  
-6. 与 [[Loop Engineering 橙皮书 - 花叔]] 对照：橙皮书讲 **怎么设计 loop**；本期讲 **哪种 loop 现在别盲目上**。
-
----
-
-## 相关阅读
-
-- [[Loop Engineering 橙皮书 - 花叔]] — Loop = Harness 上一层；五动作循环  
-- [[遇事留痕 - Loop Engineering 的基础 - 魔术师卡颂]] — 失败与 PR 日志是优化 loop 的燃料  
-- [[Claude Code负责人 Boris Cherny-Tokenmaxxing与AI智能体前沿]] — Boris 侧 loop / token 叙事  
-- [[Alchemy CPO-从代码审查到自动代理]] — 代码审查 → 自动代理链  
+- [[Loop Engineering 橙皮书 - 花叔]] — Loop = Harness 上一层  
+- [[遇事留痕 - Loop Engineering 的基础 - 魔术师卡颂]] — 失败日志优化 loop  
+- [[Claude Code负责人 Boris Cherny-Tokenmaxxing与AI智能体前沿]] — Boris 侧 loop 叙事  
+- [[Karpathy爆火项目-AutoResearch解读与启发]] — metric 驱动 overnight loop 对照  
+- [[Alchemy CPO-从代码审查到自动代理]] — 审查 → 自动代理链  
 - [[MOC - Harness Engineering]] — Harness / Loop 横切索引  
 
----
+### 收录说明
 
-## 来源
-
-- **视频**：[BV1cVjN6oEwx](https://www.bilibili.com/video/BV1cVjN6oEwx/)（B 站转载 Startup Ideas Podcast）  
-- **嘉宾**：Ross Mikita  
-- **转写**：Recastory `A7-loop-agent-loop/article.md`（英文 ASR，收录时已人工整理叙事）  
-- **版本**：v2 读者向讲义（2026-07-02）
+- **嘉宾**：Ross Mikita（YouTube @Ross Mikita）  
+- **主源**：英文 ASR（Startup Ideas Podcast）；无 UP 专栏图稿  
+- **版本**：canonical Host-Guest v3.2-asr（2026-07-03；原 v3 九段讲义已替换）

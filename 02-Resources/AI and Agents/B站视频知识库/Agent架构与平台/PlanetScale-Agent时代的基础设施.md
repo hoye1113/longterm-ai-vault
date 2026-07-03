@@ -2,258 +2,356 @@
 title: "PlanetScale：Agent 时代的基础设施"
 source: "B站视频 - Easonlee的AI笔记"
 source_url: "https://www.bilibili.com/video/BV1ZWTL64Erg/"
-speaker: "Sam Shank (PlanetScale CEO)"
-duration: "25:40"
-saved: 2026-07-02
+source_original_date: 2026-06-24
+duration: 25:40
+saved: 2026-07-03
+created: 2026-07-02
+updated: 2026-07-03
+description: "Sam Shank × 会议主持：Cursor Agent live demo 优化/拦截/Rewind/分片；infra 必须 safe by default，narrow tools 封装 DBA 经验。"
+material_tier: A
+ingest_dir: "Recastory/workspace/knowledge/A3-planetscale-agent/ingest"
+transcript_source: "Recastory/workspace/knowledge/A3-planetscale-agent/article.md"
+curate_method: "vskill-vault-write canonical-dialogue v3.2-asr"
+dialogue_version: v3.2
+genre: "Host-Guest canonical (ASR primary)"
+host_name: "Conference Moderator"
+guest_name: "Sam Shank"
+guest_title: "PlanetScale CEO"
+speaker_inference: "asr_single_speaker_keynote + video_description chapter_reconstruction"
+speaker_confidence: medium
 tags:
   - ai_agent
   - video_transcript
   - bilibili
   - cursor
   - harness_engineering
-created: 2026-07-02
-description: "PlanetScale CEO Sam 用 Cursor Agent 现场演示：慢查询优化、危险 schema 拦截、秒级 Rewind、在线分片；核心论题是 infra 必须 safe by default，把 DBA 经验封装成 narrow tools。"
-transcript_source: "Recastory/A3-planetscale-agent/article.md"
-curate_method: "vskill-vault-curate（读者向讲义 v2）"
+concepts:
+  - id: deploy_request
+    zh: 部署请求
+    en: deploy request
+    one_line: 数据库 schema 的 PR，可 review diff
+  - id: schema_rewind
+    zh: 模式回滚
+    en: schema rewind
+    one_line: 长窗口内 flip 旧 schema，保留中间写入
+  - id: scatter_gather
+    zh: 分散-聚集查询
+    en: scatter-gather query
+    one_line: 查所有 shard 再聚合，应 refactor 避掉
+  - id: small_sharp_tools
+    zh: 精简原语
+    en: small sharp tools
+    one_line: 窄接口高内聚，替 Agent 做复杂决策
 ---
 
 # PlanetScale：Agent 时代的基础设施
 
-## 先搞懂这一期
-
-**这是什么节目？**  
-PlanetScale CEO **Sam Shank** 在 AI Engineer 类会议上的主题演讲，约 26 分钟。PlanetScale 是云数据库公司（Vitess 分片、Postgres 等），Cursor 也是它的客户。Sam 整场 **几乎完全靠 Cursor Agent 做 live demo**——每次彩排路径不同，但都能到目标。
-
-**这期在回答哪三个问题？**
-
-1. **Agent 要改线上数据库，基础设施得长什么样？** 不能指望 Agent 永远做对——平台怎么兜底？
-2. **Day one 建应用很容易，真正的难点在哪？** 和「快速 spin up sandbox」的行业 obsession 有什么关系？
-3. **Cursor 这类 coding Agent 和 infra 平台怎么配合？** 谁负责 refactor query、谁负责 safe deploy？
-
-**用一条线串起来（没看视频也能复述）：**
-
-Sam 开了一家慢得要命的 demo 电商（Sam's Sofa），数据库在 PlanetScale 上，query 平均 4 秒。他在 Cursor 里让 Agent 读 PlanetScale 的优化建议、加 index、开 Deploy Request——站点变快了。一个「坏 Agent」试图 drop column，**平台扫描 in-flight queries 后 reject**；另一个被故意放行 push 坏变更，生产挂了，Sam 点 **Schema Rewind**，秒级恢复、中间写入不丢。流量涨后垂直扩展到头，再 demo **3 节点→16 shard 在线分片**，Cursor 帮改 query 避开慢 scatter-gather join。
-
-Sam 的论题：**Agent 非确定性，infra 必须 safe by default**——把 DBA 几十年经验封装成 **small sharp tools**（branch、Deploy Request、rewind、traffic control、backpressure），别把整个 log 流丢给模型。Day one 容易，**长期维护 living production** 才是 infra 主战场。
+**Host：** Conference Moderator（AI Engineer 类会议主持，ASR 未标真名）  
+**Guest：** Sam Shank（PlanetScale CEO）  
+**形态：** 主题演讲 + Cursor live demo · Host-Guest canonical v3.2（**ASR 主源** · 章节边界重构问答）  
+**B 站：** [BV1ZWTL64Erg](https://www.bilibili.com/video/BV1ZWTL64Erg/) · **原片** 2026-06-24 · **时长** 25:40
 
 ---
 
-## 背景：这期在 AI Agent 大图里的位置
+## 开场
 
-| 你可能已有的认识 | 这期补上的那一块 |
-|----------------|-----------------|
-| Agent 能写代码、调 API | **Infra 平台** 要为 Agent 设计：branch、diff、reject、rewind、audit |
-| 数据库变更 = DBA 手工操作 | Agent 改 schema 要有 **Deploy Request**（类 PR）+ 自动 break-query 检测 |
-| 搞砸了 restore snapshot | **Schema Rewind**：flip 回上一版本，**不丢中间写入**，与表大小无关 |
-| Cursor = 写应用代码 | Cursor 也能扛 **query refactor**（分片后加 shard key routing） |
-| 模型越强 Agent 越安全 | **Narrow composable tools** 降歧义；组合扩展智能，风险不必线性涨 |
+PlanetScale 是云数据库（Vitess 分片、Postgres 等），**Cursor 也是客户**——跑非常大的分片库。Sam 这场几乎**完全靠 Cursor Agent 做 live demo**：每次彩排路径不同，但都能到目标；平台还可能**直接 block**危险操作。
 
----
+论题：**Agent 非确定性，infra 必须 safe by default**——把 DBA 几十年经验封装成 **small sharp tools**（branch、Deploy Request、rewind、traffic control、backpressure），别把整坨 log 丢给模型。Day one 建应用容易，**living production 十年二十年**才是 infra 主战场。
 
-## 分话题讲
+六章预告：**非确定性 + 慢查询优化 demo** → **坏 Agent 被拦** → **Rewind 秒级恢复** → **在线分片 + Cursor refactor** → **长期演进 vs 瞬间创建** → **narrow tools + backpressure**。
 
-### 1. Agent 非确定性，平台必须 safe by default
+**术语速查**
 
-**说法：**  
-Sam 全程用 Agent 做 demo，每次彩排路径不同——「agents are non-deterministic」。PlanetScale 是高可用服务，**可能直接 block Agent 操作**。行业 horror story 是 Agent 搞坏数据库；本场展示 **拦截坏变更** 与 **快速 undo** 两面。
-
-Demo 里还故意加了 prompt 让 Agent 做坏事——有的被拦，有的被放行以演示 rewind。
-
-**和你何干：**  
-如果你让 Agent 碰生产 infra（DB、K8s、云资源），assume 它会犯错，平台要有 veto 和 undo。
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 部署请求 | deploy request | schema 变更的「PR」，可 diff 再合并 |
+| 分支环境 | branch | 生产级副本上试变更 |
+| 模式回滚 | schema rewind | 长窗口 flip 旧 schema，中间写入不丢 |
+| 分散-聚集查询 | scatter-gather query | 打全 shard 再聚合，慢，应避 |
+| VSchema | Vitess schema | 声明 shard 规则 |
+| 精简原语 | small sharp tools | 窄工具高可靠，可组合 |
+| 反压 | backpressure | replication lag 时平台自动减速 |
 
 ---
 
-### 2. 现场 demo 第一段：Cursor Agent 优化慢 DB
+## 01 Agent 非确定性：彩排每次不同，平台得兜到对的地方
 
-**说法：**  
-Sam's Sofa 电商站（Cloudflare 托管）：order rate OK，但 **query 平均 ~4s、max ~5s**——checkout  abandonment 风险。PlanetScale 3 节点 cluster + Grafana + **Agents View** 监控多个 Agent 并行操作。
+**Host：** 你说这场 demo 几乎全靠 Agent——非确定性会不会把 DBA 吓跑？
 
-在 Cursor 里 prompt：读 housing recommendations → act on recommendations → optimize database。Sub-agents 并行：list schema changes、读 PlanetScale Insights API、farm work out。**Composer 2.5** 极快，支撑 live demo。
+**Sam：** Agent **非确定性**。我练这场 demo，**每次路径都不一样**，但最后都到对的地方。所以我们 building 的系统要**极其安全**——PlanetScale 高可用，它可能直接 **block** 你在干的事，让 Agent 停。行业里数据库 + Agent 的恐怖故事不少；今天看另一面。
 
-PlanetScale Insights 原本为人设计，现 **对 Agent 极友好**：解释哪些 query 慢、建议 index/schema 变更；自有模型测试 index 推荐后再生成 suggestion。
+demo 电商 **Sam's Sofa**：Cloudflare 托管，PlanetScale 三节点 cluster，query 平均近 **4 秒**，checkout 体验很差。Grafana 上订单在涨，但 query 慢——人 abandon checkout。
 
-**和你何干：**  
-好 infra 不是丢 raw log，而是 **surface 结构化 recommendation** 供 Agent act。
+我让 Cursor Agent（**Composer 2.5**）读 PlanetScale **insights / recommendations**，生成 schema change（加 index 等）→ **branch** 测试 → **Deploy Request**。每张 graph 上**竖线**标变更时刻，可 drill 到 query 频率变化。最慢 query 大幅加速，站点吞吐上去。
 
----
+平台给 Agent 的是**结构化 recommendation**——不是 log 海洋。背后有数据仓库分析每秒千万级 query，surface 给 Agent 的是「该加哪个 index」这种窄接口。
 
-### 3. Deploy Request + Branch = Agent 友好的 DBA 工作流
+> **金句 · Sam**
+> **中文：** Agent 非确定性——彩排每次不同，infra 要兜到正确结果。
+> **原文：** Agents are non-deterministic. Every time I've practiced this demo, it's done something different, but it gets to the right place.
 
-**说法：**  
-Database **branch** = 类 production 环境做 schema 变更 → 就绪后开 **Deploy Request**（类 PR）→ 审查 diff → deploy。图表 **竖线** 标记变更时刻——Agent 改 infra 时你必须知道「什么时候、改了什么」。
+**本章概念**
 
-加 index 后，最慢的 query 在 Grafana 上立刻变快；每条 graph 都 correlate 变更、异常、错误。
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 洞察建议 | insights / recommendations | 平台生成的索引/慢查询建议 |
+| 智能体视图 | agents view | 看谁（哪个 Agent）在改什么 |
+| 变更竖线 | change marker on graphs | 每次 schema 变更在监控图上的标记 |
+| 非确定性 | non-deterministic | 同 prompt 路径可不同，结果靠 infra 约束 |
 
-**和你何干：**  
-Agent 改 infra 和 human 改 infra 应走同一套 review 流程——可见 diff、可 reject。
+**本章小结**
 
----
-
-### 4. 安全拦截：reject drop column
-
-**说法：**  
-一 Agent（「bad guy」）试图 **drop column** → PlanetScale 扫描 in-flight queries → 变更会 break active queries → **reject**（除非 force）。
-
-**和你何干：**  
-平台自动检测「这个 schema 变更会不会打断正在跑的 query」——Agent 不需要自己推理这一点。
+- Agent 路径多变 → infra 默认安全，必要时 block
+- insights + Deploy Request 让「好 Agent」能加速优化
+- 结构化 recommendation 优于 raw log
 
 ---
 
-### 5. Schema Rewind：允许犯错 + 秒级 undo
+## 02 分支与 Deploy Request：坏 Agent drop column 被平台 veto
 
-**说法：**  
-另一 Agent 被 prompt 做坏事 → smoke test 后 **允许 push** → 生产丢列、站点挂 → **Schema Rewind**：flip 回上一 schema 版本，**中间写入不丢**。非 restore snapshot——PlanetScale 保 long-running window，**与表大小无关**（客户有 600–700 TB 表同样秒级 rewind）。
+**Host：** 你说故意塞了「坏 prompt」——平台怎么拦破坏性 schema？
 
-**和你何干：**  
-Living system 需要 **undo** 而非 snapshot 考古——Agent 操作 infra 的前提。
+**Sam：** 一个坏 Agent 试图 **drop column**。PlanetScale 扫描**所有 in-flight queries**，发现会破坏活跃查询 → **reject**（除非你 force）。我说：**「我们成功阻止 Agent 打爆生产。」**
+
+**Deploy Request** 像 PR：branch 上试 schema，ready 了再 deploy；diff 看得见。生产变更和 Grafana **竖线**关联——凌晨两点 prod 挂了，你得知道**谁改了什么**。
+
+好 Agent 路径：加 missing index → branch → deploy → 站点变快。**坏 Agent 被拦**这条，是 determinism 的好新闻——平台比模型更懂「这会 break 正在跑的 query」。
+
+Branch 给**生产级环境**试变更，不必每次真上 prod。现代世界会有越来越多 Agent 改 infra——**审计链**不是奢侈品。
+
+> **金句 · Sam**
+> **中文：** 我们成功阻止了一个 Agent 打爆生产。
+> **原文：** We have successfully stopped an agent from breaking production.
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 部署请求 | deploy request | schema 的 PR + diff + review |
+| 活跃查询检测 | in-flight query check | deploy 前扫描会不会 break 正在跑的 SQL |
+| 分支环境 | branch | 生产级隔离试变更 |
+| 强制通过 | force deploy | 人明确承担风险时才 override reject |
+
+**本章小结**
+
+- drop column 类破坏操作 → 平台 scan + reject
+- Deploy Request + branch = Agent 时代的数据库 PR 流
+- 变更可关联到 graph 竖线，半夜排障靠这个
 
 ---
 
-### 6. Sharding：infra primitive + Cursor 承担 query refactor
+## 03 Schema Rewind：百 TB 表也是同一速度，中间写入不丢
 
-**说法：**  
-优化后 query 更快 → 流量涨 → 垂直扩展到头 → **Vitess 在线分片** 3 节点→16 shards。
+**Host：** 另一个坏 Agent 你真放进去了——生产挂了之后怎么救？和传统 restore 差在哪？
 
-流程：queue → copy data（单库→16 shard，**持续 replicate 新数据**）→ verify 每行 → 切 read replicas → 切 primary（**可 fail back**）。全程应用照常跑。
+**Sam：** 那个 Agent **被允许** push 破坏性 schema——生产丢 column 访问，站点挂。传统 DB：restore snapshot，**中间写入可能丢**，服务停很久。
 
-**VSchema** 声明式：hash sharding key、哪些表 co-locate。**Scatter-gather join** 在 critical path 极慢——旧 app 要 years 级 refactor；demo 里 **Cursor 大规模给 query 加 shard key routing**，直达单 shard。Sam 称这是 demo 里 Cursor 最重活。
+PlanetScale **Rewind**：**长窗口**内 flip 回上一版 schema——**不停机、不丢新写入**。客户常在 **百 TB 级表**上做 schema change，恢复速度一样。我点一下，outage **秒级**撤销。
 
-Sam 曾在 GitHub 早期写 issue：**尽量别分片，因为真的极难。** 但流量到了不得不做。
+Safety 的意思是：你可以让 Agent **并行干活**，平台必须能 **diff、reject、undo**。Rewind 比 restore 快一个数量级——living system 要 **undo**，不是 snapshot 考古。
 
-**和你何干：**  
-分片 = infra 能力 + 应用 refactor；coding Agent 可扛后者，但 **sharding key 设计** 仍需人懂产品。
+Demo 收尾：坏家伙被 prevent，站点变快，Agents View 里任务都 completed。
+
+> **金句 · Sam**
+> **中文：** 组合能扩展智能，不必同比扩展风险。
+> **原文：** Composition scales intelligence without increasing risk.
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 模式回滚 | schema rewind | 长窗口内 flip 旧 schema 版本 |
+| 中间写入保留 | retain interim writes | rewind 不丢变更后的新数据 |
+| 撤销而非还原 | undo vs restore | 秒级 flip，非全库 snapshot 恢复 |
+| 安全并行 | safe parallelism | 允许多 Agent 跑，平台能 veto/undo |
+
+**本章小结**
+
+- 破坏性变更仍可能发生 → Rewind 秒级恢复 + 保留写入
+- 大表同样速度——infra 能力，不是小表特权
+- diff / reject / undo 三件套是 Agent 操作 prod 的前提
 
 ---
 
-### 7. Small sharp tools：智能可组合，风险不线性涨
+## 04 在线分片 + Cursor：scatter-gather 是应用层噩梦
 
-**说法：**  
-PlanetScale 先为 **人类**（最 flaky 的 agent）建 safe-by-default，再为 **更快 Agent** 优化。
+**Host：** 流量涨了，垂直扩展到头——分片 demo 里 Cursor 具体干什么？
 
-| Tool | 作用 |
+**Sam：** 三节点 unsharded → **16 shards**，每 shard 独立 primary + replicas 跨 AZ。应用仍连「一个库」——背后是分布式系统。
+
+**Vitess 工作流**（简化）：queue → 跑 binlog → copy data（边复制边写入）→ verify 每行 → 切 read replicas → 切 primaries（可 fail back）→ 完成。**应用全程在跑**。
+
+**应用层难点**：orders join products，unsharded 时简单 SELECT；sharded 后变 **scatter-gather**——打全 shard 再聚合，慢，在 critical path 上作死。
+
+**VSchema** 声明式告诉 Vitess shard 哪张表、hash 哪列——Agent 可读 PlanetScale skills 生成类似配置。shard key 常是 `customer_id` 这类自然键；选错要付几年 refactor 代价。
+
+**Cursor 角色**：审计调用路径、加 shard key、改 query **直打单 shard**——传统公司 **3–4 年**的分片 refactor，Agent 可大幅压缩**代码改造**部分（VSchema 设计仍要懂产品）。
+
+Demo 跑完：query 处理率大涨，Grafana 订单量 spike——sharding done，应用没死。
+
+> **金句 · Sam**
+> **中文：** 好 infra 把专家经验变成原语。
+> **原文：** Good infrastructure turns expertise into primitives.
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 在线分片 | online sharding | 边复制边服务，非停服迁移 |
+| 分散-聚集查询 | scatter-gather query | 全 shard 查询再聚合，应 refactor |
+| VSchema | Vitess schema | 声明 shard 规则与路由 |
+| 分片键 | sharding key | 决定行落在哪个 shard |
+
+**本章小结**
+
+- 分片 = infra 在线迁移 + 应用 query refactor
+- scatter-gather 慢且危险 → Cursor 类 Agent 改路径打单 shard
+- VSchema 声明式；shard key 要对产品语义
+
+---
+
+## 05 Day one 容易，living production 才是二十年战场
+
+**Host：** 行业都在 obsession「快速 spin up sandbox」——你跟 Day one 唱反调？
+
+**Sam：** 行业 obsessed **point of creation**——sandbox、秒级建库，Day one 大多能跑。真实软件活 **十年二十年**；我们常见接近 **二十年**的产品。
+
+Agent 要在 **living production** 里持续 **prune、iterate、应对 emergent behavior**——不是一次性造好就完。人类仍是最 flaky 的 agent；我们先为人建 safe infra，再为 AI 建。
+
+**Development 阶段**（行业已热）：isolation、validation、controlled deployment、Agent 并行 queue——平台要 **block 不安全并行**（reshard 时 block schema change）。
+
+**Long-running change** 要 **backpressure**——Agent 不必自己盯 Grafana；平台根据 live traffic **hold off / push back**。
+
+**Monitoring 闭环**：每次变更 → 关联**谁（哪个 Agent）改了什么** → 生产行为成为**下一轮 instruction**；emergent system 里其他 Agent 也能 observe 变更。
+
+> **金句 · Sam**
+> **中文：** Day one 很容易；难的是 living system 的持续修剪与维护。
+> **原文：** Day one is extremely easy... It's really about continual pruning, evolution and maintenance.
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 创建点 | point of creation | 一次性 spin up，行业过度关注 |
+| 长期演进 | long-term evolution | 十年二十年维护与修剪 |
+| 涌现行为 | emergent behavior | 变更后全栈行为漂移，需追踪 |
+| 监控闭环 | monitoring loop | 变更 → 影响 → 下一轮 Agent 指令 |
+
+**本章小结**
+
+- Day one ≠ 主战场；living OS 的持续维护才是
+- 平台 block 危险并行；backpressure 解放 Agent 盯盘
+- 变更审计 → 下一轮 instruction 的数据源
+
+---
+
+## 06 Small sharp tools：别扔 raw log，traffic control 与反压
+
+**Host：** 「narrow tools」哲学最后收一下——Postgres traffic control 和 backpressure 给 Agent 什么？
+
+**Sam：** **Small sharp tools** → 少歧义、高可靠、可组合。**Composition scales intelligence without scaling risk.**
+
+工具箱示例：
+
+| 原语 | 干什么 |
+|------|--------|
+| Branch | 生产级试 schema |
+| Deploy Request | 类 PR，diff + insights |
+| Rewind | 秒级 undo 破坏性变更 |
+| Insights | 索引增删、慢 query 建议 |
+| Traffic control | query / credential / tag 级资源隔离 |
+| Backpressure | schema change 或 reshard 时 replication lag → 自动减速 |
+
+**Traffic control**（Postgres 新能力）：隔离到 query、credential、tag——Agent 扫数据集**超限可被 kill**，不影响整集群。
+
+背后跑数据仓库 + 流水线分析每秒千万 query，**surface 给 Agent 的是 recommendation**，不是 log 海。小公司有**数百年份的 DBA 经验**封装进系统——通过 Agent 帮客户快建，且 **safe**。
+
+未来不只看更聪明的模型——**即使模型不变**，行业仍要建 narrow primitives 让 Agent 安全操作 living system。我们以前从不替客户写代码；现在可以 **prompt 他们的 Agent 做对的事**，且变更可控。
+
+> **金句 · Sam（封底）**
+> **中文：** 组合能扩展智能，不必同比扩展风险。
+> **原文：** Composition scales intelligence without increasing risk.
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 流量控制 | traffic control | 按 query/credential/tag 限资源 |
+| 反压 | backpressure | lag 时自动减速变更 |
+| 精简原语 | small sharp tools | 窄接口、可组合、降 Agent 决策负担 |
+| 专业知识封装 | expertise distillation | DBA 经验 → 平台可调用的原语 |
+
+**本章小结**
+
+- narrow tools + backpressure > 扔 raw log 给 Agent
+- traffic control 让 Agent 扫数据可 kill 越界查询
+- 好 infra 是 Agent 操作 living prod 的前提，不只靠更强模型
+
+---
+
+## 总结
+
+| 维度 | 要点 |
 |------|------|
-| Branch / Deploy Request | 隔离变更、可审查 |
-| Rewind | 秒级 undo schema |
-| Traffic Control | query/credential/tag 级资源隔离，越界 kill |
-| Backpressure | schema change 期间 query 变慢则平台主动减速 |
-| Recommendations | 把专家经验 surface 给 Agent |
+| 核心判断 | Agent 非确定性 → infra **safe by default**：branch / diff / reject / rewind / audit |
+| Live demo | 好 Agent + insights 加速；坏 Agent 靠 break-query 检测 + Rewind 兜底 |
+| 分片 | infra 在线迁移 + Cursor 扛 scatter-gather refactor |
+| 时间观 | Day one 容易；二十年 living system 的 prune 才是主战场 |
+| 哲学 | small sharp tools；composition 扩展智能不扩展风险 |
+| 与 vault | 接 [[IBM团队-Harness工程详解]]、[[Cursor-128个Agent团队协作]] |
 
-**反模式**：把 streams of logs、tons of data 丢给 Agent——容易做错。
-
-**和你何干：**  
-设计 Agent 工具接口时：**窄、可组合、低歧义**，别给一个「manage_database」万能工具。
-
----
-
-### 8. Living OS：变更 → monitoring → 下一轮 instruction
-
-**说法：**  
-五阶段闭环：
-
-1. **Instruction** — 平台 primitive 收窄任务  
-2. **Development** — branch / deploy / rollback（Agent 自治管理）  
-3. **Deployment** — 受控并行（reshard 时可能 block schema change）  
-4. **Long-state + backpressure** — Agent 不必自己 watch Grafana  
-5. **Monitoring** — 每次变更连到 impact、**哪个 Agent** 所为；production behavior → 下一轮 instruction
-
-Sam 判断：**every infrastructure platform** 未来都需要这些 primitive；database 是最严肃场景——「if we can do it with databases, we can do it with anything」。
-
-行业 obsession 在 **point of creation**（快速 spin up sandbox）；Sam 说未来在 **long-term evolution**——应用有时活二十年，Agent 要在 living OS 里持续维护。
-
-**和你何干：**  
-Agent 平台设计别只优化 Day one；优化 **Day 1000 的 prune、rollback、audit**。
+> **金句 · Sam（封底）**
+> **中文：** 好 infra 把专家经验变成原语。
+> **原文：** Good infrastructure turns expertise into primitives.
 
 ---
 
-## 关键概念表
+## 概念索引
 
-| 词 | 白话 |
-|----|------|
-| **Deploy Request** | 类 PR 的数据库 schema 变更审查与 deploy |
-| **Schema Rewind** | 秒级 flip 回上一 schema 版本，不丢中间写入 |
-| **VSchema** | Vitess 声明式分片配置，Agent 可生成 |
-| **Scatter-gather query** | 跨 shard 聚合，critical path 慢 |
-| **Small sharp tools** | 窄接口、可组合、降歧义 |
-| **Backpressure** | 平台在变更期间主动限速保护生产 |
-| **Traffic Control** | query/credential 级资源隔离与 kill |
-| **Agents View** | 监控多个 Agent 并行 DB 操作 |
-| **Living OS** | 生产环境像操作系统，需持续维护而非一次性 deploy |
+| id | 中文 | 英文 | 一句话 |
+|----|------|------|--------|
+| deploy_request | 部署请求 | deploy request | schema PR + diff |
+| schema_rewind | 模式回滚 | schema rewind | 长窗口 flip，保留写入 |
+| scatter_gather | 分散-聚集查询 | scatter-gather query | 全 shard 聚合，应避 |
+| small_sharp_tools | 精简原语 | small sharp tools | 窄工具可组合降风险 |
+| backpressure | 反压 | backpressure | lag 时平台自动减速 |
+| traffic_control | 流量控制 | traffic control | 按 query/credential 隔离 |
 
 ---
 
-## 值得记住的原话
+## 附录
 
-> **"Agents are non-deterministic. Every time I've practiced this demo, it's done something different."**  
-> Agent 非确定性。每次彩排 demo 路径都不同。
+### 章节时间戳（B 站简介）
 
-> **"We have successfully stopped an agent from breaking production."**  
-> 我们成功阻止 Agent 破坏生产。
+| 时间 | 主题 |
+|------|------|
+| 01:30 | 智能体非确定性需安全环境兜底 |
+| 04:30 | 分支与 Deploy Request 防未知故障 |
+| 06:40 | 一键无损 Rewind |
+| 11:30 | Cursor 高效分片与 scatter-gather refactor |
+| 16:30 | 长期系统演进 vs 瞬间创建 |
+| 19:40 | 精简原语与反压 |
 
-> **"We have just undone a nasty outage that could have lasted hours, very, very quickly."**  
-> 本可持续数小时的严重故障，我们极快 undo 了。
+### 素材路径
 
-> **"There is nothing worse than getting woken up at two in the morning, production's broken, you have absolutely no idea what changed."**  
-> 凌晨两点 production 挂了、不知道改了什么——没有比这更糟的。
+- **ingest**：`Recastory/workspace/knowledge/A3-planetscale-agent/ingest`
+- **ASR 主源**：`Recastory/workspace/knowledge/A3-planetscale-agent/article.md`
+- **video_description**：`{ingest}/video_description.md`
+- **B 站**：[BV1ZWTL64Erg](https://www.bilibili.com/video/BV1ZWTL64Erg/)（*Easonlee的AI笔记*）
+- **讲者**：Sam Shank，PlanetScale CEO
+- **Demo 工具**：Cursor Agent（Composer 2.5）
+- **时长**：25:40
 
-> **"If you narrow tools down, you reduce ambiguity, and you increase reliability."**  
-> 工具越窄，歧义越少、可靠性越高。
+### 相关阅读
 
-> **"Composition scales intelligence without increasing risk."**  
-> 组合扩展智能，风险不必线性涨。
-
-> **"We build PlanetScale for the flakiest agents of all, which is humans."**  
-> PlanetScale 先为最 flaky 的 agent——人类——而建。
-
-> **"Day one is extremely easy... continual pruning, evolution and maintenance... a living operating system."**  
-> Day one 容易……难的是 living OS 的持续维护。
-
-> **"Good infrastructure turns expertise into primitives."**  
-> 好基础设施把专家经验变成 primitive。
-
-> **"If we can do it with databases, we can do it with anything."**  
-> 数据库这么严肃的场景都能做，别的也能。
-
----
-
-## 小结
-
-**这期最核心的判断：** Agent 时代的基础设施要把 **living production** 变成 Agent 可安全操作的 surface——**窄工具 + 平台 veto + rewind**，比给 Agent  raw log 和万能 SQL 更可靠。
-
-**读完应带走：**
-- Insights / Schema Rewind / Agents View 等是把 **专家经验 primitive 化**，让 Agent 在真实库上改而不炸。
-- **Composition scales intelligence without increasing risk**——组合小工具，风险不必线性涨。
-- Day one 容易，难的是 **living OS** 的持续 pruning 与 audit；人类仍是最 flaky 的 agent，infra 先为人建再为 AI 建。
-
-**和 vault 的关系：** 接 [[IBM团队-Harness工程详解]] 与 [[Cursor-128个Agent团队协作]]——harness 在数据库层的落地样例。
-
----
-
-## 行动启示
-
-1. **Infra 为 Agent 设计**：branch、diff、reject、rewind、audit 不是 DBA 奢侈品，是 Agent 操作前提。  
-2. **别丢 raw log 给 Agent**：surface 结构化 recommendation 与 narrow tools。  
-3. **允许 Agent 并行 + 平台 veto**：Agents View + 自动 break-query 检测。  
-4. **Rewind 比 restore 快一个数量级**：living system 需要 undo 而非 snapshot 考古。  
-5. **分片 = infra + 应用 refactor**：Cursor 类 agent 可扛 query 改造，但 VSchema 设计仍需人懂产品。  
-6. **Backpressure 解放 Agent**：不必让 Agent 自己 watch Grafana。  
-7. **变更必须可关联**：谁（哪个 Agent）在何时改了什么 → 下一轮 instruction。
-
----
-
-## 相关阅读
-
-- [[Cursor-128个Agent团队协作]] — Cursor 多 Agent 编排与 Sam 本场 demo 工具  
+- [[Cursor-128个Agent团队协作]] — Cursor 多 Agent 与本场 demo 工具  
 - [[IBM团队-Harness工程详解]] — Harness 约束与可靠性第一性原理  
 - [[DeepMind-模型将吞噬Harness]] — 模型 vs harness 边界讨论  
+- [[OpenAI员工-上下文工程和Agent记忆]] — context 与 long-running agent 对照  
 - [[MOC - Agent Theory and Design]] — Agent 理论总索引  
 
----
+### 收录说明
 
-## 来源
-
-- **视频**：[BV1ZWTL64Erg](https://www.bilibili.com/video/BV1ZWTL64Erg/)（B 站 *Easonlee的AI笔记* 转载）  
-- **讲者**：Sam Shank，PlanetScale CEO  
-- **时长**：25:40  
-- **转写**：Recastory `A3-planetscale-agent/article.md`（英文 ASR，收录时已人工整理叙事）  
-- **版本**：v2 读者向讲义（2026-07-02）
+- **speaker_inference**：`asr_single_speaker_keynote + video_description chapter_reconstruction`（Host 问答为章节边界重构，待核实主持真名）  
+- **版本**：canonical Host-Guest v3.2-asr（2026-07-03；原 v3 九段讲义已替换）

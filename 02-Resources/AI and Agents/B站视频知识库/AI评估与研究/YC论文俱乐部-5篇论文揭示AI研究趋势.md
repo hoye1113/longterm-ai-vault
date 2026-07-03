@@ -1,7 +1,7 @@
 ---
 title: "YC 论文俱乐部：5 篇论文揭示 AI 研究趋势"
 source: "B站视频 - Easonlee的AI笔记"
-source_url: "https://www.bilibili.com/video/BV14AjN6oEcg/"
+source_url: "https://www.bilibili.com/video/BV14AjN6eEcg/"
 uploader: "Easonlee的AI笔记"
 saved: 2026-07-02
 tags:
@@ -14,272 +14,299 @@ tags:
 created: 2026-07-02
 description: "YC Paper Club 五讲：ESM3 蛋白质 scaling、LLM self-play RL、Stream RAG 语音 Agent、Lean 形式化验证、Channel AI RTS 式 agentic 编程；Host 论 memory、f−h、intelligence per sample。"
 transcript_source: "Recastory/workspace/knowledge/B4-yc-paper-club/article.md"
-curate_method: "vskill-vault-curate（读者向讲义 v2）"
+material_tier: S
+ingest_dir: "Recastory/workspace/knowledge/B4-yc-paper-club/ingest"
+column_url: "https://www.bilibili.com/read/cv50624521/"
+source_original_date: "2026-06-12"
+author:
+  - "[[François Chollet]]"
+  - "[[Yasa Baig]]"
+  - "[[Luke Bailey]]"
+  - "[[Arnab Maiti]]"
+  - "[[Robert George]]"
+  - "[[Lukens Orthwein]]"
+concepts:
+  - id: bitter_lesson_biology
+    zh: 生物学苦涩教训
+    en: Bitter Lesson in biology
+    one_line: 蛋白质 masked LM 靠 scale 胜手工 MSA，抗体设计已单序列 win
+  - id: junk_task_trap
+    zh: 垃圾题陷阱
+    en: junk task trap
+    one_line: 自博弈 reward「越难越好」→ 猜想者出恶心复杂题，求解者不提升
+  - id: stream_rag
+    zh: 流式检索增强
+    en: Stream RAG
+    one_line: 用户还在说时就触发检索，语音 latency 降约 1.5 秒
+  - id: verified_intelligence
+    zh: 验证智能
+    en: verified intelligence
+    one_line: Lean 等形式证明把「能生成」推向「能证明」
+  - id: rts_agentic_coding
+    zh: 即时战略式代理编程
+    en: RTS agentic coding
+    one_line: 并行 worktree、协调器派工、宏观默认微观按需
+column_source: "Recastory/workspace/knowledge/B4-yc-paper-club/ingest/column_article.md"
+curate_method: "vskill-vault-write canonical-dialogue v3.2"
+dialogue_version: v3.2
+genre: Host-Guest canonical
+updated: 2026-07-03
 ---
+# YC 论文俱乐部：Scale 还在赢，但垃圾题和 f−h 会先把路堵死
 
-# YC 论文俱乐部：5 篇论文揭示 AI 研究趋势
-
-## 先搞懂这一期
-
-**这是什么节目？**  
-YC **Paper Club** 线下分享，主持人 **Friends** 串讲 **5 篇论文 + 1 场工程实践**。偏 applied，不是纯理论沙龙——每条线都能单独跟进。
-
-**这期在回答哪三个问题？**
-
-1. **Scaling 还在哪些模态成立？** 蛋白质、RL task、token、形式证明——Bitter Lesson 是否继续赢？
-2. **Scaling 的坑在哪？** junk task、ICL 非单调、语音 latency、human-data ceiling——哪里会 plateau？
-3. **做 research / 做 product 的人各该带走什么？** bio-AI 窗口、self-play reward 设计、Stream RAG framing、Lean 验证、RTS 式 agent 编排。
-
-**用一条线串起来（没看视频也能复述）：**
-
-Friends 开场先泼冷水：memory 热了一年半；**f−h**（human demonstration 训练的天花板）他强烈怀疑 Noam Brown 的乐观路线——更押 **Office-Zero** 式无人类偏置；**intelligence per sample** 上 ICL 非单调、撞 context cliff，不像人脑学象棋那样单调变好。
-
-五讲各自占一块：
-
-- **ESM3**：蛋白质 masked LM 的 scaling laws 与 NLP 同型，28 亿 metagenomic 序列破 ESM2 data wall；单序列无 MSA 逼近 AlphaFold3，抗体设计已 win——Bitter Lesson 在 biology **大体成立**。
-- **Self-Play RL**：Conjecturer 出题 + Solver 解题；vanilla reward 学成 **junk 题**；self-guidance 用 7B 8× compute 换约 2× 67B pass@，仍 plateau。
-- **Stream RAG**：语音 Agent 不能等说完再 retrieve；partial speech **何时够**触发 RAG——latency −0.5~1.5s，accuracy 持平。
-- **Lean**：verified intelligence 时代——数学、代码、科学从「能写」到「能证」；与论文 5 的 token maxxing 形成对照。
-- **Channel AI**：agentic 编程 = **RTS** 非 chess——worktree 并行、KB 驱动、macro 优先；RPS/engineer 3.5× 后再 +60% MoM。
-
-共同主题：**scale** 与 **verification**（结构 proxy、Lean、retrieval gate、形式证明、PR 人审）如何在不同模态落地。
-
----
-
-## 背景：这期在 AI Agent 大图里的位置
-
-| 你可能已有的认识 | 这期补上的那一块 |
-|----------------|-----------------|
-| 听过 Bitter Lesson / scaling laws | **蛋白质**上同样 log-linear；data wall 靠 metagenomics 破 |
-| 听过 RLHF / post-training | **Self-play** 自动生成 task——但 junk reward 是真实陷阱 |
-| 做过 RAG 聊天 | **Voice** 要等说完才 RAG → 对话不像人；streaming 触发时机是 framing 问题 |
-| 用过 Cursor / Claude Code | **RTS 式**并行 orchestration vs 单人 chess 深度线 |
-| 关心 eval / 对齐 | **Lean** 验证链 + OpenAI eval 湿实验——「如何证模型真进步」多模态对照 |
-
----
-
-## 分话题讲
-
-### 开场：Friends 的研究议程
-
-Friends 在论文前定调 club 品味，并征集 future presentation。
-
-**Memory** 仍是 1.5 年 hot topic：Mem0、recursive LM、Carta、AgentNet、dynamic chunking 等并行——欢迎 memory 主题上台；自己刚与 Noam Brown 在 podcast 讨论 human-data ceiling。
-
-**f−h 与 Office-Zero**：Noam 仍信 human 解空间 + test-time compute + recursive self-improve 能推到接近 AGI；Friends **强烈怀疑**——若 full solution 基于 **f-training on human solutions**，无论多少 test-time compute，都会被锁在人类解的典型集合。图上 **左侧 AlphaGo**（有人类棋谱偏置）vs **右侧 Office-Zero**（无人类示范 mandering）——他押后者。
-
-**Intelligence per sample**：人类每获新样本会 continuous learning；业界主流 **ICL** 却 **非单调**——样例增多先升后 bob/weave，最终撞 **context length cliff**。LoRA 低 rank 小样本 impressively well，但也快速 plateau；路径上最优策略应随样本流变化，而我们叙事像单调改进。象棋、围棋、一万小时音乐对人脑单调变好——LLM 曲线形态不同。
-
-**Club 运营**：征集 bio-AI、memory、共建 benchmark challenge、open source hack；下期约两周后已满，7 月第一场仍招人。
+> 对谈：François Chaubard（Host）× Yasa Baig / Luke Bailey / Arnab Maiti / Robert George / Lukens Orthwein | 来源：YC Paper Club 线下分享 | B 站专栏 Easonlee 的 AI 笔记
 
 ---
 
-### 论文 1：Bitter Lesson through Biology（ESM3）
+## 开场：为什么现在聊这五篇
 
-#### 先搞懂这一篇
+YC **Paper Club** 这期偏 applied——不是纯理论沙龙，是五篇论文加一场工程实践，每条线都能单独跟进。François 在论文讲之前先定了 club 的品味：memory 热了一年半，但他更押 **Office-Zero** 式无人类偏置，强烈怀疑 Noam Brown 那条「人类解空间 + 测试时计算 + 递归自改进」能推到接近通用智能。
 
-**这一篇在回答什么问题？**  
-Richard Sutton 的 **Bitter Lesson**——general methods + scale compute/data 终胜 hand-crafted domain knowledge——**在蛋白质/生物学上成立吗？**
+今天四章：蛋白质上 **Bitter Lesson** 是否继续赢；**自博弈** 能不能突破人类演示数据天花板；语音 **流式检索** 和 **Lean 验证** 怎么把可靠性落地；Channel AI 怎么用 **即时战略** 式编排把 token 和 PR 产量打上去。
 
-**用一条线串起来：**  
-蛋白质 = 20 种氨基酸字母串，像 NLP 的 token；在进化序列库上做 masked LM，**从不告诉模型结构先验**。ESM3 用 3M→600M→6B 参数，无监督指标 **P@L**（远程结构接触精度）呈 **log-linear scaling**，低算力曲线外推高算力 run 干净吻合。ESM2 在 ~5000 万序列 **plateau**；ESM3 扩到 **28 亿** metagenomic 序列（土壤、海洋、肠道未培养物种）→ 曲线继续爬——进化已「训」40 亿年，人类只采样 <1% 多样性。
+**术语速查（后文对话用中文；英文原文在此统一对照解读）**
 
-vs **AlphaFold 的 MSA**（手工多序列比对）：general protein 单序列距 AlphaFold3 约 3 分；**抗体设计**单序列 **50 vs 47 已 win**——MSA 不是死了，是 **只在 data abundant 时仍有用**。副产品：7B 模型折叠 >10 亿结构 → SAE 空间排成 **protein Google Maps**；inverse design 设计 PDL-1 binder 等蛋白药，湿实验验证。
-
-**讲者**：Yash Big（bio-AI，Stanford / Biohub 圈）
-
-#### 本篇小结
-
-Bitter Lesson 在蛋白质上 **大体成立**：scale data + compute 的 masked LM 可破 ESM2 plateau；MSA 只在 data abundant 时仍有用，抗体设计已可单序列 win。
-
----
-
-### 论文 2：Scaling Self-Play with Self-Guidance
-
-#### 先搞懂这一篇
-
-**这一篇在回答什么问题？**  
-LLM post-training 的 RL task 靠手工收集，log scale 不可持续——**self-play 能否让模型自己生成 frontier tasks 并持续变强？**
-
-**用一条线串起来：**  
-当前栈：pretrain → 越来越长的 **RL runs**（coding/math tasks，post-train compute 已逼近 pretrain）。**Asymmetric self-play**：**Conjecturer** 生成完整 task（如 Lean 数学题 + unit tests）；**Solver** 解题；同模型两角色。理论诱惑：演示有天花板；固定环境 RL 会满分或零 reward；self-play 应 **无限生成 frontier tasks**——围棋已超越人类仍继续涨。
-
-**Vanilla 失败**：Conjecturer reward = Solver **做错 1、做对 0** → 最优策略是 **junk complex 题**（Lean 里冗长恶心 statement）。训练曲线：Conjecturer 越来越强，**Solver 与 baseline RL 一样**——task 分布无用。
-
-**Self-Guidance 修复**：从 3000 道 Lean unsolved 题 ground synthetic；reward = trickiness × **guide score**（LLM judge 相关且非过度复杂）。结果：7B + **8×** compute → pass@ 约 **2× 67B**；仍 **plateau**，远非 100%。
-
-**讲者**：Luke（Tatsuoka lab，adversarial robustness → post-training self-play）
-
-#### 本篇小结
-
-Self-play 理论诱人，但 naive reward 学成 **junk task**；Self-Guidance + LLM judge 可让小模型用 compute 换 pass@，但仍会 **plateau**——reward 设计是核心。
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 苦涩教训 | Bitter Lesson | Sutton：通用方法 + 算力/数据扩展，终胜手工领域知识 |
+| 扩展定律 | scaling laws | 算力/数据上去，性能可预测地涨，常是对数线性 |
+| 掩码语言模型 | masked language model / MLM | 遮住一部分 token 再预测，BERT 那路子 |
+| 多序列比对 | MSA | AlphaFold 用的进化「表亲」堆叠，手工归纳偏置 |
+| 自博弈 | self-play | 模型自己出题又解题，理论上任务无限 |
+| 流式检索增强 | Stream RAG | 用户还在说话时就跑检索，不等问完 |
+| 形式化验证 | formal verification | 机器 100% 检查证明/规范，骗不过检查器 |
+| 即时战略式编程 | RTS agentic coding | 像打魔兽：并行多线、宏观调度、允许犯错再纠 |
+| 人类解天花板 | f−h | 在人类演示解上训练，锁在人类解的典型集合里 |
+| 每样本智能 | intelligence per sample | 每多一个样本怎么学；ICL 非单调 vs 人脑单调变好 |
 
 ---
 
-### 论文 3：Stream RAG（实时语音 Agent）
+## 01 进化四十亿年的训练集，Bitter Lesson 在蛋白质上又赢了
 
-#### 先搞懂这一篇
+**François：** 咱们 club 一直聊 scaling 和 **Office-Zero**——左边 AlphaGo 有人类棋谱偏置，右边 AlphaZero 不受人类漫无目的行为影响。生物学这边，Yasa 你刚发的 ESM 论文，是不是同一套剧本在蛋白质上重演？
 
-**这一篇在回答什么问题？**  
-经典 RAG 等用户**问完**再 retrieve——**voice Agent** 要等 5–15 秒才答，不像对话；用户还在说时，**何时**该触发 RAG？
+**Yasa：** 差不多。在座大多机器学习背景，我尽量不讲深奥生物学。这篇 work 的高层问题就一句：**语言建模里推动 AI 进展的那套想法，最近怎么转到生物学上了？** 特别是蛋白质——规模是不是还是社区默认的「怎么做得更好」？
 
-**用一条线串起来：**  
-语音幻觉更难抓：听不像读那样主动纠错。核心 framing：**partial speech 何时足够**？例：「今天天气怎样？我想决定要不要出门」——主问题在前半。
+Richard Sutton 那篇 **苦涩教训** 大家都读过：过去七十年 AI，赢的往往是靠算力和数据扩展的通用方法，不是手工塞人类领域知识。AlphaGo 先被专家系统压着打，不成比例地堆算力之后指数级反超。知识系统起步快，大型「笨」模型长期赢。生物学现在也在赌同一模式。
 
-**Fixed-interval streaming RAG**：音频分 block，每 block 触发 RAG；用 early pipeline top docs 与「假设完整句」top docs **一致性**决定——匹配则提前用 intermediate query 跑完 pipeline，不等说完。**Learned trigger** 替代：模型判断 chunk 是否已够答，避免每 chunk 全 pipeline。
+论文问：扩展定律那套曲线——左边 NLP 里漂亮的对数线性——右边蛋白质会不会 **分布外**？我分享三个小故事。生物学知识就一句：蛋白质是 20 种氨基酸串成的链，序列唯一决定三维形状，形状决定它在细胞里干啥。训练 **ESMC**：数亿年进化序列当语料，大型 **掩码语言模型**，只给字符串，从不告诉结构先验。模型得自己从氨基酸共现里学「语法」——NLP 老话「通过环境认识词」，这里是通过环境认识蛋白质。
 
-论文流程：partial spoken question → query grades → 双路 retrieve → 比 retrieval quality → 停或继续。结果（Zeroguma audio）：合成 latency **−0.5s**；真人 **−1.5s**；accuracy 与终局 RAG **持平**。Arnab 强调：**问题 framing** 比某一种 fixed-interval 更重要。
+第一个问题：**扩展定律在蛋白质语境成立吗？** 无监督代理指标叫 **P@L**——预测序列上很远、空间里却接触的点。远程接触难， nearby 容易。ESM Cambrian 家族：3 亿、6 亿、60 亿参数，低算力 run 外推的计算最优曲线，跟真实大训练吻合得很干净。答案：**成立**，跟 LLM 一样的对数线性。
 
-**讲者**：Arnab Mitty（Giga，UW bandit learning；生产 voice agent）
+有个转折。上一代 **ESM2** 加参数收益递减，曲线平了；新 **ESMC** 绿线继续爬。解法不是花哨架构偏置，是 **数据扩展**——ESM2 约五千万序列，新模型加 **宏基因组** 到 **28 亿** 条，土壤、海洋、肠道里很多从未培养过的物种。进化这套训练数据跑了 **四十亿年**；人类文本才几十年量级。我们采样的蛋白质多样性不到已知总量 **1%**。这就是蛋白质版的「数据墙」对话——更多数据 justify 更多算力。
 
-#### 本篇小结
+**François：** 那跟 AlphaFold 那种手工 **多序列比对** 比呢？苦涩教训说人为偏置该被淘汰。
 
-Voice Agent 的关键 framing 是 **partial speech 何时够** 触发 RAG；latency 可降 0.5–1.5s 而 accuracy 持平，比某一种 fixed block 策略更重要。
+**Yasa：** 第二个问题就在这。AlphaFold 很强， Nobel 级，但大量靠 MSA——找几百个进化表亲堆一起，共同变化模式编码结构信息。精妙的领域工程，在苦涩教训视角里终该让路。计算机视觉里 HOG 特征也是这么被干掉的。 **ESMFold** 直接扔 MSA：序列进模型，嵌入喂结构预测头，还能用循环层在 **推理时** 加计算，像扩散步骤或测试时采样。
 
----
+结果狠。一般蛋白复合物，无 MSA 单序列 **ESMFold 2** 跟有 MSA 的 **AlphaFold 3** 差 **3 个百分点** 以内——几乎不用拐杖到同级。 **抗体设计** 更夸张：单序列 ESMFold 2 得分 **50**，AlphaFold 3 **47**，我们领先。抗体空间多样性大、结构采样变异小，手工特征在药物设计者真正要的地方常常乏力。标题不是说 MSA 死了——**只在数据丰富处还有用**。
 
-### 论文 4：Lean 与 Verified Intelligence
+第三个问题：模型到底学到了啥？稀疏自编码器那套，跟 Anthropic 在语言模型里做的一样。无监督填空预训练，潜在空间分解出清晰特征，对应真实生物学概念——从单个氨基酸到结构基序、结构域、功能位点。举个例子「亲核肘」催化基序，四种结构迥异、进化距离远的蛋白里都能识别——不是记相似序列，是抓深层 recurring pattern。他们用这个模型折叠分析规模到了 **70 亿** 蛋白级别，预测约 **10 亿** 结构，SAE 空间排成蛋白质「谷歌地图」，CRISPR Cas9 家族一眼能认。
 
-#### 先搞懂这一篇
+**逆向设计** 也验证了：PD-L1 结合剂等免疫疗法靶点，纯序列空间设计治疗分子，湿实验过。数据规模没说服你，社会影响也该让你兴奋。软件生物学对 ML 人是极佳窗口——模型还年轻，测序数据每年指数涨，还没撞墙。现在是进场好时机。
 
-**这一篇在回答什么问题？**  
-OpenAI / DeepMind 推 Erdős、IMO——**共同点是什么？** 形式化验证 in the loop；**Lean** 如何把「能生成」变成「能证明」？
+> **金句 · Yasa**
+> **中文：** 进化跑了四十亿年训练集；我们采样的多样性还不到 1%。
+> **原文：** Evolution has been generating this training data for four billion years — we've sampled less than 1% of known diversity.
 
-**用一条线串起来：**  
-**Lean** = interactive theorem prover + 函数式编程语言；证明 **fully explicit**，机器 **100% check**——不能教授式 handwave。**Mathlib** 数十万行形式化数学。证明器光谱：左 SMT/ATP（低 effort、表达有限）→ 右 Lean/Coq（高表达、高 effort）；LLM 降低 write-proof cost，生态爆发：AlphaProof、DeepSeek-Prover、Harmonic、Matthink…
+**本章概念**
 
-**三 bubble**：(1) **Math** 最热闹；(2) **Program verification**——bug 万亿美元级；vibe coding 要 guarantee → **verifiable coding**；(3) **AI for science**——可复现性、输出能否 prove correct。
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 远程接触精度 | P@L | 序列上远、空间里近的接触点对，无监督结构理解代理 |
+| 宏基因组序列 | metagenomic sequences | 环境 DNA 测出来的蛋白序列，物种常未培养 |
+| 单序列折叠 | single-sequence folding | 不做 MSA 比对，只靠模型表示预测三维结构 |
+| 稀疏自编码器 | sparse autoencoder / SAE | 把模型激活拆成人类可解释的单语义特征方向 |
+| 逆向设计 | inverse design | 在序列空间里设计有治疗效果的蛋白，再湿实验验 |
 
-举例：**Bridge** 用 Lean 验证一般程序；**TorchLean** 证 Flash Attention = 标准 attention；TML 形式化 **temperature=0 inference 仍 non-deterministic**（浮点误差翻转 batch argmax）。与论文 2 呼应：Luke 的 junk Lean statement 展示 formal language 如何界定「题」；Ruben 展示 Lean 作为 **beautiful 验证基础设施**。Friends 称论文 5 是本场 **antithesis**（token maxxing vs 形式证明）。
+**本章小结**
 
-**讲者**：Ruben George（AI for math/science）
-
-#### 本篇小结
-
-Lean 把「能生成」推向 **能证明**；math / verifiable coding / AI for science 三 bubble 共享 **verified intelligence**——与 token maxxing 式 agentic coding 形成对照。
-
----
-
-### 论文 5：Channel AI — RTS 式 Agentic Programming
-
-#### 先搞懂这一篇
-
-**这一篇在回答什么问题？**  
-Agentic 编程该怎么组织团队和工作流——**chess 式单人深度线**，还是另一种博弈？
-
-**用一条线串起来：**  
-Channel AI 自动化 software + **content** 开发，纯 AI 系统让人付费。**Chess vs RTS**：旧编程线性、一次设计做对；Agentic 像 **Warcraft/Starcraft**——经济、生产、侦察、战斗同时跑；地图逐步揭开；无单维完美，要 **持续 course correct**。
-
-**工程栈**：**Git worktrees** 多 repo 并行；**Orchestrator**（Claude/Codex）最少 keystroke 从 idea → worker 开工；**Workers** 推到底（PR + summary），**错也可**人后面改——token 换人的时间；**dangerous permissions + sandbox**；task 可移植（本地→隔夜跑别处）。
-
-**KB > Code 作 context**：结构化 linked markdown KB **便宜**；本场 PPT：Friends 要求 → Claude 读 KB 生成 → 迭代 → **回写 KB**。**可见性**：多 agent 流高可见；**Audio cues** 映射 Warcraft/Starcraft 单位音效；**APM tracker**（tool calls/min）。原则：**Macro default, micro when counts**；**Satisficed not perfect**；Claude 估工期永远离谱——并行 push，别信 timeline。Channel AI：**3.5× RPS/engineer/month** → 全员 adopt 后 **+60% MoM**。
-
-**讲者**：Luc Warthine（Channel AI CEO）
-
-#### 本篇小结
-
-Agentic 编程像 **RTS 不是 chess**：worktree 并行、KB 驱动、macro 优先、satisficing push；Channel AI 用 orchestrator + workers 拿到 **3.5× RPS** 后再 **+60% MoM**。
+- 蛋白质 masked LM 的 scaling 曲线与 NLP 同型；28 亿宏基因组序列破 ESM2 数据墙
+- 单序列无 MSA 逼近 AlphaFold3，抗体设计已 win——Bitter Lesson 在 biology 大体成立
+- SAE 可解释性 + 十亿级结构图谱 + 逆向药物设计，把 scale 接到真实社会影响
 
 ---
 
-### 跨讲题对照
+## 02 自博弈要能突破人类数据天花板，先得驯服垃圾题
 
-| 主题 | 论文 1 | 论文 2 | 论文 3 | 论文 4 | 论文 5 |
-|------|--------|--------|--------|--------|--------|
-| Scaling | compute+data laws | self-play task scaling | latency vs accuracy | prover scaling | token/compute parallelism |
-| Bitter Lesson | 主论点 | hand task collection 瓶颈 | — | hand proof → LLM | hand coding → agents |
-| Test-time compute | recursive structure refine | self-play rollouts | streaming partial RAG | proof search | parallel workers |
-| Verification | contact P@L proxy | Lean unit tests | retrieval quality gate | Lean proof | PR + human spot check |
-| Production gap | wet lab drug design | junk task trap | voice latency | verifiable coding | RTS workflow |
+**François：** Luke，你刚从英国回来，一直在 Tatsu 实验室做训练后 **自博弈**。post-training 的 RL 算力已经逼近预训练了——任务从哪来？人类演示的天花板怎么破？
 
----
+**Luke：** 当前大语言模型训练栈就两块：网络文本预训练，然后越来越长的 **后期训练** 强化学习。DeepMind Gemini 技术报告里那张图很漂亮：海量 RL 任务，每个任务训练只看一次，x 轴每步都是新任务 + 新算力，左侧评估集、右侧编码基准，平滑往上爬。逻辑简单：**任务和算力一直加，模型一直强。** 问题是任务得人手收集，x 轴是对数刻度——瓶颈在这。愿景是模型超越人类能给的任何问题。
 
-## 关键概念（读完应能解释）
+**自博弈** 的核心：模型双重角色——既 **生成** RL 任务，又 **求解**。训练两边都变好：更会出题，也更会在题里拿高奖励。围棋里 **对称自博弈**：旧版自己当对手，棋盘变环境。大语言模型里 **非对称自博弈** 兴起：**猜想者** 出整道题（比如 Lean 数学题加单元测试），**求解者** 进环境跑轨迹拿奖励。
 
-| 词 | 白话 |
-|----|------|
-| **Bitter Lesson** | Sutton：general methods + scale 终胜 hand-crafted domain knowledge |
-| **ESM3 / P@L** | 蛋白质 masked LM；P@L = 远程结构接触精度，无监督结构代理 |
-| **MSA** | 多序列比对；AlphaFold 手工归纳偏置；abundant 时仍有用 |
-| **Self-play (asymmetric)** | Conjecturer 出题 + Solver 解题；同模型两角色 |
-| **Junk task trap** | Reward「Solver 做错」→ 最优出恶心复杂题，Solver 不提升 |
-| **Self-Guidance** | Ground synthetic 于 unsolved Lean + LLM judge 质量 |
-| **Stream RAG / Partial query sufficiency** | 说话过程中触发检索；核心：partial speech 何时够 |
-| **Lean / Verified intelligence** | 定理证明器 + FP；从能生成到能形式验证 |
-| **f−h** | human demonstration 训练的天花板辩论 |
-| **Intelligence per sample** | 每新样本如何学；ICL 非单调 vs 人类单调改进 |
-| **RTS agentic coding** | 并行 worktree、orchestrator、macro 优先、satisficing |
-| **KB-driven agents** | Linked markdown 知识库作便宜 context，优于扫 code |
+为什么兴奋？原则上 **学习无上界**。人类演示有天花板；固定环境 RL 要么满分没法进步，要么太难零奖励；自博弈不断造带新学习信号的任务，理论上永无止境。围棋已超越人类还在涨。LLM 愿景：人类数据训到人类水平，再靠大规模自博弈远超人类。
 
----
+现实打脸。跑久了 **平台期**，跟普通 RL 一样。基线算法极简：猜想者抽合成任务（跟求解者同模型不同帽子），求解者做对才更新；猜想者奖励是 **1 减解决率**——越难越好，让题停在能力前沿。听起来合理。
 
-## 值得记住的原话
+我们在约 **3000** 道 **Lean 4** 形式化数学题上测。Y 轴 solved 数量，普通 RL 基线渐近 **60%** 左右；标准自博弈，猜想者确实越来越强、不断出 frontier 题——**但求解者跟 baseline 一样，这些题完全没用。** 训练后期猜想者出的 Lean 结论，蓝色高亮那坨，极其复杂、冗余、混乱。奖励「刁题」的最省事路子：** messy、人为复杂、不优雅**——像给你三页高中微积分，你总会在某处算错，对数学能力零帮助，纯语法陷阱。
 
-> **"Memory has been like the hot topic for at least the last year and a half."**  
-> 至少一年半以来，memory 一直是头号热点之一。
+**François：** 那你们 **自引导自博弈** 怎么修？
 
-> **"Full solutions based on f-training on unknown human solutions will limit you to some typical set."**  
-> 若全解基于人类解的训练，你会被困在某个人类解的典型集合里。
+**Luke：** 算法叫 **SGS**，两刀。第一，从 3000 道未解目标题出发，让猜想者生成 **相关** 合成题，分布锚在高质量原始题上。第二，加第三个角色 **引导者**：判断合成题跟目标是否真相关、复杂度是否适中。更新猜想者时用 **双重奖励**：挑战性 × **引导分数**。求解者仍按做对更新。
 
-> **"As you increase the number of samples in ICL, it is not monotonic... hits a cliff, which is the context length."**  
-> ICL 样例增多，性能并非单调提升……最终撞 context length 悬崖。
+主结果：标准自博弈跟 RL baseline 几乎一条线；我们的 **SGS** 明显更好。**70 亿参数** 模型，投入 **八倍** 自博弈算力，在 Lean 4 级测试里达到约 **670 亿参数** 大模型 pass 水平——小模型用算力换能力，证明潜力。远没到 100%，路还长，博士学制也够长。核心教训：**reward 设计比堆算力要紧**； naive「越难越好」先养出一窝垃圾题生成器。
 
-> **"Evolution has been generating this training data for four billion years."**  
-> 进化这套训练数据跑了四十亿年。
+> **金句 · Luke**
+> **中文：** 原则上学习无上界；实践中自博弈会先平台期——垃圾题会把路堵死。
+> **原文：** In principle, nothing bounds learning… In practice, self-play plateaus when the conjecturer learns to produce messy, artificially complex problems.
 
-> **"The headline isn't that MSAs are dead yet — hand-crafted features only help where they're abundant."**  
-> 标题不是说 MSA 已死——手工特征只在数据丰富处才有用。
+**本章概念**
 
-> **"The easiest way to reach tricky problems is to produce messy, artificially complex problems."**  
-> 要出「刁题」，最省事的路子是 messy、人为复杂、不优雅的题。
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 猜想者 / 求解者 | Conjecturer / Solver | 非对称自博弈：一个出题，一个做题，常是同模型两角色 |
+| 垃圾题陷阱 | junk task trap | 奖励 Solver 做错 → 最优策略是出恶心复杂题 |
+| 引导者 | Guider | 第三角色，判合成题是否相关且复杂度适中 |
+| 自引导自博弈 | Self-Guided Self-Play / SGS | ground 于未解 Lean 题 + 引导分数过滤垃圾分布 |
+| 后期训练 | post-training | 预训练后的 RL / 对齐阶段，算力已逼近预训练 |
 
-> **"In principle, nothing bounds learning... In practice, self-play plateaus."**  
-> 原则上学习无上界……实践中 self-play 会平台期。
+**本章小结**
 
-> **"When you're listening, it's difficult to actively catch hallucinations compared to reading text."**  
-> 听语音时，人很难像读文本那样主动抓幻觉。
-
-> **"You cannot fool the proof checker."**  
-> 证明检查器骗不过去。
-
-> **"Coding with agents feels exactly like playing real-time strategy games."**  
-> 用 agent 写代码，体感就是打即时战略。
-
-> **"Macro by default, micro when it counts."**  
-> 默认打宏观，关键时刻再微操。
-
-> **"Satisficed is enough, but not perfect."**  
-> 够好就行，不必完美。
+- Post-training RL 任务人手收集不可持续；自博弈理论上可无限造 frontier task
+- Vanilla reward 学成 junk generator，Solver 与 baseline 一样——题分布无用
+- SGS + 引导者：7B 八倍 compute 换约 67B pass@，仍 plateau；reward 设计是核心
 
 ---
 
-## 小结
+## 03 语音不能等说完，验证才是下一代可靠智能
 
-**这期最核心的判断：** Applied research 的主线是 **scale 与 verification 并行**——Bitter Lesson 在 bio/RL 仍赢，但 junk task、ICL cliff、f−h 天花板提醒 **不能 naive scale**；工程侧 agentic coding 走向 **RTS + KB**，学术侧走向 **Lean / Stream RAG**。
+**François：** 一条线打 production——Arnab 你在 Giga 做语音 Agent，Stream RAG 解决啥痛点？另一条 Robert 你讲 Lean——跟 Luke 那堆 junk Lean 语句对照，验证智能长什么样？
 
-**读完应带走：**
-- **ESM3**：data wall 可破，抗体设计窗口在；**Self-play**：reward 设计 > 算力堆叠。
-- **Stream RAG**：语音 latency 靠 partial sufficiency framing；**Lean**：verified intelligence 是 coding/science 下一层。
-- **Channel AI**：macro default、KB compound context；Friends 开场 **memory 热但 f−h / intelligence per sample 仍开放**。
+**Arnab：** 语音 AI 初创公司起来一大片，用户期望流畅对话：问天气，答 22 度，再追问。幻觉在 **听** 的时候比 **读** 难抓——你很难像扫文本那样主动纠错。经典 **检索增强生成** 等用户 **问完** 再 retrieve，延迟 **5 到 15 秒** 才回，不像对话。
 
-**和 vault 的关系：** 接 ai_evaluation 与 multi_agent 横切——五讲可分别链 OpenAI eval、Snorkel RL、Cursor 128、Loop、Harness MOC。
+论文 framing 聪明：**用户还在说时就开始跑 RAG。** 例句——「嘿，今天天气怎么样？我想决定要不要出门」——核心检索需求在第一半，后半不影响检索。问题变成：**partial speech 何时足够触发检索？**
+
+两种思路。**固定间隔流式 RAG**：音频分块，每块到就触发；挑战是考虑哪一块——不能等到最后，也不能盲目每块全 pipeline。可以先跑 RAG 管道里快的部分，看中间查询的 top 文档跟「假设完整句」是否匹配，匹配就提前跑完。**学习型触发器**：微调模型判断当前块是否已含关键新信息，避免每块浪费算力。后训练里用部分口语问题生成伪查询，双路 retrieve，比 retrieval quality 决定停或继续。
+
+结果（一年前较小开源模型）：合成音频 latency **减 0.5 秒**，真人口语 **减近 1.5 秒**，准确率跟问完再检索 **持平**。我要强调的不是某一种 fixed-interval 技巧——**问题 framing** 比具体 block 策略重要：哪个点停、确认这块相关，是活跃研究空间，解决一点 production 收益巨大。
+
+**Robert：** Luke 的 Lean 题展示 **形式语言** 如何界定「题」；我这边 Lean 是 **验证基础设施**。过去几周突破一串：OpenAI、DeepMind 在 IMO、埃尔德什问题上的进展，共同点是用 **形式化验证**。非形式化数学灵活，教授「显而易见」「恐吓证明」；**形式化世界你必须完全明确**，证明检查器 **骗不过去**。Lean 之前也有形式化数学，Lean 设计让它起飞：检查容易、可扩展。
+
+证明器光谱：左边 SMT/自动定理证明器，人类 effort 低、表达有限；右边 **Lean**、Coq、Isabelle，依赖类型理论，表达强、写证明 effort 高。**Mathlib** 超 **一百万行** 高质量形式化数学。大语言模型 把写证明成本打下来，生态爆发：GPTF、MiniF2F、AlphaProof、DeepSeek-Prover、Harmonic……
+
+三个 bubble 共享 **验证智能**：**(1) 数学** 最热闹；**(2) 程序验证**——Bug 万亿美元级产业，vibe coding 时代要 **有保证的代码**，Bridge、cslib 从「广泛编码」转向 **精确编码**；**(3) AI for 科学**——可重复性，输出能否 prove correct。
+
+**TorchLean** 例子：在 Lean 里写神经网络，PyTorch 风格张量，能证 Flash Attention **等于** 标准 Attention，不用操心 IO 细节；还能证无位置编码时注意力 **置换不变**。Thinking Machine Lab 去年研究：即使推理温度设零，浮点误差也可能翻转 batch argmax——我在 TorchLean 里形式化整套系统，连小型 CUDA 内核都验。科学和代码未来都可以靠形式化验证保可靠——跟 Channel AI 那场 **token 最大化** 形成对照：一个拼命花 token 并行 push，一个拼命 **证正确**。
+
+> **金句 · Robert**
+> **中文：** 证明检查器骗不过去——敷衍不了，必须百分之百确定。
+> **原文：** You cannot fool the proof checker — you have to be one hundred percent sure.
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 部分查询充分性 | partial query sufficiency | 用户还没说完，当前片段是否已够触发检索 |
+| 检索增强生成 | retrieval-augmented generation / RAG | 先检索再生成，减幻觉 |
+| 交互式定理证明器 | interactive theorem prover / ITP | Lean 这类：人写策略，机器逐步检查 |
+| 程序验证 | program verification | 规范 + 代码 + 证明三者：代码满足人类意图 |
+| 验证智能 | verified intelligence | 从「能生成」到「能形式证明正确」 |
+
+**本章小结**
+
+- Voice Agent 关键 framing：partial speech 何时够触发 RAG；latency 可降 0.5–1.5s 而 accuracy 持平
+- Lean 把数学/代码/科学推向可机器检查；与 junk Lean 题对照，形式语言既可以是陷阱也可以是基础设施
+- Production 收益在「小问题」：检索触发时机、证明检查——比 naive scale 更贴地
 
 ---
 
-## 行动启示
+## 04 写代码像打 RTS，知识库是比代码更便宜的真相
 
-1. **Bio-AI 窗口期**：metagenomic 数据指数增长——ML 背景转 biology 的 leverage 高。
-2. **Self-play 别 naive reward**：「越难越好」会学成 junk generator；必须 **ground + quality judge**。
-3. **Voice Agent 先 framing 再调参**：何时触发 partial RAG，比某一种 block 间隔更重要。
-4. **Lean 从 Mathlib + 小证明入手**：工程团队可先 verifiable coding 试点。
-5. **Agentic 团队当 RTS 打**：worktree 并行、orchestrator 派工、worker satisficing push。
-6. **KB 投资 > 注释堆砌**：presentation/PR 反馈 **回写 KB**，形成 compound context 优势。
-7. **跟 f−h 辩论保持清醒**：human demonstration RL 想清楚 ceiling。
-8. **Intelligence per sample 实验**：别默认 ICL 越多越好；小样本试 LoRA、流式策略切换。
+**François：** 最后 Luke Orthwein——Channel AI 跟 Lean 那条 **证正确** 路线唱反调。你说 agentic 编程该像 **即时战略**，不像国际象棋？
+
+**Lukens：** Channel AI 做消费娱乐 AI，目标是端到端纯 AI 系统让人付费并保持参与——我们在 software 和 **内容** 开发上尽可能自动化。很多「好编程」的旧假设，现在 **反过来** 才对。
+
+**国际象棋 vs 即时战略**：旧编程线性、一次设计做对、单线程周到；用 **代理** 系统像打 **魔兽/星际**——经济、生产、侦察、战斗同时跑，地图逐步揭开，没有单维完美，要 **持续纠偏**。高水平 RTS 没有哪一条线完美就能赢，你得同时平衡很多事。
+
+工程栈我们这么搭：**Git 工作树** 多仓库并行，互不干扰编译；**协调代理**（Claude 或 Codex）最少按键，从「有个想法要修」跳到「工人开工」——像地图上点单位指目标，晚点再回来微调；**工人代理** 尽量推到底出 PR 和总结， **错也行** 你后面改，用 token 换人的时间。可移植性关键：本地卡住 → 带回家隔夜跑 → 换机器加内存，TMUX 会话整包迁。
+
+**代码不是代理的便宜真相来源**——结构化、链接化的 **知识库** 文件便宜得多。这场 PPT 我就这么做的：François 丢主题 → Claude 读 KB 里我们怎么做事 → 迭代十五次 → **全部反馈回 KB** 让它学纠正。链接文档 LLM 处理更快，业务知识也能编码进去；Claude 和 Codex 足够懂业务时，非常擅长 **自动提功能建议**。
+
+原则几条：**默认宏观，关键时微观**——只微操单个单位赢不了，得持续 **造兵** 推小任务；**满意化** 就够，不必完美，搞砸了改很便宜；Claude 估工期永远按人类两周来——告诉它别信自己的 timeline。**高可见性**：多代理流不藏进度，像 RTS 小地图一点跳转；我个人把 TMUX 会话映射成魔兽/星际单位音效，「基地受攻击」那种 **音频提示** 省得盯屏。**APM 追踪** 统计的是 **工具调用/分钟**，不是点击次数——APM 低说明没在满负荷花 token。
+
+并行跑很多事，同一代理或多代理，复杂任务常比你自己做更好——别让 Claude token 闲置，那是极低效经济。我们工程师每月 PR **3.5 倍** 于 adopt 前；全员推广这套 RTS 工作法后上个月又 **+60%**——人没突然变聪明，是学会了像职业 RTS 选手那样调度。
+
+> **金句 · Lukens**
+> **中文：** 用代理写代码，体感就是打即时战略——默认宏观，关键时刻再微操。
+> **原文：** Coding with agents feels exactly like playing real-time strategy games — macro by default, micro when it counts.
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| Git 工作树 | Git worktree | 同一 repo 多目录并行开发，互不干扰编译 |
+| 协调代理 | orchestrator agent | 派工、跟状态，最少 keystroke 从 idea 到开工 |
+| 每分钟操作数 | APM / actions per minute | 这里指代理 tool calls/min，衡量并行调度强度 |
+| 知识库驱动 | KB-driven agents | 链接 markdown/wiki 作便宜 context，优于扫全库 code |
+| 满意化 | satisficing | 够好就 push，不必完美，错了再改 |
+
+**本章小结**
+
+- Agentic 编程像 RTS 不是 chess：worktree 并行、协调器派工、工人 satisficing push
+- KB 比 code 作 context 便宜；演示/PR 反馈回写 KB，形成 compound 优势
+- Channel AI：3.5× PR/engineer/month，RTS 工作法再 +60% MoM；与 Lean 验证路线形成 product vs proof 对照
 
 ---
 
-## 相关阅读
+## 总结：Scale 与 Verification 并行，但别 naive scale
+
+| 维度 | 要点 |
+|------|------|
+| Bitter Lesson | 蛋白质 masked LM + 28 亿序列，scaling 曲线与 NLP 同型；抗体设计单序列已 win |
+| Self-play | 理论上无上界，vanilla reward 先养 junk task；SGS + 引导者，7B 八倍 compute ≈ 67B pass@ |
+| Voice / RAG | partial speech 何时够触发检索，比 fixed block 策略重要；latency −0.5~1.5s |
+| Verified intelligence | Lean 证 Flash Attention、浮点非确定性；math / code / science 三 bubble |
+| Agentic 工程 | RTS 并行 + KB 驱动；3.5× PR 再 +60%；与 token maxxing 对照 Friends 的 f−h 怀疑 |
+| Host 开放题 | memory 热但 ICL 非单调撞 context cliff；每样本智能、每瓦特智能仍无定论 |
+
+### 对做 research 的人
+
+- Bio-AI 窗口：宏基因组数据指数涨，ML 背景转 biology leverage 高
+- Self-play 别 naive「越难越好」——必须 ground + quality judge，否则 junk 分布
+- Voice 先 framing「何时够检索」，再调 block 间隔；Lean 从小证明/Marklib 试点 verifiable coding
+
+### 对做 product / 团队的人
+
+- Voice Agent 延迟是体验生死线；Stream RAG 类 partial trigger 值得投入
+- Agentic 团队当 RTS 打：worktree、协调器、工人 push、音频/可见性降监控成本
+- KB 投资 > 注释堆砌；presentation 和 PR 纠正 **回写 KB**
+
+### 仍待验证
+
+- Friends 的 **f−h** 辩论：human demonstration + test-time compute 能否采样 F−H 空间
+- Self-play SGS 能否突破当前 plateau 到接近 100% Lean pass
+- KB-driven 功能建议在 Channel AI 外是否可复现 3.5× / +60% 量级
+
+> **金句 · François（封底）**
+> **中文：** 在人类解上训练，你会被困在某个人类解的典型集合里——Office-Zero 才是我更押的路。
+> **原文：** Full solutions based on training on human solutions will limit you to some typical set — AlphaZero without human mandering is the path I bet on.
+
+---
+
+---
+
+## 附录
+
+### 章节时间戳
+
+| 时间 | 主题 |
+|------|------|
+| 07:20 | 蛋白质研究正经历 AI 的苦涩教训 |
+| 23:45 | 自博弈是突破人类数据瓶颈的关键 |
+| 33:10 | 语音交互需要流式 RAG解决延迟痛点 |
+| 38:50 | 形式化验证开启零 Bug代码与科学发现时代 |
+| 43:15 | 像玩 RTS 游戏一样进行 AI 辅助编程 |
+| 45:30 | 知识库是 Agent 廉价且高效的真相来源 |
+
+### 素材路径
+
+- **ingest**：`Recastory/workspace/knowledge/B4-yc-paper-club/ingest`
+- **ASR**：`Recastory/workspace/knowledge/B4-yc-paper-club/article.md`
+- **专栏主源**：https://www.bilibili.com/read/cv50624521/
+- **B 站**：https://www.bilibili.com/video/BV14AjN6eEcg/
+
+### 相关阅读
 
 - [[OpenAI评估团队-不再低估模型]] — eval、湿实验与 capability 测量
 - [[Snorkel-小模型RL超越大模型]] — 小模型 RL beat 大模型；与 self-play 7B beat 67B 同脉
@@ -291,9 +318,10 @@ Agentic 编程像 **RTS 不是 chess**：worktree 并行、KB 驱动、macro 优
 
 ---
 
-## 来源
+### 收录说明
 
 - **视频**：[BV14AjN6oEcg](https://www.bilibili.com/video/BV14AjN6oEcg/)（B 站转载 YC Paper Club）
 - **活动**：Friends 主持；Yash Big / Luke / Arnab Mitty / Ruben George / Luc Warthine
 - **转写**：Recastory `B4-yc-paper-club/article.md`（英文 ASR，收录时已人工整理叙事）
-- **版本**：v2 读者向讲义（2026-07-02）
+- **版本**：canonical Host-Guest v3.2（2026-07-03；原讲义已合并）
+

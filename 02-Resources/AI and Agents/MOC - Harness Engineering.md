@@ -1,8 +1,8 @@
 ---
 title: MOC - Harness Engineering
-description: Harness Engineering 主题横切 MOC——跨课程、公众号、B站视频的 Harness 相关笔记，10 篇核心 + 跨 MOC 链接
+description: Harness Engineering 主题横切 MOC——跨课程、公众号、B站视频的 Harness 相关笔记，18 篇核心 + 跨 MOC 链接
 created: 2026-06-11
-updated: 2026-07-02
+updated: 2026-07-03
 tags:
   - ai_agent
   - harness_engineering
@@ -16,7 +16,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 >
 > **核心定义**（来自 [[2026 年 Agent 最重要的工程概念 Harness Engineering]]）：harness = 围绕 Agent 的工程系统（工具、约束、反馈、安全、记忆），让 AI 从"能力强但不可预测"变成"稳定可靠能交付"。
 >
-> 10 篇核心笔记 + 跨 MOC 链接 = 完整的 Harness 主题地图。
+> 18 篇核心笔记 + 跨 MOC 链接 = 完整的 Harness 主题地图。
 
 ---
 
@@ -32,8 +32,16 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 | 6 | [[Loop Engineering 橙皮书 - 花叔]] | GitHub 橙皮书系列（花叔）| **Loop = Harness 上一层** | 别再自己一句句指挥 agent；五动作循环 + 六零件 + 四笔代价 |
 | 7 | [[Harness 实践 - 将任何文字编辑成精美的文章 - ConardLi]] | 公众号（ConardLi）| **Harness 迁移实战** | 用同一套骨架（8 Phase + 3 Checkpoint + Reacticle）将任意文字编辑成精美网页文章 |
 | 8 | [[遇事留痕 - Loop Engineering 的基础 - 魔术师卡颂]] | 公众号（AI 机会 / 魔术师卡颂）| **Loop Engineering 基础** | 遇事留痕 = Session Log + GitHub issue/PR 都是项目自我优化的燃料 |
-| 9 | [[DeepMind-模型将吞噬Harness]] | B站视频（Logan Kilpatrick）| **模型吞噬 harness** | Antigravity 主线；模型=expanding system；6 个月内 harness alpha upstream |
-| 10 | [[Loop-Agent Loop到底是什么]] | B站视频（Ross Mikita）| **Loop 反 hype** | HITL vs Agent Loop；开放式 loop=token 焚烧；code review closed loop 才合理 |
+| 9 | [[驾驭 AI - 把不确定问题转化为可控实验 - 魔术师卡颂]] | 公众号（AI 机会 / 魔术师卡颂）| **可控实验** | 不确定问题 → 客观标准 + 反馈闭环；Vibe Coding 用 token 换线性精力 |
+| 10 | [[想锻炼 AI 能力 - AI Native CLI - 魔术师卡颂]] | 公众号（AI 机会 / 魔术师卡颂）| **Agent 接口** | CLI AI Native 改造：结构化 stdout、hint 自恢复、dry-run 权限、内置 Skill |
+| 11 | [[AI Coding 时间管理 - 50% 工作法 - 魔术师卡颂]] | 公众号（Harness Engineering 专栏）| **时间分配** | 50% 业务 / 50% Harness；减并行换自治时长，AI 知识 3～6 月半衰期 |
+| 12 | [[如何为项目定制 Harness 环境 - 魔术师卡颂]] | 公众号（魔术师卡颂）| **定制心法** | 减框架增基建；superpowers/gstack → 文档/测试/lint 基建 → 轻编排 |
+| 13 | [[AI框架与 Harness 的关系 - 魔术师卡颂]] | 公众号（魔术师卡颂）| **三层模型** | 环境约束 / 路由 / 流程编排；框架≠Harness |
+| 14 | [[AI 主导的项目和人主导的区别 - 魔术师卡颂]] | 公众号（魔术师卡颂）| **项目架构** | monorepo；统一 dev 流程与 CLI；UI 识图+走查 |
+| 15 | [[如何让 Skill 自动优化 - 魔术师卡颂]] | 公众号（魔术师卡颂）| **Skill 自优化** | 定时任务 + PR 反馈 → 只改规则集；warp common-skills |
+| 16 | [[未来的 AI 编程就是 Loop 套 Loop - 魔术师卡颂]] | 公众号（魔术师卡颂）| **Loop 嵌套** | 三层 Loop；Session Log → gate issue → 规则反馈 |
+| 17 | [[DeepMind-模型将吞噬Harness]] | B站视频（Logan Kilpatrick）| **模型吞噬 harness** | Antigravity 主线；模型=expanding system；约 12 个月内 harness alpha upstream |
+| 18 | [[Loop-Agent Loop到底是什么]] | B站视频（Ross Mikita）| **Loop 反 hype** | HITL vs Agent Loop；开放式 loop=token 焚烧；code review closed loop 才合理 |
 
 ---
 

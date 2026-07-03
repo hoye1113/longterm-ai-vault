@@ -16,253 +16,345 @@ tags:
 created: 2026-07-02
 description: "Logan Kilpatrick 谈 Antigravity 作 Google agent harness 主线、模型从权重到 expanding system 的演进、harness alpha 约一个月内 upstream，以及 coding narrow superintelligence 与创业机会。"
 transcript_source: "Recastory/workspace/knowledge/A5-deepmind-harness/article.md"
-curate_method: "vskill-vault-curate（读者向讲义 v2）"
+material_tier: S
+ingest_dir: "Recastory/workspace/knowledge/A5-deepmind-harness/ingest"
+column_url: "https://www.bilibili.com/read/cv50626837/"
+source_original_date: "2026-06-11"
+host_name: "Sonya Huang"
+guest_name: "Logan Kilpatrick"
+guest_title: "Google AI Studio & Gemini API 负责人"
+speaker_inference: "column_article Q&A labels"
+speaker_confidence: "high"
+author:
+  - "[[Sonya Huang]]"
+  - "[[Logan Kilpatrick]]"
+concepts:
+  - id: agent_harness
+    zh: 代理框架
+    en: agent harness
+    one_line: 把模型意图变成多步行动的编排层；编码是其最强专化形态
+  - id: model_eats_harness
+    zh: 模型吞噬脚手架
+    en: model eats scaffolding
+    one_line: 外部编排能力被上游进原生模型，独立框架的 alpha 快速迁移
+  - id: narrow_superintelligence
+    zh: 狭义超级智能
+    en: narrow superintelligence
+    one_line: 单域（如编码）强到不可思议，但整体非通用智能
+  - id: expanding_system
+    zh: 扩展型系统
+    en: expanding system
+    one_line: 今天的「模型」= 权重 + 工具调用 + 托管能力 + 容器，不只是权重
+column_source: "Recastory/workspace/knowledge/A5-deepmind-harness/ingest/column_article.md"
+curate_method: "vskill-vault-write canonical-dialogue v3.2"
+dialogue_version: v3.2
+genre: Host-Guest canonical
+updated: 2026-07-03
 ---
+# DeepMind Logan Kilpatrick：模型将吞噬 Harness
 
-# DeepMind：模型将吞噬 Harness？
-
-## 先搞懂这一期
-
-**这是什么节目？**  
-Google I/O 后的一期长访谈。主持人对话 **Logan Kilpatrick**——他同时负责 **Google AI Studio** 和 **Gemini API**，日常给 next-gen builders 做工具。整集约 51 分钟，从 agentic AI 一直聊到 world model、DeepMind 文化。
-
-**这期在回答哪三个问题？**
-
-1. **Google 的 agentic 战略到底是什么？** Antigravity 和 Gemini 是什么关系？
-2. **「模型将吞噬 harness / scaffolding」**——外部编排层还有 alpha 吗？创业公司还能活吗？
-3. **Coding agent 已经强到什么程度？** 对开发者、对世界模型、对 Google 内部研究节奏意味着什么？
-
-**用一条线串起来（没看视频也能复述）：**
-
-Sundar 在 I/O 宣布进入 **agentic era**。对 Google 来说，这不只是「模型更强」，而是多一条产品 **主线**：以前 Gemini 是 50+ 产品的 throw line；现在 **Antigravity** 正在成为 **agent harness** 的新 throw line——Search、Gemini App、Cloud、AI Studio 都在变成 **agentic native**，替用户 **take action**。
-
-Logan 的核心判断：**两年前说的「模型 = 权重 in/out」已经过时**。今天的 Gemini 3.5 背后是 tool calling、hosted tools、search、code execution、containers、harness 叠出来的 **expanding system**。外部大家拼命建的 harness/scaffolding，很多能力会被 **upstream 进 native model**——按今天对 harness 的理解，**约一个月内 alpha 会迁到别处**。
-
-同时 coding 已强到像 **narrow superintelligence**：不是取代人类开发者，而是 **抬高你的 ambition 上限**——你以前觉得够不着的主意，现在敢想更大；但 research 侧的大训练 run 仍要人掌舵，不能把 token 随便烧。
-
----
-
-## 背景：这期在 AI Agent 大图里的位置
-
-| 你可能已有的认识 | 这期补上的那一块 |
-|----------------|-----------------|
-| 听过 harness、脚手架 | Google 官方视角：**Antigravity = 跨产品 harness 生态** |
-| 担心模型公司吃掉应用层 | **两股力同时成立**：capability overhang 巨大 + vertical focus 仍是 startup 超能力 |
-| Claude/Codex 占 coding 心智 | Google 叙事切换极快；**没有长时 agent 产品，很难做出 great coding model** |
-| [[DeepMind团队-当数百万Agent相遇]] 谈 Agent 社会 | 这期谈 **Google 怎么把 harness 产品化**，以及 **模型吞噬 harness** 的时间表 |
-
----
-
-## 分话题讲
-
-### 1. Antigravity：Google 的 agent harness 新主线
-
-**说法：**  
-- **Gemini 时代**：语言模型 API 是统一 throw line。  
-- **Agentic 时代**：**Antigravity** 是 agent harness throw line——产品不只回答，还要 **替用户做事**。
-
-**Antigravity 不是单一 App，是一套生态：**
-- Web 上 agent-first 体验  
-- CLI  
-- Skills  
-- Gemini API 托管 agent（不想自建 infra 的开发者）
-
-**关键句：** 同一 harness 驱动 Search、Gemini App、Cloud、AI Studio 等——不是只有 Antigravity 品牌那一个入口。
-
-> **"It is the agent harness. Coding is a specialized use case of the agent harness, but coding has proved to be the general purpose agent harness."**  
-> 这就是 agent harness；coding 是 specialized 用例，但 coding 已被证明是 **general-purpose agent harness**。
-
-各产品对 harness 大约 **80% 共享 + 20% 定制**：AI Studio 偏 coding gold path；Gemini App 偏 consumer 24/7 always-on agent。
-
-**和你何干：** 如果你在 Cursor / Codex / Antigravity 里写代码，你碰到的「模型 + 工具 + 多步」就是 harness；Google 正在把这条线 **横切进所有产品**。
+**Host：** Sonya Huang  
+**Guest：** Logan Kilpatrick（Google AI Studio & Gemini API 负责人）  
+**形态：** Host-Guest 对谈稿 v3.2（中文口语化 · 术语表带英文 · 双语金句）  
+**主源：** Recastory `A5-deepmind-harness/ingest/column_article.md`  
+**B 站视频：** [BV18hjG6bE6t](https://www.bilibili.com/video/BV18hjG6bE6t/)
 
 ---
 
-### 2. Agentic 成熟度：整体还在 Crawl
+## 开场：为什么现在聊这个
 
-Logan 用 crawl / walk / run 分级：
+Google I/O 刚结束，桑达尔宣布进入「代理式 Gemini 时代」。这期对话发生在那个节点上：主持人 Sonya Huang 对话 Logan Kilpatrick——他日常给下一代开发者造工具，同时管 AI Studio 和 Gemini API。
 
-| 层级 | 代表 |
+核心矛盾很直白：**两年前大家说的「模型 = 权重进、权重出」已经不够用了**；今天的 Gemini 背后是工具调用、托管搜索、代码执行、容器里跑起来的整套系统。Logan 的判断更狠：**外部大家拼命搭的脚手架，很多会在大约 12 个月内被上游进原生模型**——按今天对「代理框架」的理解，alpha 会快速迁走。
+
+下面四章分别聊：Google 全线代理原生怎么落地、编码为何成了通用代理框架的试验场、世界模型边界怎么变、以及「模型吞噬脚手架」之后创业机会在哪。
+
+**术语速查（后文对话用中文；英文原文在此统一对照解读）**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 代理框架 | agent harness | 把模型「打算」变成多步行动、调工具的编排层 |
+| 反重力 | Antigravity | Google 的代理生态：IDE、命令行、SDK、API 托管代理 |
+| 贯穿线 | throw line | 横跨多条产品线的统一技术主线（Gemini → Antigravity） |
+| 代理原生 | agentic native | 产品不只回答问题，还替用户动手完成任务 |
+| 狗粮测试 | dogfooding | 团队内部大规模用自家产品，换反馈闭环 |
+| 狭义超级智能 | narrow superintelligence | 单域强到人类难在同水平竞争，但整体非通用智能 |
+| 扩展型系统 | expanding system | 「模型」= 权重 + 工具 + 托管能力 + 容器，不是裸权重 |
+| 模型吞噬脚手架 | model eats scaffolding | 外部编排层能力被内置进模型，独立框架优势衰减 |
+| 能力过剩 | capability overhang | 模型能做的事，领先于产品和用户 adoption |
+
+---
+
+## 01 代理原生时代，Antigravity 接棒 Gemini 主线
+
+**Sonya：** 桑达尔在 I/O 开场叫「代理式 Gemini 时代」。**对谷歌来说，代理式人工智能到底意味什么？**
+
+**Logan：** 好问题。你要是盯得紧，会发现 Gemini 2.0 那会儿我们就提过这些，当时有点超前。到 Gemini 3.5 这一代，才算真落地——代理式编码、代理式产品、全员代理。
+
+就 Gemini 而言，上面那层代理能力，是 **Antigravity 代理框架**在撑。I/O 上我们也宣布了它。这是谷歌又多出来的一条贯穿线，把产品串起来。历史上，Gemini 之前，谷歌几十个产品之间没有统一主线；有了 Gemini，它成了那条线——现在一切某种程度上都基于 Gemini。随着产品重新定位成**代理原生**——真替用户行动、帮他把事办完——Antigravity 正在把这件事做实。这条新贯穿线浮出来，我觉得很有意思。
+
+**Sonya：** 等等，Antigravity 是什么？是 IDE 吗？还是别的？
+
+**Logan：** Antigravity 包含很多东西。它有一个核心 IDE，代理优先的体验；你想在命令行或网络上用，有 CLI 和 SDK。你要是通过 Gemini API 用、又不想自己扛基础设施，可以直接用它托管代理。最带劲的是——它不光是一个生态，还在给谷歌其他产品供能。搜索、Gemini 应用、云端、AI Studio 里很多代理功能，都会靠 Antigravity。这真的很兴奋。
+
+**Sonya：** 所以以前 Gemini API 这种语言模型，是融进每个谷歌产品的贯穿线；现在它既是 API，又是编码框架？
+
+**Logan：** 描述得很准。更广泛地说，它就是一个**代理框架**。编码作为代理框架的一个专化用例，显然非常猛——但编码已经证明了它作为**通用代理框架**的潜力：除了在编码上出色，还有更广的适用面。
+
+**Sonya：** 你们更激进地做代理之后，**怎么看待对现有业务的蚕食？** 比如代理替你浏览、回邮件——我还会亲自看邮件吗？用户在产品上的「眼球时间」会不会反而变少？
+
+**Logan：** 这话题有意思。AI 时代刚开头，很多人以为 AI 能直接回答问题，对搜索是零和博弈。实际发生的是：对搜索极其正和，人搜得更多、做得更多。代理我觉得也会走这条路。
+
+**Sonya：** 代理出来的同时，人也在做更多搜索，整个市场在同步放大。
+
+**Logan：** 对，我倾向认为是正向的。人一天就那么多时间，这点没错；但从目前感受看，非常积极。未来一到两年，人类行为怎么变，会比较清楚；三五年后技术再迭代，就没那么确定了。说白了，产品成功就该是这样。我们经常跟德米斯聊——造技术，就是让它替你分担。谷歌的成功，可能不是最大化用户盯屏时间，而是**最大化客户成果**：帮你高效办完事，你去过自己的生活。你会看到我们往「最大化成果」走，而不是最大化眼球停留。
+
+**Sonya：** 如果要给代理成熟度打分——爬行、行走、奔跑——谷歌产品套件现在在哪？
+
+**Logan：** 现在肯定还在**爬行**阶段。我们有多个用户量超 **10 亿**的产品，天然有产品张力。有些实验室体验可能接近跑步或走路，但今天大多数主流产品，更接近爬行。作为一家服务海量用户的公司，这是责任——我不认为大多数客户已经准备好让 AI 全权接管，他们还想坐在驾驶座上，谨慎迈出第一步。搜索团队是最典型的：得稳健地带用户上车，不能一夜之间颠覆大家跟互联网互动的方式。
+
+**Sonya：** 哪些产品最接近「行走」？
+
+**Logan：** Gemini 应用肯定最接近——对用户来说，有个 **24/7 在线**的代理替你做大量操作，是前沿用例之一。再就是 Antigravity：自主编码代理，能重建操作系统、一次烧**数十亿**个 token，成本也替你担着。这些在 DeepMind 里也是非常前瞻的视角。其他产品则在逐步实现，这对我来说也合理。
+
+> **金句 · Logan**
+> **中文：** 成功不是让人盯屏更久，是帮客户把事办完，然后去过自己的生活。
+> **原文：** Success probably doesn't look like maximizing eyeball time on products — it's maximizing outcome for customers.
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 代理框架 | agent harness | 模型 + 工具 + 多步编排；Antigravity 是 Google 的实例 |
+| 贯穿线 | throw line | Gemini 时代是模型 API；代理时代是 Antigravity 生态 |
+| 代理原生 | agentic native | 产品替用户行动，不只给摘要 |
+| 爬行/行走/奔跑 | crawl / walk / run | Google 产品 agentic 成熟度分级；大众产品多在爬行 |
+| 客户成果 | customer outcome | 成功指标从眼球时间转向任务完成度 |
+| 正和博弈 | positive-sum | 搜索与代理共存，市场同步扩大而非互相抢 |
+
+**本章小结**
+
+- Antigravity 接棒 Gemini，成 Google 跨产品的代理贯穿线；编码是通用代理框架的最强专化用例
+- 业务蚕食担忧类似早期「AI 杀死搜索」——实际更可能是正和，指标转向客户成果
+- 十亿级用户产品责任重大：整体仍在爬行，Gemini App 与 Antigravity 最接近行走
+
+---
+
+## 02 编码是通用代理框架，已像狭义超级智能
+
+**Sonya：** 我跟企业聊，他们说虽然人人谈代理式 AI，**唯一真看到起作用的还是编码代理**。你同意吗？
+
+**Logan：** 取决于你怎么衡量「起作用」。要是你想卸载非常复杂的任务，而模型在那些领域还没跨过质量门槛，这话成立。我更想看的是总 token 消耗、一个代理跑一个任务平均要多久——随着新模型能力落地，这个趋势在飙升。基数可能还低，但已经看到长时间运行任务的早期迹象。各实验室都在聊新模型能**三天自主工作**那种极端情况——企业今年会感受到编码之外的影响，因为很多用例也会变好。
+
+**Sonya：** 我有个难题：身边开发者朋友长期用 Claude；OpenAI 也进了红色警戒，Codex 现在很好。Claude 和 Codex 大概五五开，**但我没怎么听说他们用 Gemini，怎么回事？**
+
+**Logan：** 好问题。我补个背景，故事更有趣。去年 **12 月**，舆论还是「谷歌赢了」——Gemini 3 从模型能力看是显著飞跃。但作为生态参与者，舆论转向速度之快，每次都让我愣一下。下一个风向是 **1 月**前后的代理式编码浪潮——其实也没过多久。这提醒我们变化有多快。你的观察不算离谱。
+
+我们幕后在做的，是尽可能快地把编码前沿往前推。Antigravity 是其中重要一块——**你要是没有一个真能撑复杂、长周期工作的开发者产品，很难做出出色的编码模型**。谷歌意识到了，所以有相关人才引进，最终建了 Antigravity，我们一直在内部用。桑达尔在 I/O 上展示了谷歌内部 token 消耗增长图——你需要那个引擎转起来，而引擎正在转。模型突破要时间，但我非常有信心。团队里负责代码的人，我称他们内部的「AI 复仇者联盟」——谷歌最优秀的人才，非常认真地在推。
+
+撇开价格不谈，**Flash 1.5** 是把能力付诸实践的一步。作为一个 Flash 模型，它的编码能力比我们发布过的任何专业模型都好——而之前的专业模型已经很出色了。还有一条线：预训练窗口期。大型训练运行的背景，外界往往忽略。DeepMind 在预训练上一直很猛。3.5 Flash 所有的提升都来自**后期训练**——这对团队是巨大肯定。
+
+**Sonya：** 你们内部「狗粮测试」有多虔诚？DeepMind 员工还能用别的模型吗？
+
+**Logan：** 我觉得人们用其他模型非常健康——不这样，很难理解生态里在发生什么。所以我用所有的模型和产品，DeepMind 同事也在做同样的事。但大家肯定都在用 Gemini 模型。从反馈循环看，这非常棒：模型之所以能变好，部分原因在于 DeepMind 乃至整个谷歌拥有超过 **10 万名**优秀工程师，在用模型并提供反馈。这是谷歌的竞争优势——如此规模的工程资源和人才储备，可以做 A/B 测试和实时实验。必须了解所有模型，但对大多数人来说，Gemini 是日常主力。
+
+**Sonya：** 你相信「软起飞」吗——足够好的编码代理会加速研究，形成自我强化循环？
+
+**Logan：** 能看到一些迹象。从模型角度看，目前仍处于早期——大型训练任务的资源分配非常巨大，肯定仍需要人类主导决策，你不会不小心动用 **1 万个 TPU** 去启动实际上没什么意义的工作。但从产品角度看，迹象非常明显。我们团队用 Antigravity 构建移动应用，发布速度比谷歌以往任何团队都快；Josh 的团队用 Gemini 构建 macOS 应用，端到端交付也创了纪录。这都归功于编码代理。
+
+**Sonya：** 你说过，如果能有一个用代码构建任何东西的系统，人类就无法在同一水平上竞争——那就是狭义超级智能。**我们已经到了吗？**
+
+**Logan：** 这很有趣。我认为这个关于狭义超级智能的例子，现在的编码能力确实让人感觉如此——编码表现太出色了，确实像狭义超级智能。我没法量化所有细节，但重要的是：它对代码非常有效。如果它能做更多其他事当然很棒，但它在代码方面已经如此出色，这本身就极具影响力。我花了很多时间消化这个事实。
+
+构建通用智能非常重要，但如果「构建通用智能」的叙事削弱了对当前技术能力的关注，我觉得是糟糕的权衡。我总在脑海里保持平衡：我们需要构建通用技术，但眼下这个工具的影响已经非常深远。而且，它并没有削弱人类开发者——这是最积极的结果之一。它更像是**人类能力的加速器**。作为一名开发者，我感觉自己在世界上拥有了更多自主权，可以应对更具雄心的问题。以前我提出一些想法，总觉得有点遥不可及，只能想「要是能实现就好了」；现在我面临相反的问题——我会思考一个想法，然后想「我或许可以把它做得更宏大」。技术让我能够把雄心再往上抬十步，这是我花了很多时间思考的事。
+
+下一批可能起飞的域，是那些**可验证性更好**的——数学、金融、科学。在彻底解决通用智能之前，我们会先得到很多这类垂直领域的成果。
+
+> **金句 · Logan**
+> **中文：** 编码强到像狭义超级智能，但它抬的是你的雄心，不是把你换掉。
+> **原文：** Coding is just so good that it does kind of feel like narrow superintelligence — it's an accelerant; I have more agency in the world.
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 长周期代理 | long-running agent | 步骤多、跑得久仍稳定的自主任务 |
+| 狗粮测试 | dogfooding | 内部大规模用自家产品换反馈；10 万+ 工程师是 Google 优势 |
+| 后期训练 | post-training | 3.5 Flash 编码能力跃升主要来自后期训练，非只靠预训练 |
+| 狭义超级智能 | narrow superintelligence | 编码域强到不可思议；整体仍非通用智能 |
+| 人类加速器 | human accelerant | 不取代开发者，而是抬高可追求的雄心上限 |
+| 可验证性 | verifiability | 数学、科学等域因结果可验证，可能下一个起飞 |
+
+**本章小结**
+
+- 编码代理是目前最成熟的通用代理框架专化形态；没有长周期 agent 产品，很难训出 great coding model
+- 舆论切换极快（12 月「谷歌赢了」→ 1 月代理式编码浪潮）；内部 token 引擎与 Flash 后期训练是 Google 的牌
+- 编码已具狭义超级智能特征，但对开发者是加速器——雄心被抬高，MVP 不够了
+
+---
+
+## 03 世界模型边界在变，个人软件一周三十五万个
+
+**Sonya：** 你去年十月发推说，到 2025 年底人人都能 vibe code 视频游戏——**到了吗？**
+
+**Logan：** 接近了，但还不是 3A 大作——你做不了下一个《使命召唤》或《侠盗猎车手》。视频游戏有趣的地方在于，你实际上需要构建很多其他东西。比如 Three.js 让很多以前不可能的事成为可能，但仍然存在很多粗糙边——光靠一个编码代理解决不了。你需要精灵生成之类的功能，模型在原生执行这方面并不是很好，所以你需要编排层和工具。还有很多类似的东西，是游戏体验的核心，需要高度可靠性。触手可及，但实际上需要大量**产品脚手架**，才能创造出可重用、可重玩、有深度、有品味的体验。
+
+AI Studio 早期数据里，大约 **20%** 的用户在尝试构建游戏——曾经是最受欢迎的类别之一。现在生态变了，大约 **20%** 是金融相关，还有很多个人生产力工具和生成式媒体内容。Demis 非常关心游戏——他的职业生涯始于通过游戏做 AI 研究。Kaggle 团队跟 GDM 合作建了**游戏竞技场**，用游戏作为代理来测试通用智能进展——这深深植根于 DeepMind 的历史。
+
+**Sonya：** 普通人离「有个想法就能写出真正有趣、可玩的游戏」还有多远？
+
+**Logan：** 我想说就在今年。模型能力已经使其成为可能。差距不在模型质量——在于：一个知道怎么做好游戏的人，如何以正确的方式搭脚手架。一部分是可发现性和意识问题，人们甚至不知道自己可以这样做；另一部分是某些类别的模型能力可能略有不足。但我们距离跨越这个鸿沟，可能只有几周或几个月。
+
+**Sonya：** 「随心所欲写游戏」，更可能是「游戏引擎 + 编码代理」，还是「世界模型」？
+
+**Logan：** 我认为最终**世界模型的定义会变得模糊**。编码代理最终会看起来像某种世界模型类型的系统——但你要让世界模型对真实任务有用，仍然需要脚手架。现在有很多有趣的初创公司在研究世界模型的脚手架，试图把它们从非常开放的设计空间里引导出来。短期内，我认为「编码代理 + 某种游戏引擎」的组合，在游戏开发方面会展现出更多优势。
+
+**Sonya：** 你说世界模型定义模糊了——能展开讲讲吗？
+
+**Logan：** **Omni** 就是一个例子。I/O 上我们发布了它——你可以输入任何内容、生成任何输出。德米斯把它定义为世界模型，因为它对世界的理解程度非常深。技术上跟我们以前构建世界模型的方式有所不同——从架构角度看，它更接近某些可能更具可扩展性的方式。历史上，运行传统的在线世界模型非常昂贵。
+
+要是你还把传统「世界模型」理解成「动作条件视频模型」，那现在说的世界模型，其实是指**对世界有一定理解的模型**，而不是严格意义上的动作条件视频。有趣的是，它对世界有理解，而且表现非常棒——这就是界限模糊的地方。它现在还不是实时的，但可以实现很多你描述的、视觉上可以用同一个世界模型创建的用例。
+
+最重要的是：**它是一个单一模型**。过去你可能需要训练八个不同的模型——文本、音频、Lyria 音乐、Nano、Banana、Veo 视频……一整套。如果能有一个单一模型完成所有这些事，对我们和客户都很棒。这是新的架构设置，不是路由到一堆不同模型——这是一个真正的 Omni 模型。
+
+我们私下聊过一个例子：我当时跟 Tulsi——她领导模型团队——在台上演讲。我向观众提到要编辑视频，他们现场拍了照片，用 Omni 实时编辑。编辑后的视频里，一只狗跑上了舞台，其他嘉宾看到后轻声笑了一下——正好发生在我滔滔不绝讲 AI 的时候。狗跳到我腿上，我回应了一下，继续说话，还抚摸了它。要做到这一点，需要非常微妙的细节处理，而模型完美地做到了。我仍在消化这对我们制作内容的方式意味着什么。
+
+我个人对生成式媒体一直很坚持：我过去非常坚持不用 AI 制作我创作的任何内容——所有都是我的文字、我的声音、我的形象。我喜欢 Omni 的一点是，它并没有改变我，而是改变了许多其他跟我无关的部分——布景、咖啡桌那些。文字可以保持不变，你可以改变不属于个人的部分。人格还在那里，只是被以不同的方式放大了。
+
+**Sonya：** 你们在 AI Studio 推出了让人为 Android 应用写代码的功能——进展如何？
+
+**Logan：** AI Studio 的战略之一，是基于生态和开发者反馈。Android 是个很好的例子——它能让原本不会开发 Android 应用的人也能开发。我在 AI Studio 里开发了第一个 Android 应用：后院种树，做了个园艺应用。我今天早上看数据——自上周以来，**AI Studio 里已经构建了大约 35 万个 Android 应用**。这太疯狂了。这 35 万个应用，可能以前根本没人会去构建——很多是**个人应用**。
+
+这种趋势指向更遥远的未来：**你构建软件来解决个人问题的想法，现在已经非常真实了**。人们正在这样做，这是这些产品最常见的用例之一。Android 正在成为开发者的平台——操作系统有一些你无法在 Web 端解锁的丰富体验。比如短信体验，所有主要操作系统给我的感觉都比我用过的任何 AI 聊天应用要丰富得多。如果我能在我使用的任何短信应用里跟 AI 对话，我会比不得不切换到另一个应用开心得多。
+
+> **金句 · Logan**
+> **中文：** 人格还在，变的是布景——这才是我想要的生成媒体版本。
+> **原文：** The personality is still there — it's just being amplified in a different way; it didn't change me, it changed everything else around me.
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 世界模型 | world model | 具世界理解的统一模型；不再仅是动作条件视频生成 |
+| 全模态模型 | Omni | 单一模型处理文本/音频/视频等，非多模型路由拼盘 |
+| 产品脚手架 | product scaffolding | 精灵生成、Three.js 粗糙边等；游戏要 playable 还靠这层 |
+| 氛围感编程 | vibe coding | 有想法就能快速写出可玩原型；3A 级仍远 |
+| 个人软件 | personal software | 为个人特定问题即时编写并运行的应用 |
+| 游戏竞技场 | Game Arena | Kaggle × GDM 用游戏作通用智能进展的测试场 |
+
+**本章小结**
+
+- 游戏 vibe code 今年可能普及，瓶颈常在产品脚手架而非纯模型质量；短期路径是编码代理 + 游戏引擎
+- Omni 重新定义世界模型：单一全模态模型 + 微妙世界理解（台上加狗 demo），改布景不改人格
+- AI Studio 一周约 35 万 Android 应用，个人软件时代已来——为园艺、金融等私人问题即时写软件
+
+---
+
+## 04 模型吞噬脚手架，创业机会反而更多
+
+**Sonya：** 我想问「模型吞噬框架」或「模型吞噬脚手架」——你有什么想法？
+
+**Logan：** 我认为这是真的。一部分原因是，我们过去认为的「模型」，已经不再是单纯的模型了。两年前大语言模型流行时，模型实际上只是一组权重——发送和获取 token，非常简单。虽然我们现在仍称之为 Gemini 1.5、GPT 或 Claude，但它实际上**不再仅仅是权重**了。它是一个围绕权重构建的不断扩展的系统，能够实现许多下一代体验——从代理工具调用到各种托管工具、搜索、代码执行等等。这些模型现在在容器里启动，并拥有代理框架等组件。
+
+通常脚手架会比直接内置到模型里的功能**领先几步**，然后模型会吞噬那个脚手架，使其成为原生模型系统的一部分。在某些情况下，拥有外部脚手架仍然有价值——比如搜索。很多人使用不同的搜索提供商，有不同的用例；虽然模型可以原生使用搜索，但你可能还想要其他东西。代码执行是另一个例子。
+
+但目前看来，**代理框架可能是这方面的典型**。每个人都觉得必须构建一个框架，认为框架就是优势所在。但我认为这可能不是真的——至少不是我们今天所认为的那种框架。在 **12 个月内**，这些模型会消化掉很多东西，功能将被上游到模型中，而竞争优势将转移到其他地方。到那时，人们不会再试图自己搭建框架，因为模型会原生完成它。
+
+**Sonya：** 人们构建自己框架，部分原因是绑某厂商框架会被锁定——你怎么回应？
+
+**Logan：** 这就是脚手架故事的一部分。起初这可能是真的，但随着模型能力的提高，这种必要性会随时间降低。实际上，如果你不能使用另一个框架，你就没有一个通用模型——所以这很重要。我几周前提到过，我们需要像「**框架基准**」之类的东西，来衡量不同模型适应各种框架的能力。随着时间的推移，你会期望模型能够兼容所有框架。除非你完全脱离了主流分布——即使你用自己框架，你仍然会处于边缘地位。
+
+**Sonya：** 那应用层呢？模型吞噬了框架和周围组件，**独立公司怎么活下来？**
+
+**Logan：** 这两件事似乎同时成立：一方面，我放眼望去，觉得从未有过如此多的机会去创造新事物；与此同时，模型显然在做比以往更多的事情。模型实验室正在追逐非常普遍的问题，而在**垂直领域**存在着巨大的价值。你要是懂这个领域的专业知识，了解客户和生态系统，你真的可以超越最好的模型实验室——**专注是初创公司的超能力**。你能专注，就能做成任何事。大公司通常没有太多的专注力——我们有太多产品、用户和不同的业务在运行，不能只专注于一个领域。
+
+**24 个月**前我们都在问，机会空间是不是正在缩小。现在看来，实际情况并非如此，这非常积极。如果说有什么不同，那就是机会比以前更多了。现在的编码辅助工具帮你弥补了与成熟大公司之间的代码库差距，因为你可以跑得更快。代理的原生功能开辟了一个新类别，你可以围绕它构建产品。
+
+**Sonya：** 在 Google DeepMind 工作现在什么感觉？
+
+**Logan：** 我确实努力去感受这一切，因为它就像是一个特殊的时刻。GDM 的文化我有三个观察。第一，我们在做很多事情——投资组合式的布局，我认为我们拥有最强大的投资组合之一。但你确实会看到某些时刻，另一个实验室在某个领域领先，而我们可能只是投资不足或不够专注——看到我们如何努力弥补这一差距，是很酷的过程。
+
+第二，你可以从领导者身上看到文化的渗透。德米斯是诺贝尔奖科学家，也是这些事业的创始人——你能在 DeepMind 的文化中感受到这种**科学严谨性**。相比之下，Sam 可能是世界上最优秀的商人之一，你也能在 OpenAI 的文化中看到这一点。DeepMind 有非常科学的世界观，他们开始这项任务的初衷是为了解决疾病等人类面临的问题。很容易迷失在当下的竞争中——谁能在某个基准测试里把数字推得更高。我们很容易忘记，做这些事的初衷是为了解决人类实际面临的问题。
+
+最后一点：DeepMind 就像是 Google 的**引擎室**。一方面有根深蒂固的实验室文化；另一方面，我们与 Android、Google Cloud、Gmail、Workspace 等合作伙伴协作。将 Gemini 部署到拥有十亿用户的产品——全球只有两家公司才会遇到的问题，而我们拥有其中 **13 个**产品。这种规模的创新挑战，我觉得只有在 Google 内部才能做到。
+
+> **金句 · Logan**
+> **中文：** 我们以为的「模型」早就不只是权重了——脚手架领先几步，然后被模型吃掉。
+> **原文：** What we have historically thought of as the model is not the model anymore — it's an entire expanding sprawling system; the model eats that scaffolding.
+
+**本章概念**
+
+| 中文 | 英文 | 白话 |
+|------|------|------|
+| 扩展型系统 | expanding system | 模型 = 权重 + 工具调用 + 托管能力 + 容器，非裸权重 |
+| 模型吞噬脚手架 | model eats scaffolding | 外部编排能力被上游进原生模型；约 12 个月内大量迁移 |
+| 框架基准 | HarnessBench / framework benchmark | 衡量模型适配不同 harness 的能力；Logan 提议生态共建 |
+| 垂直专注 | vertical focus | 初创公司超能力：深耕领域专业知识，超越通用模型实验室 |
+| 能力过剩 | capability overhang | 模型能做的超前于 adoption；机会窗口反而更大 |
+| 引擎室 | engine room | DeepMind 在 Google 内的定位：研究 + 十亿级产品落地 |
+
+**本章小结**
+
+- 「模型」已是扩展型系统；脚手架领先几步后被 upstream，代理框架的 alpha 约 12 个月内大量迁移
+- 锁定担忧会随模型能力提升减弱；需要 HarnessBench 式思维衡量模型在你实际栈里的表现
+- 两股力同时为真：模型做更多 + 垂直专注的初创机会更多；24 个月前「空间收缩」论被证伪
+
+---
+
+## 总结：Harness 的 alpha 在上移，编码已是加速器
+
+| 维度 | 要点 |
 |------|------|
-| **Crawl** | 大多数面向 13 亿+ 用户的 Google 产品——要 **stewardship**，不能 overnight 改用户与互联网的关系 |
-| **Walk** | Gemini App（Spark）：24/7 always-on agent，可能替你做一堆 action |
-| **Run（实验室）** | Antigravity autonomous coding：单次 **billions tokens、数千美元**；GDM 也在 frontier 探索 |
+| 战略 | Antigravity 成 Google 跨产品代理贯穿线；产品从回答转向替用户行动 |
+| 成熟度 | 大众十亿级产品仍在爬行；Gemini App 与 Antigravity 最接近行走 |
+| 编码 | 通用代理框架的最强专化形态；已具狭义超级智能特征，但是人类加速器 |
+| 世界模型 | Omni 重新定义：单一全模态 + 世界理解；改布景不改人格 |
+| 个人软件 | AI Studio 一周约 35 万 Android 应用；为私人问题即时写软件 |
+| Harness | 模型吞噬脚手架约 12 个月尺度；alpha 上移到垂直领域与专注 |
+| 创业 | 能力过剩 + 垂直专注同时为真；机会比 24 个月前更多，不是更少 |
 
-Search 是最典型的「有责任地带用户上车」的例子——不能突然把交互方式全换掉。
+### 对个人的启示
 
-**和你何干：** 大众产品 agentic 会 **慢**；Labs / 开发者工具会 **快**。别用 frontier demo 的预期去要求 Gmail 明天全自动。
+- 用编码代理时，预期**雄心被抬高**——主动设 scope 边界，别被技术推着无限做大
+- 别把 alpha 全押在「自建代理框架」上——问上游之后价值在哪一层（垂直工作流、评测、领域数据）
+- 读 Google 产品节奏：大众面爬行、实验室奔跑——别用 frontier demo 标准要求 Gmail 明天全自动
 
----
+### 对团队/产品的启示
 
-### 3. 业务蚕食？Google 更在意 Outcome，不是 Eyeball
+- 长时运行、真实 token 消耗 = 训练与迭代的基础设施，不是副产品
+- 选模型时除 benchmark 外，看在你**实际 harness 栈**里的表现
+- 垂直领域专业知识 + 专注，仍是初创超越模型实验室的超能力
 
-早期担心 AI 问答会 **蚕食 Search**——实际 **搜索量上升**。Agent 做更多事的同时，人也在搜更多。
-
-Logan 的成功定义：**不是最大化 eyeball time，是最大化 customer outcome**——帮用户办完事，他们去生活。
-
-**Agent LB Growth（他的说法）：**  
-个人用 coding agent 时，会让 agent **选基础设施**——「用什么数据库你定」。推而广之，shopping agent 也会替人选品。广告、SEO、**GEO（Generative Engine Optimization）** 会和旧逻辑 **叠加演进**，未必是 radical 颠覆。
-
----
-
-### 4. Coding 格局：Gemini 叙事切换极快
-
-主持人观察：开发者朋友 **Claude / Codex 大约各半**，Gemini 相对少。
-
-Logan 的回应：
-- **12 月** 叙事还是 Google 靠 Gemini 3 大幅领先；**假期 agentic coding 浪潮**后叙事又变——**warp speed**。
-- **没有真正做 long-running agent 的产品，很难做出 great coding model**——Windsurf 收购、Antigravity 内部 token 消耗曲线就是证据：**engine spending takes time to make model progress**。
-- **Gemini 3 Flash** 纯 post-training 就在 coding 上超过此前 Pro——团队功劳很大。
-- 外部看「落后」可能 **miss 大 pre-training run 的时间线**——DeepMind 在大集群 pre-training 上是强项。
-
-**Dogfooding：** 必须用 Gemini 换 feedback flywheel；但也 **healthy 使用竞品**——10 万+ Google 工程师 = 规模优势。
+> **金句 · Logan（封底）**
+> **中文：** 能专注，你就能做成任何事——大公司恰恰最难专注一件事。
+> **原文：** Focus is the superpower of startups — if you can focus, you can do anything.
 
 ---
 
-### 5. Soft Takeoff 与 Narrow Superintelligence
-
-**Coding 加速 research 的自强化循环？** Logan 说「显然成立」，但模型侧仍 early——大训练 run 的资源分配还要 **human in the driver seat**，不能 accidental 烧掉一万 TPUs。
-
-**产品侧已见迹象：**
-- Antigravity 建 mobile app 比 Google 史上任何团队都快  
-- Joshua 团队 Gemini Mac App 交付创纪录  
-
-**Coding 像 narrow superintelligence：** 强到不可思议，但对人类开发者是 **accelerant**——**more agency**，敢 tackle 更 ambitious 的问题；副作用是 **MVP 不够了**，你会被技术抬着往「再做大十步」走。
-
-下一批可能起飞的域：**verifiability 高的**——math、finance、science（有证明/测试/可重复实验）。
-
 ---
 
-### 6. Vibe Coding 游戏与世界模型（Veo 3）
+## 附录
 
-Logan 2025 年 10 月 tweet：**年底人人能 vibe code 视频游戏**——接近但未完全（不是 CoD/GTA 级 3A）。
+### 章节时间戳
 
-瓶颈常在 **product scaffolding**：sprite 生成、Three.js 粗糙边、编排层——**不是纯 model quality gap**。
+| 时间 | 主题 |
+|------|------|
+| 03:15 | 谷歌全线产品正迈向代理原生转型 |
+| 06:42 | 编码代理是通用代理框架的最佳试验场 |
+| 21:10 | 狭义超级智能已在编码领域率先实现 |
+| 30:45 | 世界模型与生成式媒体的边界正在模糊 |
+| 35:20 | 模型正在吞噬外部脚手架与框架 |
+| 42:15 | 个人软件时代：35 万个 Android 应用的爆发 |
 
-AI Studio 数据：曾约 **20% 应用是游戏**；GDM **GameArena** 用游戏作 AGI progress proxy（DeepMind 基因里游戏很深）。
+### 素材路径
 
-**World model 定义在变：**
-- 传统：action-conditioned video model  
-- 现在（Veo 3 / Demis  framing）：**对世界有理解的 unified model**——不是 Gemini + 视频模型拼盘，是 **single true unified model**  
-- 台上 live demo：实时给视频加狗、嘉宾反应、主持人继续讲——**subtle nuance** 极好  
+- **ingest**：`Recastory/workspace/knowledge/A5-deepmind-harness/ingest`
+- **ASR**：`Recastory/workspace/knowledge/A5-deepmind-harness/article.md`
+- **专栏主源**：https://www.bilibili.com/read/cv50626837/
+- **B 站**：https://www.bilibili.com/video/BV18hjG6bE6t/
+- **时长**：51:10
 
-Logan 个人对 generative media 的态度：内容 **authenticity** 重要——Veo 改的是 **布景**（咖啡桌、灯光），不是替换成 AI 版本人。
-
-**短期游戏路径：** coding agent + game engine scaffolding > 纯 world model 直接做游戏（world model  inherent open-ended，要 scaffolding 才 usable）。
-
----
-
-### 7. 核心争议：模型将吞噬 Harness
-
-> **"What we have historically thought of as the model is not the model anymore... it's an entire expanding sprawling system."**
-
-两年前 LLM = weights，tokens in/out。现在名字仍叫 Gemini 3.5 / GPT-x，实质是：
-- Agentic tool calling  
-- Hosted tools（search、code execution 等）  
-- Containers 里 spin up model + harness  
-
-**Scaffolding 往往领先模型几步** → 最终被 **upstream 进 native model system**。
-
-**Agent harness 是 quintessential example：**  
-人人说「alpha 在 harness」；Logan 认为 **按今天对 harness 的理解，约一个月内** 模型会 digest 大量 harness 能力，**alpha 迁移到别处**——不是「不需要 harness」，是 **价值层上移**。
-
-外部 scaffolding 仍有空间：例如 **可选 search provider**、**code execution** 多实现——模型 native 能 search，但你可能还要别的。
-
-**Lock-in 论点：** 初期「绑某厂商 harness」成立；随 model capability 提升会减弱。需要 **HarnessBench** 类 benchmark：模型适配 **不同 harness** 的能力如何。
-
----
-
-### 8. 创业公司还有没有机会？
-
-两股力 **同时为真**：
-1. **Capability overhang**——模型能做的事超前于产品 adoption，alpha 巨大  
-2. **Model labs 做 general problems**——压力真实  
-
-Startup superpower 仍是 **vertical domain expertise + focus**——「你能 focus，就能做成任何事」；Google 有义务服务 13 亿用户，**不能 focus 一个 wonder app**。
-
-20 个月前担心 startup 空间收缩——实际 **机会更多**；coding agent 还帮你 **缩小与大公司 established codebase 的差距**。
-
----
-
-### 9. AI Studio 与 DeepMind 文化（短）
-
-**AI Studio：** 一周约 **35 万应用**被 build——很多是 **personal problem-solving** 软件，以前根本不会有人做；Android 成为 builder platform。
-
-**DeepMind 文化（Logan 观察）：**
-- Portfolio 强，偶有某域 under-invest 被拉开——**strike team** 文化仍在（Demis 纪录片）  
-- Demis = 科学/Nobel 导向；Sam = business；Anthropic = safety——DNA 不同  
-- 使命：solve disease、cancer——别迷失 benchmark 数字竞赛  
-- DeepMind = Google **engine room** + 与 Android/Cloud 等 applied 协作  
-
----
-
-## 关键概念（读完应能解释）
-
-| 词 | 白话 |
-|----|------|
-| **Antigravity** | Google 的 agent harness 生态（Web/CLI/Skills/API），驱动多产品 agentic 化 |
-| **Throw line** | 横跨多条产品线的统一技术主线（Gemini → Antigravity） |
-| **Agent harness** | 把模型「打算」变成多步 action 的编排层；coding harness 是其最强 specialized 形态 |
-| **Model eats harness** | 外部 scaffolding 能力被 upstream 进 native model，独立 harness 的 alpha 衰减 |
-| **Expanding system** | 今天的「模型」= 权重 + tools + hosted capabilities + containers，不只是 weights |
-| **HarnessBench** | Logan 提议的 benchmark：测模型适配不同 harness 的能力 |
-| **Narrow superintelligence** | 单域（如 coding）远超人类，但整体非 AGI |
-| **Agent LB Growth** | Agent 替用户做选型/决策，改变 aggregator 与广告逻辑 |
-| **Capability overhang** | 模型能力领先于产品与用户 adoption |
-| **World model（新定义）** | 具世界理解的 unified model，非仅 action-conditioned 视频生成 |
-| **Crawl/Walk/Run** | Google 产品 agentic 成熟度分级 |
-
----
-
-## 值得记住的原话
-
-> **"It is the agent harness... coding has proved to be the general purpose agent harness."**  
-> 这就是 agent harness；coding 已被证明是 general-purpose harness。
-
-> **"What we have historically thought of as the model is not the model anymore."**  
-> 我们历史上对「模型」的理解已经不对了。
-
-> **"The model eats that scaffolding... perhaps won't be true, at least in the way that we think of the harness today, in a month."**  
-> 模型会吃掉 scaffolding；按今天对 harness 的理解，约一个月内 alpha 会迁走。
-
-> **"Success probably doesn't look like maximizing eyeball time... maximizing outcome for customers."**  
-> 成功不是最大化盯屏时间，是最大化用户 outcome。
-
-> **"It's actually really hard to make a great coding model... if you don't actually have a product that does that."**  
-> 没有长时 agent 产品，很难做出 great coding model。
-
-> **"Coding is just so good that it does kind of feel like narrow superintelligence... an accelerant... I have more agency in the world."**  
-> Coding 强到像 narrow superintelligence；对我它是加速器，我在世界上有更多 agency。
-
-> **"If you can focus, you can do anything."**  
-> 能 focus，startup 什么都能做。
-
----
-
-## 小结
-
-**这期最核心的判断：** Google 把 **Antigravity 定为跨产品 agent harness 主线**；「模型」不再只是权重——**scaffolding 会被 upstream 进 native model**，但 coding harness 已是 narrow superintelligence 级加速器。
-
-**读完应带走：**
-- Coding 被 Logan 视为 **general-purpose agent harness** 的特殊用例；没有长时 agent 产品，很难训出 great coding model。
-- 产品成功 metric 从 **eyeball time** 转向 **customer outcome**；搜索与 agent 可共生而非零和。
-- Logan 原话时间尺度约 **一个月**；外部 harness 的 alpha 会快速迁移——价值留在 vertical workflow、eval、domain data。
-
-**和 vault 的关系：** 与 [[DeepMind团队-当数百万Agent相遇]]、[[IBM团队-Harness工程详解]] 构成 Google / 通用 harness 三角。
-
----
-
-## 行动启示
-
-1. **别把 alpha 全押在「自建 harness」上**——Logan 判断短至约一个月能力就会 upstream；问：**上游之后价值在哪一层**（vertical workflow、eval、domain data）？  
-2. **做 coding / agent 产品的人**：长时运行、真实 token 消耗 = **训练与迭代的基础设施**，不是副产品。  
-3. **选模型时**：除 benchmark 外，看 **在你实际 harness 栈里** 的表现——未来可能需要 HarnessBench 式思维。  
-4. **用 coding agent 时**：预期 **ambition 被抬高**——主动设 scope 边界，别被技术推着无限做大。  
-5. **读 Google 产品节奏**：大众面 crawl、Labs run——**别用 frontier 标准要求 consumer 产品 overnight agentic**。
-
----
-
-## 相关阅读
+### 相关阅读
 
 - [[DeepMind团队-当数百万Agent相遇]] — Agent 社会、委托与安全；与本期 harness 产品化互补  
 - [[IBM团队-Harness工程详解]] — harness 可靠性第一性原理  
@@ -272,9 +364,10 @@ Startup superpower 仍是 **vertical domain expertise + focus**——「你能 f
 
 ---
 
-## 来源
+### 收录说明
 
 - **视频**：[BV18hjG6bE6t](https://www.bilibili.com/video/BV18hjG6bE6t/)（B 站转载 Google DeepMind 访谈）  
 - **嘉宾**：Logan Kilpatrick，Google AI Studio & Gemini API  
 - **转写**：Recastory `A5-deepmind-harness/article.md`（英文 ASR，收录时已人工整理叙事）  
-- **版本**：v2 读者向讲义（2026-07-02）
+- **版本**：canonical Host-Guest v3.2（2026-07-03；原讲义已合并）
+

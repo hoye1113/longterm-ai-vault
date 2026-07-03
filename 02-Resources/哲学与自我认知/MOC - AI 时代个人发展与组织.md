@@ -2,7 +2,7 @@
 title: MOC - AI 时代个人发展与组织
 description: AI 时代个人发展与组织转型主题横切 MOC——FDE/蜂群组织/工程师面试/产品观/智能通缩/个人焦虑，7 篇核心
 created: 2026-06-11
-updated: 2026-07-01
+updated: 2026-07-03
 tags:
   - ai_agent
   - ai_career
@@ -51,6 +51,7 @@ source: vault_initiative - moc - ai_agent - ai_career - ai_philosophy
 |------|------|---------|
 | [[用AI的这三年，想跟你分享这9条心得]] | 公众号（卡兹克）| 花钱用最好的模型 / 每周自动化 / 实习生思维 / 品味护城河 / 把时间还给现实的人 |
 | [[The Founders Playbook - 打造 AI 原生创业公司]] | Anthropic 英文指南（中文翻译）| 创始人四阶段方法论：Idea/MVP/Launch/Scale；三能力（研究/编程/工作流）；AI 原生 vs 传统 |
+| [[LCA-60分钟变成AI-Native]] | B站视频（LCA）| People + Agents + Context；Skill Chain；Brain 闭环；60 分钟 org 改造 playbook |
 
 ### 哲学 / 自我认知层
 
@@ -110,5 +111,5 @@ source: vault_initiative - moc - ai_agent - ai_career - ai_philosophy
 ## 维护
 
 - **总笔记数**：9 核心
-- **最后更新**：2026-07-01（新增 Sitor AI - 解决人的信息幻觉）
+- **最后更新**：2026-07-03（[[LCA-60分钟变成AI-Native]] 入 MOC）
 - **入选标准**：笔记主题直接讨论"AI 时代下的人/职业/组织/自我认知"（不是 Agent 本身的实现细节）
