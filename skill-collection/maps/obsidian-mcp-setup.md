@@ -20,11 +20,18 @@
       "type": "http",
       "url": "https://127.0.0.1:27124/mcp/",
       "headers": {
-        "Authorization": "Bearer 8dbd6223be12d9d32817297dec8b7152705f0f061cb77b69ab843f9897b4f3f1"
+        "Authorization": "Bearer ${OBSIDIAN_MCP_TOKEN}"
       }
     }
   }
 }
+```
+
+在启动 Claude Code 前先注入环境变量：
+
+```powershell
+# Windows PowerShell
+$env:OBSIDIAN_MCP_TOKEN = "your-local-rest-api-token"
 ```
 
 ### 用户级配置

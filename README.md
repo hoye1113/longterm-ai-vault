@@ -1,4 +1,4 @@
-﻿# 知识库分类体系
+# 知识库分类体系
 
 采用 PARA 方法 + 领域细分，长期主义导向。
 **规范详见 [AGENTS.md](AGENTS.md)**（v1，2026-06-11 圆桌共识落地）。
@@ -42,6 +42,7 @@
 - **AGENTS.md** — 长期主义规范（vault 根）
 - **Attachments/** — 课程图、manifest、文章图（**不删，有真资源**）
 - **scripts/vault-audit.py** — 自动校验脚本
+- **scripts/README.md** — 脚本总入口（运行顺序、常用命令、环境准备）
 - **audit-report.md** — 最近一次审计报告（季度更新）
 
 ## 维护原则
