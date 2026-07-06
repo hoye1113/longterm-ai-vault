@@ -1,7 +1,7 @@
 ---
 title: MOC - Agent Theory and Design
 description: Agent 时代理论与实践的横切索引——覆盖 Harness、Claude Code、Codex、Cursor、OpenClaw、AI
-  评估与研究、团队组织 等子主题，57 篇笔记
+  评估与研究、团队组织 等子主题，58 篇笔记
 created: 2026-06-11
 updated: 2026-07-03
 tags:
@@ -15,7 +15,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 # MOC - Agent Theory and Design
 
-> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。共 **57 篇**笔记，按 11 个子主题分组。
+> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。共 **58 篇**笔记，按 11 个子主题分组。
 >
 > **本 MOC 是 v1（圆桌共识落地）**，建立 3 个横切 MOC 后，这里只承担"主题 MOC"角色——跨子目录的横切链接见：
 > - [[MOC - Harness Engineering]]（横切，跨课程/公众号/B站）
@@ -51,7 +51,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ---
 
-## B. Claude Code 实战（3 篇）
+## B. Claude Code 实战（7 篇）
 
 > Anthropic Claude Code 团队的内部实践 + 用户实战案例。
 
@@ -59,12 +59,16 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 |------|---------|
 | [[Claude Code负责人-AI原生团队如何使用AI]] | Boris 20% side project→千人流传；Todo/Plan 从痛点长出；Eval 分 E2E 与 triggering |
 | [[Claude Code负责人 Boris Cherny-Tokenmaxxing与AI智能体前沿]] | 指数增长、Tokenmaxxing、Auto 模式路由、rate limit 与 switching cost 变薄 |
+| [[Claude Code之父-编程已被解决接下来发展]] | Lauren × Boris：编码 100% 代理化、闪电循环/例程、7 Powers、印刷术类比、组织流程 moat |
+| [[Cowork负责人-揭秘Cowork与Mythos]] | Felix：Mythos 阶跃、Cowork 十天+VM、技能/记忆 Markdown、本地信任、执行免费与品味 |
+| [[Claude设计主管-Cowork揭秘40分钟教程]] | Jenny Wen：松散设计流程、可工作原型、内部 dogfooding、Cowork 洞察自动化、3–6 月愿景原型 |
 | [[Claude Code实战-结合Obsidian打造第二大脑]] | Obsidian+Git+Tailscale；thinking 模式、Interviewer 子 agent；AI 读强于写 |
 | [[Claude Code实战-构建一个AI数据分析师]] | Brex：监控-调查-故事-决策四循环 + Snowflake MCP + token 护栏 |
+| [[Claude Code实战-Gstack把AI变成团队]] | Garry Tan：GStack 轻薄脚手架；Office Hours 六问、对抗性审查、设计散弹枪、Playwright QA、并行 PR |
 
 ---
 
-## C. Codex & OpenClaw 实战（8 篇）
+## C. Codex & OpenClaw 实战（9 篇）
 
 > OpenAI Codex 团队 + OpenClaw（开源 AI Agent）生态的实战。
 
@@ -73,6 +77,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[Codex 自我改进 Prompt]] | OpenAI agent improvement loop，从 traces 到 Skill/Automation 的固化 |
 | [[OpenAI官方-Codex新手教程]] | AGENTS.md、config.toml 沙箱、MCP、Codex Exec + Agents SDK 编排 |
 | [[Codex负责人-现场演示Codex]] | Codex 负责人 live demo（**canonical v3.2** ✓） |
+| [[Codex产品负责人-Codex团队如何用Codex]] | Alex × Romain：Spark demo、十要点规范、八周规划、PM 补位与能动性招聘（**canonical v3.2** ✓） |
 | [[Codex 负责人-所有人都是 builder 是个很糟糕的主意 - Founder Park]] | Lenny 对谈 Ambrosino：taste 最贵、PM 不消失、晚发 3 月会死、会删代码 |
 | [[Codex实战-构建全能AI营销团队]] | Riley：7 Skills 营销全流程 + YouTube/Readwise 接地 + Gen Media |
 | [[OpenClaw创始人-我是如何使用OpenClaw的]] | WhatsApp→Claude Code；CLI Army；Just talk to it，别沉迷 24h loop |
@@ -82,7 +87,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ---
 
-## D. Agent 架构与原理（9 篇）
+## D. Agent 架构与原理（10 篇）
 
 > Agent 本身的架构、记忆、上下文工程、multi-agent 与企业生产实践。
 
@@ -92,6 +97,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[DeepMind团队-当数百万Agent相遇]] | DeepMind 科学家：Agent vs LLM、delegation、multi-agent 经济与安全 |
 | [[Databricks-企业级Agent生产实践]] | 五支柱 playbook：eval→observability→data→orchestration→governance |
 | [[PlanetScale-Agent时代的基础设施]] | Agent 优化 DB、schema rewind、small sharp tools、分片策略 |
+| [[Geoff-Ralph Loops的基础设施]] | Geoffrey Huntley Loom 直播：agent-first 栈、Thread/Weaver、NixOS 十秒部署、Ralph SUT 验系统 |
 | [[OpenAI员工-上下文工程和Agent记忆]] | 三大记忆模式 + IT demo：burst/trim/compact/summarize |
 | [[Manus创始人-深度干货-上下文工程的最佳实践]] | compaction vs summarize、三层 action space、avoid over-engineering |
 | [[Karpathy爆火项目-AutoResearch解读与启发]] | 自主实验 loop + 9 类商业用例 + Agent Hub 展望 |
@@ -128,7 +134,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ---
 
-## G. AI 时代职业、方法论与组织（7 篇）
+## G. AI 时代职业、方法论与组织（8 篇）
 
 > 蜂群组织 / 个人 / 工程师面试 / 产品观 / 行业判断。
 
@@ -136,6 +142,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 |------|---------|
 | [[Codex 负责人-所有人都是 builder 是个很糟糕的主意 - Founder Park]] | 实现廉价后 taste/策展最贵；反对取消 PM；zone defense 协作 |
 | [[a16z-AI并非泡沫]] | 供给约束非泡沫、token path、native vs skeuomorphic 产品 |
+| [[微软CEO-AI竞争终局与企业私有评估]] | 纳德拉：私有评估=企业 IP、线束、Work IQ、元工作、社会许可 |
 | [[所谓的agent开发到底是个啥岗位]] | 生产力→生产关系→蜂群组织→蜂群最小节点要"业务+技术+AI 协作" |
 | [[Agent 越用越翻车，怎么破局答案藏在经典管理学里]] | TRM、锚定效应、苏格拉底提问、过度设计、瓶颈思维 5 大心法 |
 | [[AI 时代如何面试工程师]] | 从 Coder 到 Engineer，6 项核心能力 + 1 项元能力（好奇心）|
@@ -144,13 +151,16 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ---
 
-## J. AI 评估与研究（3 篇）
+## J. AI 评估与研究（6 篇）
 
-> 前沿 eval、benchmark 饱和、RL 小模型、论文俱乐部。
+> 前沿 eval、benchmark 饱和、LLM-as-judge 校准、RL 小模型、论文俱乐部。
 
 | 文章 | 核心主题 |
 |------|---------|
 | [[OpenAI评估团队-不再低估模型]] | Frontier eval、benchmark 饱和、bench gaming、SWE-bench Verified→真实工作 task |
+| [[微软CEO-AI竞争终局与企业私有评估]] | 私有评估集=护城河；模型切换试金石；公开榜饱和后的企业 eval |
+| [[Agenta CEO-构建真正有效的AI评估]] | LLM-as-judge 校准、GEPA 提示词优化、业务 error analysis、二元评判、TauBench |
+| [[DeepMind团队-AI评估规划化与民主化]] | Kaggle 评估民主化、SAE 智能体考试、Game Arena PvP、工具/模型混淆 |
 | [[Snorkel-小模型RL超越大模型]] | 4B + GRPO beat 235B；tool discipline > reasoning；rubrics 定位 behavior gap |
 | [[YC论文俱乐部-5篇论文揭示AI研究趋势]] | Bio scaling、Self-play RL、Stream RAG、Lean 验证、RTS 式 agentic coding |
 
@@ -181,9 +191,9 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ### 数据源
 - **公众号**：**28** 篇（`02-Resources/AI and Agents/Agent Design & Patterns/`）
-- **B 站视频**：32 篇 · S **15** + A **12** dialogue-asr + A **5** lecture
+- **B 站视频**：47 篇 · S **30** + A **12** dialogue-asr + A **5** lecture
   - **收录入口**（2026-07-06）：`99-System/Skills/vskill-vault-curate/SUBDOC - ASR内容分轨与收录决策.md` · 细节 `SUBDOC - B站视频 v3 工作流.md`
-  - 单篇 canonical **32/32**；`- 对谈稿.md` **0**
+  - 单篇 canonical **47/47**（P0 +15，2026-07-06）；`- 对谈稿.md` **0**
   - A 级划章明细 `99-System/audit/bilibili-a-tier-v3-rewrite-2026-07-03.md` · rollout `bilibili-v3-rollout-2026-07-03.md`
 - **数据流水线**：Recastory（`ingest/` 简介+专栏 + ASR → vault）；kimi `.desc-info-text` → `video_description.md`
 

@@ -16,7 +16,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 >
 > **核心定义**（来自 [[2026 年 Agent 最重要的工程概念 Harness Engineering]]）：harness = 围绕 Agent 的工程系统（工具、约束、反馈、安全、记忆），让 AI 从"能力强但不可预测"变成"稳定可靠能交付"。
 >
-> 18 篇核心笔记 + 跨 MOC 链接 = 完整的 Harness 主题地图。
+> 19 篇核心笔记 + 跨 MOC 链接 = 完整的 Harness 主题地图。
 
 ---
 
@@ -42,6 +42,10 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 | 16 | [[未来的 AI 编程就是 Loop 套 Loop - 魔术师卡颂]] | 公众号（魔术师卡颂）| **Loop 嵌套** | 三层 Loop；Session Log → gate issue → 规则反馈 |
 | 17 | [[DeepMind-模型将吞噬Harness]] | B站视频（Logan Kilpatrick）| **模型吞噬 harness** | Antigravity 主线；模型=expanding system；约 12 个月内 harness alpha upstream |
 | 18 | [[Loop-Agent Loop到底是什么]] | B站视频（Ross Mikita）| **Loop 反 hype** | HITL vs Agent Loop；开放式 loop=token 焚烧；code review closed loop 才合理 |
+| 19 | [[Geoff-Ralph Loops的基础设施]] | B站视频（Geoffrey Huntley）| **Loop 基础设施** | Loom agent-first 栈；Thread/Weaver/SPIFFE；NixOS 十秒部署；Ralph SUT 或取代 CI |
+| 20 | [[Cowork负责人-揭秘Cowork与Mythos]] | B站视频（Felix Rieseberg）| **Cowork harness** | VM 沙盒、技能/记忆即 Markdown、本地 computer use、小任务建信任 |
+| 21 | [[Claude设计主管-Cowork揭秘40分钟教程]] | B站视频（Jenny Wen）| **Cowork 设计工作流** | 垃圾进宝藏出、周一计划任务、内部 dogfooding、3–6 月愿景原型 |
+| 22 | [[Claude Code实战-Gstack把AI变成团队]] | B站视频（Garry Tan）| **GStack 角色编排** | 轻薄脚手架；Office Hours/对抗性审查/设计散弹枪/Playwright QA；7 级软件工厂 |
 
 ---
 

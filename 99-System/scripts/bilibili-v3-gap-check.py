@@ -16,7 +16,10 @@ A_LECTURE_STEMS = {
     "OpenAI官方-Codex新手教程",
     "Claude Code实战-构建一个AI数据分析师",
     "30分钟精通OpenClaw",
+    "Claude设计主管-Cowork揭秘40分钟教程",
 }
+
+BATCH_JSON = Path(r"d:\workSpace\obsidian_repository\99-System\audit\bilibili-p0-batch.json")
 
 
 def has_s_column(entry: dict) -> bool:
@@ -68,8 +71,19 @@ def is_a_lecture(text: str, fm: dict) -> bool:
     )
 
 
+def load_lecture_stems() -> set[str]:
+    stems = set(A_LECTURE_STEMS)
+    if BATCH_JSON.exists():
+        batch = json.loads(BATCH_JSON.read_text(encoding="utf-8"))
+        for e in batch.get("entries", []):
+            if e.get("tier_hint") == "A-lecture":
+                stems.add(Path(e["vault_path"]).stem)
+    return stems
+
+
 def main() -> None:
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    lecture_stems = load_lecture_stems()
     s_not_canonical: list[str] = []
     a_dialogue_bad: list[str] = []
     a_lecture_bad: list[str] = []
@@ -85,22 +99,31 @@ def main() -> None:
 
     s_ok = a_dialogue_ok = a_lecture_ok = 0
 
-    for entry in manifest["entries"]:
+    mapped = [e for e in manifest["entries"] if e.get("vault_path")]
+    expect_s = expect_a_dlg = expect_a_lec = 0
+    missing_vault: list[str] = []
+
+    for entry in mapped:
         vp = entry.get("vault_path")
-        if not vp:
-            continue
         name = Path(vp).name
         stem = Path(name).stem
         note = next(VAULT.rglob(name), None)
         if not note:
-            print("MISSING_VAULT", entry["bv"], name)
+            status = entry.get("vault_status", "")
+            if status == "vault_v2_done":
+                missing_vault.append(f"{entry['bv']} {name}")
+                print("MISSING_VAULT", entry["bv"], name)
             continue
+        if entry.get("vault_status") not in ("vault_v2_done", None):
+            if entry.get("vault_status") == "vault_pending":
+                continue
         text = note.read_text(encoding="utf-8")
         fm = parse_fm(text)
         is_s = has_s_column(entry)
-        expect_lecture = stem in A_LECTURE_STEMS
+        expect_lecture = stem in lecture_stems
 
         if is_s:
+            expect_s += 1
             if fm.get("material_tier") != "S":
                 s_no_tier.append(name)
             if not is_s_canonical(text, fm):
@@ -108,6 +131,7 @@ def main() -> None:
             else:
                 s_ok += 1
         elif expect_lecture:
+            expect_a_lec += 1
             if not is_a_lecture(text, fm):
                 a_lecture_bad.append(name)
             else:
@@ -115,6 +139,7 @@ def main() -> None:
             if fm.get("material_tier") != "A":
                 tier_mismatch.append(f"{name} (expect A lecture)")
         else:
+            expect_a_dlg += 1
             if not is_a_dialogue_asr(text, fm):
                 a_dialogue_bad.append(name)
             else:
@@ -149,11 +174,12 @@ def main() -> None:
                 if dash:
                     concept_dash_en.append((name, dash))
 
-    print("VAULT_MD", vault_md, "(expect 32)")
+    done_count = len([e for e in mapped if e.get("vault_status") == "vault_v2_done"])
+    print("VAULT_MD", vault_md, f"(manifest done {done_count})")
     print("ORPHAN_DIALOGUE_FILES", dlg_count, "(expect 0)")
-    print("S_CANONICAL", s_ok, "(expect 15)")
-    print("A_DIALOGUE_ASR", a_dialogue_ok, "(expect 12)")
-    print("A_LECTURE", a_lecture_ok, "(expect 5)")
+    print("S_CANONICAL", s_ok, f"(expect {expect_s})")
+    print("A_DIALOGUE_ASR", a_dialogue_ok, f"(expect {expect_a_dlg})")
+    print("A_LECTURE", a_lecture_ok, f"(expect {expect_a_lec})")
     print("S_NOT_CANONICAL", len(s_not_canonical))
     for x in s_not_canonical:
         print(" ", x)
@@ -183,13 +209,16 @@ def main() -> None:
     print("CONCEPT_EN_DASH_ROWS", total_dash)
 
     failed = (
-        vault_md != 32
+        missing_vault
         or dlg_count
         or s_not_canonical
         or a_dialogue_bad
         or a_lecture_bad
         or tier_mismatch
         or dead_links
+        or s_ok != expect_s
+        or a_dialogue_ok != expect_a_dlg
+        or a_lecture_ok != expect_a_lec
     )
     if failed:
         sys.exit(1)
