@@ -1,6 +1,6 @@
 # SUBDOC - ASR 后处理与 manifest
 
-> **父 skill**：[SKILL.md](./SKILL.md) · **收录模板**：[SUBDOC - B站视频转写收录.md](./SUBDOC%20-%20B站视频转写收录.md)
+> **父 skill**：[SKILL.md](./SKILL.md) · **vault 收录入口**：[SUBDOC - ASR内容分轨与收录决策](./SUBDOC%20-%20ASR内容分轨与收录决策.md) · **A-lecture 九段**：[SUBDOC - B站视频转写收录](./SUBDOC%20-%20B站视频转写收录.md)
 
 ---
 

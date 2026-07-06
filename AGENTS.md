@@ -3,7 +3,7 @@
 > **本文档是 vault 的"宪法"**。约束新笔记收录、跨会话维护、AI agent 协作。
 > **限长原则**：≤ 3 页；超出部分拆 sub-doc。
 > **适用对象**：vault 主人 + 协作 AI agents
-> **最后更新**：2026-07-06 | **版本**：v1.2（+ B 站扩展字段 · 附录计数）
+> **最后更新**：2026-07-06 | **版本**：v1.3（附录 B/C 滚动维护）
 
 ---
 
@@ -323,31 +323,28 @@ tags_approved:
 | AI 时代职业 / FDE / 哲学 | 13+ | 跨目录 |
 | Prompt 库 | 16 | `02-Resources/Prompts/` |
 
-## 附录 B：当前 MOC 清单（v1 快照）
+## 附录 B：当前 MOC 清单（快照 · 2026-07-06）
 
-11 个 MOC（详见审计报告）。**建议合并**：
-- `MOC - AI Agent 参考资料` + `MOC - B站视频知识库` → `MOC - Agent Theory and Design`（合并 34 篇）
-- `MOC - 从 0 实现 Coding Agent` 重建按 12 章节分组
+| MOC | 状态 |
+|-----|------|
+| [[MOC - Agent Theory and Design]] | ✅ 已合并原 B 站 + 公众号索引（57 篇） |
+| [[MOC - Harness Engineering]] | ✅ 横切 18 篇 |
+| [[MOC - AI 时代个人发展与组织]] | ✅ 横切 |
+| [[MOC - Prompt 工程]] | ✅ 横切 |
+| [[MOC - Loock AI 全栈课程]] | ✅ 148 篇 |
+| [[MOC - AI Agent Development]] | ✅ Areas 课程 |
 
-**建议新增**：
-- `MOC - Harness Engineering`（横切，3 篇）
-- `MOC - AI 时代个人发展与组织`（横切，8 篇）
-- `MOC - Prompt 工程`（横切，13 prompts + Skills）
+## 附录 C：已知未解决问题（滚动维护）
 
-## 附录 C：已知未解决问题（v1 快照）
-
-- [ ] `99-System/Attachments/` 5 个空子目录清理
-- [ ] `Human-in-the-Loop/LangGraph Human-in-the-Loop.md` 删除（与 Loock AI 1-8 重复）
-- [ ] 死链 `[[Harness Engineering]]` 修复（IBM 笔记里）
+- [ ] `99-System/Attachments/` 空子目录清理
 - [ ] Anthropic 1772 行汇编本拆分或保留 + MOC 索引
-- [ ] README 与实际目录树对齐
-- [ ] `0-1 前言.md` 等 12 个怪异文件名清理
-- [ ] 现有 226 篇笔记的 frontmatter 字段缺失补全
-- [ ] 现有 4 种 tag 风格统一（按 §4 回填）
+- [ ] 存量笔记 frontmatter / tag 风格统一（季度审计）
+- [ ] Recastory 17 条 partial 手补 `column_url` → 可升 S（见 ASR 分轨 SUBDOC）
 
 ---
 
 **v1 变更记录**：
+- 2026-07-06 v1.3：附录 B/C 对齐现状；章数/版本号与子 SUBDOC 同步（见 Skills INDEX）
 - 2026-07-06 v1.2：§3 B 站扩展字段；附录 A 计数对齐 MOC（B 站 32 / 公众号 28）
 - 2026-07-06 v1.1：§8 增 B 站 ASR 三轨收录（S / A-dialogue / A-lecture）；链 ASR 分轨 SUBDOC
 - 2026-06-11 v1：基于圆桌研讨会（Tiago Forte / Nick Milo / Sönke Ahrens / Stewart Butterfield / AI Agent 5 视角共识）首次落地

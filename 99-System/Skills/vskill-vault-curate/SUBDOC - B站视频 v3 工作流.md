@@ -100,7 +100,7 @@ vault **不阻塞**；A 级用 ASR + description。
 ```text
 Pass 1: ASR 故事线 + Host/Guest 推断 + 划章（description 时间戳优先）
 Pass 2: vskill-vault-write mode=dialogue
-4 章 ×（对话 + 金句 + 本章概念 + 小结）
+3–6 章 ×（对话 + 金句 + 本章概念 + 小结）  # 按 Pass1 章地图，不固定 4 章
 总结：| 维度 | 要点 |
 落盘：{主题}.md（单篇 canonical）
 附录：时间戳 / ingest / ASR 路径 / 相关阅读
@@ -134,7 +134,7 @@ speaker_inference: asr_heuristic + video_description
 ```text
 vskill-vault-write mode=dialogue
 SUBDOC Host-Guest v3.2
-4 章 ×（对话 + 金句 + 本章概念 + 小结）
+3–6 章 ×（对话 + 金句 + 本章概念 + 小结）
 总结：| 维度 | 要点 | + 封底金句
 4500–6000 字
 落盘：B站视频知识库/{子目录}/{主题}.md（不是 - 对谈稿.md）

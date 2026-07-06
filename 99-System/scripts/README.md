@@ -99,6 +99,7 @@ python 99-System/scripts/bilibili-v3-gap-check.py
 用途：
 
 - 检查 v3 rollout 是否还有漏项
+- 仅校验 manifest 中带 `vault_path` 的条目；`B站视频知识库/README.md` 不计入 32 篇计数
 
 ### 5. 长视频 factual spot check
 

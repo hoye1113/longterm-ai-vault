@@ -57,6 +57,7 @@ tags: [audit, bilibili]
 | ~~P0~~ | Inbox 清空 + MOC 公众号计数 | ✓ 2026-07-03 |
 | ~~P1~~ | gap-check 扩展（S / A-dialogue / A-lecture） | ✓ |
 | ~~P3~~ | A-lecture 5 篇加深 | ✓ 2026-07-03 |
+| ~~—~~ | **无专栏 ASR 收录 SOP + agent 入口** | ✓ 2026-07-06 · `SUBDOC - ASR内容分轨与收录决策.md` v1.2 |
 | P2 | 专栏回补 → 升 S | 17 partial，手补 cv |
 | — | 新增 BV | 见 SUBDOC Phase 5 SOP |
 

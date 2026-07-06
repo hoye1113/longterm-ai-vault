@@ -4,7 +4,7 @@ parent: vskill-vault-curate
 created: 2026-07-06
 updated: 2026-07-06
 status: active
-version: 1.1
+version: 1.2
 description: "B 站 / 视频 ASR 收录的唯一入口决策树——agent 读到本项目时先读本文件，再按轨加载子 SUBDOC"
 ---
 
@@ -130,6 +130,7 @@ Recastory `{ingest_dir}/` 收录前须具备：
 | ASR 有 **Speaker1/2** 且角色稳定 | **A-dialogue** | 映射 `host_name` / `guest_name`（见 Speaker 双路径 A） |
 | Build Hour / webinar 双讲者 | **A-dialogue** | description + Speaker 或 heuristic |
 | **单人主题演讲、现场少互动** | **A-dialogue**（边缘） | **合成 Moderator 过渡问**（样板 [[Databricks-企业级Agent生产实践]]） |
+| 单人深度分享、隐含问答结构（播客主持 + 嘉宾长段） | **A-dialogue** | ASR 演讲结构划章；Host 可为原节目主持（例 [[Manus创始人-深度干货-上下文工程的最佳实践]]） |
 | 屏幕录制 + 逐步操作、无 Q&A | **A-lecture** | 九段讲义 |
 | 单人解读 / 官方教程 walkthrough | **A-lecture** | Pass1 大纲 → 九段 |
 
@@ -187,6 +188,19 @@ Recastory `{ingest_dir}/` 收录前须具备：
 3. **主题演讲（边缘）**：Host 用 `Moderator（现场）` + 过渡问（「你刚才提到 X，能展开吗？」）；frontmatter 写 `speaker_inference: "asr_heuristic + video_description（主题演讲，Host 为过渡提问）"`。
 
 **IRON LAW**：Guest 正文禁止「他表示 / 她认为」；数字与原话金句保留。
+
+**写法示例（ASR monologue → 对谈）**：
+
+ASR 原文（逐段摘要体 · **禁止**）：
+> Sandy 介绍了五支柱框架，第一根是 evaluation，因为客户常在 demo 漂亮、上线翻车时才发现没有 eval……
+
+Pass 2 转化（Host 过渡问 · **要这样写**）：
+> **Moderator：** 五支柱里为什么 eval 必须打头？  
+> **Sandy：** 因为我们现场见过太多次——demo 很漂亮，一上生产就翻车。没有 living golden dataset，后面 observability、data 都无从谈起……
+
+完整边缘案例：[[Databricks-企业级Agent生产实践]]。
+
+**12 篇 A-dialogue 划章参考**（BV / 章数 / 依据）：[`bilibili-a-tier-v3-rewrite-2026-07-03.md`](../../../audit/bilibili-a-tier-v3-rewrite-2026-07-03.md) §A-dialogue。
 
 **frontmatter 最小集（A-dialogue）**：
 

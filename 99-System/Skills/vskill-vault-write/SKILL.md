@@ -1,7 +1,7 @@
 ---
 title: vskill-vault-write
 name: vskill-vault-write
-description: 基于 vault 已有笔记或访谈素材写长文——两种模式：① 5 步切刀观点文（1000-1500 字）；② Host-Guest 对谈稿（4 章对话体 + 小结 + 总结）。借鉴 ljg-writes。
+description: 基于 vault 已有笔记或访谈素材写长文——两种模式：① 5 步切刀观点文（1000-1500 字）；② Host-Guest 对谈稿（3–6 章对话体 + 小结 + 总结）。借鉴 ljg-writes。
 created: 2026-06-27
 updated: 2026-07-06
 status: available
@@ -65,7 +65,7 @@ outputs:
 
 # vskill-vault-write
 
-> **核心一句话**：两种模式——**blade** 对准一个观点下刀（1000–1500 字）；**dialogue** 把访谈收成 Host/Guest 对谈稿（4 章 + 小结 + 总结）。
+> **核心一句话**：两种模式——**blade** 对准一个观点下刀（1000–1500 字）；**dialogue** 把访谈收成 Host/Guest 对谈稿（**3–6 章** + 小结 + 总结）。
 >
 > **借鉴来源**：ljg-writes 写作引擎 + Founder Park 式对谈稿形态（见 SUBDOC）
 
@@ -95,7 +95,7 @@ outputs:
 | `blade`（默认） | `viewpoint` + `anchor_notes` | 1000–1500 字观点文 | 下文「5 步切刀」 |
 | `dialogue` | `raw_transcript` + host/guest 元数据 | 3–6 章对谈 + 小结 + 总结 | [Host-Guest](./SUBDOC%20-%20Host-Guest%20对谈稿.md) · [ASR 无专栏 SOP](../vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md) |
 
-**dialogue 执行顺序**：读 SUBDOC → 划 4 章锚点 → 写开场 → 逐章 Host 问 / Guest 答 / 本章小结 → 大总结 → 质量门 → frontmatter + 反向链。
+**dialogue 执行顺序**：读 SUBDOC → 划 **3–6 章**锚点（Pass 1 章地图）→ 写开场 → 逐章 Host 问 / Guest 答 / 本章小结 → 大总结 → 质量门 → frontmatter + 反向链。
 
 **IRON LAW（dialogue）**：Guest 正文禁止「他表示 / 她认为」式摘要；数字与原话金句保留，英译中须口语化。
 

@@ -3,9 +3,9 @@ title: vskill-vault-curate
 name: vskill-vault-curate
 description: 从外部（URL / PDF / 视频 / 公众号 / 截图 / 用户粘贴）收录内容到 vault——执行 AGENTS.md §8 SOP 7 步：收素材 → 抓内容 → 选位置 → 写 frontmatter → 打 tag → 找反向链 → 更新 MOC。
 created: 2026-06-27
-updated: 2026-07-02
+updated: 2026-07-06
 status: available
-version: 0.3
+version: 0.5
 tags:
   - skills
   - vskill
