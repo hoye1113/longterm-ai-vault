@@ -29,6 +29,12 @@ source: vault_initiative - moc - ai_agent - ai_career - ai_philosophy
 |------|------|---------|
 | [[所谓的agent开发到底是个啥岗位]] | 公众号（魔术师卡颂）| 生产力→生产关系→蜂群组织；蜂群内最小节点要"业务+技术+AI 协作" |
 | [[微软CEO-AI竞争终局与企业私有评估]] | B站视频（纳德拉 × No Priors × Latent Space）| 生态>单模型；私有评估=IP；线束/Work IQ；元工作与全栈构建者 |
+| [[Anthropic联创-AI影响比工业革命大10倍快10倍]] | B站视频（Jack Clark × Channel 4）| 10×/÷10 变局；经济指数与计算税；奉承与拟人化；航空式监管；科技银弹 |
+| [[DeepMind CEO-为什么AGI比工业革命大10倍]] | B站视频（Demis Hassabis × 20VC）| AGI=人类全认知、五年概率；算力工作台；持续学习；算法发明；Isomorphic；10×工业革命 |
+| [[DeepMind CEO-AGI倒计时2030年见分晓]] | B站视频（Garry Tan × Demis）| 预训练+RLHF 不够；持续学习缺拼图；MCTS 回归；2030 见分晓 |
+| [[DeepMind CEO-AI未来10年科学与技术发展]] | B站视频（Demis × Hannah Fry）| 科学元年、AlphaFold、世界模型、合成数据 |
+| [[OpenAI Yann Dubois-AI进步为何突然如此真实]] | B站视频（Yann Dubois）| 可靠性窗口；RL 从可验证到真实；SFT/RL 分工 |
+| [[OpenAI前副总裁-AI走出比特世界重构物理世界]] | B站视频（Liam Fedus）| 科学接口 AI；数据闭环；半导体/农业式耐心 |
 | [[万人大厂宣布裁员 40% 利润在涨人却多余了]] | 公众号（极客公园）| 智能替代螺旋、AI 替代需求创造者、2025-2028 危机时间轴、UBI |
 
 ### 岗位层（个人 / 实践）
@@ -36,6 +42,7 @@ source: vault_initiative - moc - ai_agent - ai_career - ai_philosophy
 | 笔记 | 来源 | 核心判断 |
 |------|------|---------|
 | [[硅谷今年最火的岗位 FDE，我们闷头干了三年]] | 公众号（佳芮）| FDE = 蜂群最小节点在中国 AI to B 的活样本；按结果收费；7 个产品基建 |
+| [[OpenAI团队-FDE工程师的未来]] | B站视频（Finn × OpenAI/Ramp/Nominal/Dataland）| 剑与盾护路线图；模型越强越要进现场；post-training 飞轮；激进所有权 |
 | [[AI 时代如何面试工程师]] | 公众号（柯芃丞）| 从 Coder 到 Engineer；6 项核心能力 + 1 项元能力（好奇心）|
 | [[Agent 越用越翻车，怎么破局答案藏在经典管理学里]] | 公众号（三元同学）| TRM + 锚定效应 + 苏格拉底提问 + 过度设计 + 瓶颈思维 5 大心法 |
 

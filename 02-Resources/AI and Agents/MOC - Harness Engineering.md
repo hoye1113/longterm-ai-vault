@@ -1,8 +1,8 @@
 ---
 title: MOC - Harness Engineering
-description: Harness Engineering 主题横切 MOC——跨课程、公众号、B站视频的 Harness 相关笔记，18 篇核心 + 跨 MOC 链接
+description: Harness Engineering 主题横切 MOC——跨课程、公众号、B站视频的 Harness 相关笔记，27 篇核心 + 跨 MOC 链接
 created: 2026-06-11
-updated: 2026-07-03
+updated: 2026-07-06
 tags:
   - ai_agent
   - harness_engineering
@@ -16,7 +16,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 >
 > **核心定义**（来自 [[2026 年 Agent 最重要的工程概念 Harness Engineering]]）：harness = 围绕 Agent 的工程系统（工具、约束、反馈、安全、记忆），让 AI 从"能力强但不可预测"变成"稳定可靠能交付"。
 >
-> 19 篇核心笔记 + 跨 MOC 链接 = 完整的 Harness 主题地图。
+> 27 篇核心笔记 + 跨 MOC 链接 = 完整的 Harness 主题地图。
 
 ---
 
@@ -46,6 +46,11 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 | 20 | [[Cowork负责人-揭秘Cowork与Mythos]] | B站视频（Felix Rieseberg）| **Cowork harness** | VM 沙盒、技能/记忆即 Markdown、本地 computer use、小任务建信任 |
 | 21 | [[Claude设计主管-Cowork揭秘40分钟教程]] | B站视频（Jenny Wen）| **Cowork 设计工作流** | 垃圾进宝藏出、周一计划任务、内部 dogfooding、3–6 月愿景原型 |
 | 22 | [[Claude Code实战-Gstack把AI变成团队]] | B站视频（Garry Tan）| **GStack 角色编排** | 轻薄脚手架；Office Hours/对抗性审查/设计散弹枪/Playwright QA；7 级软件工厂 |
+| 23 | [[Anthropic团队-如何构建运行数小时的Agent]] | B站视频（Ash × Andrew）| **长时 Agent** | RALPH 循环、验证器、文件系统当状态、可中断 |
+| 24 | [[Qodo研究员-长上下文越多Agent越笨]] | B站视频（Nupur Sharma）| **上下文 U 型** | 分层摘要/子代理/80-20；「改成」优于「追加」 |
+| 25 | [[Claude Code实战-鲜为人知的Claude Code工作流]] | B站视频（Greg × Amir）| **自动化全栈** | IdeaBrowser→细稿→A/B→自建 CMS |
+| 26 | [[Claude Code实战-用AI实现生活自动化]] | B站视频（Peter × Moritz）| **个人 OS** | Claudia 文件夹骨架；MCP/CLI；心跳 vs 例程 |
+| 27 | [[Cognition CPO-Devin的80%时刻与后台Agent]] | B站视频（Walden Yan）| **后台 Agent** | 80% 后台；规划-执行；记忆与文件系统 |
 
 ---
 

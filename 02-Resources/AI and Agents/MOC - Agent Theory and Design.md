@@ -1,9 +1,9 @@
 ---
 title: MOC - Agent Theory and Design
 description: Agent 时代理论与实践的横切索引——覆盖 Harness、Claude Code、Codex、Cursor、OpenClaw、AI
-  评估与研究、团队组织 等子主题，58 篇笔记
+  评估与研究、团队组织 等子主题；B 站 67 + 公众号等
 created: 2026-06-11
-updated: 2026-07-03
+updated: 2026-07-06
 tags:
   - ai_agent
   - ai_philosophy
@@ -15,7 +15,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 # MOC - Agent Theory and Design
 
-> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。共 **58 篇**笔记，按 11 个子主题分组。
+> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。B 站 **67** 篇（P0+P1）+ 公众号等，按子主题分组。
 >
 > **本 MOC 是 v1（圆桌共识落地）**，建立 3 个横切 MOC 后，这里只承担"主题 MOC"角色——跨子目录的横切链接见：
 > - [[MOC - Harness Engineering]]（横切，跨课程/公众号/B站）
@@ -24,7 +24,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ---
 
-## A. Harness Engineering（18 篇）
+## A. Harness Engineering（20+ 篇）
 
 > 围绕"harness = 围绕 Agent 的工程系统"这一概念展开。**Anthropic（Claude Code）** 与 **OpenAI（Codex）** 两大权威来源 + IBM 团队的登山绳比喻 + DeepMind「模型吞噬 harness」+ Loop 正反辩 + 花叔/卡颂 Loop Engineering + Anthropic 官方汇编本。
 
@@ -48,10 +48,12 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[如何让 Skill 自动优化 - 魔术师卡颂]] | PR 反馈 → 规则集自优化；warp common-skills 三条件 |
 | [[未来的 AI 编程就是 Loop 套 Loop - 魔术师卡颂]] | 三层 Loop 嵌套；信息压缩：代码→门禁→规则质量 |
 | [[Anthropic Agent 工程实战指南 - 从入门到生产落地]] | 1758 行 Anthropic 官方 15 篇博客汇编，按"入门-进阶-核心-高级-生产"5 模块系统化梳理 |
+| [[Anthropic团队-如何构建运行数小时的Agent]] | Ash × Andrew：20 分钟→数天；RALPH 循环、验证器、文件系统当状态、可中断 |
+| [[Qodo研究员-长上下文越多Agent越笨]] | 上下文 U 型曲线；分层摘要/子代理/80-20 混合；「改成」优于「追加」 |
 
 ---
 
-## B. Claude Code 实战（7 篇）
+## B. Claude Code 实战（12 篇）
 
 > Anthropic Claude Code 团队的内部实践 + 用户实战案例。
 
@@ -60,15 +62,20 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[Claude Code负责人-AI原生团队如何使用AI]] | Boris 20% side project→千人流传；Todo/Plan 从痛点长出；Eval 分 E2E 与 triggering |
 | [[Claude Code负责人 Boris Cherny-Tokenmaxxing与AI智能体前沿]] | 指数增长、Tokenmaxxing、Auto 模式路由、rate limit 与 switching cost 变薄 |
 | [[Claude Code之父-编程已被解决接下来发展]] | Lauren × Boris：编码 100% 代理化、闪电循环/例程、7 Powers、印刷术类比、组织流程 moat |
+| [[Anthropic CPO-Claude团队为什么迭代这么快]] | Lenny × Kat：AI 原生 PM、多发少赌、产品品味、工程师当第一用户、一致性幻觉 |
+| [[Anthropic团队-我们如何打造下一代Claude]] | Peter × Alex Albert：模型到产品、Eval、有用 Agent、记忆、Cowork vs 双订阅 |
+| [[Anthropic-3亿收购开发工具初创创始人访谈]] | Dan × Alex Rattray（Stainless）：MCP 瓶颈、工具爆炸、模型路由、执行环境、API OAuth |
 | [[Cowork负责人-揭秘Cowork与Mythos]] | Felix：Mythos 阶跃、Cowork 十天+VM、技能/记忆 Markdown、本地信任、执行免费与品味 |
 | [[Claude设计主管-Cowork揭秘40分钟教程]] | Jenny Wen：松散设计流程、可工作原型、内部 dogfooding、Cowork 洞察自动化、3–6 月愿景原型 |
 | [[Claude Code实战-结合Obsidian打造第二大脑]] | Obsidian+Git+Tailscale；thinking 模式、Interviewer 子 agent；AI 读强于写 |
 | [[Claude Code实战-构建一个AI数据分析师]] | Brex：监控-调查-故事-决策四循环 + Snowflake MCP + token 护栏 |
 | [[Claude Code实战-Gstack把AI变成团队]] | Garry Tan：GStack 轻薄脚手架；Office Hours 六问、对抗性审查、设计散弹枪、Playwright QA、并行 PR |
+| [[Claude Code实战-鲜为人知的Claude Code工作流]] | Greg × Amir：IdeaBrowser→Paper 细稿→Humbletics A/B→自建 CMS；自动化全栈 |
+| [[Claude Code实战-用AI实现生活自动化]] | Peter × Moritz：OpenClaw vs Claude Code；Claudia 文件夹 OS；MCP/CLI；内容机器 |
 
 ---
 
-## C. Codex & OpenClaw 实战（9 篇）
+## C. Codex & OpenClaw 实战（13 篇）
 
 > OpenAI Codex 团队 + OpenClaw（开源 AI Agent）生态的实战。
 
@@ -80,6 +87,10 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[Codex产品负责人-Codex团队如何用Codex]] | Alex × Romain：Spark demo、十要点规范、八周规划、PM 补位与能动性招聘（**canonical v3.2** ✓） |
 | [[Codex 负责人-所有人都是 builder 是个很糟糕的主意 - Founder Park]] | Lenny 对谈 Ambrosino：taste 最贵、PM 不消失、晚发 3 月会死、会删代码 |
 | [[Codex实战-构建全能AI营销团队]] | Riley：7 Skills 营销全流程 + YouTube/Readwise 接地 + Gen Media |
+| [[Codex实战-100分钟完整教程]] | Riley：项目文件当边界、规划/构建/自动化、Steer 纠偏、Chorus App |
+| [[Codex实战-30分钟掌握95%核心功能]] | Riley walkthrough：Agents.md 双层、@ 引用、/ 命令 SOP、Chronicler |
+| [[Codex实战-演示开发一个手机App]] | Riley：Codex + Xcode 搭 Jerry；Claude Agent SDK + Vibe Code CLI |
+| [[Codex实战-用AI颠覆视频剪辑流程]] | Riley：Remotion 动态图、竞品拆解、帧级转场、八 prompt 成片 |
 | [[OpenClaw创始人-我是如何使用OpenClaw的]] | WhatsApp→Claude Code；CLI Army；Just talk to it，别沉迷 24h loop |
 | [[30分钟精通OpenClaw]] | 安全五步、五用例 demo、SOUL/USER/MEMORY 本地 MD 人格 |
 | [[Taven创始人-将OpenClaw嵌入产品的实战经验]] | Pi 内核企业嵌入：Excel Skill 小 CLI、一客户一 Agent + AGENTS.md |
@@ -102,6 +113,9 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[Manus创始人-深度干货-上下文工程的最佳实践]] | compaction vs summarize、三层 action space、avoid over-engineering |
 | [[Karpathy爆火项目-AutoResearch解读与启发]] | 自主实验 loop + 9 类商业用例 + Agent Hub 展望 |
 | [[AI Agent 和 Skill 测评方案及落地实践 - martinskxu]] | Agent/Skill 测评四场景法、评分规则设计、基线管理、稳定性评估、TPerf 实战案例 |
+| [[Anthropic团队-如何构建运行数小时的Agent]] | Ash × Andrew：长时 Agent、RALPH、验证器、可中断状态 |
+| [[Qodo研究员-长上下文越多Agent越笨]] | 上下文 U 型；分层摘要/子代理；「改成」优于「追加」 |
+| [[Cognition CPO-Devin的80%时刻与后台Agent]] | swyx × Walden：后台元年；16% 内部提交；规划-执行；记忆与文件系统 |
 
 ---
 
@@ -134,15 +148,23 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ---
 
-## G. AI 时代职业、方法论与组织（8 篇）
+## G. AI 时代职业、方法论与组织（16 篇）
 
-> 蜂群组织 / 个人 / 工程师面试 / 产品观 / 行业判断。
+> 蜂群组织 / 个人 / 工程师面试 / 产品观 / 行业判断 / AGI 时间线。
 
 | 文章 | 核心主题 |
 |------|---------|
 | [[Codex 负责人-所有人都是 builder 是个很糟糕的主意 - Founder Park]] | 实现廉价后 taste/策展最贵；反对取消 PM；zone defense 协作 |
 | [[a16z-AI并非泡沫]] | 供给约束非泡沫、token path、native vs skeuomorphic 产品 |
 | [[微软CEO-AI竞争终局与企业私有评估]] | 纳德拉：私有评估=企业 IP、线束、Work IQ、元工作、社会许可 |
+| [[Anthropic联创-AI影响比工业革命大10倍快10倍]] | Jack Clark：10×/÷10；经济指数与计算税；航空式监管 |
+| [[DeepMind CEO-为什么AGI比工业革命大10倍]] | Demis × 20VC：AGI 定义、五年概率、算力工作台、Isomorphic |
+| [[DeepMind CEO-AGI倒计时2030年见分晓]] | Garry × Demis：预训练+RLHF 不够；持续学习；边缘 Flash |
+| [[DeepMind CEO-AI未来10年科学与技术发展]] | Demis × Hannah Fry：科学元年、AlphaFold、世界模型 |
+| [[OpenAI Yann Dubois-AI进步为何突然如此真实]] | 可靠性窗口、RL 从可验证到真实、SFT/RL 分工、持续学习 |
+| [[OpenAI前副总裁-AI走出比特世界重构物理世界]] | Liam Fedus：科学接口、数据闭环、半导体/农业式耐心 |
+| [[OpenAI健康团队-AI在医疗领域的进展]] | Healthbench、临床对话、HIPAA、幻觉上限 |
+| [[OpenAI团队-FDE工程师的未来]] | 剑与盾护路线图；模型越强越要进现场；post-training 飞轮 |
 | [[所谓的agent开发到底是个啥岗位]] | 生产力→生产关系→蜂群组织→蜂群最小节点要"业务+技术+AI 协作" |
 | [[Agent 越用越翻车，怎么破局答案藏在经典管理学里]] | TRM、锚定效应、苏格拉底提问、过度设计、瓶颈思维 5 大心法 |
 | [[AI 时代如何面试工程师]] | 从 Coder 到 Engineer，6 项核心能力 + 1 项元能力（好奇心）|
@@ -191,9 +213,9 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ### 数据源
 - **公众号**：**28** 篇（`02-Resources/AI and Agents/Agent Design & Patterns/`）
-- **B 站视频**：47 篇 · S **30** + A **12** dialogue-asr + A **5** lecture
+- **B 站视频**：67 篇 · S **50** + A **12** dialogue-asr + A **5** lecture
   - **收录入口**（2026-07-06）：`99-System/Skills/vskill-vault-curate/SUBDOC - ASR内容分轨与收录决策.md` · 细节 `SUBDOC - B站视频 v3 工作流.md`
-  - 单篇 canonical **47/47**（P0 +15，2026-07-06）；`- 对谈稿.md` **0**
+  - 单篇 canonical **67/67**（P0 +15 + P1 +20，2026-07-06）；`- 对谈稿.md` **0**
   - A 级划章明细 `99-System/audit/bilibili-a-tier-v3-rewrite-2026-07-03.md` · rollout `bilibili-v3-rollout-2026-07-03.md`
 - **数据流水线**：Recastory（`ingest/` 简介+专栏 + ASR → vault）；kimi `.desc-info-text` → `video_description.md`
 
@@ -201,8 +223,8 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ## 维护
 
-- **总笔记数**：**57**（B 站 32 + 公众号等；2026-07-03 新增魔术师卡颂 8 篇 + Founder Park/极客公园 2 篇）
+- **总笔记数**：B 站 **67** + 公众号 **28** + 其它（见各节）
 - **Inbox**：已清空（wechat 快照 → `99-System/Attachments/wechat-snapshots/`）
-- **最后更新**：2026-07-06（ASR 无专栏 SOP 文档闭环）
+- **最后更新**：2026-07-06（P1 20 篇 S 级对谈收录）
 - **更新机制**：每收录 1 篇新笔记，**必须**更新本 MOC（按 §8 SOP 步骤 7）
 - **孤立判定**：MOC 内的笔记被 `[[MOC - Agent Theory and Design]]` 链入 = 破孤（按 §7 "MOC 入口破孤"）
