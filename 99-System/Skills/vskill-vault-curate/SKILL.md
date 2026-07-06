@@ -312,13 +312,14 @@ target_para: "auto"
 
 | 文档 | 适用 |
 |------|------|
-| [SUBDOC - B站视频 v3 工作流.md](./SUBDOC%20-%20B站视频%20v3%20工作流.md) | **总流程**：S→canonical 单篇 v3.2 · A→讲义 v3 九段 · batch 仅 A 级 |
-| [SUBDOC - B站视频转写收录.md](./SUBDOC%20-%20B站视频转写收录.md) | Recastory ASR → vault 讲义 v3（九段 + 关键概念三列 + 要点） |
-| [SUBDOC - ASR后处理与manifest.md](./SUBDOC%20-%20ASR后处理与manifest.md) | manifest、asr v2 后处理、canonical 路径、批量顺序 |
-| [SUBDOC - Spot check（长视频 factual）.md](./SUBDOC%20-%20Spot%20check（长视频%20factual）.md) | ≥45 min  factual 对读；脚本 `99-System/scripts/bilibili-spot-check.py` |
-| [SUBDOC - Host-Guest 对谈稿.md](../vskill-vault-write/SUBDOC%20-%20Host-Guest%20对谈稿.md) | 访谈/播客/对谈公众号 → 发布形态对谈稿；配合 `vskill-vault-write mode=dialogue` |
+| **[SUBDOC - ASR内容分轨与收录决策.md](./SUBDOC%20-%20ASR内容分轨与收录决策.md)** | **ASR/B 站收录唯一入口**：决策树 · 三轨对照 · 经验 · 反模式 |
+| [SUBDOC - B站视频 v3 工作流.md](./SUBDOC%20-%20B站视频%20v3%20工作流.md) | Phase 0–5 细节：S / A-dialogue / A-lecture 分轨 |
+| [SUBDOC - B站视频转写收录.md](./SUBDOC%20-%20B站视频转写收录.md) | **A-lecture 轨**：九段讲义 + 概念三列 + 简介抓取 |
+| [SUBDOC - ASR后处理与manifest.md](./SUBDOC%20-%20ASR后处理与manifest.md) | Recastory 侧：manifest、asr v2 后处理 |
+| [SUBDOC - Spot check（长视频 factual）.md](./SUBDOC%20-%20Spot%20check（长视频%20factual）.md) | ≥45 min factual 对读 |
+| [SUBDOC - Host-Guest 对谈稿.md](../vskill-vault-write/SUBDOC%20-%20Host-Guest%20对谈稿.md) | **S / A-dialogue 轨**：对谈 canonical；`write mode=dialogue` |
 
-B 站 / 视频转写收录时 **优先读 SUBDOC**，再执行本节 Step 1–8。
+B 站 / ASR 收录：**先读 ASR 分轨决策 SUBDOC** → 按轨加载上表子文档 → 再执行本节 Step 1–8。
 
 **访谈 / 对谈公众号**：Step 2 抓内容后，若用户要 Founder Park 式对话体 → 转 `vskill-vault-write mode=dialogue`（读 Host-Guest SUBDOC），勿默认压成第三人称讲义。
 

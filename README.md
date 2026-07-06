@@ -25,11 +25,11 @@
 参考资料、Prompts、文章摘录等。**按主题分（不按来源）**——见 [AGENTS.md §2](AGENTS.md)。
 
 - **AI and Agents** — Agent 理论与实践主目录
-  - **Agent Theory and Design**（公众号 + B 站视频 31 篇）→ [[MOC - Agent Theory and Design]]
+  - **Agent Theory and Design**（公众号 + B 站视频 **32 篇**）→ [[MOC - Agent Theory and Design]]
   - **Harness Engineering**（横切 5 篇）→ [[MOC - Harness Engineering]]
   - **AI 时代个人发展与组织**（横切 7 篇）→ [[MOC - AI 时代个人发展与组织]]
   - **Loock AI 全栈应用开发**（148 篇，6 章节 MOC）→ [[MOC - Loock AI 全栈课程]]
-  - **B 站视频知识库**（19 篇 + 工作流说明）
+  - **B 站视频知识库**（**32 篇** v3 canonical · 1 BV = 1 文件）→ 收录见 [ASR 分轨 SUBDOC](99-System/Skills/vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md)
   - **播客转录**（1 篇）
 - **Prompts** — Copilot 自定义提示词模板（13 个 Prompt + 1 [[MOC - Prompt 工程]]）
 - **哲学与自我认知** — 与 AI 时代相关的自我认知（[[MOC - AI 时代个人发展与组织]] 在此）
@@ -67,6 +67,8 @@
 7. 更新 MOC：如有相关 MOC，把新笔记加入
 ```
 
+**B 站 / ASR 视频**（无专栏亦同）：先读 [ASR 分轨 SUBDOC](99-System/Skills/vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md) → S 专栏 / A-dialogue ASR / A-lecture 九段 → `bilibili-v3-gap-check.py` 全绿。
+
 ## 参考
 
 - **PARA 方法**：Projects, Areas, Resources, Archive
@@ -78,5 +80,6 @@
 ---
 
 **v2 变更记录**：
+- 2026-07-06：B 站 32 篇 v3 canonical；ASR 三轨收录链 SUBDOC
 - 2026-06-11 v2：基于 AGENTS.md v1 重写——目录树反映实际规范，新增 §2 主题视角
 - 2026-06-11 v1：基于 PARA + 领域细分初版

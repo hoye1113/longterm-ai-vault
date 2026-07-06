@@ -3,7 +3,7 @@
 > **本文档是 vault 的"宪法"**。约束新笔记收录、跨会话维护、AI agent 协作。
 > **限长原则**：≤ 3 页；超出部分拆 sub-doc。
 > **适用对象**：vault 主人 + 协作 AI agents
-> **最后更新**：2026-06-11 | **版本**：v1（圆桌共识落地）
+> **最后更新**：2026-07-06 | **版本**：v1.2（+ B 站扩展字段 · 附录计数）
 
 ---
 
@@ -53,6 +53,7 @@ author:
 
 **特殊字段**（按笔记类型选填）：
 - 视频：`genre` / `date` / `duration` / `saved` / `uploader` / `source_url`
+- **B 站 v3 视频**（见 §8 ASR 三轨）：`material_tier` / `curate_method` / `dialogue_version` / `ingest_dir` / `transcript_source` / `host_name` / `guest_name` / `speaker_inference`
 - 播客：`speakers` / `date`
 - MOC：`moc` 必含
 
@@ -195,6 +196,25 @@ tags_approved:
 7. 更新 MOC：如有相关 MOC，把新笔记加入索引
 ```
 
+### B 站 / Recastory ASR 收录（形态优先）
+
+> **Agent 必读**：[SUBDOC - ASR内容分轨与收录决策.md](./99-System/Skills/vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md)  
+> **落盘目录**：`02-Resources/AI and Agents/B站视频知识库/` · **skill**：`vskill-vault-curate` + `vskill-vault-write mode=dialogue`
+
+**铁律**：1 BV = 1 篇 `{主题}.md`；禁止讲义 + 对谈稿双文件。
+
+**三轨决策**（先 `bilibili-ingest-reconcile.py` 定级，再按形态分轨）：
+
+| 轨 | 判定 | 正文形态 | 主源 |
+|----|------|----------|------|
+| **S** | UP 专栏 ≥3k + 含主持人/嘉宾 | Host-Guest 对谈 + 附录 | `column_article.md` |
+| **A-dialogue** | 无专栏 + 访谈/webinar（≥2 说话人） | 同上 | ASR `article.md` + 简介时间戳 |
+| **A-lecture** | 无专栏 + 单人教程/解读 | 九段讲义 v3 | ASR → Pass1 大纲 |
+
+**收录完成前**：`python 99-System/scripts/bilibili-v3-gap-check.py` 须全绿；≥45 min 另跑 Spot check。
+
+**禁止**：对谈 ASR 压成九段摘要；凭 UP 名当 Host 名；ASR 时间顺序逐段复述。
+
 **注意**：
 - 单文件 vs 多文件：短文（< 2000 字）单文件；长文（> 5000 字）考虑拆分
 - 课程按章节自然拆分（如 `1-8` / `1-9` / `2-19` 等编号）
@@ -243,6 +263,8 @@ tags_approved:
 - ❌ 抽象集合名词通胀（"领域""阶段""过程""方式"——换具体）
 - ❌ 一段里同一论点出现两次（改第一次，删第二次）
 - ❌ 助手腔（"任何助手都写得出的句子"——改或删）
+- ❌ B 站对谈 ASR 压成九段摘要（→ §8 A-dialogue 轨，Host-Guest 对谈 canonical）
+- ❌ 1 BV 产 `{主题}.md` + `{主题} - 对谈稿.md` 双文件
 
 ### 反翻译腔自查表（每段写完扫一遍，借鉴 ljg-book）
 
@@ -289,14 +311,14 @@ tags_approved:
 
 ---
 
-## 附录 A：当前 vault 主题清单（v1 快照）
+## 附录 A：当前 vault 主题清单（快照 · 现行计数见各 MOC）
 
 | 主题 | 笔记数 | 位置 |
 |---|---|---|
 | AI Agent 核心理论（Sitor AI 课程）| ~30 | `01-Areas/AI Agent Development/` |
 | AI Coding 实战（Loock AI 课程）| 148 | `02-Resources/AI and Agents/Loock AI 全栈应用开发/` |
-| B 站 AI 视频转录 | 19 | `02-Resources/AI and Agents/B站视频知识库/` |
-| AI 公众号文章 | 12 | `02-Resources/AI and Agents/Agent Design & Patterns/` |
+| B 站 AI 视频（v3 canonical） | **32** | `02-Resources/AI and Agents/B站视频知识库/` |
+| AI 公众号文章 | **28** | `02-Resources/AI and Agents/Agent Design & Patterns/`（见 [[MOC - Agent Theory and Design]]） |
 | AI 播客转录 | 1 | `02-Resources/AI and Agents/播客转录/` |
 | AI 时代职业 / FDE / 哲学 | 13+ | 跨目录 |
 | Prompt 库 | 16 | `02-Resources/Prompts/` |
@@ -326,4 +348,6 @@ tags_approved:
 ---
 
 **v1 变更记录**：
+- 2026-07-06 v1.2：§3 B 站扩展字段；附录 A 计数对齐 MOC（B 站 32 / 公众号 28）
+- 2026-07-06 v1.1：§8 增 B 站 ASR 三轨收录（S / A-dialogue / A-lecture）；链 ASR 分轨 SUBDOC
 - 2026-06-11 v1：基于圆桌研讨会（Tiago Forte / Nick Milo / Sönke Ahrens / Stewart Butterfield / AI Agent 5 视角共识）首次落地

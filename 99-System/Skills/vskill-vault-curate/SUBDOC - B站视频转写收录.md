@@ -9,7 +9,8 @@ version: 1.2
 
 # SUBDOC - B站视频转写收录
 
-> **v3 总工作流**：[SUBDOC - B站视频 v3 工作流](./SUBDOC%20-%20B站视频%20v3%20工作流.md)（S→canonical 单篇 · A→讲义九段）
+> **v3 总工作流**：[SUBDOC - ASR内容分轨与收录决策](./SUBDOC%20-%20ASR内容分轨与收录决策.md)（入口）· [B站视频 v3 工作流](./SUBDOC%20-%20B站视频%20v3%20工作流.md)（S canonical · **A-dialogue ASR** · A-lecture 九段）  
+> **本 SUBDOC 适用轨**：**仅 A-lecture**（单人教程/解读 → 九段讲义）；访谈/webinar 无 column → **勿用九段**，走 ASR 决策 SUBDOC A-dialogue 轨。
 > **适用**：Recastory `workspace/knowledge/` 英文 ASR 转写 → vault `02-Resources/AI and Agents/B站视频知识库/`  
 > **父 skill**：[[vskill-vault-curate/SKILL.md]]  
 > **样板笔记**：`DeepMind团队-当数百万Agent相遇.md`（v2 读者向讲义）
@@ -106,11 +107,12 @@ Recastory 每条 BV 在 `{workspace_dir}/ingest/` 下应有：
 | `uploader_comment.md` | UP 置顶评论 | 专栏/opus 链接入口 |
 | `comment_summary.md` | 评论区摘要 | 可选，不进正文 |
 
-**素材等级**（见 `99-System/scripts/bilibili-ingest-reconcile.py`）：
+**素材等级**（见 [ASR 分轨决策 SUBDOC](./SUBDOC%20-%20ASR内容分轨与收录决策.md) · `bilibili-ingest-reconcile.py`）：
 
-- **S**：`column_article` ≥3k 字 + 含「（主持人）/（嘉宾）」→ `vskill-vault-write mode=dialogue`
-- **A**：仅 `video_description` → 讲义 v3 轻刷新（导读 + 来源）
-- **ASR**：`article.md` / `bilibili-retranscribe` → spot check、数字核对，非主叙事源
+- **S**：`column_article` ≥3k 字 + 含「主持人/嘉宾」→ `write mode=dialogue` · 专栏主源
+- **A-dialogue**：无 column + 访谈/webinar（≥2 说话人）→ `write mode=dialogue` · **ASR 主源**（非九段）
+- **A-lecture**：无 column + 单人教程/解读 → **本 SUBDOC 九段讲义**
+- **ASR 路径**：`article.md` / `bilibili-retranscribe` — A-dialogue 为正文主源；S 级仅核数字
 
 **说话人优先级**：`column_article` 主持人/嘉宾 **>** `video_description` 导读 **>** ASR 外源金句搜索。
 
@@ -239,6 +241,20 @@ spot_check: YYYY-MM-DD          # 可选；≥45 min 且 Spot check 通过后填
 | A 组（平台 / harness / skills） | `B站视频知识库/Agent架构与平台/` |
 | B 组 eval / 论文 | `B站视频知识库/AI评估与研究/` |
 | 行业 / 组织 | `B站视频知识库/行业观点与组织/` |
+
+---
+
+## A-lecture 加深要点（2026-07-03 实盘）
+
+无 column 的教程轨，九段 `## 分话题讲` 须补 **可操作细节**（来自 ASR），非概念复述：
+
+| 笔记 | 加深方向 |
+|------|----------|
+| [[Karpathy爆火项目-AutoResearch解读与启发]] | loop 命令、Colab GPU、9 类用例操作流 |
+| [[Agent实战-打造一个AI Agent的完整教程]] | demo1/2/3、MCP/Skill 链、cron |
+| [[OpenAI官方-Codex新手教程]] | slash 命令表、config.toml、MCP/exec |
+| [[Claude Code实战-构建一个AI数据分析师]] | 种子 SQL、Snowflake CLI、Skills 护栏 |
+| [[30分钟精通OpenClaw]] | GCP OAuth、Edge TTS、cron、SOUL 摘录 |
 
 ---
 

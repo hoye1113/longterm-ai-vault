@@ -11,6 +11,7 @@ source: vault_initiative - vskill-vault-write - dialogue_format
 
 # SUBDOC - Host-Guest 对谈稿
 
+> **无专栏 ASR**：先读 [ASR 内容分轨与收录决策](../vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md) §无专栏 ASR 收录 SOP，再读本 SUBDOC。  
 > **适用**：Lenny's Podcast 译稿、Founder Park 式公众号、B 站/YouTube 双人访谈、任何 **Host 提问 + Guest 回答** 的可识别素材。
 >
 > **IRON LAW**：**禁止改成第三人称摘要体。** 读者应感到在听一场被剪辑过的对谈，不是在读新闻稿。
@@ -73,6 +74,15 @@ speaker_confidence: high   # high | medium | 待核实
 ### Step 4：划章
 
 优先用 **原视频 chapter**（YouTube/B 站时间戳）；无则用 ASR **话题转折点**（Guest 长段、赞助结束、demo 开始）。
+
+### 主题演讲 → 合成 Moderator（无 column 边缘案例）
+
+ASR 为 Guest 单人长讲、现场几乎无 Host 问句时，仍走 **A-dialogue**（非九段）：
+
+- Host 命名为 `Moderator（{场合}）`（如「AI Engineer 现场」）
+- 在 Guest 长段之间插入 **过渡问**（从 ASR 话题转折提炼，不编造事实）
+- frontmatter：`speaker_inference: "…（主题演讲，Host 为过渡提问）"`
+- 样板：[[Databricks-企业级Agent生产实践]]
 
 ---
 

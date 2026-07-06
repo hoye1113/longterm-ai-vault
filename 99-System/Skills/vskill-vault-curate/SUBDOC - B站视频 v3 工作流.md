@@ -9,6 +9,7 @@ version: 1.1
 
 # B站视频 v3 工作流（Recastory ingest → vault）
 
+> **Agent 入口**：[SUBDOC - ASR内容分轨与收录决策](./SUBDOC%20-%20ASR内容分轨与收录决策.md)（决策树 + 经验 + 反模式）  
 > **适用**：Recastory `workspace/` 32 条 BV · vault `02-Resources/AI and Agents/B站视频知识库/`  
 > **对账表**：`99-System/audit/bilibili-ingest-reconcile-2026-07-03.md`  
 > **rollout 进度**：`99-System/audit/bilibili-v3-rollout-2026-07-03.md`

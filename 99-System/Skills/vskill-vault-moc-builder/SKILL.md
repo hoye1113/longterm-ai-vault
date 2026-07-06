@@ -209,7 +209,7 @@ output_mode: merge_mocs
 **预期行为**：
 1. 扫描 vault 发现两个相关 MOC：
    - `MOC - AI Agent 参考资料`（12 篇）
-   - `MOC - B站视频知识库`（19 篇）
+   - `MOC - B站视频知识库`（已合并入 `MOC - Agent Theory and Design`，32 篇 B 站 v3）
    - 实际主题：Harness 笔记 7 篇，散落在两个 MOC
 2. 降秩：root rank 是 3 根生成器
    - A. **Anthropic 官方视角**（Claude Code / 汇编本）

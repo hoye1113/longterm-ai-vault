@@ -26,8 +26,8 @@ source: vault_initiative - skills_index
 | 名称 | 状态 | 一句话描述 | 借鉴 | SKILL.md |
 |---|---|---|---|---|
 | `vskill-vault-discuss` | ✅ v0.2 可用（3 模式）| 基于 vault 笔记进行结构化讨论：summary / roundtable / companion 三模式 | `kb-retriever` + `ljg-roundtable` + `ljg-read` | [SKILL.md](./vskill-vault-discuss/SKILL.md) |
-| `vskill-vault-write` | ✅ v0.3 可用 | blade 观点文 **或** Host-Guest 对谈稿 v3.2；B 站 S 级落盘 **单篇 canonical** `{主题}.md` | `ljg-writes` | [SKILL.md](./vskill-vault-write/SKILL.md) · [对谈稿 SUBDOC](./vskill-vault-write/SUBDOC%20-%20Host-Guest%20对谈稿.md) |
-| `vskill-vault-curate` | ✅ v0.4 可用 | 收录 §8 SOP；B 站 **v3 工作流**（S→canonical 单篇 / A→讲义九段） | `wiki-ingest` + `kimi-webbridge` | [SKILL.md](./vskill-vault-curate/SKILL.md) · [B站](./vskill-vault-curate/SUBDOC%20-%20B站视频转写收录.md) · [v3 工作流](./vskill-vault-curate/SUBDOC%20-%20B站视频%20v3%20工作流.md) |
+| `vskill-vault-write` | ✅ v0.3 可用 | blade 观点文 **或** Host-Guest 对谈 v3.2（**S 专栏 + A-dialogue ASR** 单篇 canonical） | `ljg-writes` | [SKILL.md](./vskill-vault-write/SKILL.md) · [对谈稿 SUBDOC](./vskill-vault-write/SUBDOC%20-%20Host-Guest%20对谈稿.md) |
+| `vskill-vault-curate` | ✅ v0.5 可用 | 收录 §8 SOP；B 站 **ASR 三轨**（S 专栏 / A-dialogue ASR / A-lecture 九段） | `wiki-ingest` + `kimi-webbridge` | [SKILL.md](./vskill-vault-curate/SKILL.md) · **[ASR 决策入口](./vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md)** · [v3 工作流](./vskill-vault-curate/SUBDOC%20-%20B站视频%20v3%20工作流.md) |
 | `vskill-vault-relate` | ✅ v0.1 可用 | 给定笔记，扫描 vault 输出 top-N 反向链候选（4 维评分 + warnings）| `kb-retriever` + `vskill-vault-discuss` | [SKILL.md](./vskill-vault-relate/SKILL.md) |
 | `vskill-vault-moc-builder` | ✅ v0.1 可用 | 降秩 + 9 种取景框——合并 / 拆分 / 新建 / 审计 vault MOC | `ljg-rank` + `wiki-ingest` | [SKILL.md](./vskill-vault-moc-builder/SKILL.md) |
 
@@ -59,17 +59,14 @@ vskill-vault-moc-builder  ← MOC 重构 / 升级
 loop
 ```
 
-**访谈 / B 站 S 级（column 对话体）**：
+**B 站 / ASR 收录（先读 [ASR 分轨决策 SUBDOC](./vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md)）**：
 
 ```
-reconcile 定 S → write mode=dialogue（v3.2）→ 讲义保留索引 → relate → MOC
-详见 SUBDOC - B站视频 v3 工作流
-```
-
-**B 站 A 级（仅 ASR + description）**：
-
-```
-curate 九段讲义 v3 → v3-batch 机械门 → spot check（≥45min）→ MOC
+reconcile 定 S/A
+  ├─ S（column ≥3k + 对话体）→ write mode=dialogue · 专栏主源 · canonical v3.2
+  ├─ A-dialogue（访谈/webinar）→ write mode=dialogue · ASR 主源 · canonical v3.2-asr
+  └─ A-lecture（教程/solo）→ 九段讲义 v3
+→ gap-check 全绿 → relate → MOC
 ```
 
 ---

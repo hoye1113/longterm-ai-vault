@@ -3,9 +3,9 @@ title: vskill-vault-write
 name: vskill-vault-write
 description: 基于 vault 已有笔记或访谈素材写长文——两种模式：① 5 步切刀观点文（1000-1500 字）；② Host-Guest 对谈稿（4 章对话体 + 小结 + 总结）。借鉴 ljg-writes。
 created: 2026-06-27
-updated: 2026-07-03
+updated: 2026-07-06
 status: available
-version: 0.3
+version: 0.4
 tags:
   - skills
   - vskill
@@ -76,10 +76,11 @@ outputs:
 - 用户给一个观点 / 一句断言 / 一个反直觉洞察，要 vault 出产一篇
 - `vskill-vault-discuss` 输出后，用户说"把这份讨论写成笔记"
 
-✅ **dialogue 模式**（`mode: dialogue`，**必须先读 [SUBDOC - Host-Guest 对谈稿.md](./SUBDOC%20-%20Host-Guest%20对谈稿.md)**）：
+✅ **dialogue 模式**（`mode: dialogue`）：
+- **无专栏 B 站 ASR / Recastory 访谈** → 先读 [ASR 分轨决策 SUBDOC](../vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md) §无专栏 SOP，再读 [Host-Guest 对谈稿](./SUBDOC%20-%20Host-Guest%20对谈稿.md)
 - 用户要 **Founder Park / Lenny 式** 对话体，不要第三人称摘要
 - 素材是播客转写、访谈译稿、Host-Guest 公众号
-- `vskill-vault-curate` 抓完访谈后，用户要 **发布形态** 对谈稿
+- `vskill-vault-curate` 抓完访谈后，用户要 **发布形态** 对谈稿（S 级 column 主源 或 A-dialogue ASR 主源）
 
 ❌ **不使用**：
 - 用户要"搜索 X 笔记"——用 `vskill-vault-discuss` 或 grep
@@ -92,7 +93,7 @@ outputs:
 | mode | 输入 | 输出 | 文档 |
 |------|------|------|------|
 | `blade`（默认） | `viewpoint` + `anchor_notes` | 1000–1500 字观点文 | 下文「5 步切刀」 |
-| `dialogue` | `raw_transcript` + host/guest 元数据 | 4 章对谈 + 小结 + 总结 | [SUBDOC - Host-Guest 对谈稿](./SUBDOC%20-%20Host-Guest%20对谈稿.md) |
+| `dialogue` | `raw_transcript` + host/guest 元数据 | 3–6 章对谈 + 小结 + 总结 | [Host-Guest](./SUBDOC%20-%20Host-Guest%20对谈稿.md) · [ASR 无专栏 SOP](../vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md) |
 
 **dialogue 执行顺序**：读 SUBDOC → 划 4 章锚点 → 写开场 → 逐章 Host 问 / Guest 答 / 本章小结 → 大总结 → 质量门 → frontmatter + 反向链。
 

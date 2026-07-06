@@ -81,12 +81,15 @@ def main() -> None:
     concept_dash_en: list[tuple[str, int]] = []
 
     dlg_count = len(list(VAULT.rglob("* - 对谈稿.md")))
-    vault_md = len(list(VAULT.rglob("*.md")))
+    vault_md = len([p for p in VAULT.rglob("*.md") if p.name.lower() != "readme.md"])
 
     s_ok = a_dialogue_ok = a_lecture_ok = 0
 
     for entry in manifest["entries"]:
-        name = Path(entry["vault_path"]).name
+        vp = entry.get("vault_path")
+        if not vp:
+            continue
+        name = Path(vp).name
         stem = Path(name).stem
         note = next(VAULT.rglob(name), None)
         if not note:
