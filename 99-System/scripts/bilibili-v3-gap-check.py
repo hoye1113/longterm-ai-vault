@@ -16,7 +16,7 @@ A_LECTURE_STEMS = {
     "OpenAI官方-Codex新手教程",
     "Claude Code实战-构建一个AI数据分析师",
     "30分钟精通OpenClaw",
-    "Claude设计主管-Cowork揭秘40分钟教程",
+    "Codex实战-Notion第二大脑与技能封装",
 }
 
 BATCH_JSON = Path(r"d:\workSpace\obsidian_repository\99-System\audit\bilibili-p0-batch.json")
@@ -122,15 +122,7 @@ def main() -> None:
         is_s = has_s_column(entry)
         expect_lecture = stem in lecture_stems
 
-        if is_s:
-            expect_s += 1
-            if fm.get("material_tier") != "S":
-                s_no_tier.append(name)
-            if not is_s_canonical(text, fm):
-                s_not_canonical.append(name)
-            else:
-                s_ok += 1
-        elif expect_lecture:
+        if expect_lecture:
             expect_a_lec += 1
             if not is_a_lecture(text, fm):
                 a_lecture_bad.append(name)
@@ -138,6 +130,14 @@ def main() -> None:
                 a_lecture_ok += 1
             if fm.get("material_tier") != "A":
                 tier_mismatch.append(f"{name} (expect A lecture)")
+        elif is_s:
+            expect_s += 1
+            if fm.get("material_tier") != "S":
+                s_no_tier.append(name)
+            if not is_s_canonical(text, fm):
+                s_not_canonical.append(name)
+            else:
+                s_ok += 1
         else:
             expect_a_dlg += 1
             if not is_a_dialogue_asr(text, fm):

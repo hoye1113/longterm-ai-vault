@@ -16,7 +16,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 >
 > **核心定义**（来自 [[2026 年 Agent 最重要的工程概念 Harness Engineering]]）：harness = 围绕 Agent 的工程系统（工具、约束、反馈、安全、记忆），让 AI 从"能力强但不可预测"变成"稳定可靠能交付"。
 >
-> 27 篇核心笔记 + 跨 MOC 链接 = 完整的 Harness 主题地图。
+> 29 篇核心笔记 + 跨 MOC 链接 = 完整的 Harness 主题地图。
 
 ---
 
@@ -52,6 +52,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 | 26 | [[Claude Code实战-用AI实现生活自动化]] | B站视频（Peter × Moritz）| **个人 OS** | Claudia 文件夹骨架；MCP/CLI；心跳 vs 例程 |
 | 27 | [[Cognition CPO-Devin的80%时刻与后台Agent]] | B站视频（Walden Yan）| **后台 Agent** | 80% 后台；规划-执行；记忆与文件系统 |
 | 28 | [[Together AI-语音Agent延迟质量与规模]] | B站视频（Rishabh）| **实时语音 Agent** | 半秒生死线、级联流水线、同址、Thinker-Talker |
+| 29 | [[Superpowers Evals 在测什么 - Fly]] | 公众号（Fly的AI研习社）| **工作流行为评测** | Quorum + Gauntlet 测 skill/TDD/review 合规；支撑 Superpowers 6 提速降本 |
 
 ---
 

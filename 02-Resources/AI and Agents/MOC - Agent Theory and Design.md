@@ -1,9 +1,9 @@
 ---
 title: MOC - Agent Theory and Design
 description: Agent 时代理论与实践的横切索引——覆盖 Harness、Claude Code、Codex、Cursor、OpenClaw、AI
-  评估与研究、团队组织 等子主题；B 站 88 + 公众号等
+  评估与研究、团队组织 等子主题；B 站 112 + 公众号等
 created: 2026-06-11
-updated: 2026-07-06
+updated: 2026-07-07
 tags:
   - ai_agent
   - ai_philosophy
@@ -15,7 +15,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 # MOC - Agent Theory and Design
 
-> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。B 站 **88** 篇 + 公众号等，按子主题分组。
+> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。B 站 **112** 篇 + 公众号等，按子主题分组。
 >
 > **本 MOC 是 v1（圆桌共识落地）**，建立 3 个横切 MOC 后，这里只承担"主题 MOC"角色——跨子目录的横切链接见：
 > - [[MOC - Harness Engineering]]（横切，跨课程/公众号/B站）
@@ -44,6 +44,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[AI Coding 时间管理 - 50% 工作法 - 魔术师卡颂]] | 50% 业务 / 50% Harness；减并行、拉长 Agent 自治、防摸鱼退化 |
 | [[如何为项目定制 Harness 环境 - 魔术师卡颂]] | 减框架增基建；superpowers/gstack 入门 → 重基建轻编排 |
 | [[AI框架与 Harness 的关系 - 魔术师卡颂]] | Harness 三层（约束/路由/编排）；superpowers、gstack 在顶层 |
+| [[Superpowers Evals 在测什么 - Fly]] | Superpowers 工作流行为评测：Quorum + Gauntlet 测 skill/TDD/review 合规 |
 | [[AI 主导的项目和人主导的区别 - 魔术师卡颂]] | monorepo + 统一 CLI；各端差异收敛到工具层 |
 | [[如何让 Skill 自动优化 - 魔术师卡颂]] | PR 反馈 → 规则集自优化；warp common-skills 三条件 |
 | [[未来的 AI 编程就是 Loop 套 Loop - 魔术师卡颂]] | 三层 Loop 嵌套；信息压缩：代码→门禁→规则质量 |
@@ -75,6 +76,8 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[Claude Code实战-Gstack把AI变成团队]] | Garry Tan：GStack 轻薄脚手架；Office Hours 六问、对抗性审查、设计散弹枪、Playwright QA、并行 PR |
 | [[Claude Code实战-鲜为人知的Claude Code工作流]] | Greg × Amir：IdeaBrowser→Paper 细稿→Humbletics A/B→自建 CMS；自动化全栈 |
 | [[Claude Code实战-用AI实现生活自动化]] | Peter × Moritz：OpenClaw vs Claude Code；Claudia 文件夹 OS；MCP/CLI；内容机器 |
+| [[Boris Cherny-Claude Code任务管理与Compound工程]] | Boris × Trevin：Claude Code 任务账本、compound 分叉、planner/worker/tester（**A-dialogue v3.2-asr** ✓） |
+| [[Mercury产品VP-Claude Code第二大脑与MCP]] | Ryan Wiggins：Mercury MCP、500 万字知识库、多代理分析、会议教练（**canonical v3.2** ✓） |
 
 ---
 
@@ -96,7 +99,9 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[Codex实战-30分钟掌握95%核心功能]] | Riley walkthrough：Agents.md 双层、@ 引用、/ 命令 SOP、Chronicler |
 | [[Codex实战-演示开发一个手机App]] | Riley：Codex + Xcode 搭 Jerry；Claude Agent SDK + Vibe Code CLI |
 | [[Codex实战-用AI颠覆视频剪辑流程]] | Riley：Remotion 动态图、竞品拆解、帧级转场、八 prompt 成片 |
+| [[Codex实战-Notion第二大脑与技能封装]] | Riley 八步：Notion 插件、内嵌浏览器、自定义技能、每晚自动化（**A-lecture v3** ✓） |
 | [[OpenClaw创始人-我是如何使用OpenClaw的]] | WhatsApp→Claude Code；CLI Army；Just talk to it，别沉迷 24h loop |
+| [[OpenClaw创始人-Claw现状与安全治理]] | Peter S.：基金会、安全三重奏、做梦记忆、AI CVE 噪音（**canonical v3.2** ✓） |
 | [[30分钟精通OpenClaw]] | 安全五步、五用例 demo、SOUL/USER/MEMORY 本地 MD 人格 |
 | [[Taven创始人-将OpenClaw嵌入产品的实战经验]] | Pi 内核企业嵌入：Excel Skill 小 CLI、一客户一 Agent + AGENTS.md |
 | [[OpenClaw实战-从本地到K8S部署]] | Podman/K8s 四好处、Secret ref 双层、baseline 镜像愿景 |
@@ -129,6 +134,13 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[Qodo研究员-长上下文越多Agent越笨]] | 上下文 U 型；分层摘要/子代理；「改成」优于「追加」 |
 | [[Cognition CPO-Devin的80%时刻与后台Agent]] | swyx × Walden：后台元老；16% 内部提交；规划-执行；记忆与文件系统 |
 | [[Together AI-语音Agent延迟质量与规模]] | Rishabh：半秒生死线、级联 STT→LLM→TTS、同址砍 30%、Thinker-Talker |
+| [[Mitchell Hashimoto-AI时代开源与Git未来]] | Mitchell：AI 低质 PR、Git 存续、非思考任务委托（**canonical v3.2** ✓） |
+| [[亚马逊Kiro团队-规范驱动开发]] | Kiro：规范驱动开发、agent 工作流（**canonical v3.2** ✓） |
+| [[Shopify CTO-AI时代CI范式重构]] | Shopify CTO：CI 范式与 AI 研发（**canonical v3.2** ✓） |
+| [[DeepMind研究员-递归循环中AI构建AI]] | DeepMind：递归循环中 AI 构建 AI（**canonical v3.2** ✓） |
+| [[Neo4J CEO-文档转化为知识]] | Neo4j：文档→知识图谱与 RAG（**canonical v3.2** ✓） |
+| [[OpenCode创始人-研发内幕]] | OpenCode 研发内幕（**canonical v3.2** ✓） |
+| [[Gray Swan创始人-Codex之后AI安全重写]] | Gray Swan：Codex 之后 AI 安全（**A-dialogue v3.2-asr** ✓） |
 | [[ElevenLabs联创-语音AI现状与未来]] | Sarah × Mati：~$300M ARR、声音侍酒师、模型商品化与生态护城河（**canonical v3.2** ✓） |
 | [[Turbopuffer CEO-Agent时代RAG与检索]] | Simon × Latent Space：S3/CAS 无状态、Cursor -95% 成本、Agent 高并发搜索（**canonical v3.2** ✓） |
 | [[Karpathy-从Vibe Code到Agentic Code]] | Karpathy：软件 3.0、参差不齐智能、代理工程 vs vibe coding、理解不可外包（**canonical v3.2** ✓） |
@@ -163,6 +175,9 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[LCA-60分钟变成AI-Native]] | People + Agents + Context 三层、Skill Chain、Brain 闭环 |
 | [[WorkOS-创建和使用Skills方法论]] | Skills at scale：DRY 进 agentic era、MCP 安全、可移植工作单元 |
 | [[5次创业者-AI智能体独自经营初创公司]] | R2/ClawChief 幕僚长 + Devin playbook；先建 SDLC 再放量 |
+| [[圆桌讨论-打造世界级AI原生团队]] | 圆桌：AI 原生团队组织（**canonical v3.2** ✓） |
+| [[Intercom首席-全员AI转型实践]] | Intercom 全员 AI 转型（**canonical v3.2** ✓） |
+| [[Block业务主管-裁员40%后与Goose代理运转]] | Block：Goose 框架、Builder Bot、裁员后 AI 运转（**canonical v3.2** ✓） |
 | [[硅谷今年最火的岗位 FDE，我们闷头干了三年]] | FDE = 蜂群最小节点的中国实践，按结果收费 |
 | [[AI 主导的项目和人主导的区别 - 魔术师卡颂]] | monorepo + 统一 CLI 流程；各端差异收敛到工具层 |
 
@@ -193,13 +208,17 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ---
 
-## J. AI 评估与研究（6 篇）
+## J. AI 评估与研究（7 篇）
 
 > 前沿 eval、benchmark 饱和、LLM-as-judge 校准、RL 小模型、论文俱乐部。
 
 | 文章 | 核心主题 |
 |------|---------|
+| [[Superpowers Evals 在测什么 - Fly]] | 工作流行为评测：Quorum 编排 + Gauntlet QA 测 skill/TDD/review 合规，非算法 benchmark |
 | [[OpenAI评估团队-不再低估模型]] | Frontier eval、benchmark 饱和、bench gaming、SWE-bench Verified→真实工作 task |
+| [[OpenAI评估团队-AI编程评估集历史现状与未来]] | OpenAI 评估团队：编程评估集历史与未来（**A-dialogue v3.2-asr** ✓） |
+| [[前OpenAI研究员-持续学习瓶颈]] | 持续学习瓶颈（**canonical v3.2** ✓） |
+| [[Transformer作者-AI泛化与类人学习]] | Transformer 作者：泛化与类人学习（**canonical v3.2** ✓） |
 | [[微软CEO-AI竞争终局与企业私有评估]] | 私有评估集=护城河；模型切换试金石；公开榜饱和后的企业 eval |
 | [[Agenta CEO-构建真正有效的AI评估]] | LLM-as-judge 校准、GEPA 提示词优化、业务 error analysis、二元评判、TauBench |
 | [[DeepMind团队-AI评估规划化与民主化]] | Kaggle 评估民主化、SAE 智能体考试、Game Arena PvP、工具/模型混淆 |
@@ -233,19 +252,19 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 - [[MOC - Prompt 工程]] — Prompt + Skills 横切 MOC
 
 ### 数据源
-- **公众号**：**28** 篇（`02-Resources/AI and Agents/Agent Design & Patterns/`）
-- **B 站视频**：88 篇 · S **62** + A **21** dialogue-asr + A **5** lecture
-  - **收录入口**（2026-07-06）：`99-System/Skills/vskill-vault-curate/SUBDOC - ASR内容分轨与收录决策.md` · 细节 `SUBDOC - B站视频 v3 工作流.md`
-  - 单篇 canonical **88/88**（P0+P1+P2+Together）；`- 对谈稿.md` **0**
-  - P2 批次：`99-System/audit/bilibili-p2-batch.json` · 优先级 `bilibili-ingest-priority-p2-2026-07-06.md`
+- **公众号**：**29** 篇（`02-Resources/AI and Agents/Agent Design & Patterns/`）
+- **B 站视频**：112 篇 · S **80** + A **25** dialogue-asr + A **6** lecture
+  - **收录入口**（2026-07-07）：`99-System/Skills/vskill-vault-curate/SUBDOC - ASR内容分轨与收录决策.md`
+  - 单篇 canonical **112/112**（P0–P3 + P3+ + Together）；`- 对谈稿.md` **0**
+  - P3 批次：`bilibili-p3-batch.json` · P3+：`bilibili-p3plus-batch.json` · R1-A 复核：`bilibili-r1a-review-results-2026-07-07.md`
 - **数据流水线**：Recastory（`ingest/` 简介+专栏 + ASR → vault）；kimi `.desc-info-text` → `video_description.md`
 
 ---
 
 ## 维护
 
-- **总笔记数**：B 站 **88** + 公众号 **28** + 其它（见各节）
+- **总笔记数**：B 站 **112** + 公众号 **29** + 其它（见各节）
 - **Inbox**：已清空（wechat 快照 → `99-System/Attachments/wechat-snapshots/`）
-- **最后更新**：2026-07-06（P2 20 篇 Agent 优先收录闭环）
+- **最后更新**：2026-07-07（P3 18 + P3+ 6 收录闭环）
 - **更新机制**：每收录 1 篇新笔记，**必须**更新本 MOC（按 §8 SOP 步骤 7）
 - **孤立判定**：MOC 内的笔记被 `[[MOC - Agent Theory and Design]]` 链入 = 破孤（按 §7 "MOC 入口破孤"）

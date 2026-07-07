@@ -6,14 +6,14 @@ tags: [audit, bilibili]
 
 # B站 ingest × vault 对账（Phase 0）
 
-> Recastory workspace · manifest 227 条 · 生成 2026-07-03
+> Recastory workspace · manifest 225 条 · 生成 2026-07-03
 
 ## 汇总
 
-- **素材等级**：S=129 · S-=39 · A=42 · B=17
+- **素材等级**：S=129 · S-=39 · A=42 · B=15
 - **enrich**：ok=190 · partial=32 · skipped=0
 - **column_article**：168/32
-- **vault 文件存在**：67/32
+- **vault 文件存在**：88/32
 
 ## 分级说明
 
@@ -35,27 +35,27 @@ tags: [audit, bilibili]
 | BV14nrMBKENb | A | partial | — | — | — | — | — | ✓ | UP 主评论中未解析出 http 链接 |
 | BV174GU6AEZY | A | partial | — | — | — | — | — | ✓ | UP 主评论中未解析出 http 链接 |
 | BV18bjG6fEi7 | A | partial | — | — | — | — | — | ✓ | UP 主评论中未解析出 http 链接 |
-| BV18qTi6uEDX | A | ok | — | — | — | — | — | **缺失** | — |
+| BV18qTi6uEDX | A | ok | — | — | — | — | — | ✓ | — |
 | BV19MzXBNESV | A | partial | — | — | — | — | — | ✓ | UP 主评论中未解析出 http 链接 |
-| BV19uzXBeEMp | A | ok | — | — | — | — | — | **缺失** | — |
-| BV1BHKX68Ee5 | A | ok | — | — | — | — | — | **缺失** | — |
+| BV19uzXBeEMp | A | ok | — | — | — | — | — | ✓ | — |
+| BV1BHKX68Ee5 | A | ok | — | — | — | — | — | ✓ | — |
 | BV1EwK96AEyU | A | partial | — | — | — | — | — | ✓ | UP 主评论中未解析出 http 链接 |
-| BV1FEAVzbEWq | A | ok | — | — | — | — | — | **缺失** | — |
+| BV1FEAVzbEWq | A | ok | — | — | — | — | — | ✓ | — |
 | BV1HcifBWEAE | A | ok | — | — | — | — | — | **缺失** | — |
 | BV1KQPyzcEwj | A | ok | — | — | — | — | — | **缺失** | — |
 | BV1Ltw8zYErt | A | ok | — | — | — | — | — | **缺失** | — |
 | BV1Mpf9B5Egk | A | partial | — | — | — | — | — | ✓ | 未找到 UP 主评论 |
 | BV1NpAHzZEcc | A | partial | — | — | — | — | — | ✓ | UP 主评论中未解析出 http 链接 |
 | BV1PnQfBvEs3 | A | partial | — | — | — | — | — | ✓ | UP 主评论中未解析出 http 链接 |
-| BV1SJ93B2EBo | A | ok | — | — | — | — | — | **缺失** | — |
+| BV1SJ93B2EBo | A | ok | — | — | — | — | — | ✓ | — |
 | BV1TyTi6eEni | A | ok | — | — | — | — | — | **缺失** | — |
-| BV1U4Tz6CEzu | A | ok | — | — | — | — | — | **缺失** | — |
+| BV1U4Tz6CEzu | A | ok | — | — | — | — | — | ✓ | — |
 | BV1UajG6oEvj | A | partial | — | — | — | — | — | ✓ | UP 主评论中未解析出 http 链接 |
 | BV1WnctziEac | A | partial | — | — | — | — | — | ✓ | opus 链接无效或已失效（404/API 500）: https://www.bilibili.com/opus/45649506 |
 | BV1ZWTL64Erg | A | partial | — | — | — | — | — | ✓ | UP 主评论中未解析出 http 链接 |
 | BV1a9zXBeEKc | A | ok | — | — | — | — | — | **缺失** | — |
 | BV1cVjN6oEwx | A | partial | — | — | — | — | — | ✓ | UP 主评论中未解析出 http 链接 |
-| BV1dwAczDEXY | A | ok | — | — | — | — | — | **缺失** | — |
+| BV1dwAczDEXY | A | ok | — | — | — | — | — | ✓ | — |
 | BV1eyBgB2EbX | A | partial | — | — | — | — | — | ✓ | UP 主评论中未解析出 http 链接 |
 | BV1hkFkz9E6N | A | ok | — | — | — | — | — | **缺失** | — |
 | BV1iUZBBjEUo | A | ok | — | — | — | — | — | **缺失** | — |
@@ -66,19 +66,17 @@ tags: [audit, bilibili]
 | BV1qeitB8EAk | A | ok | — | — | — | — | — | **缺失** | — |
 | BV1rQf8BKEdA | A | ok | — | — | — | — | — | **缺失** | — |
 | BV1sFibBkEcT | A | ok | — | — | — | — | — | **缺失** | — |
-| BV1tZw4zLEX8 | A | ok | — | — | — | — | — | **缺失** | — |
+| BV1tZw4zLEX8 | A | ok | — | — | — | — | — | ✓ | — |
 | BV1uBTi6BEfd | A | ok | — | — | — | — | — | **缺失** | — |
 | BV1wzTz6vEVm | A | complete | — | — | — | — | — | **缺失** | — |
-| BV1xEzqBVEeb | A | ok | — | — | — | — | — | **缺失** | — |
+| BV1xEzqBVEeb | A | ok | — | — | — | — | — | ✓ | — |
 | BV152jP6LEEA | B | partial | — | — | — | — | — | **缺失** | — |
-| BV18qTi6uEDX | B | complete | — | — | — | — | — | **缺失** | — |
 | BV19jTz6JELc | B | partial | — | — | — | — | — | **缺失** | — |
 | BV1CiTz6iEYZ | B | partial | — | — | — | — | — | **缺失** | — |
 | BV1EAK96aEVL | B | partial | — | — | — | — | — | **缺失** | — |
 | BV1HGjN6tE6V | B | partial | — | — | — | — | — | **缺失** | — |
 | BV1MrTi6iEvh | B | partial | — | — | — | — | — | **缺失** | — |
 | BV1SWTz6yEBA | B | partial | — | — | — | — | — | **缺失** | — |
-| BV1U4Tz6CEzu | B | complete | — | — | — | — | — | **缺失** | — |
 | BV1ZpKX6fEuo | B | partial | — | — | — | — | — | **缺失** | — |
 | BV1gtTu6hEDD | B | partial | — | — | — | — | — | **缺失** | — |
 | BV1oHjN6nE6g | B | partial | — | — | — | — | — | **缺失** | — |
@@ -100,7 +98,7 @@ tags: [audit, bilibili]
 
 ## 摘要
 
-导读： × 主持人）：他有一种罕见的天赋，能让最复杂的技术变革变得既易于理解又势不可挡。你们 | **缺失** | — |
+导读： × 主持人）：他有一种罕见的天赋，能让最复杂的技术变革变得既易于理解又势不可挡。你们 | ✓ | — |
 | BV11s526kEAk | S | ok | ✓ | 22601 | ✓ | ✓ | — | **缺失** | — |
 | BV12RVf62Ed2 | S | ok | ✓ | 22151 | ✓ | ✓ | 嘉宾）：接下来的这一两年，基本上将决定未来十年甚至更长时间内，哪些公司能够获得成 × 如合同审查）彻底商品化，从而放大顶层决策和沟通的价值。就像体育比赛中快 0.1  | **缺失** | — |
 | BV12qTu6WETP | S | ok | ✓ | 13023 | ✓ | ✓ | 嘉宾）：一场剧变即将到来。每个人都将在电脑上拥有属于自己的专属个人助理，它能让你 × Quill Delta → Markdown）
@@ -110,7 +108,7 @@ tags: [audit, bilibili]
 ## 摘要
 
 导读： | ✓ | — |
-| BV13fGm6HETj | S | ok | ✓ | 8244 | ✓ | ✓ | — | **缺失** | — |
+| BV13fGm6HETj | S | ok | ✓ | 8244 | ✓ | ✓ | — | ✓ | — |
 | BV1467R6LEzm | S | ok | ✓ | 15434 | ✓ | ✓ | — | **缺失** | — |
 | BV14AjN6eEcg | S | ok | ✓ | 21501 | ✓ | ✓ | 每分钟工具调用数）来提升产出。
 
@@ -195,7 +193,7 @@ Amir | ✓ | — |
 | BV1JvjP6XE1k | S | ok | ✓ | 7186 | ✓ | ✓ | — | ✓ | — |
 | BV1LFjV6BEpe | S | ok | ✓ | 15872 | ✓ | ✓ | Skills）”，如“热核审查”能让代理进入极端严苛的审计模式。这种将工作流代码 × 主持人）：你现在有正在运行的代理吗？我知道你已经设置好了。你的代理今天在忙什么？ | ✓ | — |
 | BV1MFjN6iEFU | S | ok | ✓ | 18629 | ✓ | ✓ | 如商业地产、餐饮）。通过针对高频、利基的工作流程提供AI加速服务，初创公司可以快 × 主持人）：如何成为一家AI原生公司？在本期节目中，我们将用不到60分钟的时间，为 | ✓ | — |
-| BV1MM9xBHEsQ | S | ok | ✓ | 7174 | ✓ | ✓ | — | **缺失** | — |
+| BV1MM9xBHEsQ | S | ok | ✓ | 7174 | ✓ | ✓ | — | ✓ | — |
 | BV1MQVf6SEST | S | ok | ✓ | 8469 | ✓ | ✓ | — | ✓ | — |
 | BV1NK5m61ErG | S | ok | ✓ | 16826 | ✓ | ✓ | — | **缺失** | — |
 | BV1NMJx6aEci | S | ok | ✓ | 13564 | ✓ | ✓ | Agents）处理的任务复杂度增加，单一的聊天界面已无法承载巨大的认知负荷。开发 × Latent Space）与萨蒂亚·纳德拉的交叉集。祝贺你取得了不起的成就。
@@ -302,7 +300,7 @@ swyx × 如图片大小对转化率的负面影响），帮助无法进行 A/B �
 | BV1gDE56gE7B | S | ok | ✓ | 27674 | ✓ | ✓ | 嘉宾）： 我有一个相当大胆的观点：**视觉智能实际上主要来自语言。** 比如现在 × Video Agents）是生产力的转折点 [52:10]
 - 语言模型将进化出 | **缺失** | — |
 | BV1gE93BEEUq | S | ok | ✓ | 13480 | ✓ | ✓ | 嘉宾）：那些光标看起来只是个小细节，但这是我第一次看到 AI 被赋予如此人性化的 × 对话到生成），而 Pencil 提倡“视觉规划”。设计师不需要一次性写对提示词， | **缺失** | — |
-| BV1gFGU6DEkW | S | ok | ✓ | 9591 | ✓ | ✓ | — | **缺失** | — |
+| BV1gFGU6DEkW | S | ok | ✓ | 9591 | ✓ | ✓ | — | ✓ | — |
 | BV1hoGm6XEdD | S | ok | ✓ | 22326 | ✓ | ✓ | Scratchpad）。这种设计将内存调度权交给编译器，从而获得可预测的执行时间 × 主持人）：我再次请到了 MatX 公司的 CEO Reiner Pope，这是一 | **缺失** | — |
 | BV1i9E366EAr | S | ok | ✓ | 13633 | ✓ | ✓ | Quill Delta → Markdown）
 
@@ -320,7 +318,7 @@ Sonya Huang × 基于用户反馈）作为持续优化的手段。Federico 指�
 | BV1ik526cEsp | S | ok | ✓ | 10132 | ✓ | ✓ | — | ✓ | — |
 | BV1itEh6FEUW | S | ok | ✓ | 24448 | ✓ | ✓ | 嘉宾）：我认为测试对这些 AI 来说，实际上是一个非常有趣的解决问题的挑战。如果 × 如 S3 挂载）。Cognition 通过构建自定义的块差异文件存储格式，实现了 | ✓ | — |
 | BV1j15A6gEcL | S | ok | ✓ | 30828 | ✓ | ✓ | — | ✓ | — |
-| BV1jhogBwEzo | S | ok | ✓ | 10491 | ✓ | ✓ | — | **缺失** | — |
+| BV1jhogBwEzo | S | ok | ✓ | 10491 | ✓ | ✓ | — | ✓ | — |
 | BV1jrjP6UEe3 | S | ok | ✓ | 18282 | ✓ | ✓ | — | **缺失** | — |
 | BV1kTo4BQE43 | S | ok | ✓ | 16462 | ✓ | ✓ | LLM）在逻辑正确性与空间推理上的先天缺陷。Eve 提出，AI 的下一场相变不在 × 主持人）：你能为我们定义一下 EBM 吗？EBM 本质上是非自回归的。
 
@@ -336,7 +334,7 @@ Eve | **缺失** | — |
 
 ## 重点 × Prompt）、优化代理框架，或者添加一个新工具。
 
-无论你改变了什么，都可以先 | **缺失** | — |
+无论你改变了什么，都可以先 | ✓ | — |
 | BV1nWLA6EEv2 | S | ok | ✓ | 9232 | ✓ | ✓ | — | **缺失** | — |
 | BV1nnGU6TEeN | S | ok | ✓ | 13583 | ✓ | ✓ | Quill Delta → Markdown）
 
@@ -345,7 +343,7 @@ Eve | **缺失** | — |
 ## 摘要
 
 导读： × 主持人）：Cerebras 最近上市，目前在股市上的市值约为 630 亿美元。A | **缺失** | — |
-| BV1nyo1BuEd9 | S | ok | ✓ | 13954 | ✓ | ✓ | 如财务报表分析、冰箱食材配菜），并将其封装成 Agent 技能，从而释放大脑的认 × 主持人）：我恳求他很久，伊姆兰终于来了。谢谢你，谢谢你的到来。伊姆兰，到这集结束 | **缺失** | — |
+| BV1nyo1BuEd9 | S | ok | ✓ | 13954 | ✓ | ✓ | 如财务报表分析、冰箱食材配菜），并将其封装成 Agent 技能，从而释放大脑的认 × 主持人）：我恳求他很久，伊姆兰终于来了。谢谢你，谢谢你的到来。伊姆兰，到这集结束 | ✓ | — |
 | BV1oGDbBeEjv | S | ok | ✓ | 17889 | ✓ | ✓ | 搜索）”：通过策略网络过滤无效走法，通过价值网络评估局面，这种对组合空间的优雅驾 × 主持人）：欢迎回到Google DeepMind播客。 我是汉娜·弗莱教授。 想 | **缺失** | — |
 | BV1oZ536AE4T | S | ok | ✓ | 15472 | ✓ | ✓ | — | ✓ | — |
 | BV1ohDzBwEJN | S | ok | ✓ | 11722 | ✓ | ✓ | 嘉宾）：大家好。今天我非常高兴能邀请到 Anthropic 的设计主管 Jenn × Agentic Tools）的激增需求。
@@ -353,7 +351,7 @@ Eve | **缺失** | — |
 1. 愿景不再是五年计划，而是三至六 | ✓ | — |
 | BV1psDXByEwV | S | ok | ✓ | 18024 | ✓ | ✓ | 多个 AI 互相无意义回复）。解决办法是引入“老板 AI”架构，由一个专门的模型 × 主持人）：威利，你好吗？布兰登，欢迎来到节目。
 
-Brandon Gell | **缺失** | — |
+Brandon Gell | ✓ | — |
 | BV1qiE56SE4c | S | ok | ✓ | 12434 | ✓ | ✓ | 嘉宾）：那种花几个月时间开发一个东西，然后才发布给别人使用的想法，我觉得是个非常 × PR），确保每个功能模块都是可测试且自包含的。
 
 1. 引入对抗性审查：用 GP | **缺失** | — |
@@ -366,7 +364,7 @@ Brandon Gell | **缺失** | — |
 Ryan Peterman × Schema）极其混乱、查询逻辑长达百行且包含非公开的业务逻辑，这与 LLM 训 | **缺失** | — |
 | BV1s2Gd6aEF7 | S | ok | ✓ | 20702 | ✓ | ✓ | 如判断 AI 幻觉、内化知识）将超越基础技能；他主张通过“代码即论文”等方式，鼓 × 主持人）： 诺亚·布莱尔的 Claude Code 设置可能是我见过最酷的。他在 | ✓ | — |
 | BV1sKDdBWETM | S | ok | ✓ | 15507 | ✓ | ✓ | Context）是 Agent 的护城河 [32:15]
-- 协作新范式：Age × 主持人）： 每个人都会有很多代理，公司也会建立自己的代理。Linear 就像一个 | **缺失** | — |
+- 协作新范式：Age × 主持人）： 每个人都会有很多代理，公司也会建立自己的代理。Linear 就像一个 | ✓ | — |
 | BV1sM9yBPE6N | S | ok | ✓ | 34571 | ✓ | ✓ | — | **缺失** | — |
 | BV1tF5m6UEGf | S | ok | ✓ | 12641 | ✓ | ✓ | — | **缺失** | — |
 | BV1tR9zB4Ezv | S | ok | ✓ | 9014 | ✓ | ✓ | — | ✓ | — |
@@ -409,7 +407,7 @@ Ryan Peterman × Schema）极其混乱、查询逻辑长达百行且包含非公
 - 物理学背 × 主持人）：利亚姆，非常感谢你今天参加我们的“无先验”节目。
 
 Liam Fedu | ✓ | — |
-| BV12irNBtE7D | S- | ok | ✓ | 15109 | — | ✓ | — | **缺失** | — |
+| BV12irNBtE7D | S- | ok | ✓ | 15109 | — | ✓ | — | ✓ | — |
 | BV14jrKBcEav | S- | ok | ✓ | 26865 | — | ✓ | — | **缺失** | — |
 | BV16BQhBEEgH | S- | ok | ✓ | 12642 | — | ✓ | — | **缺失** | — |
 | BV18grKBNEJA | S- | ok | ✓ | 18781 | — | ✓ | — | **缺失** | — |
@@ -432,12 +430,12 @@ Liam Fedu | ✓ | — |
 | BV1SfXxBpExT | S- | ok | ✓ | 18999 | — | ✓ | — | **缺失** | — |
 | BV1Va9yBmEaK | S- | ok | ✓ | 11073 | — | ✓ | — | **缺失** | — |
 | BV1VczqBREQ8 | S- | ok | ✓ | 21998 | — | ✓ | — | **缺失** | — |
-| BV1W39yBwEhp | S- | ok | ✓ | 7548 | — | ✓ | — | **缺失** | — |
+| BV1W39yBwEhp | S- | ok | ✓ | 7548 | — | ✓ | — | ✓ | — |
 | BV1X1XdBCEqH | S- | ok | ✓ | 13989 | — | ✓ | — | **缺失** | — |
 | BV1aTrKBTEAD | S- | ok | ✓ | 22219 | — | ✓ | — | **缺失** | — |
 | BV1fqAHz7EG6 | S- | ok | ✓ | 20411 | — | ✓ | — | **缺失** | — |
 | BV1jPQhBkEvz | S- | ok | ✓ | 21106 | — | ✓ | — | ✓ | — |
-| BV1mDDzBEEWH | S- | ok | ✓ | 22380 | — | ✓ | — | **缺失** | — |
+| BV1mDDzBEEWH | S- | ok | ✓ | 22380 | — | ✓ | — | ✓ | — |
 | BV1mG6nBKECW | S- | ok | ✓ | 37058 | — | ✓ | — | **缺失** | — |
 | BV1mncRznEd6 | S- | ok | ✓ | 5369 | — | ✓ | — | **缺失** | — |
 | BV1mx93BkEPg | S- | ok | ✓ | 31366 | — | ✓ | — | **缺失** | — |
