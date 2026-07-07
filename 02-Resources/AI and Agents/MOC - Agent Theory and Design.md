@@ -1,7 +1,7 @@
 ---
 title: MOC - Agent Theory and Design
 description: Agent 时代理论与实践的横切索引——覆盖 Harness、Claude Code、Codex、Cursor、OpenClaw、AI
-  评估与研究、团队组织 等子主题；B 站 67 + 公众号等
+  评估与研究、团队组织 等子主题；B 站 88 + 公众号等
 created: 2026-06-11
 updated: 2026-07-06
 tags:
@@ -15,7 +15,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 # MOC - Agent Theory and Design
 
-> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。B 站 **67** 篇（P0+P1）+ 公众号等，按子主题分组。
+> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。B 站 **88** 篇 + 公众号等，按子主题分组。
 >
 > **本 MOC 是 v1（圆桌共识落地）**，建立 3 个横切 MOC 后，这里只承担"主题 MOC"角色——跨子目录的横切链接见：
 > - [[MOC - Harness Engineering]]（横切，跨课程/公众号/B站）
@@ -60,7 +60,10 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | 文章 | 核心主题 |
 |------|---------|
 | [[Claude Code负责人-AI原生团队如何使用AI]] | Boris 20% side project→千人流传；Todo/Plan 从痛点长出；Eval 分 E2E 与 triggering |
+| [[Claude Code负责人-创造内幕]] | Pragmatic Engineer × Boris：100% AI 写码、瑞士奶酪安全、agentic search、印刷机类比（**A-dialogue v3.2-asr** ✓） |
 | [[Claude Code负责人 Boris Cherny-Tokenmaxxing与AI智能体前沿]] | 指数增长、Tokenmaxxing、Auto 模式路由、rate limit 与 switching cost 变薄 |
+| [[Claude Code之父-亲自讲解Cowork]] | Greg × Boris：Cowork=同一 agent UI；文件夹 opt-in、反向征求、CLAUDE.md（**A-dialogue v3.2-asr** ✓） |
+| [[Claude Cowork-另一种Claude Code]] | Every vibe check：异步任务队列、agent-native 原则、执行黄理念绿（**A-dialogue v3.2-asr** ✓） |
 | [[Claude Code之父-编程已被解决接下来发展]] | Lauren × Boris：编码 100% 代理化、闪电循环/例程、7 Powers、印刷术类比、组织流程 moat |
 | [[Anthropic CPO-Claude团队为什么迭代这么快]] | Lenny × Kat：AI 原生 PM、多发少赌、产品品味、工程师当第一用户、一致性幻觉 |
 | [[Anthropic团队-我们如何打造下一代Claude]] | Peter × Alex Albert：模型到产品、Eval、有用 Agent、记忆、Cowork vs 双订阅 |
@@ -75,7 +78,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ---
 
-## C. Codex & OpenClaw 实战（13 篇）
+## C. Codex & OpenClaw 实战（14 篇）
 
 > OpenAI Codex 团队 + OpenClaw（开源 AI Agent）生态的实战。
 
@@ -86,6 +89,8 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[Codex负责人-现场演示Codex]] | Codex 负责人 live demo（**canonical v3.2** ✓） |
 | [[Codex产品负责人-Codex团队如何用Codex]] | Alex × Romain：Spark demo、十要点规范、八周规划、PM 补位与能动性招聘（**canonical v3.2** ✓） |
 | [[Codex 负责人-所有人都是 builder 是个很糟糕的主意 - Founder Park]] | Lenny 对谈 Ambrosino：taste 最贵、PM 不消失、晚发 3 月会死、会删代码 |
+| [[Codex实战-构建个人操作系统]] | Marina × Peter Yang：自我改进 skills、五层采纳、原则 Doc、Hermes 参谋长（**A-dialogue v3.2-asr** ✓） |
+| [[Hermes Agent-新OpenClaw体验]] | Greg × Imran：SQLite 记忆、OpenRouter 砍 90% 成本、Termux、Obsidian（**canonical v3.2** ✓） |
 | [[Codex实战-构建全能AI营销团队]] | Riley：7 Skills 营销全流程 + YouTube/Readwise 接地 + Gen Media |
 | [[Codex实战-100分钟完整教程]] | Riley：项目文件当边界、规划/构建/自动化、Steer 纠偏、Chorus App |
 | [[Codex实战-30分钟掌握95%核心功能]] | Riley walkthrough：Agents.md 双层、@ 引用、/ 命令 SOP、Chronicler |
@@ -95,10 +100,11 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[30分钟精通OpenClaw]] | 安全五步、五用例 demo、SOUL/USER/MEMORY 本地 MD 人格 |
 | [[Taven创始人-将OpenClaw嵌入产品的实战经验]] | Pi 内核企业嵌入：Excel Skill 小 CLI、一客户一 Agent + AGENTS.md |
 | [[OpenClaw实战-从本地到K8S部署]] | Podman/K8s 四好处、Secret ref 双层、baseline 镜像愿景 |
+| [[给每位员工配备AI智能体]] | Every × OpenClaw/Plus One：一人一 Agent、Slack 公开协作、信任传递（**canonical v3.2** ✓） |
 
 ---
 
-## D. Agent 架构与原理（10 篇）
+## D. Agent 架构与原理（17 篇）
 
 > Agent 本身的架构、记忆、上下文工程、multi-agent 与企业生产实践。
 
@@ -107,6 +113,12 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[Agent实战-打造一个AI Agent的完整教程]] | ~59min 入门：Observe-Think-Act、harness、agents.md、MCP、Skills 现场搭 EA |
 | [[DeepMind团队-当数百万Agent相遇]] | DeepMind 科学家：Agent vs LLM、delegation、multi-agent 经济与安全 |
 | [[Databricks-企业级Agent生产实践]] | 五支柱 playbook：eval→observability→data→orchestration→governance |
+| [[Databricks专家-如何构建有效的Agent架构]] | Sandipan：多 Agent=分布式；编排/调度、不可变状态、Saga（**canonical v3.2** ✓） |
+| [[Raindrop CEO-打造Agent可观测性]] | Zubin × Danny：评估→监控、隐式信号、语义 A/B、自诊断（**canonical v3.2** ✓） |
+| [[Notion联合创始人-从工具到AI Agent]] | Simon Last：Q&A 索引、半年 rewrite harness、定制 Agent（**A-dialogue v3.2-asr** ✓） |
+| [[Jeff-AGENTS.md历史与最佳实践]] | Jeff：Agents.md 域名战争、70 行、潜在空间、Skills 延迟加载（**canonical v3.2** ✓） |
+| [[Banking负责人-Agent时代平台设计]] | Juan：IDP 自助、API/MCP 优先、AGENTS.md 机器可读（**canonical v3.2** ✓） |
+| [[Google-端侧智能体微调微型LLM]] | Cormac：Nano vs TLM、load_skill、Function Gemma 46%→90%（**canonical v3.2** ✓） |
 | [[PlanetScale-Agent时代的基础设施]] | Agent 优化 DB、schema rewind、small sharp tools、分片策略 |
 | [[Geoff-Ralph Loops的基础设施]] | Geoffrey Huntley Loom 直播：agent-first 栈、Thread/Weaver、NixOS 十秒部署、Ralph SUT 验系统 |
 | [[OpenAI员工-上下文工程和Agent记忆]] | 三大记忆模式 + IT demo：burst/trim/compact/summarize |
@@ -115,7 +127,13 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[AI Agent 和 Skill 测评方案及落地实践 - martinskxu]] | Agent/Skill 测评四场景法、评分规则设计、基线管理、稳定性评估、TPerf 实战案例 |
 | [[Anthropic团队-如何构建运行数小时的Agent]] | Ash × Andrew：长时 Agent、RALPH、验证器、可中断状态 |
 | [[Qodo研究员-长上下文越多Agent越笨]] | 上下文 U 型；分层摘要/子代理；「改成」优于「追加」 |
-| [[Cognition CPO-Devin的80%时刻与后台Agent]] | swyx × Walden：后台元年；16% 内部提交；规划-执行；记忆与文件系统 |
+| [[Cognition CPO-Devin的80%时刻与后台Agent]] | swyx × Walden：后台元老；16% 内部提交；规划-执行；记忆与文件系统 |
+| [[Together AI-语音Agent延迟质量与规模]] | Rishabh：半秒生死线、级联 STT→LLM→TTS、同址砍 30%、Thinker-Talker |
+| [[ElevenLabs联创-语音AI现状与未来]] | Sarah × Mati：~$300M ARR、声音侍酒师、模型商品化与生态护城河（**canonical v3.2** ✓） |
+| [[Turbopuffer CEO-Agent时代RAG与检索]] | Simon × Latent Space：S3/CAS 无状态、Cursor -95% 成本、Agent 高并发搜索（**canonical v3.2** ✓） |
+| [[Karpathy-从Vibe Code到Agentic Code]] | Karpathy：软件 3.0、参差不齐智能、代理工程 vs vibe coding、理解不可外包（**canonical v3.2** ✓） |
+| [[姚顺雨-预测性Agent设计]] | 姚顺雨 × Latent Space：ReAct/Reflection/ToT、SWE-bench/ACI、CoALA 与记忆（**A-dialogue v3.2-asr** ✓） |
+| [[Karpathy-Code Agent与Auto Research]] | Karpathy × No Priors：token 吞吐量、Claw/Dobby、AutoResearch/program.md、MicroGPT（**A-dialogue v3.2-asr** ✓；≠ BV11nRmB1EkH） |
 
 ---
 
@@ -125,6 +143,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 | 文章 | 核心主题 |
 |------|---------|
+| [[Cursor CEO-云端智能体上线]] | Compile 26：Agent-first 95%、云端多智能体、Mobile、Origin Git、Composer 算力（**A-dialogue v3.2-asr** ✓） |
 | [[Cursor副总裁-构建软件开发过程的Agent]] | STLC 全链 Agent 团队：98% AI merge 但 40% plateau；Skills 原子单元 |
 | [[Cursor-128个Agent团队协作]] | 208 Agent 并行、脚本互通信、Judge 校验、Claude 写/GPT 审 |
 | [[Cursor负责人-Composer模型如何训练的]] | Kimi 2.5→mid-training→Cursor harness RL；async 全球集群 + sim/online RL |
@@ -139,6 +158,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 | 文章 | 核心主题 |
 |------|---------|
+| [[Linear CEO-把AI Agent当一级员工]] | Karri：零 Bug 政策、慢思考快执行、共享 Agent 沙盒（**canonical v3.2** ✓） |
 | [[Claude Code负责人-AI原生团队如何使用AI]] | Dogfooding 实践、AI 优先的工作流 |
 | [[LCA-60分钟变成AI-Native]] | People + Agents + Context 三层、Skill Chain、Brain 闭环 |
 | [[WorkOS-创建和使用Skills方法论]] | Skills at scale：DRY 进 agentic era、MCP 安全、可移植工作单元 |
@@ -185,6 +205,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[DeepMind团队-AI评估规划化与民主化]] | Kaggle 评估民主化、SAE 智能体考试、Game Arena PvP、工具/模型混淆 |
 | [[Snorkel-小模型RL超越大模型]] | 4B + GRPO beat 235B；tool discipline > reasoning；rubrics 定位 behavior gap |
 | [[YC论文俱乐部-5篇论文揭示AI研究趋势]] | Bio scaling、Self-play RL、Stream RAG、Lean 验证、RTS 式 agentic coding |
+| [[Langfuse-LLM评估与准确训练]] | Marc：Skills 捷径、无主见 tracing、trace 80%、目标函数陷阱（**canonical v3.2** ✓） |
 
 ---
 
@@ -213,18 +234,18 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ### 数据源
 - **公众号**：**28** 篇（`02-Resources/AI and Agents/Agent Design & Patterns/`）
-- **B 站视频**：67 篇 · S **50** + A **12** dialogue-asr + A **5** lecture
+- **B 站视频**：88 篇 · S **62** + A **21** dialogue-asr + A **5** lecture
   - **收录入口**（2026-07-06）：`99-System/Skills/vskill-vault-curate/SUBDOC - ASR内容分轨与收录决策.md` · 细节 `SUBDOC - B站视频 v3 工作流.md`
-  - 单篇 canonical **67/67**（P0 +15 + P1 +20，2026-07-06）；`- 对谈稿.md` **0**
-  - A 级划章明细 `99-System/audit/bilibili-a-tier-v3-rewrite-2026-07-03.md` · rollout `bilibili-v3-rollout-2026-07-03.md`
+  - 单篇 canonical **88/88**（P0+P1+P2+Together）；`- 对谈稿.md` **0**
+  - P2 批次：`99-System/audit/bilibili-p2-batch.json` · 优先级 `bilibili-ingest-priority-p2-2026-07-06.md`
 - **数据流水线**：Recastory（`ingest/` 简介+专栏 + ASR → vault）；kimi `.desc-info-text` → `video_description.md`
 
 ---
 
 ## 维护
 
-- **总笔记数**：B 站 **67** + 公众号 **28** + 其它（见各节）
+- **总笔记数**：B 站 **88** + 公众号 **28** + 其它（见各节）
 - **Inbox**：已清空（wechat 快照 → `99-System/Attachments/wechat-snapshots/`）
-- **最后更新**：2026-07-06（P1 20 篇 S 级对谈收录）
+- **最后更新**：2026-07-06（P2 20 篇 Agent 优先收录闭环）
 - **更新机制**：每收录 1 篇新笔记，**必须**更新本 MOC（按 §8 SOP 步骤 7）
 - **孤立判定**：MOC 内的笔记被 `[[MOC - Agent Theory and Design]]` 链入 = 破孤（按 §7 "MOC 入口破孤"）

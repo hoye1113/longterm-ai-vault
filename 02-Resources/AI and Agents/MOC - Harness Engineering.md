@@ -51,6 +51,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 | 25 | [[Claude Code实战-鲜为人知的Claude Code工作流]] | B站视频（Greg × Amir）| **自动化全栈** | IdeaBrowser→细稿→A/B→自建 CMS |
 | 26 | [[Claude Code实战-用AI实现生活自动化]] | B站视频（Peter × Moritz）| **个人 OS** | Claudia 文件夹骨架；MCP/CLI；心跳 vs 例程 |
 | 27 | [[Cognition CPO-Devin的80%时刻与后台Agent]] | B站视频（Walden Yan）| **后台 Agent** | 80% 后台；规划-执行；记忆与文件系统 |
+| 28 | [[Together AI-语音Agent延迟质量与规模]] | B站视频（Rishabh）| **实时语音 Agent** | 半秒生死线、级联流水线、同址、Thinker-Talker |
 
 ---
 
