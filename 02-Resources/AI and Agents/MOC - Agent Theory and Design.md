@@ -1,9 +1,9 @@
 ---
 title: MOC - Agent Theory and Design
 description: Agent 时代理论与实践的横切索引——覆盖 Harness、Claude Code、Codex、Cursor、OpenClaw、AI
-  评估与研究、团队组织 等子主题；B 站 122 + 公众号等
+  评估与研究、团队组织 等子主题；B 站 136 + 公众号等
 created: 2026-06-11
-updated: 2026-07-08
+updated: 2026-07-09
 tags:
   - ai_agent
   - ai_philosophy
@@ -15,7 +15,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 # MOC - Agent Theory and Design
 
-> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。B 站 **122** 篇 + 公众号等，按子主题分组。
+> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。B 站 **136** 篇 + 公众号等，按子主题分组。
 >
 > **本 MOC 是 v1（圆桌共识落地）**，建立 3 个横切 MOC 后，这里只承担"主题 MOC"角色——跨子目录的横切链接见：
 > - [[MOC - Harness Engineering]]（横切，跨课程/公众号/B站）
@@ -263,11 +263,34 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 - [[MOC - AI 时代个人发展与组织]] — 蜂群组织 / 职业 / 哲学 横切 MOC
 - [[MOC - Prompt 工程]] — Prompt + Skills 横切 MOC
 
+## K. S-tier 视频转录（14 篇）
+
+> 2026-07-09 新增 S-tier 视频转录，来自 B 站高影响力 UP 主的深度访谈与解读。
+
+| 文章 | 核心主题 |
+|------|---------|
+| [[Lex Fridman-2026年AI现状与展望]] | Lex Fridman 播客：2026 年 AI 现状与展望 |
+| [[杨植麟-Kimi K2.5研发内幕]] | 杨植麟 GTC 演讲：Kimi K2.5 的研发内幕 |
+| [[杨立昆-世界模型才是未来]] | 杨立昆：继续对 LLM 开炮，世界模型才是未来 |
+| [[马斯克-2026最新访谈-奇点临近]] | 马斯克 2026 最新访谈：信息量极大，奇点临近，AGI 2026 到来 |
+| [[黄仁勋-从生成到代理计算]] | 黄仁勋最新访谈：从生成到代理计算，需求再翻千倍 |
+| [[马斯克-xAI内部复盘与规划]] | 马斯克：xAI 内部复盘与规划 |
+| [[Sam Altman-AI海啸已来]] | Sam Altman：AI 海啸已来，社会如何准备 |
+| [[OpenAI首席科学家-超越代码的强化学习]] | OpenAI 首席科学家：超越代码的强化学习 |
+| [[Nebius联创-AI基建无泡沫]] | Nebius 联创：AI 基建无泡沫，全栈交付是关键 |
+| [[Mistral首席科学家-微调比闭源更优]] | Mistral 首席科学家：微调比闭源模型更具竞争优势 |
+| [[Eric Jang-从零构建AlphaGo]] | 从零开始构建 AlphaGo – Eric Jang |
+| [[C++之父-AI代码的局限性]] | C++ 之父：贝尔实验室往事，AI 代码的局限性 |
+| [[Every CEO-全员AI后员工数翻3倍]] | Every CEO：全员 AI 后，员工数翻了 3 倍 |
+| [[Postgres之父-LLM不会取代关系数据库]] | Postgres 之父：LLM 不会取代关系数据库 |
+
+---
+
 ### 数据源
 - **公众号**：**31** 篇（`02-Resources/AI and Agents/Agent Design & Patterns/`）
-- **B 站视频**：122 篇 · S **90** + A **25** dialogue-asr + A **6** lecture
-  - **收录入口**（2026-07-07）：`99-System/Skills/vskill-vault-curate/SUBDOC - ASR内容分轨与收录决策.md`
-  - 单篇 canonical **122/122**（P0–P3 + P3+ + Together + Easonlee pilot10）；`- 对谈稿.md` **0**
+- **B 站视频**：136 篇 · S **90** + A **25** dialogue-asr + A **6** lecture
+  - **收录入口**（2026-07-09）：`99-System/Skills/vskill-vault-curate/SUBDOC - ASR内容分轨与收录决策.md`
+  - 单篇 canonical **136/136**（P0–P3 + P3+ + Together + Easonlee pilot10 + S-tier 14）；`- 对谈稿.md` **0**
   - P3 批次：`bilibili-p3-batch.json` · P3+：`bilibili-p3plus-batch.json` · Easonlee 试跑：`bilibili-easonlee-pilot10-2026-07-08.json`
 - **数据流水线**：Recastory（`ingest/` 简介+专栏 + ASR → vault）；kimi `.desc-info-text` → `video_description.md`
 
@@ -275,8 +298,8 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ## 维护
 
-- **总笔记数**：B 站 **122** + 公众号 **31** + 其它（见各节）
+- **总笔记数**：B 站 **136** + 公众号 **31** + 其它（见各节）
 - **Inbox**：已清空（wechat 快照 → `99-System/Attachments/wechat-snapshots/`）
-- **最后更新**：2026-07-08（收录花叔多模型集成 + CCC 框架对比 2 篇公众号）
+- **最后更新**：2026-07-09（收录 S-tier 14 篇视频转录：Lex Fridman、杨植麟、杨立昆、马斯克、黄仁勋、Sam Altman、OpenAI首席科学家、Nebius联创、Mistral首席科学家、Eric Jang、C++之父、Every CEO、Postgres之父）
 - **更新机制**：每收录 1 篇新笔记，**必须**更新本 MOC（按 §8 SOP 步骤 7）
 - **孤立判定**：MOC 内的笔记被 `[[MOC - Agent Theory and Design]]` 链入 = 破孤（按 §7 "MOC 入口破孤"）

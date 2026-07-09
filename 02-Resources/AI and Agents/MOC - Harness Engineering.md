@@ -1,8 +1,8 @@
 ---
 title: MOC - Harness Engineering
-description: Harness Engineering 主题横切 MOC——跨课程、公众号、B站视频的 Harness 相关笔记，27 篇核心 + 跨 MOC 链接
+description: Harness Engineering 主题横切 MOC——跨课程、公众号、B站视频的 Harness 相关笔记，34 篇核心 + 跨 MOC 链接
 created: 2026-06-11
-updated: 2026-07-08
+updated: 2026-07-09
 tags:
   - ai_agent
   - harness_engineering
@@ -84,6 +84,6 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 ### 关联 Areas
 - [[AI Agent Development]] — sanyuan 的系统课程（Context Engineering / Memory 等模块有 Harness 理论对应）
 
-- **总笔记数**：30 核心 + 3 跨 MOC 链接
-- **最后更新**：2026-07-08（新增 CCC 框架对比）
+- **总笔记数**：34 核心 + 3 跨 MOC 链接
+- **最后更新**：2026-07-09（新增 S-tier 14 篇视频转录：Lex Fridman、杨植麟、杨立昆、马斯克、黄仁勋、Sam Altman、OpenAI首席科学家、Nebius联创、Mistral首席科学家、Eric Jang、C++之父、Every CEO、Postgres之父）
 - **入选标准**：笔记主题必须直接讨论"围绕 Agent 的工程系统"（不是单纯的"Agent 本身"或"Agent 怎么用"）
