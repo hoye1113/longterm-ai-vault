@@ -1,25 +1,25 @@
 ---
-title: "Postgres之父：LLM不会取代关系数据库"
-source: "B站视频 - Easonlee的AI笔记"
+title: "Postgres之父-LLM不会取代关系数据库"
+source:
+  - "https://www.bilibili.com/video/BV1rh526BEjY/"
+  - "https://www.bilibili.com/read/cv49158391/"
 source_url: "https://www.bilibili.com/video/BV1rh526BEjY/"
-column_url: "https://www.bilibili.com/read/cv49010546/"
-host_name: "Ryan Peterman"
-guest_name: "Mike Stonebraker"
-guest_title: "图灵奖得主，Ingres & Postgres 创建者"
-material_tier: S
+column_url: "https://www.bilibili.com/read/cv49158391/"
+column_source: "Recastory/workspace/bilibili-retranscribe/BV1rh526BEjY/ingest/column_article.md"
 ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1rh526BEjY/ingest"
-speaker: "Mike Stonebraker"
-duration: "~60:00"
+duration: "~45 min"
 saved: 2026-07-08
 created: 2026-07-08
 updated: 2026-07-08
-description: "图灵奖得主 Mike Stonebraker 剖析数据库演进史，辛辣点评 Google MapReduce 与最终一致性的错误，用 Beaver 基准测试证明 LLM 在真实数据仓库任务中准确率为 0%，并提出万物皆 SQL 是解决复杂查询的唯一可行路径。"
-transcript_source: "Recastory/workspace/bilibili-retranscribe/BV1rh526BEjY/ingest/column_article.md"
-column_source: "Recastory/workspace/bilibili-retranscribe/BV1rh526BEjY/ingest/column_article.md"
+description: "Postgres之父Mike Stonebraker：OLTP不需要花哨优化只管写日志；MapReduce是开倒车；DBOS用数据库重构操作系统；LLM永远做不了数据库的活；万物皆SQL。"
+material_tier: S
 curate_method: "vskill-vault-write canonical-dialogue v3.2"
 dialogue_version: v3.2
-genre: Host-Guest canonical (interview)
-speaker_inference: "column interview"
+genre: "Host-Guest canonical"
+host_name: "Ryan Peterman"
+guest_name: "Mike Stonebraker"
+guest_title: "Postgres 创造者 / 图灵奖得主"
+speaker_inference: "column_article S-tier"
 speaker_confidence: high
 tags:
   - ai_agent
@@ -27,334 +27,248 @@ tags:
   - bilibili
   - ai_coding
 author:
-  - "[[Mike Stonebraker]]"
+  - "[[Easonlee的AI笔记]]"
 concepts:
-  - id: no_silver_bullet_db
-    zh: 数据库无一刀切
-    en: no one-size-fits-all DB
-    one_line: 专用引擎比通用数据库快一个数量级
-  - id: eventual_consistency_wrong
-    zh: 最终一致性的错误
-    en: eventual consistency mistake
-    one_line: 为性能牺牲正确性，大多数企业无法容忍
-  - id: llm_zero_percent
-    zh: LLM 真实任务准确率 0%
-    en: LLM 0% on real tasks
-    one_line: 在生产数据仓库基准测试中，LLM Text-to-SQL 几乎为零
-  - id: everything_is_sql
-    zh: 万物皆 SQL
-    en: everything is SQL
-    one_line: 将异构数据映射为关系表，用查询优化器连接
+  - id: oltp_write_ahead
+    zh: OLTP只管写日志
+    en: OLTP just write the log
+    one_line: 在OLTP场景下，任何花哨的优化还不如直接写日志等机器更快
+  - id: mapreduce_regression
+    zh: MapReduce是开倒车
+    en: MapReduce is a step backward
+    one_line: 70年代就有的连接算法，MapReduce重新发明了一遍还不能做theta连接
   - id: dbos
-    zh: DBOS：数据库重构操作系统
-    en: DBOS
-    one_line: 用数据库技术替换 OS 上半部分，文件系统比 Linux 更快
-  - id: beaver_benchmark
-    zh: Beaver 基准测试
-    en: Beaver benchmark
-    one_line: 四个真实生产数据仓库的匿名基准，LLM 得分 0%
+    zh: DBOS用数据库重构操作系统
+    en: DBOS: rearchitecting OS with a database
+    one_line: 把操作系统建立在数据库之上，用事务管理一切
+  - id: llm_zero_percent
+    zh: LLM对数据库的贡献是0%
+    en: LLM's contribution to databases is zero percent
+    one_line: LLM是通用概率引擎，数据库需要精确正确，两者根本不兼容
+  - id: everything_is_sql
+    zh: 万物皆SQL
+    en: everything is SQL
+    one_line: SQL是声明式语言的典范，所有东西最终都会走向SQL化
 ---
 
-# Postgres之父：LLM不会取代关系数据库
+# LLM的贡献是0%——它们是概率引擎，数据库需要的是精确正确
 
-**Host：** Ryan Peterman  
-**Guest：** Mike Stonebraker（图灵奖得主，Ingres & Postgres 创建者）  
-**形态：** Host-Guest canonical v3.2（**专栏主源** · 深度访谈）  
-**B 站：** [BV1rh526BEjY](https://www.bilibili.com/video/BV1rh526BEjY/) · **时长** ~60 min
+> 对谈：Ryan Peterman × Mike Stonebraker（Postgres 创造者 / 图灵奖得主）| 来源：Ryan Peterman Podcast | 2026
 
 ---
 
-## 开场
+## 开场：为什么现在聊这个
 
-Ryan Peterman 与图灵奖得主 Mike Stonebraker 深度对谈：从 Ingres 和 Postgres 的诞生故事，到 Google MapReduce 与最终一致性的错误判断，再到 DBOS 用数据库重构操作系统的实验。Stonebraker 用 Beaver 基准测试证明，LLM 在真实生产数据仓库的 Text-to-SQL 任务中准确率几乎为 0%——真实模式的混乱、百行 SQL 的复杂度和非公开业务逻辑，与 LLM 训练集中的干净样本完全不同。
+Mike Stonebraker 今年79岁，从70年代至今几乎参与了数据库领域的每一次重大变革——Ingres、Postgres、C-Store、H-Store、DBOS。他用一生证明了一件事：学术研究和产业落地之间没有鸿沟，好的论文就应该是论文加代码。
 
-**术语速查**
+但这期最震撼的论点是：LLM对数据库领域的贡献是零。不是"还没到"，是"永远不可能"。LLM是概率性的通用引擎，而数据库的底线是精确正确。当你让ChatGPT给你一个查询结果，它可能给你正确答案，也可能胡说八道——这两种结果对用户来说没有区别。而数据库绝不允许这种事发生。
+
+**术语速查（后文对话用中文；英文原文在此统一对照解读）**
 
 | 中文 | 英文 | 白话 |
 |------|------|------|
-| 一刀切 | one-size-fits-all | 通用数据库在所有场景都不是最优 |
-| 最终一致性 | eventual consistency | 异步同步副本，可能短暂不一致 |
-| Text-to-SQL | text-to-SQL | 用自然语言生成 SQL 查询 |
-| Beaver 基准 | Beaver benchmark | 四个真实生产数据仓库的匿名基准 |
-| DBOS | database OS | 用数据库技术替换操作系统上半部分 |
-| 万物皆 SQL | everything is SQL | 将所有异构数据映射为关系表 |
+| OLTP | online transaction processing | 在线事务处理，处理大量小事务（如银行转账） |
+| OLAP | online analytical processing | 在线分析处理，对海量数据做复杂聚合分析 |
+| MapReduce | MapReduce | Google 2004年提出的分布式计算框架 |
+| DBMS | database management system | 数据库管理系统 |
+| 日志 | write-ahead log (WAL) | 先写日志再修改数据，保证崩溃后能恢复 |
+| 事务 | transaction | 一组操作要么全部成功，要么全部失败 |
+| 声明式 | declarative | 告诉计算机"要什么"而不是"怎么做" |
+| 函数依赖 | functional dependency | 数据库理论中描述属性间依赖关系的概念 |
 
 ---
 
-## 01 Ingres 的诞生：从学术原型到商业公司
+## 01 OLTP不需要花哨优化，直接写日志等机器更快
 
-**Ryan Peterman：** 你是如何开始构建数据库系统的？
+**Ryan：** OLTP领域有什么新鲜事？
 
-**Mike Stonebraker：** 1971 年，吉恩·王把我带到他的门下，说"我们一起做点什么吧"。当时竞争对手是 Codicil 提案（低级的意大利面条式网络）和 IBM 的 IMS（分层树状结构）。Ted Codd 的关系模型完全合理，所以我们决定构建 Ingres。
+**Mike：** OLTP的现状是：没有什么需要优化的。你只需要一个非常快的日志系统，因为OLTP就是一个写日志。每次有人做一个更新，你就把更新写到日志里。如果有人做一个删除，你就把删除写到日志里。如果有人做插入，你就把插入写到日志里。
 
-我们投入最初的 90% 让它运行起来，然后又投入接下来的 90% 让它真正工作。加州大学版本的 Ingres 在 100 所大学运行，因为它在 Unix 上免费。但亚利桑那州立大学考虑使用时，发现没有 COBOL——他们是一个 COBOL 商店。不受支持的操作系统，不受支持的数据库系统，没有 COBOL，注定我们无关紧要。唯一的出路就是创办一家公司。
+如果你有一个每秒百万事务的工作负载，你写日志大概每秒100MB。现在的机器有TB级的内存，磁盘速度越来越快，网络也很快。你写日志永远不会超过磁盘的速度，而这个速度在不断提升。
 
-**Ryan Peterman：** Oracle 是怎么竞争的？
+真正需要优化的领域是OLAP。比如有人想分析1亿行的保险数据，找出所有年龄在55到65岁之间、没有心脏病史、住在这个邮编区域的投保人，然后为他们推出一款新产品。这需要连接三张表并应用复杂条件。这里没有简单的扫描，你需要各种连接和过滤。这是性能调优有影响的地方。
 
-**Mike Stonebraker：** 拉里·埃里森是一位出色的销售员，他让现在时和将来时变得难以区分。他基本上对客户撒谎，发布不起作用的东西并让客户帮他调试。Oracle 写了两页手册定义参照完整性，底部写着"尚未实现"——而 Ingres 早就实现了。**对客户撒谎，我认为是不道德的。**
+OLAP之所以是热点，是因为数据量在疯狂增长，而商业智能、数据挖掘、AI等都建立在OLAP之上。你的数据仓库越大，你的分析越有价值。数据量每翻一倍，你就能发现以前看不到的模式。这推动了OLAP领域的所有创新。
 
-> **金句 · Mike Stonebraker**
-> **中文：** 拉里·埃里森让现在时和将来时难以区分；Oracle 写了参照完整性的定义，底部写着"尚未实现"。
-> **原文：** Larry Ellison made it hard to distinguish present tense from future tense — Oracle wrote the referential integrity definition with "not yet implemented" at the bottom.
+> **金句 · Mike**
+> **中文：** OLTP就是写日志，没什么可优化的。你永远不会超过磁盘速度，而磁盘在变快。
+> **原文：** OLTP is just writing logs, there's nothing to optimize. You'll never exceed disk speed, and disks are getting faster.
 
 **本章概念**
 
 | 中文 | 英文 | 白话 |
 |------|------|------|
-| 关系模型 | relational model | Ted Codd 的理论基础 |
-| 参照完整性 | referential integrity | 删除员工时部门该何去何从 |
-| 商业化困境 | commercialization gap | 没有 COBOL 就无法进入企业市场 |
+| 列式存储 | columnar storage | 按列而非按行存储数据，分析查询快几十倍 |
+| 物化视图 | materialized view | 预先算好并存储的查询结果，避免重复计算 |
+| 增量维护 | incremental maintenance | 新数据到来时只更新受影响的部分，不重算全部 |
+| Theta连接 | theta join | 任意条件的连接操作，不只是等值连接 |
 
 **本章小结**
-
-- Ingres 从伯克利学术项目起步，因缺少 COBOL 被迫商业化
-- Oracle 通过销售策略而非技术优势竞争
-- 参照完整性等核心功能 Ingres 领先 Oracle 数年
+- OLTP就是写日志，磁盘在变快，花哨优化不如等硬件升级
+- OLAP才是需要优化的战场：数据量爆炸、连接条件复杂、分析需求多样
+- 列式存储加物化视图加增量维护，是解决大规模分析的核心路径
 
 ---
 
-## 02 Postgres 的技术创新：可扩展类型系统
+## 02 MapReduce是开倒车：70年代的东西重新发明了一遍
 
-**Ryan Peterman：** Ingres 没有做而 Postgres 会做的是什么？
+**Ryan：** 回到MapReduce的故事，你当时写了那篇著名的文章说它是倒退。
 
-**Mike Stonebraker：** 最初的理由是支持地理信息系统——需要点、线、多边形等类型，Ingres 做不到。另一个故事：1985 年，一个客户处理债券金融工具，他想按自己的日历定义做日期减法（每月 30 天），但公历实现不允许。他必须把两个日期检索到用户代码中做减法，效率降低了两到三倍。
+**Mike：** 确实如此。Jeff Ullman（斯坦福退休教授）曾这样描述MapReduce：它是一个重命名连接（rename join）。70年代以来连接算法有很多种，比如hash join、sort merge join、nested loop join。MapReduce相当于又发明了一个连接算法，但不能做theta join——不能说"A的值大于B的值"这样的条件。
 
-他问："为什么我不能用我想要的方式重载你的减法定义？"问题在于，你想要债券时间，就像你想要点、线和多边形一样。**Postgres 被设计成具有可扩展的类型系统**，你可以拥有任何你想要的数据类型，而且它们非常高效。
+当我和Jeff Dean辩论时，Jeff Dean说MapReduce的目标是容错。在拥有数千台机器的大集群中，机器故障是常态。但问题在于：MapReduce处理容错的方式是把所有中间数据写到磁盘，然后重启任务。这意味着你为了处理1%的故障概率，让100%的查询都付出了写磁盘的代价。这就像为了防止下雨，让每个人都24小时打伞。
 
-> **金句 · Mike Stonebraker**
-> **中文：** Postgres 的主要精髓是可扩展的类型系统——你可以拥有任何你想要的数据类型。
-> **原文：** The main essence of Postgres is its extensible type system — you can have any data type you want.
+而且现在有了虚拟内存，你根本不需要担心某台机器崩溃。把数据保存在内存里，换一台机器就能继续处理。MapReduce的问题在于它不支持交互式查询——一个查询跑完要20分钟，你根本没法做数据分析。
+
+真正的进步来自Vertica和ParAccel这样的列式数据库。它们在商业智能场景下比MapReduce快100倍。后来的Spark也是很好的系统，它把MapReduce中好的部分拿过来，去掉写磁盘的部分，变成了一个内存系统。
+
+> **金句 · Mike**
+> **中文：** 为了处理1%的故障概率，让100%的查询都付出写磁盘的代价——这不是优化，这是开倒车。
+> **原文：** To handle a 1% failure probability, you make 100% of queries pay the cost of writing to disk — that's not optimization, that's a step backward.
 
 **本章概念**
 
 | 中文 | 英文 | 白话 |
 |------|------|------|
-| 可扩展类型 | extensible types | 用户自定义数据类型 |
-| 抽象数据类型 | abstract data types | GIS/债券时间等专用类型 |
-| 继承 | inheritance | Postgres 支持类型继承（后移除） |
+| hash join | hash join | 把一张表建哈希表，另一张表逐行探测，最常用的连接算法之一 |
+| sort merge join | sort merge join | 两张表分别排序后合并，适合大数据集 |
+| 列式数据库 | columnar database | 按列存储数据，分析查询时只读需要的列，快几十倍 |
+| 商业智能 | business intelligence (BI) | 对企业数据做分析和可视化，辅助决策 |
 
 **本章小结**
-
-- Postgres 的核心创新是可扩展类型系统
-- 从 GIS 到金融工具，专用数据类型的需求推动了架构设计
-- 类型系统的灵活性使 Postgres 传播到远超商业数据处理的领域
+- MapReduce本质上是一个退步的连接算法，不支持theta join，不能做交互式查询
+- 为了处理1%的故障让100%的查询写磁盘，是糟糕的设计权衡
+- Vertica、ParAccel、Spark等后续系统才代表了真正的进步
 
 ---
 
-## 03 数据库无一刀切：专用引擎快一个数量级
+## 03 DBOS：用数据库重构整个操作系统
 
-**Ryan Peterman：** 你认为一刀切的数据库系统并非最优？
+**Ryan：** 你最近在做的DBOS项目是什么？
 
-**Mike Stonebraker：** 流处理引擎、列式存储数据仓库、向量处理——它们彼此之间没有任何相似之处，在各自场景下都比通用数据库快一个数量级。Postgres 选择不实现列式存储和多节点支持，所以在大型数据仓库方面没有竞争力。
+**Mike：** 这是目前我做的最疯狂的事情。DBOS是完全不同的东西。操作系统是所有程序运行的基础，但现代操作系统有很多问题：每个程序有自己的用户认证、日志、监控、存储管理，导致大量重复代码。2021年Log4j漏洞影响了无数系统，根源就是每个应用都在自己处理安全。
 
-在低端——你有一个数据库问题——答案是选择 Postgres。庞大的编程社区，各种数据类型实现，免费，人才容易找到。在你尝试每秒处理一百万次事务之前，在你尝试支持一个 PB 级数据仓库之前，它都能正常工作。**在低端，它是 Postgres。在高端，那就不对了。**
+DBOS的核心理念是：既然操作系统最重要的功能是为程序提供服务，那就把操作系统建立在数据库之上。具体来说，用PostgreSQL作为内核，管理所有程序的认证、授权、日志、状态、监控。
 
-> **金句 · Mike Stonebraker**
-> **中文：** 在低端，它是 Postgres。在高端，那就不对了——专用引擎快一个数量级。
-> **原文：** At the low end, it's Postgres. At the high end, that's not right — purpose-built engines are an order of magnitude faster.
+传统操作系统用文件系统存储日志和状态，每个程序自己解析日志——这极其低效。DBOS用数据库存储一切，每个程序只是一条SQL查询。你问"上个月哪个应用最活跃"，就是一条SQL。你想把日志保留时间从30天改成60天，就是一条SQL。你想看哪些应用正在被积极维护，也是一条SQL。
+
+目前DBOS已经开源，任何人都能用它来构建无服务器应用。它在某些场景下性能提升了70倍，内存消耗减少了200倍。因为所有状态都由操作系统管理，你写的代码少了10到20倍，而且这些代码可以跨应用复用。代码少意味着Bug少，意味着更安全。
+
+> **金句 · Mike**
+> **中文：** 每个应用自己管安全、日志、监控——Log4j漏洞的根源就是这种碎片化。DBOS把一切统一到数据库里。
+> **原文：** Every app managing its own security, logging, monitoring — the Log4j root cause was this fragmentation. DBOS unifies everything into a database.
 
 **本章概念**
 
 | 中文 | 英文 | 白话 |
 |------|------|------|
-| 列式存储 | columnar storage | Vertica 等数据仓库引擎 |
-| 多节点 | multi-node | PB 级数据仓库的必备能力 |
-| 数量级差距 | order of magnitude | 专用 vs 通用的性能鸿沟 |
+| 无服务器 | serverless | 开发者不需要管服务器，代码按需运行按需付费 |
+| 微内核 | microkernel | 只保留最核心功能的内核，其他功能移到用户空间 |
+| 事务性工作流 | transactional workflow | 一系列操作作为原子单元执行，全部成功或全部回滚 |
+| 代码生成 | code generation | 让LLM根据描述自动生成应用代码 |
 
 **本章小结**
-
-- 专用引擎（流处理/列式/向量）比通用数据库快一个数量级
-- Postgres 是低端万能选择，但高端需要专用方案
-- 数据库不存在一刀切的最优解
+- DBOS把操作系统建立在数据库之上，统一管理认证、日志、监控、状态
+- 每个应用只是一条SQL，代码量减少10-20倍，性能提升最高70倍
+- 所有状态在数据库里，天然支持事务一致性、容错、弹性
 
 ---
 
-## 04 批判 Google：MapReduce 与最终一致性的错误
+## 04 LLM对数据库的贡献是0%——概率引擎无法保证精确正确
 
-**Ryan Peterman：** 你为什么如此不认同 MapReduce？
+**Ryan：** LLM和数据库之间有什么交集？
 
-**Mike Stonebraker：** 很多不明智的人说"谷歌很聪明，他们一定知道他们在做什么"。但 Hadoop 效率低得离谱——我们 2011 年的论文用分布式数据库系统击败了 Hadoop。但这并不是谷歌唯一愚蠢的地方——他们还认为最终一致性是实现并发控制的正确方法。
+**Mike：** 目前没有。我不认为LLM对数据库领域有任何贡献。这是一个概率引擎——你问它一个问题，它给你一个答案。它可能正确，也可能不正确，而用户无法区分。但在数据库中你不能这样做，你需要确切知道谁在什么时候做了什么修改。
 
-假设东海岸和西海岸仓库各有最后一个小部件。如果你允许最终一致性，两个仓库同时卖出最后一个，最终状态将是负一——有人拿不到小部件。大多数企业无法容忍库存为负。**最终一致性根本行不通。**
+我的学生做了一个实验：让ChatGPT对30个基准查询生成SQL，准确率只有40%。我们之前做过一项研究，让AI生成100个不同领域和难度的查询，平均准确率是36%。ChatGPT的40%已经算不错的了。
 
-谷歌的杰夫·迪恩最终明白了这一点，当他们开发 Spanner 时，采用的是传统的事务系统。谷歌完全放弃了最终一致性，也完全放弃了 MapReduce。这是性能与数据完整性的权衡——如果你不在乎你的数据，你才愿意处理糟糕的事情发生。
+如果我是CFO，想要查询季度销售数据，我需要100%的准确率。ChatGPT给我50个正确结果和25个错误结果，我根本不知道哪些是错的。这对企业决策是灾难性的。
 
-> **金句 · Mike Stonebraker**
-> **中文：** 最终一致性根本行不通——大多数企业无法容忍库存为负。谷歌最终回归了传统事务系统。
-> **原文：** Eventual consistency simply doesn't work — most businesses can't tolerate negative inventory. Google eventually returned to traditional transaction systems.
+LLM在自然语言理解方面很强，但它无法理解数据模型的语义——比如外键的含义、数据类型约束、业务规则。这些结构化信息只有数据库元数据里有，LLM的训练数据里根本没有。更糟的是，LLM一旦犯错，你完全无法诊断它为什么犯错——它是概率性的，没有任何解释能力。但数据库的查询计划是可审计的，你可以打开看每一步做了什么。
+
+> **金句 · Mike**
+> **中文：** LLM是概率引擎，数据库需要精确正确。两者根本不兼容。
+> **原文：** LLMs are probabilistic engines, databases need exact correctness. They're fundamentally incompatible.
 
 **本章概念**
 
 | 中文 | 英文 | 白话 |
 |------|------|------|
-| MapReduce | MapReduce | Google 早期推崇，效率极低 |
-| 最终一致性 | eventual consistency | 异步同步可能产生数据错误 |
-| Spanner | Spanner | Google 回归传统事务的正确路径 |
-| 数据完整性 | data correctness | 性能不能以正确性为代价 |
+| 数据模型 | data schema | 数据库中表、列、关系的结构定义 |
+| 元数据 | metadata | 描述数据本身的数据，如表结构、约束、权限 |
+| 查询计划 | query plan | 数据库执行查询的具体步骤，可审计可优化 |
+| 业务规则 | business rules | 公司特定的逻辑，如"VIP客户免运费" |
 
 **本章小结**
-
-- MapReduce 效率极低，被分布式数据库系统轻松击败
-- 最终一致性牺牲正确性换取性能，大多数企业无法容忍
-- Google 自己最终回归了传统事务系统（Spanner）
+- LLM是概率引擎，数据库需要精确正确——根本性不兼容
+- AI生成SQL平均准确率仅36%，企业决策需要100%
+- 数据库有数据模型和元数据，LLM的训练数据里根本没有这些语义信息
 
 ---
 
-## 05 DBOS：用数据库技术重构操作系统
+## 05 万物皆SQL：声明式语言的终极胜利
 
-**Ryan Peterman：** DBOS 是什么？
+**Ryan：** 你相信"万物皆SQL"吗？
 
-**Mike Stonebraker：** Databricks 的创始人 Mate Zaharia 说，他们在任何给定时间协调一百万个 Spark 作业，尝试了所有操作系统人员编写的调度器，都无法扩展。于是他们把所有调度数据放在一个 Postgres 数据库中——它就突然明白了。
+**Mike：** 是的。SQL是声明式的——你描述想要什么，不描述怎么做。SQL的优化器会自动找出最优执行方式。而MapReduce是命令式的，你得告诉它每一步怎么做。
 
-核心思想是：**你在操作系统中做的几乎所有事情都是大规模管理数据，你应该使用数据库技术来做这件事。** 在 DBMS 之上编写的文件系统比 Linux 文件系统更快。调度引擎具有竞争力。你可以让所有东西都故障转移，获得高可用性。
+声明式的威力在于它和硬件解耦。你今天在一台机器上跑，明天硬件变了，你不需要改代码——优化器会自动适应。但MapReduce不行，你必须重写代码。
 
-我们和风险投资家谈，他们异口同声地说"如果你认为你能取代 Linux，那简直是痴人说梦"。但编程语言扩展真的很棒——TypeScript、Java、Go、Python 版本都有。DBOS 支持事务性工作流：**工作流需要是原子性的，这意味着它要么全部发生，要么看起来从未发生过**。目前约三分之二的客户正在进行代理式 AI 应用。
+SQL的另一个巨大优势是优化器。你描述要什么，优化器根据统计信息和代价模型，自动选择最佳执行计划。你写一条SQL，连接三张表，优化器会决定先连哪两张、用什么连接算法、怎么利用索引。人类很难做出比优化器更好的决定。
 
-> **金句 · Mike Stonebraker**
-> **中文：** 你在操作系统中做的几乎所有事情都是大规模管理数据——你应该用数据库技术来做。
-> **原文：** Almost everything you do in an operating system is large-scale data management — you should use database technology to do it.
+更关键的是：SQL是数据的语言，而数据是所有现代应用的核心。不管你是做网页、做手机应用、做AI还是做科学计算，你最终都要处理数据。数据处理的最佳语言是SQL，因为它声明式、可优化、可复用。
+
+> **金句 · Mike**
+> **中文：** SQL是声明式的——你描述要什么，优化器自动找出最佳方式。这就是它赢的原因。
+> **原文：** SQL is declarative — you describe what you want, and the optimizer automatically finds the best way. That's why it wins.
 
 **本章概念**
 
 | 中文 | 英文 | 白话 |
 |------|------|------|
-| DBOS | database OS | 用数据库替换 OS 上半部分 |
-| 事务性工作流 | transactional workflow | 原子性：要么全做要么全不做 |
-| 代理式 AI | agentic AI | LLM + 信号增强的读写应用 |
-| 故障转移 | failover | 数据库自带高可用 |
+| 声明式语言 | declarative language | 只描述"要什么"，不描述"怎么做" |
+| 命令式语言 | imperative language | 必须逐步告诉计算机"怎么做" |
+| 优化器 | query optimizer | 自动选择最佳查询执行计划的组件 |
+| 索引 | index | 加速数据查找的数据结构 |
 
 **本章小结**
-
-- DBOS 证明数据库技术可以替换 OS 核心功能
-- 文件系统比 Linux 更快，调度引擎具有竞争力
-- 代理式 AI 从只读走向读写，需要事务性工作流的原子性保证
+- SQL的胜利在于声明式：你描述要什么，优化器自动找出最佳执行方式
+- 声明式与硬件解耦——换机器不用改代码，优化器自动适应
+- 万物皆SQL因为数据是所有应用的核心，而SQL是处理数据的最佳语言
 
 ---
 
-## 06 LLM 在真实数据仓库任务中表现为 0%
-
-**Ryan Peterman：** Text-to-SQL 的现状如何？
-
-**Mike Stonebraker：** 在 Spider 和 Bird 基准上，最好的 LLM 系统准确率约 85%——看起来不错。但在我们的 **Beaver 基准测试**中——四个真实生产数据仓库——LLM 的准确率是 **0%**。用 RAG 增强后达到 10%，如果把 FROM 子句作为提示给它，达到 35%。
-
-区别在哪？第一，数据仓库数据不在"堆栈"上，LLM 没训练过。第二，真实查询 100 行 SQL，Spider/Bird 只有 10-20 行。第三，真实模式一团糟——表名不助记、列名是下划线Z、物化视图导致冗余。**这些东西的定义是还没有准备好投入使用。**
-
-**Ryan Peterman：** 人类程序员能得多少分？
-
-**Mike Stonebraker：** 一旦你消除了文本的歧义，一个了解 SQL 的程序员，如果知道模式，会获得非常高的准确率——至少 90%。
-
-> **金句 · Mike Stonebraker**
-> **中文：** LLM 在真实数据仓库任务中得分 0%——模式一团糟，查询 100 行，不在训练集里。
-> **原文：** LLMs score 0% on real data warehouse tasks — schemas are a mess, queries are 100 lines, and it's not in the training set.
-
-**本章概念**
-
-| 中文 | 英文 | 白话 |
-|------|------|------|
-| Beaver 基准 | Beaver benchmark | 四个真实生产数据仓库 |
-| 0% 准确率 | 0% accuracy | LLM 在真实场景完全失败 |
-| 模式混乱 | schema mess | 表名不助记、冗余、特殊日期 |
-| 业务逻辑 | business logic | 查询依赖非公开的领域知识 |
-
-**本章小结**
-
-- LLM 在干净基准上 85%，在真实数据仓库上 0%
-- 原因：训练数据不含仓库数据、查询复杂度差距、模式混乱
-- 人类程序员了解模式后准确率可达 90%+
-
----
-
-## 07 万物皆 SQL：解决复杂查询的唯一路径
-
-**Ryan Peterman：** 面对跨系统的复杂查询怎么办？
-
-**Mike Stonebraker：** 慕尼黑市交通部有六名全职人员处理市民投诉。他们的数据库是：电车时刻表（SQL）、灯光序列（SQL）、交叉路口（CAD）、联邦规定（文本）、本地规定（文本）。你连接了 SQL、SQL、CAD、文本和文本。
-
-**我们的观点是，把所有东西都变成 SQL，都变成表格，然后用查询优化器进行连接。** 使用 LLM 进行结构化数据连接是一个糟糕的主意——你最好把它们保留为表，然后在 SQL 中进行连接。一旦这变成读写操作，它就成了分布式数据库问题，你需要原子性、一致性等等。
-
-> **金句 · Mike Stonebraker**
-> **中文：** 把所有东西都变成表格，然后用查询优化器连接——这是处理严谨场景的唯一可行方案。
-> **原文：** Turn everything into tables, then join them with a query optimizer — the only viable approach for serious scenarios.
-
-**本章概念**
-
-| 中文 | 英文 | 白话 |
-|------|------|------|
-| 万物皆 SQL | everything is SQL | 异构数据统一为关系表 |
-| 查询优化器 | query optimizer | 连接多源数据的核心引擎 |
-| 读写代理 | read-write agents | 从只读走向需要事务保证 |
-
-**本章小结**
-
-- 复杂查询涉及 SQL + CAD + 文本等多种异构数据
-- 解决路径：将所有数据映射为关系表，用查询优化器连接
-- LLM 不适合做结构化数据连接，保留为表用 SQL 更可靠
-
----
-
-## 08 职业建议：追随热情，钱自然会来
-
-**Ryan Peterman：** 你会给刚毕业的自己什么建议？
-
-**Mike Stonebraker：** 当初我们在伯克利对数据库一无所知，就说"我们来写一个数据库系统吧"。一开始做那么疯狂的事情，确实是相当疯狂。但你努力，让事情成功，一路学习。**跳出思维定势，想些疯狂的点子，然后尝试去实现它们。**
-
-我不确定我会推荐 18 岁的年轻人主修计算机科学——我认为医疗保健和建筑行业是稳妥的选择。如果你即将获得博士学位，选择一个不随大流的领域。我和我妻子都说"追随你的热情，钱自然会来"——我一分钟都不相信这话。但我真的喜欢我所做的事情，我赚不赚钱都无所谓。
-
-> **金句 · Mike Stonebraker**
-> **中文：** 跳出思维定势，想些疯狂的点子，然后尝试去实现它们。
-> **原文：** Think outside the box, come up with crazy ideas, and try to implement them.
-
-**本章概念**
-
-| 中文 | 英文 | 白话 |
-|------|------|------|
-| 逆流而上 | go against the tide | 选非热门领域突破 |
-| 热情驱动 | passion-driven | 做热爱的事，不会饿死 |
-| 疯狂点子 | crazy ideas | 伟大项目往往始于疯狂想法 |
-
-**本章小结**
-
-- 伟大项目始于疯狂想法和一无所知时的勇气
-- 不随大流选非热门领域，更容易做出突破
-- 做热爱的事比追求高薪更可能带来长期满足
-
----
-
-## 总结
+## 总结：数据库领域50年，"研究"和"产品"之间没有鸿沟
 
 | 维度 | 要点 |
 |------|------|
-| 起源 | Ingres 从学术到商业化，Oracle 靠销售策略竞争 |
-| 创新 | Postgres 可扩展类型系统是核心突破 |
-| 架构 | 无一刀切；专用引擎快一个数量级 |
-| Google | MapReduce 低效 + 最终一致性错误 |
-| DBOS | 数据库重构 OS，文件系统比 Linux 更快 |
-| LLM | 真实数据仓库准确率 0%，模式混乱是根本原因 |
-| 路径 | 万物皆 SQL，查询优化器连接异构数据 |
+| OLTP现状 | 就是写日志，磁盘在变快，花哨优化不如等硬件 |
+| MapReduce | 70年代连接算法重新发明了一遍，不支持theta join，不能交互式查询 |
+| DBOS | 用数据库重构操作系统，每个应用只是一条SQL |
+| LLM局限 | 概率引擎无法保证精确正确，生成SQL准确率仅36% |
+| SQL胜利 | 声明式语言与硬件解耦，优化器自动找最佳路径 |
+| 研究方法 | 写论文必须同时写代码，真实数据集验证是唯一标准 |
+
+> **金句 · Mike（封底）**
+> **中文：** 好的数据库研究不是在真实世界做研究，而是为真实世界做研究——数据集必须公开，代码必须可用，可复现性是唯一标准。
+> **原文：** Good database research isn't doing research in the real world — it's doing research for the real world. Datasets must be public, code must be available, reproducibility is the only standard.
 
 ---
 
 ## 附录
 
-### 章节时间戳（视频简介）
+**章节时间戳**
+- 00:00 开场
+- 02:30 OLTP现状：写日志等机器更快
+- 18:12 MapReduce的历史评价与争议
+- 31:30 DBOS项目：用数据库重构操作系统
+- 50:00 LLM对数据库的贡献是0%
+- 62:45 "万物皆SQL"——声明式语言的终极胜利
 
-| 时间 | 主题 |
-|------|------|
-| 18:45 | 数据库无一刀切 |
-| 24:12 | 批判 Google MapReduce 与最终一致性 |
-| 33:50 | DBOS：用数据库重构操作系统 |
-| 44:30 | LLM 在真实数据仓库任务中 0% |
-| 49:15 | 万物皆 SQL |
-| 54:20 | 计算机科学可能不再是增长型行业 |
+**Ingest 信息**
+- column_source: Recastory/workspace/bilibili-retranscribe/BV1rh526BEjY/ingest/column_article.md
+- asr_status: asr_ready
 
-### Ingest
-
-- BV：`BV1rh526BEjY`
-- ingest：`Recastory/workspace/bilibili-retranscribe/BV1rh526BEjY/ingest`
-- 专栏：`.../ingest/column_article.md`
-
-### 相关阅读
-
-- [[MOC - Agent Theory and Design]] — AI Agent 主题入口
-- [[MOC - Harness Engineering]] — Harness 工程入口
-- [[C++之父-AI代码的局限性]] — AI 代码局限性的系统编程视角
+**相关阅读**
+- [[MOC - Agent Theory and Design]] — 入口
+- [[MOC - Harness Engineering]] — 数据库与工程实践
