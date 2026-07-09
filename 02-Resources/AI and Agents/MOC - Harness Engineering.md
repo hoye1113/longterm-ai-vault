@@ -1,6 +1,6 @@
 ---
 title: MOC - Harness Engineering
-description: Harness Engineering 主题横切 MOC——跨课程、公众号、B站视频的 Harness 相关笔记，34 篇核心 + 跨 MOC 链接
+description: Harness Engineering 主题横切 MOC——跨课程、公众号、B站视频的 Harness 相关笔记，42 篇核心 + 跨 MOC 链接
 created: 2026-06-11
 updated: 2026-07-09
 tags:
@@ -16,7 +16,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 >
 > **核心定义**（来自 [[2026 年 Agent 最重要的工程概念 Harness Engineering]]）：harness = 围绕 Agent 的工程系统（工具、约束、反馈、安全、记忆），让 AI 从"能力强但不可预测"变成"稳定可靠能交付"。
 >
-> 29 篇核心笔记 + 跨 MOC 链接 = 完整的 Harness 主题地图。
+> 42 篇核心笔记 + 跨 MOC 链接 = 完整的 Harness 主题地图。
 
 ---
 
@@ -55,6 +55,19 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 | 29 | [[Superpowers Evals 在测什么 - Fly]] | 公众号（Fly的AI研习社）| **工作流行为评测** | Quorum + Gauntlet 测 skill/TDD/review 合规；支撑 Superpowers 6 提速降本 |
 | 30 | [[Spec Kit vs OpenSpec vs Superpowers - CCC]] | 公众号（深入浅出AI）| **框架对比与组合** | 三框架精华搭三层架构（Harness+Skill+Spec），棕地项目四个月实测 |
 
+### 新增 S-tier 8 篇（2026-07-09 收录）
+
+| # | 笔记 | 来源 | 视角 | 一句话 |
+|---|------|------|------|--------|
+| 31 | [[ClawdBot创始人-一个人顶一个团队]] | B站视频 | **Agent 创业** | 一人公司如何用 Agent 工具链构建产品 |
+| 32 | [[OpenClaw教程-实战完整指南]] | B站视频 | **OpenClaw harness** | OpenClaw 全套配置与实战 |
+| 33 | [[OpenClaw-Every团队演示使用Case]] | B站视频 | **团队 Agent 实践** | Every 团队 OpenClaw 使用 Case 演示 |
+| 34 | [[OpenClaw养虾指南-打造数字员工]] | B站视频 | **Agent 养成** | 养虾 = 数字员工养成方法论 |
+| 35 | [[OpenClaw-从零开始完成全套配置]] | B站视频 | **OpenClaw harness** | 从零到完整 OpenClaw 配置 |
+| 36 | [[Hermes实战-新手配置真实使用案例]] | B站视频 | **Agent harness** | Hermes 新手配置与真实使用案例 |
+| 37 | [[AI编程工具-2026年趋势与Vibe Code]] | B站视频 | **Coding harness** | 2026 年 AI 编程工具趋势与 Vibe Code |
+| 38 | [[Brex CEO-打造全公司共用AI型CEO]] | B站视频 | **组织 Agent** | 全公司共用 AI CEO 的组织实践 |
+
 ---
 
 ## Harness 的 6 大核心模块
@@ -84,6 +97,6 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 ### 关联 Areas
 - [[AI Agent Development]] — sanyuan 的系统课程（Context Engineering / Memory 等模块有 Harness 理论对应）
 
-- **总笔记数**：34 核心 + 3 跨 MOC 链接
-- **最后更新**：2026-07-09（新增 S-tier 14 篇视频转录：Lex Fridman、杨植麟、杨立昆、马斯克、黄仁勋、Sam Altman、OpenAI首席科学家、Nebius联创、Mistral首席科学家、Eric Jang、C++之父、Every CEO、Postgres之父）
+- **总笔记数**：42 核心 + 3 跨 MOC 链接
+- **最后更新**：2026-07-09（新增 S-tier 8 篇视频转录：ClawdBot、OpenClaw 教程/Every/养虾/配置、Hermes、AI 编程工具、Brex CEO）
 - **入选标准**：笔记主题必须直接讨论"围绕 Agent 的工程系统"（不是单纯的"Agent 本身"或"Agent 怎么用"）

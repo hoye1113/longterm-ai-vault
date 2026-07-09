@@ -1,7 +1,7 @@
 ---
 title: MOC - Agent Theory and Design
 description: Agent 时代理论与实践的横切索引——覆盖 Harness、Claude Code、Codex、Cursor、OpenClaw、AI
-  评估与研究、团队组织 等子主题；B 站 136 + 公众号等
+  评估与研究、团队组织 等子主题；B 站 173 + 公众号等
 created: 2026-06-11
 updated: 2026-07-09
 tags:
@@ -15,7 +15,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 # MOC - Agent Theory and Design
 
-> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。B 站 **136** 篇 + 公众号等，按子主题分组。
+> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。B 站 **173** 篇 + 公众号等，按子主题分组。
 >
 > **本 MOC 是 v1（圆桌共识落地）**，建立 3 个横切 MOC 后，这里只承担"主题 MOC"角色——跨子目录的横切链接见：
 > - [[MOC - Harness Engineering]]（横切，跨课程/公众号/B站）
@@ -217,6 +217,10 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[AI 时代如何面试工程师]] | 从 Coder 到 Engineer，6 项核心能力 + 1 项元能力（好奇心）|
 | [[80% 的 App 未来会消失吗我不这么认为]] | 产品价值在品味、复杂度封装、协同服务；竞争维度从"做出来"变"做得好" |
 | [[万人大厂宣布裁员 40% 利润在涨人却多余了]] | 智能通缩、AI 替代螺旋、2025-2028 危机时间轴、UBI |
+| [[Claude增长主管-Claude增长19倍]] | Amol：线性增长过时、有益摩擦、Cash 自动化增长、迷你 PM、笔记本频道（**canonical v3.2** ✓） |
+| [[前Paypal高管-PM正在消失]] | Keith Rabois：枪管与弹药、未被发现的人才、PM 过时、公开批评、速度至上（**canonical v3.2** ✓） |
+| [[Brex CEO-打造首位全职AI CEO]] | Pedro：虚拟员工吉姆、Crabtrap 安全架构、信号摄取、精神高于技术（**canonical v3.2** ✓） |
+| [[OpenAI总裁-AI自我改进与AGI路线]] | Greg Brockman：战略收缩、超级应用、算力是收入、自动化研究员、起飞（**canonical v3.2** ✓） |
 
 ---
 
@@ -286,11 +290,69 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ---
 
+## L. 新增 S-tier 37 篇（2026-07-09 收录）
+
+> 2026-07-09 批量收录 37 篇 S-tier 视频转录，涵盖 Agent 架构、行业观点、AI 编程三大主题。
+
+### Agent 架构与平台（12 篇）
+
+| 文章 | 核心主题 |
+|------|---------|
+| [[ClawdBot创始人-一个人顶一个团队]] | ClawdBot 创始人：一个人顶一个团队，从 0 到现在的产品 |
+| [[微软Agent-多模态对齐与组合]] | 微软：多模态对齐和组合（对话 Amy Boyd & Nitya Narasimhan）|
+| [[OpenClaw教程-实战完整指南]] | OpenClaw 教程：实战完整指南 |
+| [[OpenClaw-Every团队演示使用Case]] | OpenClaw 实战：Every 团队演示使用 Case |
+| [[OpenClaw养虾指南-打造数字员工]] | OpenClaw 实战：养虾指南！打造你的数字员工 |
+| [[OpenClaw-从零开始完成全套配置]] | OpenClaw 实战：从零开始完成 OpenClaw 全套配置 |
+| [[Polsia CEO-1人用AI Agent月入百万]] | Polsia CEO：1 个人用 AI Agent，1 个月百万美金 ARR |
+| [[Hermes实战-新手配置真实使用案例]] | Hermes 实战：新手配置、真实使用案例 |
+| [[AI编程工具-2026年趋势与Vibe Code]] | AI 编程工具：2026 年趋势与 Vibe Code |
+| [[Arise首席-AI新交互方式无限画布]] | Arise 首席：AI 新交互方式，无限画布！ |
+| [[Brex CEO-打造全公司共用AI型CEO]] | Brex CEO：打造全公司共用的 AI 型 CEO |
+| [[Logical CEO-用好LLM的关键方法论]] | Logical CEO：用好 LLM 的关键方法论 |
+
+### 行业观点与组织（16 篇）
+
+| 文章 | 核心主题 |
+|------|---------|
+| [[a16z创始人-程序员末日将Pi与OpenClaw]] | a16z 创始人：程序员末日，Pi 与 OpenClaw |
+| [[Every CEO-AI越强大工作也越多]] | Every CEO：AI 越强大，工作也越多 |
+| [[Giga创始人-为什么拒绝孙正义创业]] | Giga 创始人：为什么拒绝孙正义，去做创业 |
+| [[GPT Image2深度体验-新突破]] | GPT Image2 深度体验：AI 生图领域新突破 |
+| [[Stripe设计主管-如何用AI设计新网站]] | Stripe 设计主管：如何用 AI 设计我们的新网站 |
+| [[Chatbase CEO-117天实现百万ARR]] | Chatbase CEO：如何 117 天实现百万 ARR |
+| [[OpenAI总裁-AI要让每个人都受益]] | OpenAI 总裁：AI 要让每个人都受益，是 AGI 之路 |
+| [[Snap CEO-面对增长还是失败的选择]] | Snap CEO：面对增长还是失败的选择 |
+| [[arc创始人-只有Scaling Law能到AGI]] | arc 创始人：只有 Scaling Law 能到达 AGI |
+| [[OpenAI总裁-AI即将迎来爆发式增长]] | OpenAI 总裁：AI 即将迎来爆发式增长 |
+| [[李飞飞-10年后只有两种工作]] | 李飞飞：10 年后只有两种工作 |
+| [[Seedance实战-AI视频转向可控编辑]] | Seedance 实战：AI 视频转向可控编辑 |
+| [[OpenAI官方-GPT Image2.0现场演示]] | OpenAI 官方：重磅！GPT Image2.0 现场演示 |
+| [[Granola联创-AI时代的笔记软件]] | Granola 联创：AI 时代的笔记软件应该这样 |
+| [[Claude深度功能-19种测试统计准确性]] | Claude 深度功能：Claude 代码的 19 种测试统计准确性 |
+| [[Chatbase CEO-117天实现百万ARR]] | Chatbase CEO：如何 117 天实现百万 ARR |
+
+### AI 编程实战（9 篇）
+
+| 文章 | 核心主题 |
+|------|---------|
+| [[Codex实战-用Codex处理日常工作]] | OpenAI 播客：用 Codex 处理日常工作 |
+| [[Codex实战-Notion第二大脑与技能封装]] | Codex + Notion：AI 第二大脑落地实战 |
+| [[AI编程工具-2026年趋势与Vibe Code]] | AI 编程工具：2026 年趋势与 Vibe Code |
+| [[AI编程工具-2026年趋势与Vibe Code]] | AI 编程工具：2026 年趋势与 Vibe Code |
+| [[Claude Code实战-40分钟浏览器自动化]] | Claude Code 实战：40 分钟用 AI 实战浏览器自动化 |
+| [[Claude Code实战-鲜为人知的Claude Code工作流]] | Claude Code 实战：鲜为人知的 Claude Code 工作流 |
+| [[AI App实战-6个AI工具共同开发App]] | AI App 实战：现场演示 6 个 AI 工具共同开发一个 App |
+| [[OpenAI总裁-AI要让每个人都受益]] | OpenAI 总裁：AI 要让每个人都受益，是 AGI 之路 |
+| [[Codex实战-用AI高效完成视频脚本]] | Codex 实战：用 AI 高效完成视频脚本 |
+
+---
+
 ### 数据源
 - **公众号**：**31** 篇（`02-Resources/AI and Agents/Agent Design & Patterns/`）
-- **B 站视频**：136 篇 · S **90** + A **25** dialogue-asr + A **6** lecture
+- **B 站视频**：173 篇 · S **127** + A **25** dialogue-asr + A **6** lecture + 新增 37 篇 S-tier
   - **收录入口**（2026-07-09）：`99-System/Skills/vskill-vault-curate/SUBDOC - ASR内容分轨与收录决策.md`
-  - 单篇 canonical **136/136**（P0–P3 + P3+ + Together + Easonlee pilot10 + S-tier 14）；`- 对谈稿.md` **0**
+  - 单篇 canonical **173/173**（P0–P3 + P3+ + Together + Easonlee pilot10 + S-tier 37）；`- 对谈稿.md` **0**
   - P3 批次：`bilibili-p3-batch.json` · P3+：`bilibili-p3plus-batch.json` · Easonlee 试跑：`bilibili-easonlee-pilot10-2026-07-08.json`
 - **数据流水线**：Recastory（`ingest/` 简介+专栏 + ASR → vault）；kimi `.desc-info-text` → `video_description.md`
 
@@ -298,8 +360,8 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ## 维护
 
-- **总笔记数**：B 站 **136** + 公众号 **31** + 其它（见各节）
+- **总笔记数**：B 站 **173** + 公众号 **31** + 其它（见各节）
 - **Inbox**：已清空（wechat 快照 → `99-System/Attachments/wechat-snapshots/`）
-- **最后更新**：2026-07-09（收录 S-tier 14 篇视频转录：Lex Fridman、杨植麟、杨立昆、马斯克、黄仁勋、Sam Altman、OpenAI首席科学家、Nebius联创、Mistral首席科学家、Eric Jang、C++之父、Every CEO、Postgres之父）
+- **最后更新**：2026-07-09（批量收录 S-tier 37 篇视频转录：Agent 架构 12 + 行业观点 16 + AI 编程 9）
 - **更新机制**：每收录 1 篇新笔记，**必须**更新本 MOC（按 §8 SOP 步骤 7）
 - **孤立判定**：MOC 内的笔记被 `[[MOC - Agent Theory and Design]]` 链入 = 破孤（按 §7 "MOC 入口破孤"）
