@@ -15,7 +15,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 # MOC - Agent Theory and Design
 
-> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。B 站 **173** 篇 + 公众号等，按子主题分组。
+> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。B 站 **183** 篇 + 公众号等，按子主题分组。
 >
 > **本 MOC 是 v1（圆桌共识落地）**，建立 3 个横切 MOC 后，这里只承担"主题 MOC"角色——跨子目录的横切链接见：
 > - [[MOC - Harness Engineering]]（横切，跨课程/公众号/B站）
@@ -287,6 +287,11 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[C++之父-AI代码的局限性]] | C++ 之父：贝尔实验室往事，AI 代码的局限性 |
 | [[Every CEO-全员AI后员工数翻3倍]] | Every CEO：全员 AI 后，员工数翻了 3 倍 |
 | [[Postgres之父-LLM不会取代关系数据库]] | Postgres 之父：LLM 不会取代关系数据库 |
+| [[杨立昆-LLM到不了AGI世界模型才能]] | 杨立昆：LLM 到不了 AGI，世界模型才能 |
+| [[DeepMind播客-AlphaGo10周年AI转折点]] | DeepMind 播客：AlphaGo 10 周年，AI 的转折点 |
+| [[Abridge-监听1亿次医生诊疗的AI]] | Abridge：正在监听 1 亿次医生诊疗的 AI |
+| [[Ulta副总裁-AI Agent落地零售行业实践]] | Ulta 副总裁：AI Agent 落地零售行业实践 |
+| [[xAI研究员-从零构建视频模型的内幕]] | xAI 研究员：xAI 从零构建视频模型的内幕 |
 
 ---
 
@@ -311,7 +316,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[Brex CEO-打造全公司共用AI型CEO]] | Brex CEO：打造全公司共用的 AI 型 CEO |
 | [[Logical CEO-用好LLM的关键方法论]] | Logical CEO：用好 LLM 的关键方法论 |
 
-### 行业观点与组织（16 篇）
+### 行业观点与组织（21 篇）
 
 | 文章 | 核心主题 |
 |------|---------|
@@ -331,6 +336,10 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[Granola联创-AI时代的笔记软件]] | Granola 联创：AI 时代的笔记软件应该这样 |
 | [[Claude深度功能-19种测试统计准确性]] | Claude 深度功能：Claude 代码的 19 种测试统计准确性 |
 | [[Chatbase CEO-117天实现百万ARR]] | Chatbase CEO：如何 117 天实现百万 ARR |
+| [[Google IO-两场关于AGI的对赌]] | Google I/O：两场关于 AGI 的对赌 |
+| [[Alex Wang-加入Meta10个月幕后故事]] | Alex Wang：加入 Meta 10 个月幕后故事 |
+| [[陶哲轩-当最强大脑遇上宇宙终极难题]] | 陶哲轩：当最强大脑遇上宇宙终极难题 |
+| [[AI创业思路-9个最大的AI创业点子]] | AI 创业思路：9 个最大的 AI 创业点子 |
 
 ### AI 编程实战（9 篇）
 
@@ -350,9 +359,9 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ### 数据源
 - **公众号**：**31** 篇（`02-Resources/AI and Agents/Agent Design & Patterns/`）
-- **B 站视频**：173 篇 · S **127** + A **25** dialogue-asr + A **6** lecture + 新增 37 篇 S-tier
+- **B 站视频**：183 篇 · S **132** + A **25** dialogue-asr + A **6** lecture + 新增 37 篇 S-tier + 9 篇 P0/P1
   - **收录入口**（2026-07-09）：`99-System/Skills/vskill-vault-curate/SUBDOC - ASR内容分轨与收录决策.md`
-  - 单篇 canonical **173/173**（P0–P3 + P3+ + Together + Easonlee pilot10 + S-tier 37）；`- 对谈稿.md` **0**
+  - 单篇 canonical **183/183**（P0–P3 + P3+ + Together + Easonlee pilot10 + S-tier 37 + P0P1 9）；`- 对谈稿.md` **0**
   - P3 批次：`bilibili-p3-batch.json` · P3+：`bilibili-p3plus-batch.json` · Easonlee 试跑：`bilibili-easonlee-pilot10-2026-07-08.json`
 - **数据流水线**：Recastory（`ingest/` 简介+专栏 + ASR → vault）；kimi `.desc-info-text` → `video_description.md`
 
@@ -360,7 +369,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ## 维护
 
-- **总笔记数**：B 站 **173** + 公众号 **31** + 其它（见各节）
+- **总笔记数**：B 站 **183** + 公众号 **31** + 其它（见各节）
 - **Inbox**：已清空（wechat 快照 → `99-System/Attachments/wechat-snapshots/`）
 - **最后更新**：2026-07-09（批量收录 S-tier 37 篇视频转录：Agent 架构 12 + 行业观点 16 + AI 编程 9）
 - **更新机制**：每收录 1 篇新笔记，**必须**更新本 MOC（按 §8 SOP 步骤 7）
