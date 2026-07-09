@@ -275,6 +275,17 @@ anchor_notes: []             # 可选：vault 已有笔记，用于「相关阅�
 - 每章 Guest 答 **≥800 字**；保留数字、demo 步骤、专栏对话细节
 - **素材优先级**：`column_article` 对话 **扩写**，ASR 仅 spot-check 数字
 
+#### ⚠️ 铁律：S-tier column_article 是扩写源，不是摘要对象
+
+**column_article.md 是 B 站专栏全文**（通常 20-130KB），**不是摘要**。写对谈稿时：
+
+- ✅ **读全文**（用 Read 工具分块读完）→ **扩写成** Host 问 / Guest 答对谈体
+- ✅ 从 column_article 中 **抽取 Guest 原话、数字、例子**，放到对谈稿的 Guest 答段落里
+- ❌ **禁止把 column_article 压缩成更短的笔记**——那是「摘要的摘要」，信息密度必然塌方
+- ❌ 禁止只读前 150 行就写——column_article 的核心内容常在中后段
+
+**判定标准**：写完后对谈稿 **字数 ≥ column_article 字数的 30%**。如果对谈稿比 column_article 短很多，说明你在摘要而不是扩写。
+
 #### Agent 友好（可选 frontmatter）
 
 ```yaml
@@ -399,6 +410,19 @@ report：路径 / 四章标题 / 金句列表 / 待核实数字
 - 保留数字与原话金句（中文语境化），禁止第三人称摘要
 - 文末大总结（维度 | 要点 表）+ 封底金句
 - 素材：{paste or file path}
+```
+
+**S-tier 执行口令（column_article 主源）**：
+
+```text
+S-tier 对谈稿——column_article 是扩写源，不是摘要对象：
+1. Read 工具分块读完整个 column_article.md（禁止只读前 150 行）
+2. Pass 1：从 column_article 内容划 4-8 章锚点
+3. 逐章扩写：Host 1 问 + Guest 答（≥800字，从 column_article 抽取原话/数字/例子）+ 本章小结
+4. Guest 答段落字数之和 ≥ column_article 字数的 30%
+5. 每章：金句双语块 + 概念三列表
+6. 总结维度表 + 封底金句
+7. 质量门：grep 禁止词 + 朗读关
 ```
 
 ---

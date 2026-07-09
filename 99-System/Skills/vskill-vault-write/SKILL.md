@@ -99,6 +99,8 @@ outputs:
 
 **IRON LAW（dialogue）**：Guest 正文禁止「他表示 / 她认为」式摘要；数字与原话金句保留，英译中须口语化。
 
+**S-tier 扩写铁律**：`column_article.md`（20-130KB）是 **扩写源**，不是摘要对象。对谈稿 Guest 答段落字数之和 ≥ column_article 字数的 30%。如果对谈稿比 column_article 短很多，你在摘要而不是扩写——重来。
+
 ## 姿态
 
 外科医生的手，朋友的口。下刀时冷静、精准、不抖；讲话时平常、直接、不绕。
