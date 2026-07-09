@@ -15,7 +15,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 # MOC - Agent Theory and Design
 
-> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。B 站 **174** 篇 + 公众号等，按子主题分组。
+> 主题 MOC（合并自原 `MOC - AI Agent 参考资料` + `MOC - B站视频知识库`），覆盖 `02-Resources/AI and Agents/` 下所有"Agent 理论 + 实践"类笔记。B 站 **173** 篇 + 公众号等，按子主题分组。
 >
 > **本 MOC 是 v1（圆桌共识落地）**，建立 3 个横切 MOC 后，这里只承担"主题 MOC"角色——跨子目录的横切链接见：
 > - [[MOC - Harness Engineering]]（横切，跨课程/公众号/B站）
@@ -331,7 +331,6 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[Granola联创-AI时代的笔记软件]] | Granola 联创：AI 时代的笔记软件应该这样 |
 | [[Claude深度功能-19种测试统计准确性]] | Claude 深度功能：Claude 代码的 19 种测试统计准确性 |
 | [[Chatbase CEO-117天实现百万ARR]] | Chatbase CEO：如何 117 天实现百万 ARR |
-| [[她将自己的一生变成了训练数据-FetusGPT]] | Sarah Siskind：用怀孕期间音频训练FetusGPT，AI作为情感支撑与创作工具 |
 
 ### AI 编程实战（9 篇）
 
@@ -351,9 +350,9 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ### 数据源
 - **公众号**：**31** 篇（`02-Resources/AI and Agents/Agent Design & Patterns/`）
-- **B 站视频**：174 篇 · S **127** + A **25** dialogue-asr + A **6** lecture + 新增 37 篇 S-tier + 1 篇 Easonlee pilot
+- **B 站视频**：173 篇 · S **127** + A **25** dialogue-asr + A **6** lecture + 新增 37 篇 S-tier
   - **收录入口**（2026-07-09）：`99-System/Skills/vskill-vault-curate/SUBDOC - ASR内容分轨与收录决策.md`
-  - 单篇 canonical **174/174**（P0–P3 + P3+ + Together + Easonlee pilot10 + S-tier 37）；`- 对谈稿.md` **0**
+  - 单篇 canonical **173/173**（P0–P3 + P3+ + Together + Easonlee pilot10 + S-tier 37）；`- 对谈稿.md` **0**
   - P3 批次：`bilibili-p3-batch.json` · P3+：`bilibili-p3plus-batch.json` · Easonlee 试跑：`bilibili-easonlee-pilot10-2026-07-08.json`
 - **数据流水线**：Recastory（`ingest/` 简介+专栏 + ASR → vault）；kimi `.desc-info-text` → `video_description.md`
 
@@ -361,7 +360,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 ## 维护
 
-- **总笔记数**：B 站 **174** + 公众号 **31** + 其它（见各节）
+- **总笔记数**：B 站 **173** + 公众号 **31** + 其它（见各节）
 - **Inbox**：已清空（wechat 快照 → `99-System/Attachments/wechat-snapshots/`）
 - **最后更新**：2026-07-09（批量收录 S-tier 37 篇视频转录：Agent 架构 12 + 行业观点 16 + AI 编程 9）
 - **更新机制**：每收录 1 篇新笔记，**必须**更新本 MOC（按 §8 SOP 步骤 7）
