@@ -28,7 +28,11 @@ def has_s_column(entry: dict) -> bool:
     if not col.exists():
         return False
     text = col.read_text(encoding="utf-8")
-    return len(text) >= 3000 and ("主持人" in text or "嘉宾" in text)
+    if len(text) < 3000:
+        return False
+    if entry.get("column_url"):
+        return True
+    return "主持人" in text or "嘉宾" in text
 
 
 def parse_fm(text: str) -> dict:

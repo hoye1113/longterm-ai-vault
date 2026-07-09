@@ -5,7 +5,8 @@ source_url: "https://www.bilibili.com/video/BV11mTi6aEiP/"
 host_name: "Mike Taylor"
 guest_name: "Kyle Daigle"
 guest_title: "GitHub COO · 微软开发者 CMO"
-material_tier: A
+column_url: "https://www.bilibili.com/read/cv51066807/"
+material_tier: S
 ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV11mTi6aEiP/ingest"
 speaker: "Mike Taylor / Kyle"
 duration: "28:08"
@@ -14,9 +15,9 @@ created: 2026-07-07
 updated: 2026-07-07
 description: "Kyle Daigle：开发者身份扩大、代理月创千万 PR、多模型开放生态、爬山微调闭环、模型路由控费与个人 agent 自我迭代。"
 transcript_source: "Recastory/workspace/bilibili-retranscribe/BV11mTi6aEiP/article.md"
-curate_method: "vskill-vault-write canonical-dialogue v3.2-asr"
+curate_method: "vskill-vault-write canonical-dialogue v3.2"
 dialogue_version: v3.2
-genre: Host-Guest canonical (ASR primary)
+genre: Host-Guest canonical
 speaker_inference: "ASR + video_description Every interview"
 speaker_confidence: high
 tags:

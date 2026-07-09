@@ -2,7 +2,7 @@
 title: MOC - Harness Engineering
 description: Harness Engineering 主题横切 MOC——跨课程、公众号、B站视频的 Harness 相关笔记，27 篇核心 + 跨 MOC 链接
 created: 2026-06-11
-updated: 2026-07-06
+updated: 2026-07-08
 tags:
   - ai_agent
   - harness_engineering
@@ -53,6 +53,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 | 27 | [[Cognition CPO-Devin的80%时刻与后台Agent]] | B站视频（Walden Yan）| **后台 Agent** | 80% 后台；规划-执行；记忆与文件系统 |
 | 28 | [[Together AI-语音Agent延迟质量与规模]] | B站视频（Rishabh）| **实时语音 Agent** | 半秒生死线、级联流水线、同址、Thinker-Talker |
 | 29 | [[Superpowers Evals 在测什么 - Fly]] | 公众号（Fly的AI研习社）| **工作流行为评测** | Quorum + Gauntlet 测 skill/TDD/review 合规；支撑 Superpowers 6 提速降本 |
+| 30 | [[Spec Kit vs OpenSpec vs Superpowers - CCC]] | 公众号（深入浅出AI）| **框架对比与组合** | 三框架精华搭三层架构（Harness+Skill+Spec），棕地项目四个月实测 |
 
 ---
 
@@ -83,6 +84,6 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 ### 关联 Areas
 - [[AI Agent Development]] — sanyuan 的系统课程（Context Engineering / Memory 等模块有 Harness 理论对应）
 
-- **总笔记数**：8 核心 + 3 跨 MOC 链接
-- **最后更新**：2026-06-25（新增 遇事留痕 - Loop Engineering 的基础）
+- **总笔记数**：30 核心 + 3 跨 MOC 链接
+- **最后更新**：2026-07-08（新增 CCC 框架对比）
 - **入选标准**：笔记主题必须直接讨论"围绕 Agent 的工程系统"（不是单纯的"Agent 本身"或"Agent 怎么用"）

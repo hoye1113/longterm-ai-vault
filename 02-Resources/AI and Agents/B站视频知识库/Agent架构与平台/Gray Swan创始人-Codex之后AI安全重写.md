@@ -4,11 +4,11 @@ source:
   - "B站视频 - Easonlee的AI笔记"
   - https://www.bilibili.com/video/BV1uBTi6BEfd/
 source_url: "https://www.bilibili.com/video/BV1uBTi6BEfd/"
-column_url: null
+column_url: "https://www.bilibili.com/read/cv51067095/"
 host_name: "Grace"
 guest_name: "Zico Kolter / Matt Fredrikson"
 guest_title: "Grey Swan 联合创始人 · CMU"
-material_tier: A
+material_tier: S
 ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1uBTi6BEfd/ingest"
 speaker: "Grace / Zico Kolter / Matt Fredrikson"
 duration: "1:07:31"
@@ -17,9 +17,7 @@ created: 2026-07-07
 updated: 2026-07-07
 description: "Grey Swan：AI 安全独立品类；Shade 自动化红队超人类；Signal 双向过滤；致死三要素；电脑使用/OpenClaw 攻击面；可解释性靠代理自动化。"
 transcript_source: "Recastory/workspace/bilibili-retranscribe/BV1uBTi6BEfd/article.md"
-column_source: null
-column_gap: "ingest/column_article.md 缺失；enrichment.column_url=null；主源 ASR article.md + video_description"
-curate_method: "vskill-vault-write canonical-dialogue v3.2-asr"
+curate_method: "vskill-vault-write canonical-dialogue v3.2"
 dialogue_version: v3.2
 genre: Host-Guest canonical
 speaker_inference: "ASR + video_description 导读"

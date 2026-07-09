@@ -317,7 +317,7 @@ tags_approved:
 |---|---|---|
 | AI Agent 核心理论（Sitor AI 课程）| ~30 | `01-Areas/AI Agent Development/` |
 | AI Coding 实战（Loock AI 课程）| 148 | `02-Resources/AI and Agents/Loock AI 全栈应用开发/` |
-| B 站 AI 视频（v3 canonical） | **112** | `02-Resources/AI and Agents/B站视频知识库/` |
+| B 站 AI 视频（v3 canonical） | **122** | `02-Resources/AI and Agents/B站视频知识库/` |
 | AI 公众号文章 | **28** | `02-Resources/AI and Agents/Agent Design & Patterns/`（见 [[MOC - Agent Theory and Design]]） |
 | AI 播客转录 | 1 | `02-Resources/AI and Agents/播客转录/` |
 | AI 时代职业 / FDE / 哲学 | 13+ | 跨目录 |
@@ -327,7 +327,7 @@ tags_approved:
 
 | MOC | 状态 |
 |-----|------|
-| [[MOC - Agent Theory and Design]] | ✅ 已合并原 B 站 + 公众号索引（B 站 112） |
+| [[MOC - Agent Theory and Design]] | ✅ 已合并原 B 站 + 公众号索引（B 站 122） |
 | [[MOC - Harness Engineering]] | ✅ 横切 27 篇 |
 | [[MOC - AI 时代个人发展与组织]] | ✅ 横切 |
 | [[MOC - Prompt 工程]] | ✅ 横切 |

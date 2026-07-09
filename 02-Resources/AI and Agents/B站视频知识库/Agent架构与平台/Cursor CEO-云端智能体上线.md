@@ -5,7 +5,8 @@ source_url: "https://www.bilibili.com/video/BV18qTi6uEDX/"
 host_name: "Moderator（Compile 26）"
 guest_name: "Michael Truell"
 guest_title: "Cursor CEO · 联合创始人"
-material_tier: A
+column_url: "https://www.bilibili.com/read/cv51067150/"
+material_tier: S
 ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV18qTi6uEDX/ingest"
 speaker: "Moderator / Michael Truell"
 duration: 27:01
@@ -14,9 +15,9 @@ created: 2026-07-06
 updated: 2026-07-06
 description: "Compile 26：Michael 讲 Cursor 从洞穴原型到 Agent-first；云端多智能体、Cursor Mobile、Origin 原生 Git、Composer 10–20× 算力与 SpaceX。"
 transcript_source: "Recastory/workspace/bilibili-retranscribe/BV18qTi6uEDX/article.md"
-curate_method: "vskill-vault-write canonical-dialogue v3.2-asr"
+curate_method: "vskill-vault-write canonical-dialogue v3.2"
 dialogue_version: v3.2
-genre: Host-Guest canonical (ASR primary)
+genre: Host-Guest canonical
 speaker_inference: "asr_heuristic + video_description（Compile 26 keynote；Host 为过渡提问）"
 speaker_confidence: high
 asr_version: v2
