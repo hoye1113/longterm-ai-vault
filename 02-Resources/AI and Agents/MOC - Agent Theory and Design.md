@@ -299,7 +299,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 
 > 2026-07-09 批量收录 37 篇 S-tier 视频转录，涵盖 Agent 架构、行业观点、AI 编程三大主题。
 
-### Agent 架构与平台（12 篇）
+### Agent 架构与平台（19 篇）
 
 | 文章 | 核心主题 |
 |------|---------|
@@ -315,6 +315,14 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[Arise首席-AI新交互方式无限画布]] | Arise 首席：AI 新交互方式，无限画布！ |
 | [[Brex CEO-打造全公司共用AI型CEO]] | Brex CEO：打造全公司共用的 AI 型 CEO |
 | [[Logical CEO-用好LLM的关键方法论]] | Logical CEO：用好 LLM 的关键方法论 |
+| [[Arise-AI新交互方式无限画布]] | Arise：AI 新交互方式，无限画布 |
+| [[Hermes实战-新手配置真实案例]] | Hermes 实战：新手配置、真实使用案例 |
+| [[Logical CEO-解决LLM不能解决的问题]] | Logical CEO：解决 LLM 不能解决的问题 |
+| [[Notius创始人-AI研究工具与检索]] | Notius 创始人：AI 研究工具与检索 |
+| [[Peter Yang-Agent未来与职场内耗]] | Peter Yang：Agent 未来与职场内耗 |
+| [[Polsia-一人AI Agent月入百万]] | Polsia：一人 AI Agent 月入百万 |
+| [[微软Agent观测实践]] | 微软：Agent 观测实践 |
+| [[AI设计实战-6个AI共同设计App]] | AI 设计实战：6 个 AI 共同设计 App |
 
 ### 行业观点与组织（21 篇）
 
@@ -340,8 +348,14 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[Alex Wang-加入Meta10个月幕后故事]] | Alex Wang：加入 Meta 10 个月幕后故事 |
 | [[陶哲轩-当最强大脑遇上宇宙终极难题]] | 陶哲轩：当最强大脑遇上宇宙终极难题 |
 | [[AI创业思路-9个最大的AI创业点子]] | AI 创业思路：9 个最大的 AI 创业点子 |
+| [[Granola联创-AI笔记软件应该这样]] | Granola 联创：AI 笔记软件应该这样 |
+| [[Stripe设计主管-用AI设计新网站]] | Stripe 设计主管：用 AI 设计新网站 |
+| [[一人公司案例-开发5个APP的AI技能]] | 一人公司案例：开发 5 个 APP 的 AI 技能 |
+| [[arc创始人-只靠Scaling Law到不了AGI]] | arc 创始人：只靠 Scaling Law 到不了 AGI |
+| [[OpenAI官方-AI各行业落地]] | OpenAI 官方：AI 各行业落地 |
+| [[Snap CEO-软件无护城河分发才是]] | Snap CEO：软件无护城河，分发才是 |
 
-### AI 编程实战（9 篇）
+### AI 编程实战（13 篇）
 
 | 文章 | 核心主题 |
 |------|---------|
@@ -354,6 +368,10 @@ source: vault_initiative - moc - ai_agent - harness_engineering - claude_code -
 | [[AI App实战-6个AI工具共同开发App]] | AI App 实战：现场演示 6 个 AI 工具共同开发一个 App |
 | [[OpenAI总裁-AI要让每个人都受益]] | OpenAI 总裁：AI 要让每个人都受益，是 AGI 之路 |
 | [[Codex实战-用AI高效完成视频脚本]] | Codex 实战：用 AI 高效完成视频脚本 |
+| [[AI编程工具-2026年如何Code]] | AI 编程工具：2026 年如何 Code |
+| [[TypeScript专家-AI编程生产级代码]] | TypeScript 专家：AI 编程如何写出生产级代码 |
+| [[Codex实战-AI编程2026新手教程]] | Codex 实战：AI 编程 2026 新手教程 |
+| [[DHH-编写代码的新方式]] | DHH：编写代码的新方式 |
 
 ---
 
