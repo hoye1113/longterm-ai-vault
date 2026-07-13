@@ -3,7 +3,7 @@
 **审计时间**：2026-06-11  
 **审计对象**：`D:\workSpace\obsidian_repository`  
 **脚本版本**：vault-audit.py v1.0  
-**总文件数**：465
+**总文件数**：473
 
 ---
 
@@ -12,7 +12,7 @@
 **说明**：非文件、非目录、不在白名单中的 `[[wikilink]]`。可能是真死链或需要创建对应笔记。
 
 
-共 234 个唯一目标，328 处引用。
+共 235 个唯一目标，329 处引用。
 
 - `[[2026 年 Agent 最重要的工程概念 Harness Engineering\]]`
 - `[[80% 的 App 未来会消失吗]]`
@@ -52,6 +52,7 @@
 - `[[Brandon Gell]]`
 - `[[Brex CEO-打造全公司共用AI型CEO]]`
 - `[[Brian Scanlan]]`
+- `[[B站收录工作流五篇实测]]`
 - `[[Caitlin Lesse]]`
 - `[[Charlie O'Neill]]`
 - `[[Chris Lovejoy]]`
@@ -277,14 +278,22 @@
 - `99-System/audit/bilibili-r1a-review-results-2026-07-07.md` （真孤岛）
 - `99-System/audit/bilibili-source-inventory-2026-07-13.md` （真孤岛）
 - `99-System/audit/bilibili-spot-check-2026-07-02.md` （真孤岛）
+- `99-System/audit/bilibili-trust-audit-2026-07-13.md` （真孤岛）
+- `99-System/audit/bilibili-trust-first-batch-2026-07-13.md` （真孤岛）
 - `99-System/audit/bilibili-unmapped-2026-07-07.md` （真孤岛）
 - `99-System/audit/easonlee-opus-ingest-audit-2026-07-08.md` （真孤岛）
 - `99-System/audit/easonlee-pilot10-2026-07-08.md` （真孤岛）
 - `99-System/audit/recastory-unmapped-2026-07-06.md` （真孤岛）
 - `99-System/audit/spot-check-BV1BLGH6REyX.md` （真孤岛）
+- `99-System/audit/spot-check-BV1Dd9CBGEmK-2026-07-13.md` （真孤岛）
+- `99-System/audit/spot-check-BV1dwAczDEXY-2026-07-13.md` （真孤岛）
+- `99-System/audit/spot-check-BV1H59yBFECR-2026-07-13.md` （真孤岛）
 - `99-System/audit/spot-check-BV1iH7R6tEfJ.md` （真孤岛）
+- `99-System/audit/spot-check-BV1j15A6gEcL-2026-07-13.md` （真孤岛）
 - `99-System/audit/spot-check-BV1Mpf9B5Egk.md` （真孤岛）
 - `99-System/audit/spot-check-BV1NuGU6yE1b.md` （真孤岛）
+- `99-System/audit/spot-check-BV1tZw4zLEX8-2026-07-13.md` （真孤岛）
+- `99-System/audit/spot-check-BV1VczqBREQ8-2026-07-13.md` （真孤岛）
 - `99-System/scripts/README.md` （真孤岛）
 - `99-System/Skills/INDEX.md` （真孤岛）
 - `99-System/Skills/vskill-vault-curate/SKILL.md` （真孤岛）
@@ -353,7 +362,7 @@
 ## 7. 被链入最多的文件（Top 10 hub）
 
 - `Loock AI` (142 个反向链)
-- `MOC - Agent Theory and Design` (139 个反向链)
+- `MOC - Agent Theory and Design` (141 个反向链)
 - `MOC - Loock AI 全栈课程` (127 个反向链)
 - `MOC - Harness Engineering` (110 个反向链)
 - `AI Agent Development` (94 个反向链)

@@ -10,6 +10,9 @@ host_name: "No Priors"
 guest_name: "Andrej Karpathy"
 guest_title: "前 OpenAI / Tesla Autopilot · Eureka Labs"
 material_tier: A
+content_form: dialogue
+dialogue_fidelity: source
+question_source: transcript
 ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1dwAczDEXY/ingest"
 speaker: "No Priors / Andrej Karpathy"
 duration: "66:32"
@@ -17,12 +20,21 @@ saved: 2026-07-06
 created: 2026-07-06
 updated: 2026-07-06
 description: "Karpathy × No Priors（非 BV11nRmB1EkH 主题演讲）：AI psychosis、token 吞吐量、Claw/Dobby 全屋、AutoResearch/program.md、锯齿智能与 RL、开源滞后 8 月、MicroGPT 面向代理的教育。"
-transcript_source: "Recastory/workspace/bilibili-retranscribe/BV1dwAczDEXY/article.md"
+transcript_source: "bilibili-retranscribe/BV1dwAczDEXY/article.md"
 curate_method: "vskill-vault-write canonical-dialogue v3.2-asr"
 dialogue_version: v3.2
 genre: Host-Guest canonical (ASR primary)
 speaker_inference: "asr_heuristic + video_description timestamps + No Priors intro"
 speaker_confidence: high
+factual_status: partial
+factual_reviewed: 2026-07-13
+spot_check: 2026-07-13
+verification_basis:
+  - transcript
+  - transcript_json
+  - original_page
+unresolved_facts:
+  - "长视频中的时间、开源滞后月份和直接引语尚未逐条核验；本轮仅完成四点抽样。"
 asr_version: v2
 duplicate_note: "与 BV11nRmB1EkH（AI SF 主题演讲：Software 3.0 / Vibe vs Agentic Code）不同源；本篇聚焦 No Priors 播客：Code Agent 工作流、AutoResearch、Claw、开源与教育。"
 tags:

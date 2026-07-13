@@ -176,9 +176,10 @@ python 99-System/scripts/bilibili-spot-check.py `
 
 
 
-## 已完成（2026-07-02，11/11）
+## 进度
 
-全部 `duration ≥45 min` 笔记已 `spot_check: 2026-07-02`。汇总：[bilibili-spot-check-2026-07-02.md](../../audit/bilibili-spot-check-2026-07-02.md)。`--list-long` → **0 / 11 待查**。
+- 2026-07-02：完成首批 11 篇，见 [bilibili-spot-check-2026-07-02.md](../../audit/bilibili-spot-check-2026-07-02.md)。
+- 2026-07-13：可信度审计新增 6 篇无时间戳 ASR 四锚点对读；当前 gap check 尚有 9 篇长视频待查。
 
 ---
 

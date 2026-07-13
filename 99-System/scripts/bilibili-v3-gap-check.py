@@ -75,6 +75,21 @@ def is_a_lecture(text: str, fm: dict) -> bool:
     )
 
 
+def validate_v2_contract(fm: dict) -> list[str]:
+    errors = []
+    if fm.get("material_tier") not in {"S", "A", "B"}:
+        errors.append("bad material_tier")
+    if fm.get("content_form") not in {"dialogue", "lecture", "roundtable"}:
+        errors.append("bad content_form")
+    if fm.get("dialogue_fidelity") not in {"source", "reconstructed", "none"}:
+        errors.append("bad dialogue_fidelity")
+    if fm.get("question_source") not in {"transcript", "editorial", "none"}:
+        errors.append("bad question_source")
+    if fm.get("factual_status") not in {"verified", "partial", "unverified"}:
+        errors.append("bad factual_status")
+    return errors
+
+
 def load_lecture_stems() -> set[str]:
     stems = set(A_LECTURE_STEMS)
     if BATCH_JSON.exists():
@@ -97,6 +112,7 @@ def main() -> None:
     no_ingest: list[str] = []
     long_no_spot: list[tuple[str, str]] = []
     concept_dash_en: list[tuple[str, int]] = []
+    v2_bad: list[str] = []
 
     dlg_count = len(list(VAULT.rglob("* - 对谈稿.md")))
     vault_md = len([p for p in VAULT.rglob("*.md") if p.name.lower() != "readme.md"])
@@ -126,7 +142,12 @@ def main() -> None:
         is_s = has_s_column(entry)
         expect_lecture = stem in lecture_stems
 
-        if expect_lecture:
+        is_v2 = bool(fm.get("content_form"))
+        if is_v2:
+            errors = validate_v2_contract(fm)
+            if errors:
+                v2_bad.append(f"{name}: {', '.join(errors)}")
+        elif expect_lecture:
             expect_a_lec += 1
             if not is_a_lecture(text, fm):
                 a_lecture_bad.append(name)
@@ -211,6 +232,9 @@ def main() -> None:
     print("CONCEPT_EN_DASH", len(concept_dash_en), "files")
     total_dash = sum(c for _, c in concept_dash_en if c > 0)
     print("CONCEPT_EN_DASH_ROWS", total_dash)
+    print("V2_CONTRACT_BAD", len(v2_bad))
+    for x in v2_bad:
+        print(" ", x)
 
     failed = (
         missing_vault
@@ -223,6 +247,7 @@ def main() -> None:
         or s_ok != expect_s
         or a_dialogue_ok != expect_a_dlg
         or a_lecture_ok != expect_a_lec
+        or v2_bad
     )
     if failed:
         sys.exit(1)

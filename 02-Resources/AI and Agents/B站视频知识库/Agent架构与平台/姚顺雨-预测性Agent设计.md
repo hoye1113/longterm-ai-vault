@@ -12,6 +12,9 @@ guest_title: "OpenAI 研究员 · ReAct / SWE-bench / CoALA 作者"
 co_host_name: "Harrison Chase"
 co_host_title: "LangChain / LangGraph 创始人"
 material_tier: A
+content_form: dialogue
+dialogue_fidelity: source
+question_source: transcript
 ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1tZw4zLEX8/ingest"
 speaker: "Alessio / Harrison Chase / 姚顺雨"
 duration: "86:33"
@@ -19,12 +22,21 @@ saved: 2026-07-06
 created: 2026-07-06
 updated: 2026-07-06
 description: "姚顺雨 × Latent Space（Alessio + Harrison）：ReAct 从文本游戏到通用工具调用、Reflection/ToT 取舍、Benchmark 滞后、ACI 比规划更重要、CoALA 与记忆未解、应用 UX。"
-transcript_source: "Recastory/workspace/bilibili-retranscribe/BV1tZw4zLEX8/article.md"
+transcript_source: "bilibili-retranscribe/BV1tZw4zLEX8/article.md"
 curate_method: "vskill-vault-write canonical-dialogue v3.2-asr"
 dialogue_version: v3.2
 genre: Host-Guest canonical (ASR primary)
 speaker_inference: "asr_heuristic + latent.space show notes + youtube_quote_match"
 speaker_confidence: high
+factual_status: partial
+factual_reviewed: 2026-07-13
+spot_check: 2026-07-13
+verification_basis:
+  - transcript
+  - transcript_json
+  - original_page
+unresolved_facts:
+  - "长视频的全部 benchmark、论文时间线和直接引语尚未逐条核验；本轮仅完成四点抽样。"
 asr_version: v2
 tags:
   - ai_agent

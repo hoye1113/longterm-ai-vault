@@ -10,9 +10,12 @@ tags:
   - video_transcript
   - bilibili
 created: 2026-07-02
-transcript_source: "Recastory/workspace/knowledge/B2-snorkel-rl/article.md"
+transcript_source: "bilibili-retranscribe/BV1JvjP6XE1k/article.md"
 material_tier: S
-ingest_dir: "Recastory/workspace/knowledge/B2-snorkel-rl/ingest"
+content_form: dialogue
+dialogue_fidelity: reconstructed
+question_source: editorial
+ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1JvjP6XE1k/ingest"
 column_url: "https://www.bilibili.com/read/cv50592898/"
 source_original_date: "2026-06-11"
 description: "Snorkel × Berkeley RLLM：专家在环数据 + GRPO，4B 在金融 FinQA 工具使用上 pass@1 约 2× 超越 235B；瓶颈在 tool discipline 而非 reasoning，单次 RL ~$500。"
@@ -21,6 +24,14 @@ guest_name: "Kobie Crawford"
 guest_title: "Snorkel AI 开发者倡导者"
 speaker_inference: "column_article monologue → synthetic Host Q&A"
 speaker_confidence: "high"
+factual_status: partial
+factual_reviewed: 2026-07-13
+verification_basis:
+  - transcript
+  - transcript_json
+  - column
+unresolved_facts:
+  - "4B/235B、成本与训练时长等数字尚未逐条对照原视频。"
 author:
   - "[[Kobie Crawford]]"
 concepts:
@@ -40,7 +51,7 @@ concepts:
     zh: 评估标准
     en: rubrics
     one_line: 把响应拆成多条可评行为，定位该补哪类训练数据
-column_source: "Recastory/workspace/knowledge/B2-snorkel-rl/ingest/column_article.md"
+column_source: "Recastory/workspace/bilibili-retranscribe/BV1JvjP6XE1k/ingest/column_article.md"
 curate_method: "vskill-vault-write canonical-dialogue v3.2"
 dialogue_version: v3.2
 genre: Host-Guest canonical
@@ -48,7 +59,7 @@ updated: 2026-07-03
 ---
 # Snorkel Kobie Crawford：小模型 RL 超越大模型
 
-**Host：** Host（Conference 现场）  
+**编者问：** 以下问题由编者按单人分享的论点重构。
 **Guest：** Kobie Crawford（Snorkel AI 开发者倡导者）  
 **形态：** Host-Guest 对谈稿 v3.2（中文口语化 · 术语表带英文 · 双语金句）  
 **主源：** Recastory `B2-snorkel-rl/ingest/column_article.md`  
@@ -82,7 +93,7 @@ Conference 末场，Kobie Crawford 来自 Snorkel——一家自称「前沿 AI 
 
 ## 01 换大模型常常是错锤子
 
-**Host：** 企业里 FinQA、金融分析这类任务 performance 不够，第一反应往往是「换更大的模型」。你们为什么说这常常是错锤子？
+**编者问：** 企业里 FinQA、金融分析这类任务 performance 不够，第一反应往往是「换更大的模型」。你们为什么说这常常是错锤子？
 
 **Kobie：** 我先交代一下我们到底在干什么。Snorkel 从成立起就在啃数据质量——现在重点是交付**有质量下限保证**的数据集，全程拉专家进来。博士、行业里泡了很多年的分析师，金融任务就找金融的人。顶级 lab 拿我们的数据做性能爬坡，这是 Snorkel 的主业。我们把自己定义成前沿 AI 数据实验室，研究支持一直是底色；这次演讲就是我们研究团队的一条硬结果。
 
@@ -123,7 +134,7 @@ Conference 末场，Kobie Crawford 来自 Snorkel——一家自称「前沿 AI 
 
 ## 02 2350 亿缺 tool discipline，40 亿靠自我纠错赢
 
-**Host：** 同一条 YouTube 广告收入同比题，2350 亿和 40 亿到底差在哪？能一步步走一遍吗？
+**编者问：** 同一条 YouTube 广告收入同比题，2350 亿和 40 亿到底差在哪？能一步步走一遍吗？
 
 **Kobie：** 可以，这是我们环境里最有说服力的对比。环境叫 **FINQA**，我们自建的，专门测金融场景下的工具使用。里面有一套固定工具，全部内置，没有外部依赖——你部署时是自包含的发布版，不会出现依赖项躺在某个远程数据中心、你访问不了的情况。熟悉 OpenAI Gym 或 Harbor 的人会觉得很像。代码在 GitHub OpenAI Gym 仓库，PyTorch 团队和 Hugging Face 团队合作，在 Hugging Face Spaces 里托管；Prime Intellect 基础设施也能加载。**想自己试强化学习，门槛比几年前低多了。**
 
@@ -171,7 +182,7 @@ Conference 末场，Kobie Crawford 来自 Snorkel——一家自称「前沿 AI 
 
 ## 03 只训单表，多表也跟着涨
 
-**Host：** 训练数据里既有单表也有多表。你们做消融实验之后，哪档涨幅最大？这听起来有点反直觉。
+**编者问：** 训练数据里既有单表也有多表。你们做消融实验之后，哪档涨幅最大？这听起来有点反直觉。
 
 **Kobie：** 确实反直觉，但这是这次研究里我最想让人带走的一点。
 
@@ -214,7 +225,7 @@ Conference 末场，Kobie Crawford 来自 Snorkel——一家自称「前沿 AI 
 
 ## 04 Rubrics 定位行为缺口，五百美元够跑一轮 GRPO
 
-**Host：** 企业团队读完会觉得：道理懂了，下一步具体怎么落地？评估标准和数据生成怎么衔接？
+**编者问：** 企业团队读完会觉得：道理懂了，下一步具体怎么落地？评估标准和数据生成怎么衔接？
 
 **Kobie：** 最后一块是我们 Snorkel 研究线最近在推的——把 **评估标准**嵌进评估流程。这也是从这次工作里反推出来的方法论：你得找到**对应特定行为的真正问题**，而不只是知道「模型错了」。
 

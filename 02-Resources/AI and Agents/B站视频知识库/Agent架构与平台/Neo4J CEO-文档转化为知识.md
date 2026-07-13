@@ -9,6 +9,9 @@ host_name: "Moderator（AI Engineer）"
 guest_name: "Emil Eifrem"
 guest_title: "Neo4j 创始人兼 CEO"
 material_tier: S
+content_form: dialogue
+dialogue_fidelity: source
+question_source: transcript
 ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1Dd9CBGEmK/ingest"
 speaker: "Moderator / Emil Eifrem"
 duration: "48:53"
@@ -16,13 +19,22 @@ saved: 2026-07-07
 created: 2026-07-07
 updated: 2026-07-07
 description: "Neo4j CEO Emil：向量库独立品类终结；Graph RAG 准确性/可解释性；NER 与文本转 Cypher 范式翻转；代理四象限数据源与上下文图谱。"
-transcript_source: "Recastory/workspace/bilibili-retranscribe/BV1Dd9CBGEmK/ingest/column_article.md"
+transcript_source: "bilibili-retranscribe/BV1Dd9CBGEmK/article.md"
 column_source: "Recastory/workspace/bilibili-retranscribe/BV1Dd9CBGEmK/ingest/column_article.md"
 curate_method: "vskill-vault-write canonical-dialogue v3.2"
 dialogue_version: v3.2
 genre: Host-Guest canonical
 speaker_inference: "column_article 主持人A/嘉宾标注"
 speaker_confidence: high
+factual_status: partial
+factual_reviewed: 2026-07-13
+spot_check: 2026-07-13
+verification_basis:
+  - transcript
+  - transcript_json
+  - column
+unresolved_facts:
+  - "向量库品类与准确性等判断尚未逐条回看原视频；本轮仅完成四点抽样。"
 tags:
   - ai_agent
   - video_transcript

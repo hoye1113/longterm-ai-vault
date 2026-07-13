@@ -26,6 +26,7 @@ material_tier: S | A | B
 content_form: dialogue | lecture | roundtable
 dialogue_fidelity: source | reconstructed | none
 question_source: transcript | editorial | none
+factual_status: verified | partial | unverified
 ```
 
 - S：素材完整、来源明确、正文充分且可核验。
@@ -36,6 +37,14 @@ question_source: transcript | editorial | none
 - roundtable：多人的独立立场及相互回应构成价值。
 
 非对谈必须使用 `dialogue_fidelity: none`、`question_source: none`。真实问答使用 `source/transcript`。编辑重构使用 `reconstructed/editorial`，不得伪装现场主持。
+
+新收录必须写 `factual_status`：
+
+- `verified`：身份、关键数字、引语、限制和来源路径已经核验；长视频已完成 spot check。
+- `partial`：足以用于理解，但仍有明确的身份、数字、引语或来源缺口，写入 `unresolved_facts`。
+- `unverified`：缺原始正文或无法保真，只能作为发现线索，不能作为可直接引用的事实源。
+
+实际核验后写 `factual_reviewed` 与 `verification_basis`。没有该字段的旧笔记按 unverified 使用，但不批量写回。
 
 ## 来源职责
 
@@ -90,6 +99,10 @@ status: complete | incomplete | rejected
 
 `unresolved` 非空默认不能标 complete。允许的人工待核项必须进入笔记且在报告中披露。
 
+## 存量可信度审计
+
+`bilibili-trust-audit.py` 只读关联 vault、source inventory 与 Recastory manifest，按 P0–P3 输出风险队列。修复坚持最小变更：先纠正来源、人物和忠实度字段；只有证据明确时才改正文。
+
 ## 受控变更
 
 新建 MOC、新 tag、覆盖已有 canonical 笔记必须先确认。更新已有 MOC 属于普通收录动作，但必须在报告中披露。
@@ -97,4 +110,3 @@ status: complete | incomplete | rejected
 ## 相关阅读
 
 - [[MOC - Agent Theory and Design]]
-

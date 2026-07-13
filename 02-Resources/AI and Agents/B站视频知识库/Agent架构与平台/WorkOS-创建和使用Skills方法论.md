@@ -9,16 +9,24 @@ created: 2026-07-02
 updated: 2026-07-03
 description: "Nick × Zack 工作坊：Skill = agentic 时代 DRY；description 路由、bang 脚本、渐进披露、置信度门控、eval 防帮倒忙与团队治理。"
 material_tier: A
-ingest_dir: "Recastory/workspace/knowledge/A6-workos-skills/ingest"
-transcript_source: "Recastory/workspace/knowledge/A6-workos-skills/article.md"
+content_form: dialogue
+dialogue_fidelity: reconstructed
+question_source: editorial
+ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV18bjG6fEi7/ingest"
 curate_method: "vskill-vault-write canonical-dialogue v3.2-asr"
 dialogue_version: v3.2
-genre: "Host-Guest canonical (ASR primary)"
+genre: "Editorially reconstructed workshop dialogue (description primary)"
 host_name: "Nick Nisi"
 guest_name: "Zack Proser"
 guest_title: "WorkOS Applied AI / DX Engineer"
 speaker_inference: "asr_workshop co-presenter Nick=primary_host Zack=guest + video_description"
-speaker_confidence: high
+speaker_confidence: medium
+factual_status: unverified
+factual_reviewed: 2026-07-13
+verification_basis:
+  - description
+unresolved_facts:
+  - "当前 Recastory BV 目录未发现 ASR 或专栏；人物映射、数字与直接引语不能作为已核验引用。"
 spot_check: 2026-07-02
 tags:
   - ai_agent
@@ -54,7 +62,7 @@ concepts:
 
 **Host：** Nick Nisi（WorkOS Developer Experience Engineer）  
 **Guest：** Zack Proser（WorkOS Applied AI / DX Engineer）  
-**形态：** Skills at Scale 互动工作坊 · Host-Guest canonical v3.2（**ASR 主源**）  
+**形态：** Skills at Scale 互动工作坊 · 编辑重构对谈（当前缺 ASR）
 **B 站：** [BV18bjG6fEi7](https://www.bilibili.com/video/BV18bjG6fEi7/) · **时长** ~81 min · **原片** 2026-05-07
 
 ---
@@ -316,7 +324,7 @@ WorkOS Applied AI 团队 **Skills at Scale** 工作坊：现场一起写 **repo-
 ### 素材路径
 
 - **ingest**：`Recastory/workspace/knowledge/A6-workos-skills/ingest`
-- **ASR 主源**：`Recastory/workspace/knowledge/A6-workos-skills/article.md`
+- **来源限制**：当前 Recastory BV 目录未发现 ASR；正文只可作为理解线索
 - **video_description**：`{ingest}/video_description.md`
 - **B 站**：[BV18bjG6fEi7](https://www.bilibili.com/video/BV18bjG6fEi7/)（*Easonlee的AI笔记* 转载）
 - **嘉宾**：Nick Nisi & Zack Proser，WorkOS Applied AI / DX Engineers

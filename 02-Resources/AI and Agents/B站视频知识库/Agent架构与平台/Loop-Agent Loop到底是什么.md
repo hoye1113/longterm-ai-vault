@@ -7,19 +7,29 @@ host_name: "Greg"
 guest_name: "Ross Mikita"
 guest_title: "YouTube @Ross Mikita · agentic loop 实践者"
 material_tier: A
-ingest_dir: "Recastory/workspace/knowledge/A7-loop-agent-loop/ingest"
+content_form: dialogue
+dialogue_fidelity: source
+question_source: transcript
+ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1cVjN6oEwx/ingest"
 speaker: "Greg / Ross Mikita"
 duration: 22:33
 saved: 2026-07-02
 created: 2026-07-02
 updated: 2026-07-03
 description: "Greg × Ross Mikita：HITL 与 Agent Loop 图解、开放式 autoloop 的 token 陷阱、Greptile 评分驱动的 code review 闭环——Human-in-the-loop is the best loop。"
-transcript_source: "Recastory/workspace/knowledge/A7-loop-agent-loop/article.md"
+transcript_source: "bilibili-retranscribe/BV1cVjN6oEwx/article.md"
 curate_method: "vskill-vault-write canonical-dialogue v3.2-asr"
 dialogue_version: v3.2
 genre: Host-Guest canonical (ASR primary)
 speaker_inference: "asr_heuristic + video_description"
-speaker_confidence: high
+speaker_confidence: medium
+factual_status: partial
+factual_reviewed: 2026-07-13
+verification_basis:
+  - transcript
+  - transcript_json
+unresolved_facts:
+  - "人物映射与 Greptile 评分细节尚未由原节目页逐项确认。"
 tags:
   - ai_agent
   - video_transcript

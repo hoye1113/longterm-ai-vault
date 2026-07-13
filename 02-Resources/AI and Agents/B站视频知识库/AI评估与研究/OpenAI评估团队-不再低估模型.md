@@ -7,19 +7,30 @@ host_name: "OpenAI Podcast Host"
 guest_name: "Tejal Patwardhan"
 guest_title: "OpenAI Frontier Evals / Preparedness 负责人"
 material_tier: A
-ingest_dir: "Recastory/workspace/knowledge/B1-openai-evaluation/ingest"
+content_form: dialogue
+dialogue_fidelity: source
+question_source: transcript
+ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1EwK96AEyU/ingest"
 speaker: "Host / Tejal Patwardhan"
 duration: 44:23
 saved: 2026-07-02
 created: 2026-07-02
 updated: 2026-07-03
 description: "Tejal Patwardhan 谈 frontier eval、benchmark 饱和、bench maxing、GDPval、湿实验 Frontier Science 与 AGI index——主张 underhype 模型、dogfood 重试。"
-transcript_source: "Recastory/workspace/knowledge/B1-openai-evaluation/article.md"
+transcript_source: "bilibili-retranscribe/BV1EwK96AEyU/article.md"
 curate_method: "vskill-vault-write canonical-dialogue v3.2-asr"
 dialogue_version: v3.2
 genre: Host-Guest canonical (ASR primary)
 speaker_inference: "asr_heuristic + video_description"
-speaker_confidence: high
+speaker_confidence: medium
+factual_status: partial
+factual_reviewed: 2026-07-13
+verification_basis:
+  - transcript
+  - transcript_json
+  - column
+unresolved_facts:
+  - "主持人身份和部分 benchmark 名称尚未由 OpenAI 官方节目页逐项确认。"
 tags:
   - ai_agent
   - video_transcript

@@ -2,18 +2,29 @@
 title: "DeepMind团队：当数百万 Agent 相遇"
 source: "B站视频 - Google DeepMind: The Podcast（Easonlee 转载）"
 source_url: "https://www.bilibili.com/video/BV1ixKX6oEzK/"
+source_original: "https://deepmind.google/the-podcast/"
 source_original_date: 2026-06-23
 host_name: "Hannah Fry"
 guest_name: "Nenad Tomasev"
 guest_title: "Google DeepMind Senior Staff Research Scientist"
 material_tier: A
-ingest_dir: "Recastory/workspace/knowledge/A1-deepmind-million-agents/ingest"
-transcript_source: "Recastory/workspace/knowledge/A1-deepmind-million-agents/article.md"
+content_form: dialogue
+dialogue_fidelity: reconstructed
+question_source: editorial
+ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1ixKX6oEzK/ingest"
 curate_method: "vskill-vault-write canonical-dialogue v3.2-asr"
 dialogue_version: v3.2
-genre: Host-Guest canonical (ASR primary)
+genre: Editorially reconstructed dialogue (column primary)
 speaker_inference: "asr_heuristic + video_description + podcast credits"
-speaker_confidence: high
+speaker_confidence: medium
+factual_status: unverified
+factual_reviewed: 2026-07-13
+verification_basis:
+  - column
+  - description
+  - original_page
+unresolved_facts:
+  - "当前 Recastory BV 目录未发现 ASR；官方播客页确认 Hannah Fry 为主持，但本篇数字与逐句问答尚未核验。"
 duration: 42:38
 saved: 2026-07-03
 created: 2026-07-02
@@ -45,7 +56,7 @@ concepts:
 
 **Host：** Hannah Fry（Google DeepMind: The Podcast）  
 **Guest：** Nenad Tomasev（Google DeepMind 高级研究员）  
-**形态：** Host-Guest canonical v3.2（**ASR 主源** · 中文口语化）  
+**形态：** Host-Guest canonical v3.2（专栏主源 · 当前缺 ASR）
 **辅源：** B 站简介导读时间戳 · 无专栏主源  
 **B 站：** [BV1ixKX6oEzK](https://www.bilibili.com/video/BV1ixKX6oEzK/)
 
@@ -288,7 +299,7 @@ Nenad 长期研究多智能体与对齐。这期五章：**Agent 和 LLM 差在�
 ### 素材路径
 
 - **ingest**：`Recastory/workspace/knowledge/A1-deepmind-million-agents/ingest`
-- **ASR 主源**：`Recastory/workspace/knowledge/A1-deepmind-million-agents/article.md`
+- **来源限制**：当前 Recastory BV 目录未发现 ASR；问答结构来自专栏整理
 - **video_description**：`{ingest}/video_description.md`
 - **B 站**：[BV1ixKX6oEzK](https://www.bilibili.com/video/BV1ixKX6oEzK/)
 - **原节目**：Google DeepMind: The Podcast

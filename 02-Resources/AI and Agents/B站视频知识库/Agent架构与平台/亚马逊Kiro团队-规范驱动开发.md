@@ -3,10 +3,13 @@ title: "亚马逊 Kiro 团队：规范驱动开发"
 source: "B站视频 - Easonlee的AI笔记"
 source_url: "https://www.bilibili.com/video/BV1VczqBREQ8/"
 column_url: "https://www.bilibili.com/read/cv45039880/"
-host_name: "Moderator"
+host_name: "编者问"
 guest_name: "Al Harris"
 guest_title: "Amazon 首席工程师 · Kiro"
 material_tier: S
+content_form: dialogue
+dialogue_fidelity: reconstructed
+question_source: editorial
 ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1VczqBREQ8/ingest"
 speaker: "Moderator / Al Harris"
 duration: "63:50"
@@ -14,13 +17,22 @@ saved: 2026-07-07
 created: 2026-07-07
 updated: 2026-07-07
 description: "Kiro 首席工程师 Al Harris：规范驱动开发（SDD）、EARS 需求与属性测试、MCP 贯穿需求/设计/实现、活文档与准确性优先于延迟。"
-transcript_source: "Recastory/workspace/bilibili-retranscribe/BV1VczqBREQ8/ingest/column_article.md"
+transcript_source: "bilibili-retranscribe/BV1VczqBREQ8/article.md"
 column_source: "Recastory/workspace/bilibili-retranscribe/BV1VczqBREQ8/ingest/column_article.md"
 curate_method: "vskill-vault-write canonical-dialogue v3.2"
 dialogue_version: v3.2
 genre: Host-Guest canonical
-speaker_inference: "column keynote + Q&A"
+speaker_inference: "ASR + column keynote；编者重构过渡问"
 speaker_confidence: high
+factual_status: partial
+factual_reviewed: 2026-07-13
+spot_check: 2026-07-13
+verification_basis:
+  - transcript
+  - transcript_json
+  - column
+unresolved_facts:
+  - "EARS、属性测试与延迟取舍的全部措辞尚未逐条核验；本轮仅完成四点抽样。"
 tags:
   - ai_agent
   - video_transcript
@@ -55,7 +67,7 @@ author:
 
 # 亚马逊 Kiro 团队：规范驱动开发
 
-**Host：** Moderator（现场 Q&A）  
+**编者问：** 以下问题按 keynote 与 Q&A 主题重组，不能视为逐字现场问题。
 **Guest：** Al Harris（Amazon 首席工程师 · Kiro 小团队）  
 **形态：** Host-Guest canonical v3.2（**专栏主源** · 主题演讲 + 问答）  
 **B 站：** [BV1VczqBREQ8](https://www.bilibili.com/video/BV1VczqBREQ8/) · **时长** ~63:50

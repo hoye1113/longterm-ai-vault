@@ -22,12 +22,30 @@ def parse_frontmatter(text: str) -> dict[str, object]:
     if len(parts) < 3:
         return {}
     result: dict[str, object] = {}
+    active_list: str | None = None
     for line in parts[1].splitlines():
-        if not line.strip() or line.startswith(" ") or ":" not in line:
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if active_list and stripped.startswith("- "):
+            value = stripped[2:].strip().strip('"\'')
+            cast = result.setdefault(active_list, [])
+            if isinstance(cast, list):
+                cast.append(value)
+            continue
+        active_list = None
+        if line.startswith(" ") or ":" not in line:
             continue
         key, value = line.split(":", 1)
         raw = value.strip().strip('"\'')
-        result[key.strip()] = raw
+        key = key.strip()
+        if not raw:
+            result[key] = []
+            active_list = key
+        elif raw.startswith("[") and raw.endswith("]"):
+            result[key] = [item.strip().strip('"\'') for item in raw[1:-1].split(",") if item.strip()]
+        else:
+            result[key] = raw
     return result
 
 
@@ -63,11 +81,26 @@ def validate_note_text(text: str, known_paths: set[str] | None = None) -> dict[s
         errors.append("reconstructed dialogue must use question_source: editorial")
     if form == "dialogue" and fidelity == "source" and question_source != "transcript":
         errors.append("source dialogue must use question_source: transcript")
+    factual_status = fm.get("factual_status")
+    if factual_status is not None and factual_status not in {"verified", "partial", "unverified"}:
+        errors.append("factual_status must be verified, partial, or unverified")
+    basis = fm.get("verification_basis", [])
+    unresolved = fm.get("unresolved_facts", [])
+    if factual_status == "verified":
+        if not fm.get("factual_reviewed"):
+            errors.append("verified notes require factual_reviewed")
+        if not isinstance(basis, list) or not basis:
+            errors.append("verified notes require verification_basis")
+        if isinstance(unresolved, list) and unresolved:
+            errors.append("verified notes cannot contain unresolved_facts")
+
     transcript = str(fm.get("transcript_source", ""))
-    if not transcript:
+    if not transcript and factual_status != "unverified":
         errors.append("missing transcript_source")
-    elif known_paths is not None and transcript not in known_paths:
+    elif transcript and known_paths is not None and transcript not in known_paths:
         errors.append("transcript_source does not exist")
+    if isinstance(basis, list) and "transcript" in basis and not transcript:
+        errors.append("verification_basis transcript requires transcript_source")
     if _duration_seconds(fm.get("duration")) >= 45 * 60 and "spot_check" not in fm:
         errors.append("videos >=45 minutes require spot_check")
     has_link = bool(re.search(r"\[\[[^]]+\]\]", text))
@@ -77,17 +110,23 @@ def validate_note_text(text: str, known_paths: set[str] | None = None) -> dict[s
         errors.append("canonical title must not use - 对谈稿")
     if fidelity == "reconstructed" and re.search(r'host_name:\s*["\']?Moderator（现场）', text):
         errors.append("editorial questions must not impersonate a real onsite moderator")
+    if factual_status == "unverified":
+        warnings.append("unverified note is a discovery lead, not a citable fact source")
     status = "complete" if not errors else "incomplete"
     return {"workflow": "vault_ingest_v2", "checks": {}, "errors": errors, "warnings": warnings, "unresolved": errors.copy(), "status": status}
 
 
 def _source_ids(text: str) -> set[str]:
-    ids = set(re.findall(r"BV[0-9A-Za-z]+", text))
     fm = parse_frontmatter(text)
+    ids: set[str] = set()
     for key in ("source", "source_url"):
-        value = str(fm.get(key, "")).strip().rstrip("/")
-        if value:
-            ids.add(value)
+        raw = fm.get(key, "")
+        values = raw if isinstance(raw, list) else [raw]
+        for item in values:
+            value = str(item).strip().rstrip("/")
+            if value.startswith(("http://", "https://")):
+                ids.add(value)
+                ids.update(re.findall(r"BV[0-9A-Za-z]+", value))
     return ids
 
 

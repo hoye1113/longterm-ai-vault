@@ -3,17 +3,29 @@ title: "Geoff：Ralph Loops 的基础设施"
 source: "B站专栏 - Easonlee的AI笔记"
 source_url: "https://www.bilibili.com/video/BV1H59yBFECR/"
 column_url: "https://www.bilibili.com/read/cv48295800/"
-host_name: "Moderator"
+host_name: "编者问"
 guest_name: "Geoffrey Huntley"
 guest_title: "Ralph Loops / Loom 创始人"
 material_tier: S
 ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1H59yBFECR/ingest"
-transcript_source: "Recastory/workspace/bilibili-retranscribe/BV1H59yBFECR/ingest/column_article.md"
+transcript_source: "bilibili-retranscribe/BV1H59yBFECR/article.md"
 curate_method: "vskill-vault-write canonical-dialogue v3.2"
 dialogue_version: v3.2
 genre: Host-Guest canonical (column primary)
-speaker_inference: "column_article 单人直播；Host 为过渡提问合成"
+speaker_inference: "ASR + column_article 单人直播；编者重构过渡问"
 speaker_confidence: high
+content_form: dialogue
+dialogue_fidelity: reconstructed
+question_source: editorial
+factual_status: partial
+factual_reviewed: 2026-07-13
+spot_check: 2026-07-13
+verification_basis:
+  - transcript
+  - transcript_json
+  - column
+unresolved_facts:
+  - "长视频的全部数字与直接引语尚未逐条核验；本轮仅完成四点抽样。"
 duration: 77:14
 saved: 2026-07-06
 created: 2026-07-06
@@ -54,7 +66,7 @@ concepts:
 
 # Geoff：Ralph Loops 的基础设施
 
-**Host：** Moderator（直播现场过渡提问）  
+**编者问：** 以下问题用于重组单人直播，并非现场主持人原话。
 **Guest：** Geoffrey Huntley（Ralph Loops / Loom 创始人）  
 **形态：** Host-Guest canonical v3.2（**专栏主源** · 约 90 min 直播 demo）  
 **B 站：** [BV1H59yBFECR](https://www.bilibili.com/video/BV1H59yBFECR/) · **专栏** [cv48295800](https://www.bilibili.com/read/cv48295800/) · **时长** ~77 min
@@ -88,7 +100,7 @@ Ralph Wiggum 循环火了，很多人以为就是个 Bash `while true`。Geoffre
 
 ## 01 智能体优先栈：GitHub 和 VS Code 都站错假设上了
 
-**Moderator：** 你公开说讨厌 GitHub——Loom 到底要推翻什么？跟现有 IDE 差在哪？
+**编者问：** 你公开说讨厌 GitHub——Loom 到底要推翻什么？跟现有 IDE 差在哪？
 
 **Geoffrey Huntley：** 我构思这事三年了。你可能不意外，我真的很不喜欢 GitHub。我常问：GitHub 的价值到底是什么？为什么工具长成现在这样？**因为一切都是为人类设计的。** 现在有了这种新计算机，我们可以把过去 40 年的计算模式整个翻掉，**优先围绕自主智能体设计，智能体优先、人类次之。** 要做到这点，得重做整个技术栈。这就是 Loom。以前私下叫 Ferret——在 Canva 时我就提过。
 
@@ -121,7 +133,7 @@ Velocity 倒闭时做过 Phabricator，Facebook、Uber 用过，理念超前，�
 
 ## 02 循环编写者：别 1:1 操作 Cursor，去写嵌套 Ralph 循环
 
-**Moderator：** Ralph Wiggum 技术火了，你跟 Steve Yegge 那套抽象层次论怎么接上？工程师日常到底该干什么？
+**编者问：** Ralph Wiggum 技术火了，你跟 Steve Yegge 那套抽象层次论怎么接上？工程师日常到底该干什么？
 
 **Geoffrey Huntley：** Ralph 火了挺好。有人以为就是个 Bash 循环，我觉得 Cursor 本质上也是循环，自动复制粘贴 IO。Ralph 在推理上是最简单直接的技术：**单一任务、单一目标**，分数组、达目标。YouTube 上我教过正向生成 PRD，也能反向跑——基本能克隆业务模式。还有第三种：**对整个系统做 Ralph 化。** 今天就这么干。
 
@@ -157,7 +169,7 @@ Loom 叫织布机不是随便起的。工业革命纺织工人手工织布，织
 
 ## 03 Thread、Weaver、SPIFFE：织布机的审计与远程智能体原语
 
-**Moderator：** Loom 核心组件是什么？Thread 和 Weaver 怎么配合？企业里怎么审计？
+**编者问：** Loom 核心组件是什么？Thread 和 Weaver 怎么配合？企业里怎么审计？
 
 **Geoffrey Huntley：** Loom 已有完整 OAuth（Google、GitHub）、魔术链接、**SCIM**——Okta 自动开户销户。跨年三个晚上，基本用 Loom 开发 Loom。社区看到前已经迭代四五版了，现在还很原始，但我决定逐步公开。
 
@@ -200,7 +212,7 @@ Weaver CLI 用 **Zig 工具链**在强劲单机上一次交叉编译 macOS、Lin
 
 ## 04 垂直扩展 + NixOS：192 核裸金属与十秒部署主分支
 
-**Moderator：** 云时代大家都讲水平扩展，你为什么押垂直扩展？NixOS 跟带 sudo 的 agent 有什么关系？
+**编者问：** 云时代大家都讲水平扩展，你为什么押垂直扩展？NixOS 跟带 sudo 的 agent 有什么关系？
 
 **Geoffrey Huntley：** 代码在 GitHub 上，**研究项目，别用**——除非你叫 Jeffrey Huntley。我玩 NixOS 十四五年了，infra 目录有些模式值得看。
 
@@ -240,7 +252,7 @@ Weaver CLI 用 **Zig 工具链**在强劲单机上一次交叉编译 macOS、Lin
 
 ## 05 WireGuard 元路由循环：本地 IDE、Loom 服务器、远程 Weaver 三方组网
 
-**Moderator：** 远程 Weaver 和网络隔离你怎么解？本地 IDE 怎么救走偏的 agent？
+**编者问：** 远程 Weaver 和网络隔离你怎么解？本地 IDE 怎么救走偏的 agent？
 
 **Geoffrey Huntley：** Loom 大量代码按 **spec 氛围编程**——起初手引导，有信心就放手，跨年夜 AFK 打碟那样让它跑。Weaver 支持 **MCP**，编辑器能接任何 agent，功能在，还没全集成。
 
@@ -278,7 +290,7 @@ Loom 不限 GitHub——不总想直推 main，可能要背压或预检 CI；或
 
 ## 06 全系统 Ralph 验证：自动化集成测试可能取代 CI
 
-**Moderator：** 直播后半段你在跑「超级循环」——测整个 Loom，不是点 UI。这跟传统 CI 什么关系？
+**编者问：** 直播后半段你在跑「超级循环」——测整个 Loom，不是点 UI。这跟传统 CI 什么关系？
 
 **Geoffrey Huntley：** 日志排查会很久。我的套路：看 **specs index.md**——高度优化的查找表；工具调用失败是**缓存未命中**，成功是命中，要调优搜索和读取工具。固定上下文，给单一目标：调查为什么某功能不工作。
 
@@ -400,6 +412,6 @@ Loom 核心：在 spec 支撑下，**成千上万智能体执行单一任务目�
 
 ### 收录说明
 
-- **嘉宾**：Geoffrey Huntley（Geoff），Ralph Loops / Loom 创始人；直播单人叙述，Host 为 Moderator 合成过渡问
+- **嘉宾**：Geoffrey Huntley（Geoff），Ralph Loops / Loom 创始人；直播单人叙述，问题由编者按话题转折重构
 - **版本**：canonical Host-Guest v3.2（2026-07-06 · S 级专栏主源）
 - **项目状态**：GitHub 公开研究项目；直播声明非 Jeffrey Huntley 请勿用于生产

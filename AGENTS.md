@@ -41,6 +41,8 @@ PREFLIGHT -> ADMISSION -> INVENTORY -> CLASSIFY -> TRANSFORM
 - 每篇笔记必须有语义相关的 `[[wikilink]]`；找不到则标 `status: orphan`，不得凑数。
 - 已有 MOC 可随收录更新；新建 MOC、新 tag、覆盖已有 canonical 笔记必须先取得用户确认。
 - 校验未通过或 `unresolved` 非空时，不得报告“收录完成”。
+- 新 B 站收录必须声明 `factual_status`；旧笔记无该字段时按 unverified 使用，不自动写回。
+- 基于 vault 回答时，verified 可附来源引用；partial 使用保守措辞；unverified 只作为检索线索。
 
 ## 修改边界
 

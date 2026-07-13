@@ -56,6 +56,14 @@ python 99-System/scripts/bilibili-note-validate.py <笔记> --source-root <Recas
 
 ### 4. B 站 ingest 对账
 
+### B 站存量可信度审计
+
+```powershell
+python 99-System/scripts/bilibili-trust-audit.py --vault <B站视频知识库> --inventory <source-inventory.json> --json-out <trust-audit.json> --md-out <trust-audit.md>
+```
+
+用途：关联 canonical、Recastory inventory 与 manifest，按来源缺失、编辑重构、Speaker、长视频和数字密度生成 P0–P3 队列。扫描阶段只读，不修改笔记。
+
 ```powershell
 python 99-System/scripts/bilibili-ingest-reconcile.py
 ```
@@ -132,6 +140,7 @@ ingest reconcile
 | `vault-audit.py` | 全库审计 |
 | `bilibili-source-inventory.py` | Recastory 素材动态发现与全量统计 |
 | `bilibili-note-validate.py` | 单篇双轴收录契约校验 |
+| `bilibili-trust-audit.py` | 存量来源可信度风险评分与首批队列 |
 | `agent-contract-check.py` | Agent 控制面与平台适配检查 |
 | `bilibili-ingest-reconcile.py` | ingest × vault 对账 |
 | `bilibili-concept-cn-fill.py` | 补中文概念字段 |

@@ -8,18 +8,31 @@ created: 2026-07-06
 updated: 2026-07-06
 description: "Riley Brown 完整拆解 Codex 桌面端：项目文件夹边界、插件/技能/自动化、Steer 实时纠偏、六线并行 vibe coding Chorus App，并用 Claude Code/Remotion 补设计短板。"
 material_tier: S
+content_form: dialogue
+dialogue_fidelity: reconstructed
+question_source: editorial
 ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1j15A6gEcL/ingest"
 column_url: "https://www.bilibili.com/read/cv48903377/"
 column_source: "Recastory/workspace/bilibili-retranscribe/BV1j15A6gEcL/ingest/column_article.md"
+transcript_source: "bilibili-retranscribe/BV1j15A6gEcL/article.md"
 source_original_date: "2026-04-20"
 curate_method: "vskill-vault-write canonical-dialogue v3.2"
 dialogue_version: v3.2
 genre: "Host-Guest canonical"
-host_name: "Moderator（Codex 完整教程）"
+host_name: "编者问"
 guest_name: "Riley Brown"
 guest_title: "资深 AI 开发者 · YouTube 创作者"
-speaker_inference: "solo_keynote_reframed_as_host_qa"
+speaker_inference: "ASR + column；单人教程由编者重构问答"
 speaker_confidence: high
+factual_status: partial
+factual_reviewed: 2026-07-13
+spot_check: 2026-07-13
+verification_basis:
+  - transcript
+  - transcript_json
+  - column
+unresolved_facts:
+  - "长视频的全部产品细节与数字尚未逐条核验；本轮仅完成四点抽样。"
 tags:
   - ai_agent
   - video_transcript
@@ -56,7 +69,7 @@ concepts:
 
 # Codex 实战：100 分钟完整教程
 
-**Host：** Moderator（Codex 完整教程）  
+**编者问：** 以下问题用于重组单人教程，并非原视频问答。
 **Guest：** Riley Brown（资深 AI 开发者）  
 **形态：** Host-Guest canonical v3.2（**专栏主源** · 单人教程 reframed 为 Moderator Q&A）  
 **B 站：** [BV1j15A6gEcL](https://www.bilibili.com/video/BV1j15A6gEcL/) · **时长** ~67 min · **专栏** [cv48903377](https://www.bilibili.com/read/cv48903377/)
@@ -88,7 +101,7 @@ Riley Brown 用一条视频把 OpenAI Codex 桌面端从「像 ChatGPT 的聊天
 
 ## 01 Codex 是统一编码与计算机控制的超级应用 [01:15]
 
-**Moderator：** 很多人把 Codex 当「桌面版 ChatGPT」。你视频开头说它是 **唯一统一的通用代理**——和 Claude Code 比，差在哪？
+**编者问：** 很多人把 Codex 当「桌面版 ChatGPT」。你视频开头说它是 **唯一统一的通用代理**——和 Claude Code 比，差在哪？
 
 **Riley Brown：** 表面确实像 ChatGPT：中间聊天框、能网页搜索。但 Codex 里塞的是 **编码 + 协同 + 浏览器 + 计算机使用** 一整条链。代理能 **创建/编辑/删除本地文件**，后面还会 **完全控制键鼠**——OpenAI 的 Computer Use 我试过，比别家强一截。
 
@@ -123,7 +136,7 @@ Riley Brown 用一条视频把 OpenAI Codex 桌面端从「像 ChatGPT 的聊天
 
 ## 02 建立项目空间与插件/技能/自动化边界 [05:42–12:30]
 
-**Moderator：** 项目文件夹讲清了。插件和技能很多人混——还有人说自动化就是 cron。你怎么切这三层？
+**编者问：** 项目文件夹讲清了。插件和技能很多人混——还有人说自动化就是 cron。你怎么切这三层？
 
 **Riley Brown：** 我三十多个项目，**Command+G 搜索** 能把已从侧栏移除的文件夹拖回来——删侧栏不删磁盘。插件 vs 技能：边界故意模糊。插件是 **可安装单元**（Google 日历、Figma、Gmail）；技能是 **针对任务的可重用工作流包**，像食谱。OpenAI 把 tab 拆开，Claude 叫「自定义/连接器」——我归为一类：**扩展模型碰不到的东西**。
 
@@ -156,7 +169,7 @@ Figma 插件：新聊天问「你能对 Figma 做什么？」→ 三种能力：
 
 ## 03 实时 Steer 与设计工具链 [12:30–18:45]
 
-**Moderator：** Paper 演示里按钮重叠——很多工具只能等跑完再排队。Codex 的 **Steer** 怎么改协作节奏？
+**编者问：** Paper 演示里按钮重叠——很多工具只能等跑完再排队。Codex 的 **Steer** 怎么改协作节奏？
 
 **Riley Brown：** 传统队列：代理跑着，你输入只能 **等当前任务结束**。Codex 有 **Steer（转向）**——像打方向盘。我截图重叠的 CTA，粘贴说「顺便修一下」，默认回车是排队，点 **Steer** 则在 **当前 tool call 结束后立刻插队**。代理回复：「已开始下移按钮并重查 Hero 文案」——不必等整页生成完。
 
@@ -189,7 +202,7 @@ Steer + 语音输入 + 截图，是我日常 triad：**说想法、指问题、�
 
 ## 04 串行指令、六线并行 Chorus App [28:15]
 
-**Moderator：** 第二部分你说最高效的人不是真·多线程，而是 **串行下指令、并行等结果**。Chorus 角色扮演具体怎么排？
+**编者问：** 第二部分你说最高效的人不是真·多线程，而是 **串行下指令、并行等结果**。Chorus 角色扮演具体怎么排？
 
 **Riley Brown：** 代理越来越慢——**一条 prompt 就是一项任务**。顶尖操作者：把精力砸进 **一条提示**，回车，**立刻换聊天**做下一件。我们同时推进六样：iOS App **Chorus**（代理知识库 + 可复制技能）、landing + Tally 候补名单、Remotion 发布视频、投资者 PPT、X/Typefully 自动化、移动 UI 设计。
 
@@ -220,7 +233,7 @@ Steer + 语音输入 + 截图，是我日常 triad：**说想法、指问题、�
 
 ## 05 外部工具补设计：Claude Code + Remotion [52:10]
 
-**Moderator：** Codex 逻辑强，但你说 **网页设计不行**——怎么拆工具？
+**编者问：** Codex 逻辑强，但你说 **网页设计不行**——怎么拆工具？
 
 **Riley Brown：** Landing 第一版 Codex 做丑了——渐变、组件过重。我 **终端开 Claude Code**（`claude --dangerously-skip-permissions` = 全权限），给 **「我的新业务」文件夹上下文**，指令：「忘掉旧样式，读 Chorus App Swift/React 字体，极简白底，嵌 Tally，高转化。」Claude **实时改 React**，比 Codex 默认「笨重设计风」干净得多。
 
@@ -251,7 +264,7 @@ Remotion 插件做 **动态图形发布视频**：localhost 时间线，**30fps 
 
 ## 06 TestFlight、Vercel 与 Typefully 自动化收尾 [52:10+]
 
-**Moderator：** 六件事最后怎么收束？Auth、上线、社媒自动化各用什么招？
+**编者问：** 六件事最后怎么收束？Auth、上线、社媒自动化各用什么招？
 
 **Riley Brown：** Supabase **Email/Password Auth**（Google OAuth 中途放弃改 Apple/Email）→ 关邮件确认先跑通 → Profile 显示已保存平台/技能。真机 Riley iPhone + 触觉反馈；**App Store Connect → TestFlight** 构建链接可分享。
 

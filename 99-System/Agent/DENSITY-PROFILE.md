@@ -46,7 +46,14 @@ description: "用主张、机制、证据和张力验收信息密度，并给出
 - 是否出现来源中没有、又未标注为编辑新增的内容？
 - 摘要是否只负责导航，正文是否足以支持未来检索和讨论？
 
+## Agent 引用可信度
+
+- `factual_status: verified`：可以引用，仍须附 source。
+- `partial`：使用“笔记整理认为”“原视频中提到”等保守措辞，并披露相关 `unresolved_facts`。
+- `unverified` 或旧笔记无 factual 字段：只能作为检索线索，关键事实必须回到原始来源核验。
+
+写得顺、结构完整、带直接引语，都不能替代来源核验。
+
 ## 相关阅读
 
 - [[MOC - Agent Theory and Design]]
-

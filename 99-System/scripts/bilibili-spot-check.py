@@ -11,6 +11,7 @@ import argparse
 import os
 import re
 import sys
+from datetime import date
 from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
@@ -205,7 +206,18 @@ def build_report(note_path: Path, recastory: Path) -> str:
     spot = fm.get("spot_check", "")
     asr_path = resolve_asr(ts, recastory)
 
-    lines: list[str] = [f"# Spot check 工作表：{title}", ""]
+    lines: list[str] = [
+        "---",
+        f'title: "Spot check - {title}"',
+        "tags: [notes, bilibili, ai_agent]",
+        f"created: {date.today().isoformat()}",
+        f'source: "{note_path.relative_to(VAULT_ROOT).as_posix()}"',
+        'description: "B站长视频笔记与Recastory ASR的事实抽样工作表。"',
+        "---",
+        "",
+        f"# Spot check 工作表：{title}",
+        "",
+    ]
     lines.append(f"- **Vault**: `{note_path.relative_to(VAULT_ROOT).as_posix()}`")
     lines.append(f"- **时长**: {duration or '—'}")
     lines.append(f"- **spot_check**: {spot or '（未登记）'}")

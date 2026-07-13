@@ -2,11 +2,15 @@
 title: "Cursor CEO：云端智能体上线"
 source: "B站视频 - Easonlee的AI笔记"
 source_url: "https://www.bilibili.com/video/BV18qTi6uEDX/"
-host_name: "Moderator（Compile 26）"
+source_original: "https://cursor.com/compile"
+host_name: "编者问"
 guest_name: "Michael Truell"
 guest_title: "Cursor CEO · 联合创始人"
 column_url: "https://www.bilibili.com/read/cv51067150/"
 material_tier: S
+content_form: dialogue
+dialogue_fidelity: reconstructed
+question_source: editorial
 ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV18qTi6uEDX/ingest"
 speaker: "Moderator / Michael Truell"
 duration: 27:01
@@ -14,12 +18,21 @@ saved: 2026-07-06
 created: 2026-07-06
 updated: 2026-07-06
 description: "Compile 26：Michael 讲 Cursor 从洞穴原型到 Agent-first；云端多智能体、Cursor Mobile、Origin 原生 Git、Composer 10–20× 算力与 SpaceX。"
-transcript_source: "Recastory/workspace/bilibili-retranscribe/BV18qTi6uEDX/article.md"
+transcript_source: "bilibili-retranscribe/BV18qTi6uEDX/article.md"
 curate_method: "vskill-vault-write canonical-dialogue v3.2"
 dialogue_version: v3.2
 genre: Host-Guest canonical
-speaker_inference: "asr_heuristic + video_description（Compile 26 keynote；Host 为过渡提问）"
+speaker_inference: "ASR + column + Cursor Compile 官方页面（keynote；编者重构过渡问）"
 speaker_confidence: high
+factual_status: partial
+factual_reviewed: 2026-07-13
+verification_basis:
+  - transcript
+  - transcript_json
+  - column
+  - original_page
+unresolved_facts:
+  - "关键产品数字与直接引语尚未逐条对照原视频。"
 asr_version: v2
 tags:
   - ai_agent
@@ -44,7 +57,7 @@ concepts:
 
 # Cursor CEO：云端智能体上线
 
-**Host：** Moderator（Compile 26）  
+**编者问：** 以下问题用于重组 keynote，并非现场主持人原话。
 **Guest：** Michael Truell（Cursor CEO）  
 **形态：** Host-Guest canonical v3.2（**ASR 主源**）  
 **B 站：** [BV18qTi6uEDX](https://www.bilibili.com/video/BV18qTi6uEDX/) · **时长** ~27 min
@@ -71,7 +84,7 @@ Compile 26。Michael 从 2022 年「史前」讲起：四个人觉得 AI coding 
 
 ## 01 洞穴两周：先做出自己能用的环境
 
-**Moderator：** Cursor 怎么起步的？第一版长什么样？
+**编者问：** Cursor 怎么起步的？第一版长什么样？
 
 **Michael Truell：** 我们 2022 年 1 月开始碰这些事。第一版 Cursor 其实 2023 年初才放出来。中间有一段绕路：我们想做开发者工具，但看了一圈——几十家创业公司、大厂、吓人的 lab——觉得没空间。结果年底还是忍不住，因为市场上没有我们真正想用的东西。
 
@@ -88,7 +101,7 @@ Compile 26。Michael 从 2022 年「史前」讲起：四个人觉得 AI coding 
 
 ## 02 超九成用户已转向智能体
 
-**Moderator：** 现在用户还在用 Tab 吗？
+**编者问：** 现在用户还在用 Tab 吗？
 
 **Michael：** 数据上，**超过 95% 的用户已经把 Agent 当主力**，使用频次大约是 Tab 补全的 **5 倍**。这不是「多一个聊天窗」，而是开发范式从单点补全跨到 **智能体深度协作**。
 
@@ -107,7 +120,7 @@ Compile 26。Michael 从 2022 年「史前」讲起：四个人觉得 AI coding 
 
 ## 03 移动端：离开电脑也能盯着 agent
 
-**Moderator：** 云端跑着，人走开了怎么办？
+**编者问：** 云端跑着，人走开了怎么办？
 
 **Michael：** 发布了 **Cursor Mobile**：能看运行截图、在画面上标注、远程控制本地或云端代理。开发者离开工位时仍能监控、纠偏，让「全天候云端智能体」不至于无人看管地跑偏。
 
@@ -126,7 +139,7 @@ Compile 26。Michael 从 2022 年「史前」讲起：四个人觉得 AI coding 
 
 ## 04 Origin：为智能体重做代码托管
 
-**Moderator：** 传统 GitHub 扛得住吗？
+**编者问：** 传统 GitHub 扛得住吗？
 
 **Michael：** AI 编程把代码量、提交量推到指数级。传统 Git 协作很难扛 **数千智能体高并发读写**。Origin 是 agent 原生的代码与协作平台：自动处理冲突、缩短 PR 评审周期——按「机器在写、人在审」的节奏设计，而不是把人的 PR 流程硬套到 agent 洪峰上。
 
@@ -143,7 +156,7 @@ Compile 26。Michael 从 2022 年「史前」讲起：四个人觉得 AI coding 
 
 ## 05 Composer：十到二十倍算力，走出纯编程
 
-**Moderator：** 模型侧你们押什么？
+**编者问：** 模型侧你们押什么？
 
 **Michael：** Cursor 正与 **SpaceX** 等合作，投入大约 **过去的 10 到 20 倍算力**，从头训练新的通用智能模型线（Composer 方向）。目标不只写代码：长期规划、界面操作等更通用的智能协作能力。编程是入口，不是天花板。
 

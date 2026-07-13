@@ -2,23 +2,34 @@
 title: "PlanetScale：Agent 时代的基础设施"
 source: "B站视频 - Easonlee的AI笔记"
 source_url: "https://www.bilibili.com/video/BV1ZWTL64Erg/"
+source_original: "https://cursor.com/compile"
 source_original_date: 2026-06-24
 duration: 25:40
 saved: 2026-07-03
 created: 2026-07-02
 updated: 2026-07-03
-description: "Sam Shank × 会议主持：Cursor Agent live demo 优化/拦截/Rewind/分片；infra 必须 safe by default，narrow tools 封装 DBA 经验。"
+description: "Sam Lambert 在 Cursor Compile 讲 Agent 基础设施：live demo 优化/拦截/Rewind/分片；infra 必须 safe by default，narrow tools 封装 DBA 经验。"
 material_tier: A
-ingest_dir: "Recastory/workspace/knowledge/A3-planetscale-agent/ingest"
-transcript_source: "Recastory/workspace/knowledge/A3-planetscale-agent/article.md"
+content_form: dialogue
+dialogue_fidelity: reconstructed
+question_source: editorial
+ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1ZWTL64Erg/ingest"
 curate_method: "vskill-vault-write canonical-dialogue v3.2-asr"
 dialogue_version: v3.2
-genre: "Host-Guest canonical (ASR primary)"
-host_name: "Conference Moderator"
-guest_name: "Sam Shank"
+genre: "Editorially reconstructed dialogue (column primary)"
+host_name: "编者问"
+guest_name: "Sam Lambert"
 guest_title: "PlanetScale CEO"
-speaker_inference: "asr_single_speaker_keynote + video_description chapter_reconstruction"
+speaker_inference: "column_article + video_description + Cursor Compile 官方议程（主题演讲，编者重构提问）"
 speaker_confidence: medium
+factual_status: unverified
+factual_reviewed: 2026-07-13
+verification_basis:
+  - column
+  - description
+  - original_page
+unresolved_facts:
+  - "当前 Recastory BV 目录未发现 ASR；演讲细节、数字与措辞仍需回看原视频。"
 tags:
   - ai_agent
   - video_transcript
@@ -46,9 +57,9 @@ concepts:
 
 # PlanetScale：Agent 时代的基础设施
 
-**Host：** Conference Moderator（AI Engineer 类会议主持，ASR 未标真名）  
-**Guest：** Sam Shank（PlanetScale CEO）  
-**形态：** 主题演讲 + Cursor live demo · Host-Guest canonical v3.2（**ASR 主源** · 章节边界重构问答）  
+**编者问：** 以下问题用于重组主题演讲，并非会议主持人原话。
+**Guest：** Sam Lambert（PlanetScale CEO）
+**形态：** 主题演讲 + Cursor live demo · 编辑重构问答（专栏与简介主源，当前缺 ASR）
 **B 站：** [BV1ZWTL64Erg](https://www.bilibili.com/video/BV1ZWTL64Erg/) · **原片** 2026-06-24 · **时长** 25:40
 
 ---
@@ -77,7 +88,7 @@ PlanetScale 是云数据库（Vitess 分片、Postgres 等），**Cursor 也是�
 
 ## 01 Agent 非确定性：彩排每次不同，平台得兜到对的地方
 
-**Host：** 你说这场 demo 几乎全靠 Agent——非确定性会不会把 DBA 吓跑？
+**编者问：** 你说这场 demo 几乎全靠 Agent——非确定性会不会把 DBA 吓跑？
 
 **Sam：** Agent **非确定性**。我练这场 demo，**每次路径都不一样**，但最后都到对的地方。所以我们 building 的系统要**极其安全**——PlanetScale 高可用，它可能直接 **block** 你在干的事，让 Agent 停。行业里数据库 + Agent 的恐怖故事不少；今天看另一面。
 
@@ -110,7 +121,7 @@ demo 电商 **Sam's Sofa**：Cloudflare 托管，PlanetScale 三节点 cluster�
 
 ## 02 分支与 Deploy Request：坏 Agent drop column 被平台 veto
 
-**Host：** 你说故意塞了「坏 prompt」——平台怎么拦破坏性 schema？
+**编者问：** 你说故意塞了「坏 prompt」——平台怎么拦破坏性 schema？
 
 **Sam：** 一个坏 Agent 试图 **drop column**。PlanetScale 扫描**所有 in-flight queries**，发现会破坏活跃查询 → **reject**（除非你 force）。我说：**「我们成功阻止 Agent 打爆生产。」**
 
@@ -143,7 +154,7 @@ Branch 给**生产级环境**试变更，不必每次真上 prod。现代世界�
 
 ## 03 Schema Rewind：百 TB 表也是同一速度，中间写入不丢
 
-**Host：** 另一个坏 Agent 你真放进去了——生产挂了之后怎么救？和传统 restore 差在哪？
+**编者问：** 另一个坏 Agent 你真放进去了——生产挂了之后怎么救？和传统 restore 差在哪？
 
 **Sam：** 那个 Agent **被允许** push 破坏性 schema——生产丢 column 访问，站点挂。传统 DB：restore snapshot，**中间写入可能丢**，服务停很久。
 
@@ -176,7 +187,7 @@ Demo 收尾：坏家伙被 prevent，站点变快，Agents View 里任务都 com
 
 ## 04 在线分片 + Cursor：scatter-gather 是应用层噩梦
 
-**Host：** 流量涨了，垂直扩展到头——分片 demo 里 Cursor 具体干什么？
+**编者问：** 流量涨了，垂直扩展到头——分片 demo 里 Cursor 具体干什么？
 
 **Sam：** 三节点 unsharded → **16 shards**，每 shard 独立 primary + replicas 跨 AZ。应用仍连「一个库」——背后是分布式系统。
 
@@ -213,7 +224,7 @@ Demo 跑完：query 处理率大涨，Grafana 订单量 spike——sharding done
 
 ## 05 Day one 容易，living production 才是二十年战场
 
-**Host：** 行业都在 obsession「快速 spin up sandbox」——你跟 Day one 唱反调？
+**编者问：** 行业都在 obsession「快速 spin up sandbox」——你跟 Day one 唱反调？
 
 **Sam：** 行业 obsessed **point of creation**——sandbox、秒级建库，Day one 大多能跑。真实软件活 **十年二十年**；我们常见接近 **二十年**的产品。
 
@@ -248,7 +259,7 @@ Agent 要在 **living production** 里持续 **prune、iterate、应对 emergent
 
 ## 06 Small sharp tools：别扔 raw log，traffic control 与反压
 
-**Host：** 「narrow tools」哲学最后收一下——Postgres traffic control 和 backpressure 给 Agent 什么？
+**编者问：** 「narrow tools」哲学最后收一下——Postgres traffic control 和 backpressure 给 Agent 什么？
 
 **Sam：** **Small sharp tools** → 少歧义、高可靠、可组合。**Composition scales intelligence without scaling risk.**
 
@@ -336,7 +347,7 @@ Agent 要在 **living production** 里持续 **prune、iterate、应对 emergent
 ### 素材路径
 
 - **ingest**：`Recastory/workspace/knowledge/A3-planetscale-agent/ingest`
-- **ASR 主源**：`Recastory/workspace/knowledge/A3-planetscale-agent/article.md`
+- **来源限制**：当前 Recastory BV 目录未发现 ASR；正文来自专栏与简介的编辑重构
 - **video_description**：`{ingest}/video_description.md`
 - **B 站**：[BV1ZWTL64Erg](https://www.bilibili.com/video/BV1ZWTL64Erg/)（*Easonlee的AI笔记*）
 - **讲者**：Sam Shank，PlanetScale CEO

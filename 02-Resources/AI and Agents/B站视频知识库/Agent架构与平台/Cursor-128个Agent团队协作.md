@@ -14,9 +14,11 @@ tags:
   - harness_engineering
 created: 2026-07-02
 description: "Harry 同时跑 128+ Agent 做 KV cache compaction 研究，用脚本互发 user message 实现数学家团队；Sam 分享 thermonuclear review、多模型分工与 taste 仍是瓶颈。"
-transcript_source: "Recastory/A4-cursor-128-agents/article.md"
 material_tier: S
-ingest_dir: "Recastory/workspace/knowledge/A4-cursor-128-agents/ingest"
+content_form: dialogue
+dialogue_fidelity: reconstructed
+question_source: editorial
+ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1LFjV6BEpe/ingest"
 column_url: "https://www.bilibili.com/read/cv50625673/"
 source_original_date: "2026-06-12"
 host_name: "Sam Whitmore"
@@ -24,6 +26,13 @@ guest_name: "Harry Partridge / Charlie O'Neill"
 guest_title: "BasedTen ML 研究员 / Parsed 联合创始人"
 speaker_inference: "column_article + lecture_v3"
 speaker_confidence: "high"
+factual_status: unverified
+factual_reviewed: 2026-07-13
+verification_basis:
+  - column
+  - description
+unresolved_facts:
+  - "当前 Recastory BV 目录未发现 ASR；128+ Agent、人物映射与直接引语不能作为已核验引用。"
 author:
   - "[[Sam Whitmore]]"
   - "[[Harry Partridge]]"
@@ -45,7 +54,7 @@ concepts:
     zh: 模型随机森林
     en: model-level random forest
     one_line: 实现与审查换模型家族，错误不完全相关
-column_source: "Recastory/workspace/knowledge/A4-cursor-128-agents/ingest/column_article.md"
+column_source: "Recastory/workspace/bilibili-retranscribe/BV1LFjV6BEpe/ingest/column_article.md"
 curate_method: "vskill-vault-write canonical-dialogue v3.2"
 dialogue_version: v3.2
 genre: Host-Guest canonical

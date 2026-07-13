@@ -3,17 +3,26 @@ title: "Databricks：企业级 Agent 生产实践"
 source: "B站视频 - Easonlee的AI笔记"
 source_url: "https://www.bilibili.com/video/BV1o4TL6sExw/"
 source_original_date: 2026-06-18
-host_name: "Moderator（AI Engineer 现场）"
+host_name: "编者问"
 guest_name: "Sandy"
 guest_title: "Databricks 数据 AI 技术负责人（前 AWS 首席数据 AI 架构师）"
-material_tier: A
-ingest_dir: "Recastory/workspace/knowledge/A2-databricks-agent/ingest"
-transcript_source: "Recastory/workspace/knowledge/A2-databricks-agent/article.md"
+material_tier: B
+content_form: dialogue
+dialogue_fidelity: reconstructed
+question_source: editorial
+ingest_dir: "Recastory/workspace/bilibili-retranscribe/BV1o4TL6sExw/ingest"
 curate_method: "vskill-vault-write canonical-dialogue v3.2-asr"
 dialogue_version: v3.2
-genre: Host-Guest canonical (ASR primary)
-speaker_inference: "asr_heuristic + video_description（主题演讲，Host 为过渡提问）"
-speaker_confidence: high
+genre: Editorially reconstructed dialogue (column primary)
+speaker_inference: "column_article + video_description（主题演讲，编者重构过渡问）"
+speaker_confidence: medium
+factual_status: unverified
+factual_reviewed: 2026-07-13
+verification_basis:
+  - column
+  - description
+unresolved_facts:
+  - "当前 Recastory BV 目录未发现 ASR；数字、原话与 Sandy 的完整身份不能作为已核验引用。"
 duration: 37:06
 saved: 2026-07-03
 created: 2026-07-02
@@ -43,9 +52,9 @@ concepts:
 
 # Databricks：企业级 Agent 生产实践
 
-**Host：** Moderator（AI Engineer 现场）  
+**编者问：** 以下问题用于整理主题演讲结构，并非现场主持人原话。
 **Guest：** Sandy（Databricks 数据 AI 技术负责人）  
-**形态：** Host-Guest canonical v3.2（**ASR 主源** · 主题演讲转对谈 · 中文口语化）  
+**形态：** 编辑重构对谈（**专栏 + 简介主源** · 当前缺 ASR）
 **辅源：** B 站简介导读时间戳 · 无专栏主源  
 **B 站：** [BV1o4TL6sExw](https://www.bilibili.com/video/BV1o4TL6sExw/)
 
@@ -61,7 +70,7 @@ concepts:
 
 ## 01 模型争论不是首要痛点：三大缺口与五支柱
 
-**Host：** 你这两年跟客户聊，最常见的翻车模式是什么？
+**编者问：** 你这两年跟客户聊，最常见的翻车模式是什么？
 
 **Sandy：** 几乎一个模子。领导催做 AI → 团队先吵该用哪个模型 → 用干净数据做 demo → 领导签字上生产 → 几周后用户问：「AI 到底在干什么？」ROI 落空，钱白花，凌晨三点不知道找谁。
 
@@ -69,7 +78,7 @@ concepts:
 
 这三个洞让我搭了**五支柱**：评估、可观测性、数据基础、多智能体编排、治理。理想顺序是 eval → observability → data → orchestration → governance；现实可交错，但**五块不能缺**。动笔写代码、讨论模型和功能之前，先想：**成功长什么样？怎么持续量？**
 
-**Host：** 所以企业最常犯的错误，是一开始就陷进模型选型？
+**编者问：** 所以企业最常犯的错误，是一开始就陷进模型选型？
 
 **Sandy：** 对。两年前市场就在聊模型，每一场对话都从「我们用 GPT 还是 Claude」开场——不怪大家，当时技术叙事就这样。但真正卡生产的，是看不见、量不清、没人负责。框架的意义，是把今天会场里听来的各种技术，对号入座进这五根柱子——你知道自己的 eval 栈、trace 栈、数据策略各放哪。
 
@@ -96,7 +105,7 @@ concepts:
 
 ## 02 评估是规格书：三层架构与行为防线
 
-**Host：** 支柱一「评估」具体怎么落地？很多团队停在「要准确」四个字。
+**编者问：** 支柱一「评估」具体怎么落地？很多团队停在「要准确」四个字。
 
 **Sandy：** 评估就是 AI 系统的**规格说明书**——成功必须写数字。零售银行 chatbot 一例：主目标是**分流**简单咨询，让人工坐席只接复杂单。你得跟踪 deflection rate——多少 query 被 agent 接住、多少还得转人。不是泛泛说「要准确」，而是「简单 query 分流 60%、准确率 85%」这类业务语言。
 
@@ -106,7 +115,7 @@ concepts:
 
 举个例子：用户问账户余额，答案对了，trace 里却发现 agent **为同一个答案打了三次数据库 API**——demo 里三次没事，生产里每天成千上万次查询，**重复调用就是烧钱**。行为评估是成本防线。
 
-**Host：** 行为层为什么最容易被 skip？
+**编者问：** 行为层为什么最容易被 skip？
 
 **Sandy：** 因为 demo 看起来「答对了」就够了。产线高并发下，duplicate API、无意义重试、tool loop 会把账单撑爆。这层要和前两层一起建，不是锦上添花。
 
@@ -133,7 +142,7 @@ concepts:
 
 ## 03 可观测性：每笔决策可回放；数据基础占六成
 
-**Host：** 支柱二 trace 为什么监管和客户纠纷都离不开？
+**编者问：** 支柱二 trace 为什么监管和客户纠纷都离不开？
 
 **Sandy：** 举个真项目：零售银行 chatbot，客户说被收了不该收的透支费，要求减免。Agent 走完整条链——意图分类（耗时、置信度）、连客户库 API、查 RAG 向量库里的透支政策、推理该怎么回、高层 guardrail、最后回复客户。
 
@@ -143,7 +152,7 @@ Trace 还能在线发现问题：duplicate API 可以在产线实时监控，触
 
 企业现在突然要 agent 查数，数据质量、元数据、权限一下子全暴露。在 Databricks 栈里，Delta Lake + Unity Catalog 做表级描述、PII 标签、列级元数据——agent 查表时能带上上下文，审计和发现也集中在一处。Tracing 数据还要跨框架汇聚：客户可能同时用 LangChain、自建栈、多云——需要**统一收集 trace**，给一线支持、运维、LLM judge、漂移监控共用。
 
-**Host：** 「agent 对错误数据不宽容」这句话有多字面？
+**编者问：** 「agent 对错误数据不宽容」这句话有多字面？
 
 **Sandy：** 非常字面。错数进上下文，它照样流畅地给你错误答案——比人类同事还自信。所以数据策略和 trace 策略必须同一套治理语言谈，不能各搞各的。
 
@@ -170,7 +179,7 @@ Trace 还能在线发现问题：duplicate API 可以在产线实时监控，触
 
 ## 04 多智能体编排：三种模式各管什么
 
-**Host：** 什么时候必须从「一个 agent」升级到编排？
+**编者问：** 什么时候必须从「一个 agent」升级到编排？
 
 **Sandy：** 一个 agent 往往够用；**上到五个**，复杂度指数涨——互相等响应、状态同步、失败传播，全来了。常见三种模式。
 
@@ -178,7 +187,7 @@ Trace 还能在线发现问题：duplicate API 可以在产线实时监控，触
 
 选模式要想清楚状态管理、容错、规模化——我在同场会议的 online track 有专门视频讲 state、Saga 补偿、熔断等，YouTube 上能看。没有万能模式，只有跟用例匹配的权衡。
 
-**Host：** 和治理支柱怎么衔接？
+**编者问：** 和治理支柱怎么衔接？
 
 **Sandy：** 编排决定「怎么协作」；治理决定「协作出事谁负责」。多 agent 不是炫技——是复杂度到了不得不用。但模式选错，debug 成本比单 agent 高一个数量级。
 
@@ -201,7 +210,7 @@ Trace 还能在线发现问题：duplicate API 可以在产线实时监控，触
 
 ## 05 治理与银行案例：第七周才选模型
 
-**Host：** 治理支柱和零售银行案例，能串成一条时间线吗？
+**编者问：** 治理支柱和零售银行案例，能串成一条时间线吗？
 
 **Sandy：** 治理这里不单讲数据治理——那在数据支柱已覆盖。这里讲**监管审计轨迹**：每个 action、每次用户连接、每次请求是否都记下？上线前做 PII 预检、NER、regex——我们一个客户测试阶段就抓到 **47 次 PII 泄露**。还有 **prompt 版本管理**：企业里改 prompt 不能 git commit 就完，要走变更管理，记清「哪次失败导致哪版 prompt」。**模型变更管理**也一样——供应商升级模型，你得在自己的 eval set 上重跑，不能只看公开 benchmark。
 
@@ -213,7 +222,7 @@ Trace 还能在线发现问题：duplicate API 可以在产线实时监控，触
 
 **事故 playbook**：检测（dashboard）→ 诊断（trace）→ 遏制（回滚 prompt、转人工、熔断）→ 用测试库修复 → **失败用例永久入库**。还要接现有 ITSM，凌晨三点告警到对的人。
 
-**Host：** 明天就能做的第一步？
+**编者问：** 明天就能做的第一步？
 
 **Sandy：** 从业务语言定义成功，收十几条「好答案」样例建 mini 数据集，写简单 Python 自动比对。记住三条易踩坑：**测试库要有人 owner、要分类**（安全、日志等）；**prompt 版本要记失败原因**；**CI 跑全量 eval 很贵**——prompt PR 先跑子集，merge main 再跑全量。评估数据集是**活系统**——从 200 条起步，越大越稳。
 
@@ -280,7 +289,7 @@ Trace 还能在线发现问题：duplicate API 可以在产线实时监控，触
 ### 素材路径
 
 - **ingest**：`Recastory/workspace/knowledge/A2-databricks-agent/ingest`
-- **ASR 主源**：`Recastory/workspace/knowledge/A2-databricks-agent/article.md`
+- **来源限制**：当前 Recastory BV 目录未发现 ASR；正文来自专栏与简介的编辑重构
 - **video_description**：`{ingest}/video_description.md`
 - **B 站**：[BV1o4TL6sExw](https://www.bilibili.com/video/BV1o4TL6sExw/)
 - **时长**：37:06
