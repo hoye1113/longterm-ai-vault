@@ -28,6 +28,16 @@ Agent 直接读写本仓库的 Markdown 文件，不依赖 Obsidian MCP、REST A
 
 ## 常用命令
 
+### B 站图文专栏验证（默认新流程）
+
+```powershell
+python 99-System/scripts/bilibili-opus-validate.py <笔记> --vault-root <vault> --sources-read column
+```
+
+验证用户提供的单篇 opus/cv 精华笔记，包括 BV/opus/cv 查重、C1/C2、正文形态、事实状态、反向链和图片跳过。新流程不要求 Recastory、transcript 或 Spot Check。
+
+Recastory inventory、ASR reconcile/batch/gap-check、Spot Check 与 trust audit 已冻结为 Legacy，只用于历史笔记核验。
+
 ### 1. 全库审计
 
 ```powershell
@@ -73,7 +83,7 @@ python 99-System/scripts/bilibili-ingest-reconcile.py
 - 对齐 ingest 和 vault
 - 判定 `material_tier`
 
-参考：
+Legacy 参考：
 
 - [SUBDOC - ASR内容分轨与收录决策.md](file:///d:/workSpace/obsidian_repository/99-System/Skills/vskill-vault-curate/SUBDOC%20-%20ASR%E5%86%85%E5%AE%B9%E5%88%86%E8%BD%A8%E4%B8%8E%E6%94%B6%E5%BD%95%E5%86%B3%E7%AD%96.md)
 - [SUBDOC - B站视频 v3 工作流.md](file:///d:/workSpace/obsidian_repository/99-System/Skills/vskill-vault-curate/SUBDOC%20-%20B%E7%AB%99%E8%A7%86%E9%A2%91%20v3%20%E5%B7%A5%E4%BD%9C%E6%B5%81.md)
@@ -139,6 +149,7 @@ ingest reconcile
 |---|---|
 | `vault-audit.py` | 全库审计 |
 | `bilibili-source-inventory.py` | Recastory 素材动态发现与全量统计 |
+| `bilibili-opus-validate.py` | 新 B 站图文专栏字段、忠实度、查重与完成门 |
 | `bilibili-note-validate.py` | 单篇双轴收录契约校验 |
 | `bilibili-trust-audit.py` | 存量来源可信度风险评分与首批队列 |
 | `agent-contract-check.py` | Agent 控制面与平台适配检查 |
@@ -158,6 +169,7 @@ ingest reconcile
 - [README.md](file:///d:/workSpace/obsidian_repository/README.md)
 - [AGENTS.md](file:///d:/workSpace/obsidian_repository/AGENTS.md)
 - [vskill Index](file:///d:/workSpace/obsidian_repository/99-System/Skills/INDEX.md)
-- **[SUBDOC - ASR内容分轨与收录决策.md](file:///d:/workSpace/obsidian_repository/99-System/Skills/vskill-vault-curate/SUBDOC%20-%20ASR%E5%86%85%E5%AE%B9%E5%88%86%E8%BD%A8%E4%B8%8E%E6%94%B6%E5%BD%95%E5%86%B3%E7%AD%96.md)**（B 站 / ASR 收录入口）
+- **[SUBDOC - B站图文专栏精华收录.md](file:///d:/workSpace/obsidian_repository/99-System/Skills/vskill-vault-curate/SUBDOC%20-%20B%E7%AB%99%E5%9B%BE%E6%96%87%E4%B8%93%E6%A0%8F%E7%B2%BE%E5%8D%8E%E6%94%B6%E5%BD%95.md)**（新 B 站收录入口）
+- [LEGACY - B站 ASR 与 Recastory.md](file:///d:/workSpace/obsidian_repository/99-System/Skills/vskill-vault-curate/LEGACY%20-%20B%E7%AB%99%20ASR%20%E4%B8%8E%20Recastory.md)
 - [SUBDOC - B站视频 v3 工作流.md](file:///d:/workSpace/obsidian_repository/99-System/Skills/vskill-vault-curate/SUBDOC%20-%20B%E7%AB%99%E8%A7%86%E9%A2%91%20v3%20%E5%B7%A5%E4%BD%9C%E6%B5%81.md)
 - [SUBDOC - Spot check（长视频 factual）.md](file:///d:/workSpace/obsidian_repository/99-System/Skills/vskill-vault-curate/SUBDOC%20-%20Spot%20check%EF%BC%88%E9%95%BF%E8%A7%86%E9%A2%91%20factual%EF%BC%89.md)

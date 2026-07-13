@@ -1,0 +1,33 @@
+---
+title: "DeepMind团队：当数百万Agent相遇"
+tags: [ai_agent, video_transcript, bilibili, multi_agent]
+created: 2026-07-13
+source: "https://www.bilibili.com/opus/1219939938135441409"
+description: "真实主持人与嘉宾问答的 dialogue 样板。"
+source_type: bilibili_opus
+source_url: "https://www.bilibili.com/opus/1219939938135441409"
+opus_id: "1219939938135441409"
+column_id: "cv0"
+video_url: "https://www.bilibili.com/video/BV1ixKX6oEzK/"
+bv: "BV1ixKX6oEzK"
+uploader: "Easonlee的AI笔记"
+source_tier: C1
+primary_source: column
+material_tier: S
+content_form: dialogue
+dialogue_fidelity: source
+question_source: transcript
+factual_status: verified
+factual_reviewed: 2026-07-13
+verification_basis: [column]
+---
+# DeepMind团队：当数百万Agent相遇
+
+## 核心判断
+
+Hannah Fry 的追问推动 Nenad Tomašev 解释委派、信任和多 Agent 安全边界。
+
+## 相关阅读
+
+- [[MOC - Agent Theory and Design]]
+

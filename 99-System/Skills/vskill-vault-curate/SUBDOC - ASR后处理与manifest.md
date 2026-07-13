@@ -1,5 +1,7 @@
 # SUBDOC - ASR 后处理与 manifest
 
+> **Legacy：Recastory 已冻结，本文件只保留历史核验说明。**
+
 > **父 skill**：[SKILL.md](./SKILL.md) · **vault 收录入口**：[ASR双轴决策](./SUBDOC%20-%20ASR内容分轨与收录决策.md) · **lecture 形态**：[SUBDOC - B站视频转写收录](./SUBDOC%20-%20B站视频转写收录.md)
 
 ---

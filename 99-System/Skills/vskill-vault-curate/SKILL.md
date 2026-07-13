@@ -1,11 +1,11 @@
 ---
 title: vskill-vault-curate
 name: vskill-vault-curate
-description: 从外部收录内容到 vault，执行 vault_ingest_v2 状态机；B站与ASR使用素材质量 × 正文形态双轴分类。
+description: 从外部收录内容到 vault；B站默认处理用户提供的图文专栏并提炼精华，ASR/Recastory仅作历史核验。
 created: 2026-06-27
 updated: 2026-07-13
 status: available
-version: 0.6
+version: 0.7
 tags:
   - skills
   - vskill
@@ -123,7 +123,7 @@ pdftotext input.pdf output.txt
 
 ## 工作流（7 步 = AGENTS.md §8 SOP）
 
-> 本节的通用 8 步受 `99-System/Agent/INGEST-CONTRACT.md` 约束。B站、BV、Recastory、ASR 不按下方通用内容类型直接成稿，必须先读 ASR 双轴决策入口并动态发现素材路径。
+> 本节的通用 8 步受 `99-System/Agent/INGEST-CONTRACT.md` 约束。用户提供 B 站 opus/cv 时必须先读 `SUBDOC - B站图文专栏精华收录.md`；不扫描空间、不读图片、不进入 ASR。历史 Recastory/ASR 核验按 Legacy 索引加载。
 
 ### Step 1：收素材
 
@@ -147,7 +147,8 @@ pdftotext input.pdf output.txt
 - 删页眉 / 页脚 / 页码
 - 删"相关推荐" / "评论区" / "关注我们"
 - 删广告 / 弹窗 / 浮窗
-- 保留：标题 / 作者 / 发布时间 / 正文 / 关键图（caption）
+  - 保留：标题 / 作者 / 发布时间 / 正文
+  - B站专栏图片全部跳过，不读取、不识别、不下载
 
 ### Step 3：选位置（PARA 决策）
 
@@ -316,14 +317,16 @@ target_para: "auto"
 
 | 文档 | 适用 |
 |------|------|
-| **[SUBDOC - ASR内容分轨与收录决策.md](./SUBDOC%20-%20ASR内容分轨与收录决策.md)** | **ASR/B 站收录唯一入口**：动态发现 · 双轴分类 · 来源忠实度 |
+| **[SUBDOC - B站图文专栏精华收录.md](./SUBDOC%20-%20B站图文专栏精华收录.md)** | **新 B 站收录唯一入口**：用户给单篇 opus/cv · 精华提炼 · 图片跳过 |
+| [LEGACY - B站 ASR 与 Recastory.md](./LEGACY%20-%20B站%20ASR%20与%20Recastory.md) | 历史笔记核验；不用于新收录 |
+| [SUBDOC - ASR内容分轨与收录决策.md](./SUBDOC%20-%20ASR内容分轨与收录决策.md) | Legacy ASR 双轴入口 |
 | [SUBDOC - B站视频 v3 工作流.md](./SUBDOC%20-%20B站视频%20v3%20工作流.md) | v4 执行细节：动态发现 + 双轴分类 + 校验 |
 | [SUBDOC - B站视频转写收录.md](./SUBDOC%20-%20B站视频转写收录.md) | **lecture 形态**：知识依赖讲义 + 概念三列 + 简介抓取 |
 | [SUBDOC - ASR后处理与manifest.md](./SUBDOC%20-%20ASR后处理与manifest.md) | Recastory 侧：manifest、asr v2 后处理 |
 | [SUBDOC - Spot check（长视频 factual）.md](./SUBDOC%20-%20Spot%20check（长视频%20factual）.md) | ≥45 min factual 对读 |
 | [SUBDOC - Host-Guest 对谈稿.md](../vskill-vault-write/SUBDOC%20-%20Host-Guest%20对谈稿.md) | **dialogue 形态**：真实或明确标注重构的 canonical 对谈 |
 
-B 站 / ASR 收录：**先读 ASR 双轴决策 SUBDOC** → 发现实际素材 → 判 `material_tier` 与 `content_form` → 按形态加载子文档 → 执行 Ingest Contract。
+B 站新收录：**先读图文专栏 SUBDOC** → 查重 opus/cv/BV → 提取文字精华 → 跳过图片与 transcript → 专栏验证器。ASR 路线仅用于历史核验。
 
 **访谈 / 对谈公众号**：Step 2 抓内容后，若用户要 Founder Park 式对话体 → 转 `vskill-vault-write mode=dialogue`（读 Host-Guest SUBDOC），勿默认压成第三人称讲义。
 

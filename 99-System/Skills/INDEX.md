@@ -15,7 +15,7 @@ source: vault_initiative - skills_index
 > **任何 agent 接触本 vault 时的发现顺序**：
 > 1. 读 `AGENTS.md`（vault 协议）
 > 2. 读本 `INDEX.md`（vskill 列表）
-> 3. **B 站 / ASR 收录** → [ASR 双轴决策 SUBDOC](./vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md)（再按正文形态加载子文档）
+> 3. **B 站图文专栏收录** → [专栏精华收录 SUBDOC](./vskill-vault-curate/SUBDOC%20-%20B站图文专栏精华收录.md)；历史 ASR 核验才读 Legacy 索引
 > 4. 其他任务 → 按需加载 `vskill-*/SKILL.md`
 >
 > **命名规范**：`vskill-{能力域}-{具体能力}`（如 `vskill-vault-discuss`、`vskill-vault-write`）
@@ -28,7 +28,7 @@ source: vault_initiative - skills_index
 |---|---|---|---|---|
 | `vskill-vault-discuss` | ✅ v0.2 可用（3 模式）| 基于 vault 笔记进行结构化讨论：summary / roundtable / companion 三模式 | `kb-retriever` + `ljg-roundtable` + `ljg-read` | [SKILL.md](./vskill-vault-discuss/SKILL.md) |
 | `vskill-vault-write` | ✅ v0.5 可用 | blade 观点文，或带来源忠实度标记的 Host-Guest 对谈 | `ljg-writes` | [SKILL.md](./vskill-vault-write/SKILL.md) · [对谈稿 SUBDOC](./vskill-vault-write/SUBDOC%20-%20Host-Guest%20对谈稿.md) |
-| `vskill-vault-curate` | ✅ v0.6 可用 | `vault_ingest_v2`；B站按“素材质量 × 正文形态”双轴收录 | `wiki-ingest` + filesystem | [SKILL.md](./vskill-vault-curate/SKILL.md) · **[ASR 双轴入口](./vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md)** · [v4 工作流](./vskill-vault-curate/SUBDOC%20-%20B站视频%20v3%20工作流.md) |
+| `vskill-vault-curate` | ✅ v0.7 可用 | 通用收录；B站使用用户提供的图文专栏提炼精华 | `wiki-ingest` + filesystem | [SKILL.md](./vskill-vault-curate/SKILL.md) · **[专栏入口](./vskill-vault-curate/SUBDOC%20-%20B站图文专栏精华收录.md)** · [Legacy ASR](./vskill-vault-curate/LEGACY%20-%20B站%20ASR%20与%20Recastory.md) |
 | `vskill-vault-relate` | ✅ v0.1 可用 | 给定笔记，扫描 vault 输出 top-N 反向链候选（4 维评分 + warnings）| `kb-retriever` + `vskill-vault-discuss` | [SKILL.md](./vskill-vault-relate/SKILL.md) |
 | `vskill-vault-moc-builder` | ✅ v0.1 可用 | 降秩 + 9 种取景框——合并 / 拆分 / 新建 / 审计 vault MOC | `ljg-rank` + `wiki-ingest` | [SKILL.md](./vskill-vault-moc-builder/SKILL.md) |
 
@@ -60,13 +60,12 @@ vskill-vault-moc-builder  ← MOC 重构 / 升级
 loop
 ```
 
-**B 站 / ASR 收录（先读 [ASR 双轴决策 SUBDOC](./vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md)）**：
+**B 站图文专栏收录（先读 [专栏精华收录 SUBDOC](./vskill-vault-curate/SUBDOC%20-%20B站图文专栏精华收录.md)）**：
 
 ```
-动态发现素材 → material_tier: S|A|B
-              → content_form: dialogue|lecture|roundtable
-              → Pass 1 保留清单 → 按形态成稿
-              → note validator + gap check → relate → MOC
+用户提供 opus/cv → 查重 BV/opus/cv → Pass 1 精华清单
+                 → lecture|dialogue|roundtable → 跳过图片与 ASR
+                 → opus validator → relate → 已有 MOC
 ```
 
 ---

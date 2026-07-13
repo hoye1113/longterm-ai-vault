@@ -3,11 +3,13 @@ title: "SUBDOC - B站视频转写收录"
 parent: vskill-vault-curate
 created: 2026-07-02
 updated: 2026-07-03
-status: active
+status: legacy
 version: 1.2
 ---
 
 # SUBDOC - B站视频转写收录
+
+> **Legacy：仅用于历史 ASR 笔记核验，不用于新收录。**
 
 > **v4 总工作流**：[ASR双轴决策](./SUBDOC%20-%20ASR内容分轨与收录决策.md)（入口）· [B站视频 v4 工作流](./SUBDOC%20-%20B站视频%20v3%20工作流.md)。
 > **本 SUBDOC 适用形态**：`content_form: lecture`。单人或多人不是判定条件；知识依赖、解释或操作步骤主导时使用讲义。

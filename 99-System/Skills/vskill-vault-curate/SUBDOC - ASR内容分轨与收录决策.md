@@ -3,14 +3,14 @@ title: "SUBDOC - ASR 内容双轴分类与收录决策"
 parent: vskill-vault-curate
 created: 2026-07-06
 updated: 2026-07-13
-status: active
+status: legacy
 version: 2.0
 description: "B站、Recastory和视频ASR收录唯一入口：动态发现素材，独立判断素材质量和正文形态。"
 ---
 
 # ASR 内容双轴分类与收录决策
 
-> 所有 B 站、BV、Recastory、视频 ASR 收录先读本文件，再按 `content_form` 加载子文档。1 BV = 1 篇 canonical 笔记；禁止 `{主题} - 对谈稿.md`。
+> **Legacy：仅用于历史笔记核验，不用于新收录。** 新 opus/cv 读取 `SUBDOC - B站图文专栏精华收录.md`。
 
 ## 先发现，后分类
 

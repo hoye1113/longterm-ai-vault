@@ -16,15 +16,17 @@
 
 | 用户意图 | canonical Skill |
 |---|---|
-| 收录 URL、PDF、截图、粘贴、视频或 ASR | `vskill-vault-curate` |
+| 收录 URL、PDF、截图、粘贴或 B 站图文专栏 | `vskill-vault-curate` |
 | 基于素材写观点文或对谈稿 | `vskill-vault-write` |
 | 找反向链 | `vskill-vault-relate` |
 | 基于已有笔记讨论 | `vskill-vault-discuss` |
 | 新建、合并、拆分或审计 MOC | `vskill-vault-moc-builder` |
 
-B 站、BV、Recastory、视频 ASR 任务必须先读：
+B 站 opus/cv 图文专栏任务必须先读：
 
-`99-System/Skills/vskill-vault-curate/SUBDOC - ASR内容分轨与收录决策.md`
+`99-System/Skills/vskill-vault-curate/SUBDOC - B站图文专栏精华收录.md`
+
+Recastory/ASR 已冻结为 Legacy，不参与新收录；仅在核验历史笔记时按 Legacy 索引加载。
 
 ## 收录硬规则
 
@@ -35,13 +37,14 @@ PREFLIGHT -> ADMISSION -> INVENTORY -> CLASSIFY -> TRANSFORM
           -> RELATE -> INTEGRATE -> VALIDATE/REPORT
 ```
 
-- 写入前查重 `source`、`source_url` 和 BV。
+- 写入前按 BV、opus ID、cv ID、`source_url` 查重。
+- B 站新收录只接受用户提供的单篇 opus/cv；不自动扫描空间，不读取图片。
 - B 站分类使用双轴：`material_tier: S|A|B` 与 `content_form: dialogue|lecture|roundtable`。
 - 1 BV = 1 篇 canonical 笔记；禁止额外生成 `- 对谈稿.md`。
 - 每篇笔记必须有语义相关的 `[[wikilink]]`；找不到则标 `status: orphan`，不得凑数。
 - 已有 MOC 可随收录更新；新建 MOC、新 tag、覆盖已有 canonical 笔记必须先取得用户确认。
 - 校验未通过或 `unresolved` 非空时，不得报告“收录完成”。
-- 新 B 站收录必须声明 `factual_status`；旧笔记无该字段时按 unverified 使用，不自动写回。
+- 新 B 站专栏收录必须声明 `source_tier`、`primary_source: column` 与 `factual_status`；不要求 transcript、Recastory 或 Spot Check。
 - 基于 vault 回答时，verified 可附来源引用；partial 使用保守措辞；unverified 只作为检索线索。
 
 ## 修改边界

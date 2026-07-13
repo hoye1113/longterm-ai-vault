@@ -3,7 +3,7 @@
 **审计时间**：2026-06-11  
 **审计对象**：`D:\workSpace\obsidian_repository`  
 **脚本版本**：vault-audit.py v1.0  
-**总文件数**：473
+**总文件数**：476
 
 ---
 
@@ -255,14 +255,12 @@
 - `AGENTS.md` （真孤岛）
 - `CLAUDE.md` （真孤岛）
 - `README.md` （真孤岛）
-- `issues/infrastructure_baseline_hardening.md` （真孤岛）
-- `issues/scripts_runbook_backfill.md` （真孤岛）
 - `01-Areas/Programming and Engineering/ACP集成问题与踩坑经验.md` （真孤岛）
-- `02-Resources/Prompts/MOC - Prompt 库.md` （真孤岛）
-- `02-Resources/哲学与自我认知/人不自信的最根本原因是什么？.md` （真孤岛）
 - `02-Resources/AI and Agents/Agent Design & Patterns/Sitor AI - 解决人的信息幻觉 - 三元同学.md` （真孤岛）
 - `02-Resources/AI and Agents/B站视频知识库/README.md` （真孤岛）
 - `02-Resources/AI and Agents/Loock AI 全栈应用开发/6-从 0 实现 Coding Agent/6-2 02 · 什么是 Coding Agent.md` （真孤岛）
+- `02-Resources/Prompts/MOC - Prompt 库.md` （真孤岛）
+- `02-Resources/哲学与自我认知/人不自信的最根本原因是什么？.md` （真孤岛）
 - `99-System/Agent/DENSITY-PROFILE.md` （真孤岛）
 - `99-System/Agent/INGEST-CONTRACT.md` （真孤岛）
 - `99-System/Agent/PROJECT.md` （真孤岛）
@@ -275,6 +273,7 @@
 - `99-System/audit/bilibili-ingest-priority-2026-07-06.md` （真孤岛）
 - `99-System/audit/bilibili-ingest-priority-p2-2026-07-06.md` （真孤岛）
 - `99-System/audit/bilibili-ingest-priority-p3-2026-07-07.md` （真孤岛）
+- `99-System/audit/bilibili-opus-field-study-2026-07-13.md` （真孤岛）
 - `99-System/audit/bilibili-r1a-review-results-2026-07-07.md` （真孤岛）
 - `99-System/audit/bilibili-source-inventory-2026-07-13.md` （真孤岛）
 - `99-System/audit/bilibili-spot-check-2026-07-02.md` （真孤岛）
@@ -296,9 +295,11 @@
 - `99-System/audit/spot-check-BV1VczqBREQ8-2026-07-13.md` （真孤岛）
 - `99-System/scripts/README.md` （真孤岛）
 - `99-System/Skills/INDEX.md` （真孤岛）
+- `99-System/Skills/vskill-vault-curate/LEGACY - B站 ASR 与 Recastory.md` （真孤岛）
 - `99-System/Skills/vskill-vault-curate/SKILL.md` （真孤岛）
 - `99-System/Skills/vskill-vault-curate/SUBDOC - ASR内容分轨与收录决策.md` （真孤岛）
 - `99-System/Skills/vskill-vault-curate/SUBDOC - ASR后处理与manifest.md` （真孤岛）
+- `99-System/Skills/vskill-vault-curate/SUBDOC - B站图文专栏精华收录.md` （真孤岛）
 - `99-System/Skills/vskill-vault-curate/SUBDOC - B站视频 v3 工作流.md` （真孤岛）
 - `99-System/Skills/vskill-vault-curate/SUBDOC - B站视频转写收录.md` （真孤岛）
 - `99-System/Skills/vskill-vault-curate/SUBDOC - Spot check（长视频 factual）.md` （真孤岛）
@@ -307,14 +308,14 @@
 - `99-System/Skills/vskill-vault-relate/SKILL.md` （真孤岛）
 - `99-System/Skills/vskill-vault-write/SKILL.md` （真孤岛）
 - `99-System/Skills/vskill-vault-write/SUBDOC - Host-Guest 对谈稿.md` （真孤岛）
+- `issues/infrastructure_baseline_hardening.md` （真孤岛）
+- `issues/scripts_runbook_backfill.md` （真孤岛）
 
 ## 3. 无 frontmatter 的文件
 
 - `AGENTS.md`
 - `CLAUDE.md`
 - `README.md`
-- `issues/infrastructure_baseline_hardening.md`
-- `issues/scripts_runbook_backfill.md`
 - `99-System/audit/bilibili-spot-check-2026-07-02.md`
 - `99-System/audit/easonlee-opus-ingest-audit-2026-07-08.md`
 - `99-System/audit/easonlee-pilot10-2026-07-08.md`
@@ -324,6 +325,8 @@
 - `99-System/audit/spot-check-BV1NuGU6yE1b.md`
 - `99-System/Skills/vskill-vault-curate/SUBDOC - ASR后处理与manifest.md`
 - `99-System/Skills/vskill-vault-curate/SUBDOC - Spot check（长视频 factual）.md`
+- `issues/infrastructure_baseline_hardening.md`
+- `issues/scripts_runbook_backfill.md`
 
 ## 4. frontmatter 必填字段缺失
 
@@ -340,8 +343,10 @@
 - `99-System/audit/bilibili-unmapped-2026-07-07.md` 缺失: source
 - `99-System/audit/bilibili-v3-rollout-2026-07-03.md` 缺失: source
 - `99-System/audit/recastory-unmapped-2026-07-06.md` 缺失: source
+- `99-System/Skills/vskill-vault-curate/LEGACY - B站 ASR 与 Recastory.md` 缺失: tags, source
 - `99-System/Skills/vskill-vault-curate/SKILL.md` 缺失: source
 - `99-System/Skills/vskill-vault-curate/SUBDOC - ASR内容分轨与收录决策.md` 缺失: tags, source
+- `99-System/Skills/vskill-vault-curate/SUBDOC - B站图文专栏精华收录.md` 缺失: tags, source
 - `99-System/Skills/vskill-vault-curate/SUBDOC - B站视频 v3 工作流.md` 缺失: tags, source
 - `99-System/Skills/vskill-vault-curate/SUBDOC - B站视频转写收录.md` 缺失: tags, source
 - `99-System/Skills/vskill-vault-discuss/SKILL.md` 缺失: title, source

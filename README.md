@@ -28,7 +28,7 @@
   - **Harness Engineering**（横切主题）→ [[MOC - Harness Engineering]]
   - **AI 时代个人发展与组织**（横切主题）→ [[MOC - AI 时代个人发展与组织]]
   - **Loock AI 全栈应用开发**（148 篇，6 章节 MOC）→ [[MOC - Loock AI 全栈课程]]
-  - **B 站视频知识库**（1 BV = 1 canonical 文件）→ 收录见 [ASR 双轴 SUBDOC](99-System/Skills/vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md)
+  - **B 站视频知识库**（1 BV = 1 canonical 文件）→ 新收录见 [图文专栏精华 SUBDOC](99-System/Skills/vskill-vault-curate/SUBDOC%20-%20B站图文专栏精华收录.md)
   - **播客转录**（1 篇）
 - **Prompts** — Copilot 自定义提示词模板（13 个 Prompt + 1 [[MOC - Prompt 工程]]）
 - **哲学与自我认知** — 与 AI 时代相关的自我认知（[[MOC - AI 时代个人发展与组织]] 在此）
@@ -66,7 +66,7 @@
 7. 更新 MOC：如有相关 MOC，把新笔记加入
 ```
 
-**B 站 / ASR 视频**：先动态发现实际素材路径，再独立判断 `material_tier` 与 `content_form`，生成 Pass 1 保留清单，最后运行单篇 validator 与 gap check。
+**B 站图文专栏**：用户提供单篇 opus/cv 后，Agent 查重 BV/opus/cv，只读取文字正文和页面元数据，生成精华 Pass 1，跳过图片、Recastory 与 ASR，最后运行 `bilibili-opus-validate.py`。
 
 ## 参考
 
@@ -80,6 +80,7 @@
 
 **变更记录**：
 - 2026-07-13：Markdown 成为唯一事实源；Agent 控制面与 B站双轴收录 v2。
+- 2026-07-13：B站默认收录改为用户提供图文专栏；ASR/Recastory 冻结为 Legacy。
 - 2026-07-06：B 站 canonical 与 ASR 三轨初版。
 - 2026-06-11 v2：基于 AGENTS.md v1 重写——目录树反映实际规范，新增 §2 主题视角
 - 2026-06-11 v1：基于 PARA + 领域细分初版

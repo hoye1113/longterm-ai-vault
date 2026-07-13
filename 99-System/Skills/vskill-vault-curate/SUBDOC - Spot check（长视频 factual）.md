@@ -1,5 +1,7 @@
 # SUBDOC - Spot check（长视频 factual）
 
+> **Legacy：新图文专栏收录不运行 Spot Check；本文件只用于历史 ASR 笔记核验。**
+
 
 
 > **父 skill**：[SKILL.md](./SKILL.md) · **收录模板**：[SUBDOC - B站视频转写收录.md](./SUBDOC%20-%20B站视频转写收录.md) · **ASR 源**：[SUBDOC - ASR后处理与manifest.md](./SUBDOC%20-%20ASR后处理与manifest.md)

@@ -24,7 +24,7 @@ Markdown 是唯一事实源。Agent 读写文件；Obsidian 负责呈现；Git �
 
 ## Frontmatter
 
-新笔记必填：`title`、`tags`、`created`、`source`、`description`。推荐 `author`。B 站新收录另填 `source_url`、`duration`、`material_tier`、`content_form`、`dialogue_fidelity`、`question_source`、`ingest_dir`、`transcript_source`；长视频按规则填 `spot_check`。
+新笔记必填：`title`、`tags`、`created`、`source`、`description`。推荐 `author`。B 站图文专栏新收录另填 `source_type`、`source_url`、`opus_id`、`column_id`、`video_url`、`bv`、`source_tier`、`primary_source`、`material_tier`、`content_form`、`dialogue_fidelity`、`question_source`、`factual_status`、`factual_reviewed` 与实际读取的 `verification_basis`。不要求 `ingest_dir`、`transcript_source` 或 `spot_check`。
 
 ## Tag 字典
 
@@ -47,4 +47,3 @@ Tag 只用小写英文和下划线。新 tag 先提议并取得用户确认，�
 ## 相关阅读
 
 - [[MOC - Agent Theory and Design]]
-

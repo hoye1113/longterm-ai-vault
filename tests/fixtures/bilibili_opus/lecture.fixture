@@ -1,0 +1,37 @@
+---
+title: "Together AI：语音Agent延迟质量与规模"
+tags: [ai_agent, video_transcript, bilibili]
+created: 2026-07-13
+source: "https://www.bilibili.com/opus/1224198797632995337"
+description: "主题演讲加现场问答的 lecture 样板。"
+source_type: bilibili_opus
+source_url: "https://www.bilibili.com/opus/1224198797632995337"
+opus_id: "1224198797632995337"
+column_id: "cv51417405"
+video_url: "https://www.bilibili.com/video/BV1U4Tz6CEzu/"
+bv: "BV1U4Tz6CEzu"
+uploader: "Easonlee的AI笔记"
+source_tier: C1
+primary_source: column
+material_tier: S
+content_form: lecture
+dialogue_fidelity: none
+question_source: none
+factual_status: verified
+factual_reviewed: 2026-07-13
+verification_basis: [column]
+---
+# Together AI：语音Agent延迟质量与规模
+
+## 核心判断
+
+实时语音 Agent 的工程边界由延迟、工具调用质量与规模共同决定。
+
+## 现场问答
+
+现场提问：如何在增加护栏时控制延迟？
+
+## 相关阅读
+
+- [[Agent实战-打造一个AI Agent的完整教程]]
+

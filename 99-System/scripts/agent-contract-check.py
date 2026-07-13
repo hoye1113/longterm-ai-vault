@@ -39,8 +39,15 @@ def check_repository(root: Path) -> dict[str, list[str]]:
         elif f"99-System/Skills/{skill}/SKILL.md" not in adapter.read_text(encoding="utf-8"):
             errors.append(f"adapter does not point to canonical skill: {skill}")
     curate_adapter = root / ".agents" / "skills" / "vskill-vault-curate" / "SKILL.md"
-    if curate_adapter.is_file() and "ASR内容分轨与收录决策.md" not in curate_adapter.read_text(encoding="utf-8"):
-        errors.append("Bilibili adapter does not route to ASR decision document")
+    if curate_adapter.is_file():
+        adapter_text = curate_adapter.read_text(encoding="utf-8")
+        if "B站图文专栏精华收录.md" not in adapter_text:
+            errors.append("Bilibili adapter does not route to opus decision document")
+        if "必须先读 `99-System/Skills/vskill-vault-curate/SUBDOC - ASR" in adapter_text:
+            errors.append("Bilibili adapter still defaults to ASR")
+    opus_doc = root / "99-System" / "Skills" / "vskill-vault-curate" / "SUBDOC - B站图文专栏精华收录.md"
+    if not opus_doc.is_file():
+        errors.append("missing Bilibili opus ingest document")
     return {"errors": errors, "warnings": []}
 
 

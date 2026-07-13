@@ -3,12 +3,14 @@ title: "SUBDOC - B站视频收录工作流 v4"
 parent: vskill-vault-curate
 created: 2026-07-02
 updated: 2026-07-13
-status: active
+status: legacy
 version: 4.0
 description: "B站素材从动态发现、双轴分类、Pass 1、成稿到校验的执行流程。"
 ---
 
 # B站视频收录工作流 v4
+
+> **Legacy：仅用于历史 Recastory/ASR 笔记核验，不用于新收录。**
 
 唯一分类入口是 [ASR 内容双轴分类与收录决策](./SUBDOC%20-%20ASR内容分轨与收录决策.md)。本文件不再维护 S/A 与正文形态绑定的旧三轨表。
 
