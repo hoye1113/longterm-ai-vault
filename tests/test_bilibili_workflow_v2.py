@@ -133,6 +133,38 @@ transcript_source: source/article.md
         result = self.validator.validate_note_text(text, known_paths={"source/article.md"})
         self.assertIn("videos >=45 minutes require spot_check", result["errors"])
 
+    def test_file_validation_rejects_duplicate_bv_and_dialogue_sibling(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            vault = Path(tmp)
+            note = vault / "Topic.md"
+            duplicate = vault / "Other.md"
+            dialogue = vault / "Topic - 对谈稿.md"
+            base = """---
+title: "{title}"
+tags: [ai_agent, video_transcript, bilibili]
+created: 2026-07-13
+source: https://www.bilibili.com/video/BVDUP001/
+description: "测试"
+material_tier: A
+content_form: lecture
+dialogue_fidelity: none
+question_source: none
+transcript_source: source/article.md
+---
+## 相关阅读
+- [[相关笔记]]
+"""
+            note.write_text(base.format(title="Topic"), encoding="utf-8")
+            duplicate.write_text(base.format(title="Other"), encoding="utf-8")
+            dialogue.write_text("---\ntitle: Topic - 对谈稿\n---", encoding="utf-8")
+
+            result = self.validator.validate_note_file(
+                note, vault_root=vault, known_paths={"source/article.md"}
+            )
+
+            self.assertIn("duplicate BV/source found in Other.md", result["errors"])
+            self.assertIn("canonical note has a - 对谈稿 sibling", result["errors"])
+
 
 class AgentAdapterTests(unittest.TestCase):
     @classmethod
@@ -142,6 +174,12 @@ class AgentAdapterTests(unittest.TestCase):
     def test_repository_agent_contracts_are_connected(self):
         result = self.checker.check_repository(ROOT)
         self.assertEqual(result["errors"], [])
+
+    def test_repository_has_no_obsidian_mcp_configuration(self):
+        result = self.checker.check_repository(ROOT)
+        self.assertNotIn("Obsidian MCP configuration is present", result["errors"])
+        self.assertFalse((ROOT / "opencode.json").exists())
+        self.assertFalse((ROOT / "skill-collection" / "maps" / "obsidian-mcp-setup.md").exists())
 
 
 if __name__ == "__main__":
