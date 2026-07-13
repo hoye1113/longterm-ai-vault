@@ -9,8 +9,8 @@ version: 1.2
 
 # SUBDOC - B站视频转写收录
 
-> **v3 总工作流**：[SUBDOC - ASR内容分轨与收录决策](./SUBDOC%20-%20ASR内容分轨与收录决策.md)（入口）· [B站视频 v3 工作流](./SUBDOC%20-%20B站视频%20v3%20工作流.md)（S canonical · **A-dialogue ASR** · A-lecture 九段）  
-> **本 SUBDOC 适用轨**：**仅 A-lecture**（单人教程/解读 → 九段讲义）；访谈/webinar 无 column → **勿用九段**，走 ASR 决策 SUBDOC A-dialogue 轨。
+> **v4 总工作流**：[ASR双轴决策](./SUBDOC%20-%20ASR内容分轨与收录决策.md)（入口）· [B站视频 v4 工作流](./SUBDOC%20-%20B站视频%20v3%20工作流.md)。
+> **本 SUBDOC 适用形态**：`content_form: lecture`。单人或多人不是判定条件；知识依赖、解释或操作步骤主导时使用讲义。
 > **适用**：Recastory `workspace/knowledge/` 英文 ASR 转写 → vault `02-Resources/AI and Agents/B站视频知识库/`  
 > **父 skill**：[[vskill-vault-curate/SKILL.md]]  
 > **样板笔记**：`DeepMind团队-当数百万Agent相遇.md`（v2 读者向讲义）
@@ -33,7 +33,7 @@ vault 笔记 + MOC 更新 + vskill-vault-relate 反向链
 - 谁是谁（嘉宾 / 主持 / 节目形态）
 - 章节地图（按论点，不按转写顺序）
 
-**Pass 2**：按下方 **正文九段** 写 vault 笔记。
+**Pass 2**：按知识依赖或操作步骤写 vault 笔记。下方九段是成熟样式，不是固定章数或强制顺序。
 
 ---
 
@@ -107,19 +107,17 @@ Recastory 每条 BV 在 `{workspace_dir}/ingest/` 下应有：
 | `uploader_comment.md` | UP 置顶评论 | 专栏/opus 链接入口 |
 | `comment_summary.md` | 评论区摘要 | 可选，不进正文 |
 
-**素材等级**（见 [ASR 分轨决策 SUBDOC](./SUBDOC%20-%20ASR内容分轨与收录决策.md) · `bilibili-ingest-reconcile.py`）：
+**分类**见 [ASR双轴决策](./SUBDOC%20-%20ASR内容分轨与收录决策.md)：`material_tier` 只描述素材质量，`content_form: lecture` 描述正文形态。即使有专栏或两个 Speaker，只要知识依赖、解释或操作步骤主导，就使用本 SUBDOC。
 
-- **S**：`column_article` ≥3k 字 + 含「主持人/嘉宾」→ `write mode=dialogue` · 专栏主源
-- **A-dialogue**：无 column + 访谈/webinar（≥2 说话人）→ `write mode=dialogue` · **ASR 主源**（非九段）
-- **A-lecture**：无 column + 单人教程/解读 → **本 SUBDOC 九段讲义**
-- **ASR 路径**：`article.md` / `bilibili-retranscribe` — A-dialogue 为正文主源；S 级仅核数字
-
-**说话人优先级**：`column_article` 主持人/嘉宾 **>** `video_description` 导读 **>** ASR 外源金句搜索。
+**来源职责**：description 给章节线索，ASR 给原始论述和限制，transcript JSON 核时间与 Speaker，column 只辅助中文骨架和术语。任何来源都不能单独替代其余事实核验。
 
 **frontmatter v3 扩展**（在 §3 五字段之外）：
 
 ```yaml
-material_tier: S | A
+material_tier: S | A | B
+content_form: lecture
+dialogue_fidelity: none
+question_source: none
 host_name: "Marina Mogilko"
 guest_name: "Thibault Sottiaux"
 guest_title: "OpenAI ChatGPT & Codex 负责人"
@@ -131,7 +129,7 @@ curate_method: "vskill-vault-curate v3-ingest"
 
 ---
 
-## 正文九段（顺序固定）
+## 正文九段（可选骨架）
 
 | # | 章节 | 回答的问题 | 与相邻节的区别 |
 |---|------|-----------|---------------|
@@ -244,7 +242,7 @@ spot_check: YYYY-MM-DD          # 可选；≥45 min 且 Spot check 通过后填
 
 ---
 
-## A-lecture 加深要点（2026-07-03 实盘）
+## Lecture 加深要点（2026-07-03 实盘）
 
 无 column 的教程轨，九段 `## 分话题讲` 须补 **可操作细节**（来自 ASR），非概念复述：
 

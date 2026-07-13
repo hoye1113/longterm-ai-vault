@@ -87,6 +87,11 @@ DISALLOWED_TAGS = {
 # frontmatter 必填字段
 REQUIRED_FIELDS = ["title", "tags", "created", "source"]
 RECOMMENDED_FIELDS = ["description", "author"]
+IGNORED_DIRS = {".obsidian", ".agents", ".claude", ".git", ".pytest_cache", "__pycache__"}
+
+
+def is_ignored_path(path):
+    return any(part in IGNORED_DIRS for part in Path(path).parts)
 
 
 def parse_frontmatter(content):
@@ -155,10 +160,8 @@ def extract_filename_from_wikilink(link):
 def audit_vault(vault_path):
     """执行审计，返回报告数据"""
     vault_path = Path(vault_path)
-    all_md = list(vault_path.rglob("*.md"))
-    all_md = [p for p in all_md if ".obsidian" not in p.parts
-              and ".claude" not in p.parts
-              and "audit-report.md" != p.name]
+    all_md = [p for p in vault_path.rglob("*.md")
+              if not is_ignored_path(p) and "audit-report.md" != p.name]
 
     # 1. 索引所有文件名（用于死链检测）
     filenames = {p.stem: p for p in all_md}
@@ -167,7 +170,7 @@ def audit_vault(vault_path):
     # 1.5. 索引所有目录名（目录 wikilink 合法）
     directory_names = set()
     for p in vault_path.rglob("*"):
-        if p.is_dir() and ".obsidian" not in p.parts and ".idea" not in p.parts:
+        if p.is_dir() and not is_ignored_path(p) and ".idea" not in p.parts:
             directory_names.add(p.name)
     # 也加隐含的：文件名 root 匹配（如 "三元同学" 可能既是作者引用也可能是不存在文件）
     # 不做模糊匹配——只精确匹配目录名

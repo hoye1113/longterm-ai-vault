@@ -3,9 +3,9 @@ title: vskill-vault-write
 name: vskill-vault-write
 description: 基于 vault 已有笔记或访谈素材写长文——两种模式：① 5 步切刀观点文（1000-1500 字）；② Host-Guest 对谈稿（3–6 章对话体 + 小结 + 总结）。借鉴 ljg-writes。
 created: 2026-06-27
-updated: 2026-07-06
+updated: 2026-07-13
 status: available
-version: 0.4
+version: 0.5
 tags:
   - skills
   - vskill
@@ -80,7 +80,7 @@ outputs:
 - **无专栏 B 站 ASR / Recastory 访谈** → 先读 [ASR 分轨决策 SUBDOC](../vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md) §无专栏 SOP，再读 [Host-Guest 对谈稿](./SUBDOC%20-%20Host-Guest%20对谈稿.md)
 - 用户要 **Founder Park / Lenny 式** 对话体，不要第三人称摘要
 - 素材是播客转写、访谈译稿、Host-Guest 公众号
-- `vskill-vault-curate` 抓完访谈后，用户要 **发布形态** 对谈稿（S 级 column 主源 或 A-dialogue ASR 主源）
+- `vskill-vault-curate` 双轴分类为 `content_form: dialogue`，且用户要保留真实问答或明确标注的编辑重构
 
 ❌ **不使用**：
 - 用户要"搜索 X 笔记"——用 `vskill-vault-discuss` 或 grep
@@ -99,7 +99,9 @@ outputs:
 
 **IRON LAW（dialogue）**：Guest 正文禁止「他表示 / 她认为」式摘要；数字与原话金句保留，英译中须口语化。
 
-**S-tier 扩写铁律**：`column_article.md`（20-130KB）是 **扩写源**，不是摘要对象。对谈稿 Guest 答段落字数之和 ≥ column_article 字数的 30%。如果对谈稿比 column_article 短很多，你在摘要而不是扩写——重来。
+真实问答写 `dialogue_fidelity: source`、`question_source: transcript`。编辑重构写 `reconstructed/editorial`，不得把“编者问”描述成真实现场主持人。
+
+**密度铁律**：先建立 Pass 1 保留清单，逐项保住主张、机制、数字、案例、限制和关键原话。成稿显著短于来源只触发复核，不以固定字数比例代替内容验收。
 
 ## 姿态
 

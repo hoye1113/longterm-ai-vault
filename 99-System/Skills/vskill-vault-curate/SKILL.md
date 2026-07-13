@@ -1,11 +1,11 @@
 ---
 title: vskill-vault-curate
 name: vskill-vault-curate
-description: 从外部（URL / PDF / 视频 / 公众号 / 截图 / 用户粘贴）收录内容到 vault——执行 AGENTS.md §8 SOP 7 步：收素材 → 抓内容 → 选位置 → 写 frontmatter → 打 tag → 找反向链 → 更新 MOC。
+description: 从外部收录内容到 vault，执行 vault_ingest_v2 状态机；B站与ASR使用素材质量 × 正文形态双轴分类。
 created: 2026-06-27
-updated: 2026-07-06
+updated: 2026-07-13
 status: available
-version: 0.5
+version: 0.6
 tags:
   - skills
   - vskill
@@ -122,6 +122,8 @@ pdftotext input.pdf output.txt
 直接用用户粘贴的文本作为 source。
 
 ## 工作流（7 步 = AGENTS.md §8 SOP）
+
+> 本节的通用 8 步受 `99-System/Agent/INGEST-CONTRACT.md` 约束。B站、BV、Recastory、ASR 不按下方通用内容类型直接成稿，必须先读 ASR 双轴决策入口并动态发现素材路径。
 
 ### Step 1：收素材
 
@@ -265,6 +267,8 @@ MOC 更新：{已加入 MOC} 或 {无相关 MOC}
 ⚠️ {任何未解决的项}
 ```
 
+机器可读报告必须使用 `workflow: vault_ingest_v2`，并包含 `checks`、`unresolved` 与 `status`。`unresolved` 非空默认不得标记 complete。
+
 ## ASCII 约束（图表用）
 
 所有图用纯 ASCII。允许字符集：字母、数字、中文、空格、`- = | + * / \ < > ^ v [ ] ( ) { } . , : ; _ #`。禁止 Unicode 绘图符号（→ ← ┌─┐ ● ◆ 等）。
@@ -279,7 +283,7 @@ MOC 更新：{已加入 MOC} 或 {无相关 MOC}
 - ✅ **必填 frontmatter 5 字段**
 - ✅ **必填反向链 ≥ 1** 或 `status: orphan`
 - ✅ **必从 §4 字典选 tag**，新 tag 走 `tags_pending` 登记
-- ✅ **中文母语化**：应用 AGENTS.md §10 反模式清单（反翻译腔 + 反风格自查表 + 朗读关）
+- ✅ **中文母语化**：应用 `99-System/Agent/DENSITY-PROFILE.md`（信息保留 + 反翻译腔 + 朗读关）
 
 ## 例子
 
@@ -312,14 +316,14 @@ target_para: "auto"
 
 | 文档 | 适用 |
 |------|------|
-| **[SUBDOC - ASR内容分轨与收录决策.md](./SUBDOC%20-%20ASR内容分轨与收录决策.md)** | **ASR/B 站收录唯一入口**：决策树 · 三轨对照 · 经验 · 反模式 |
-| [SUBDOC - B站视频 v3 工作流.md](./SUBDOC%20-%20B站视频%20v3%20工作流.md) | Phase 0–5 细节：S / A-dialogue / A-lecture 分轨 |
-| [SUBDOC - B站视频转写收录.md](./SUBDOC%20-%20B站视频转写收录.md) | **A-lecture 轨**：九段讲义 + 概念三列 + 简介抓取 |
+| **[SUBDOC - ASR内容分轨与收录决策.md](./SUBDOC%20-%20ASR内容分轨与收录决策.md)** | **ASR/B 站收录唯一入口**：动态发现 · 双轴分类 · 来源忠实度 |
+| [SUBDOC - B站视频 v3 工作流.md](./SUBDOC%20-%20B站视频%20v3%20工作流.md) | v4 执行细节：动态发现 + 双轴分类 + 校验 |
+| [SUBDOC - B站视频转写收录.md](./SUBDOC%20-%20B站视频转写收录.md) | **lecture 形态**：知识依赖讲义 + 概念三列 + 简介抓取 |
 | [SUBDOC - ASR后处理与manifest.md](./SUBDOC%20-%20ASR后处理与manifest.md) | Recastory 侧：manifest、asr v2 后处理 |
 | [SUBDOC - Spot check（长视频 factual）.md](./SUBDOC%20-%20Spot%20check（长视频%20factual）.md) | ≥45 min factual 对读 |
-| [SUBDOC - Host-Guest 对谈稿.md](../vskill-vault-write/SUBDOC%20-%20Host-Guest%20对谈稿.md) | **S / A-dialogue 轨**：对谈 canonical；`write mode=dialogue` |
+| [SUBDOC - Host-Guest 对谈稿.md](../vskill-vault-write/SUBDOC%20-%20Host-Guest%20对谈稿.md) | **dialogue 形态**：真实或明确标注重构的 canonical 对谈 |
 
-B 站 / ASR 收录：**先读 ASR 分轨决策 SUBDOC** → 按轨加载上表子文档 → 再执行本节 Step 1–8。
+B 站 / ASR 收录：**先读 ASR 双轴决策 SUBDOC** → 发现实际素材 → 判 `material_tier` 与 `content_form` → 按形态加载子文档 → 执行 Ingest Contract。
 
 **访谈 / 对谈公众号**：Step 2 抓内容后，若用户要 Founder Park 式对话体 → 转 `vskill-vault-write mode=dialogue`（读 Host-Guest SUBDOC），勿默认压成第三人称讲义。
 
@@ -330,7 +334,7 @@ B 站 / ASR 收录：**先读 ASR 分轨决策 SUBDOC** → 按轨加载上表�
   - `vskill-vault-write`（基于新笔记写衍生）
   - `vskill-vault-discuss`（基于新笔记讨论）
   - `vskill-vault-moc-builder`（≥ 3 篇同名主题触发）
-  - `vskill-vault-relate`（计划中，自动反向链建议）
+  - `vskill-vault-relate`（available，自动反向链建议）
 - 索引：[INDEX.md](../INDEX.md)
 - 协议：[AGENTS.md](../../../AGENTS.md) §3 / §4 / §5 / §6 / §7 / §8 / §10
 - 借鉴：

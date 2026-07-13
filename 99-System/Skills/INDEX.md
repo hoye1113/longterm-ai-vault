@@ -2,7 +2,7 @@
 title: vskill Index
 description: vault 自带 agent 能力索引——任何 agent 进入 vault 应先查本文件，按需加载 vskill-*
 created: 2026-06-27
-updated: 2026-07-06
+updated: 2026-07-13
 tags:
   - moc
   - skills
@@ -15,7 +15,7 @@ source: vault_initiative - skills_index
 > **任何 agent 接触本 vault 时的发现顺序**：
 > 1. 读 `AGENTS.md`（vault 协议）
 > 2. 读本 `INDEX.md`（vskill 列表）
-> 3. **B 站 / ASR 收录** → [ASR 分轨决策 SUBDOC](./vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md)（再加载 curate + write dialogue）
+> 3. **B 站 / ASR 收录** → [ASR 双轴决策 SUBDOC](./vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md)（再按正文形态加载子文档）
 > 4. 其他任务 → 按需加载 `vskill-*/SKILL.md`
 >
 > **命名规范**：`vskill-{能力域}-{具体能力}`（如 `vskill-vault-discuss`、`vskill-vault-write`）
@@ -27,8 +27,8 @@ source: vault_initiative - skills_index
 | 名称 | 状态 | 一句话描述 | 借鉴 | SKILL.md |
 |---|---|---|---|---|
 | `vskill-vault-discuss` | ✅ v0.2 可用（3 模式）| 基于 vault 笔记进行结构化讨论：summary / roundtable / companion 三模式 | `kb-retriever` + `ljg-roundtable` + `ljg-read` | [SKILL.md](./vskill-vault-discuss/SKILL.md) |
-| `vskill-vault-write` | ✅ v0.4 可用 | blade 观点文 **或** Host-Guest 对谈 v3.2（**S 专栏 + A-dialogue ASR** 单篇 canonical） | `ljg-writes` | [SKILL.md](./vskill-vault-write/SKILL.md) · [对谈稿 SUBDOC](./vskill-vault-write/SUBDOC%20-%20Host-Guest%20对谈稿.md) |
-| `vskill-vault-curate` | ✅ v0.5 可用 | 收录 §8 SOP；B 站 **ASR 三轨**（S 专栏 / A-dialogue ASR / A-lecture 九段） | `wiki-ingest` + `kimi-webbridge` | [SKILL.md](./vskill-vault-curate/SKILL.md) · **[ASR 决策入口](./vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md)** · [v3 工作流](./vskill-vault-curate/SUBDOC%20-%20B站视频%20v3%20工作流.md) |
+| `vskill-vault-write` | ✅ v0.5 可用 | blade 观点文，或带来源忠实度标记的 Host-Guest 对谈 | `ljg-writes` | [SKILL.md](./vskill-vault-write/SKILL.md) · [对谈稿 SUBDOC](./vskill-vault-write/SUBDOC%20-%20Host-Guest%20对谈稿.md) |
+| `vskill-vault-curate` | ✅ v0.6 可用 | `vault_ingest_v2`；B站按“素材质量 × 正文形态”双轴收录 | `wiki-ingest` + filesystem | [SKILL.md](./vskill-vault-curate/SKILL.md) · **[ASR 双轴入口](./vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md)** · [v4 工作流](./vskill-vault-curate/SUBDOC%20-%20B站视频%20v3%20工作流.md) |
 | `vskill-vault-relate` | ✅ v0.1 可用 | 给定笔记，扫描 vault 输出 top-N 反向链候选（4 维评分 + warnings）| `kb-retriever` + `vskill-vault-discuss` | [SKILL.md](./vskill-vault-relate/SKILL.md) |
 | `vskill-vault-moc-builder` | ✅ v0.1 可用 | 降秩 + 9 种取景框——合并 / 拆分 / 新建 / 审计 vault MOC | `ljg-rank` + `wiki-ingest` | [SKILL.md](./vskill-vault-moc-builder/SKILL.md) |
 
@@ -53,21 +53,20 @@ vskill-vault-write    ← blade 观点文 | dialogue 对谈稿（见 SUBDOC）
     ↓
 vskill-vault-curate   ← 收录 + 加 MOC（访谈可先 curate 再 write dialogue）
     ↓
-vskill-vault-audit    ← 季度质量审计（计划中）
+vault-audit.py        ← 季度结构质量审计（已实现脚本）
     ↓
 vskill-vault-moc-builder  ← MOC 重构 / 升级
     ↓
 loop
 ```
 
-**B 站 / ASR 收录（先读 [ASR 分轨决策 SUBDOC](./vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md)）**：
+**B 站 / ASR 收录（先读 [ASR 双轴决策 SUBDOC](./vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md)）**：
 
 ```
-reconcile 定 S/A
-  ├─ S（column ≥3k + 对话体）→ write mode=dialogue · 专栏主源 · canonical v3.2
-  ├─ A-dialogue（访谈/webinar）→ write mode=dialogue · ASR 主源 · canonical v3.2-asr
-  └─ A-lecture（教程/solo）→ 九段讲义 v3
-→ gap-check 全绿 → relate → MOC
+动态发现素材 → material_tier: S|A|B
+              → content_form: dialogue|lecture|roundtable
+              → Pass 1 保留清单 → 按形态成稿
+              → note validator + gap check → relate → MOC
 ```
 
 ---

@@ -75,14 +75,15 @@ speaker_confidence: high   # high | medium | 待核实
 
 优先用 **原视频 chapter**（YouTube/B 站时间戳）；无则用 ASR **话题转折点**（Guest 长段、赞助结束、demo 开始）。
 
-### 主题演讲 → 合成 Moderator（无 column 边缘案例）
+### 主题演讲默认 lecture；重构提问必须标注
 
-ASR 为 Guest 单人长讲、现场几乎无 Host 问句时，仍走 **A-dialogue**（非九段）：
+ASR 为单人长讲、现场几乎无 Host 问句时，默认 `content_form: lecture`。只有用户明确需要出版式问答重构时，才使用 dialogue：
 
-- Host 命名为 `Moderator（{场合}）`（如「AI Engineer 现场」）
-- 在 Guest 长段之间插入 **过渡问**（从 ASR 话题转折提炼，不编造事实）
-- frontmatter：`speaker_inference: "…（主题演讲，Host 为过渡提问）"`
-- 样板：[[Databricks-企业级Agent生产实践]]
+- 提问者标成“编者问”或等价编辑角色，不冒充现场主持人
+- `dialogue_fidelity: reconstructed`
+- `question_source: editorial`
+- 从原素材话题转折提炼问题，不新增事实
+- [[Databricks-企业级Agent生产实践]] 只作为历史边界样例，未来同类默认 lecture
 
 ---
 
@@ -91,7 +92,7 @@ ASR 为 Guest 单人长讲、现场几乎无 Host 问句时，仍走 **A-dialogu
 | 场景 | 路径 | 说明 |
 |------|------|------|
 | **新收录 S 级** | `B站视频知识库/{子目录}/{主题}.md` | 正文 = 本 SUBDOC 四章对谈；`dialogue_version: v3.2` |
-| **A-dialogue（无专栏）** | 同上 | ASR 主源；`curate_method: canonical-dialogue v3.2-asr` |
+| **无专栏 source dialogue** | 同上 | ASR 主源；`dialogue_fidelity: source`、`question_source: transcript` |
 | **附录** | 同文件 `## 附录` | 章节时间戳、ingest 路径、相关阅读（从旧讲义抽取） |
 | **存量迁移** | `bilibili-canonical-merge.py` | 合并后 **删除** `- 对谈稿.md`，批量改指向 canonical 的 wikilink |
 
@@ -275,7 +276,7 @@ anchor_notes: []             # 可选：vault 已有笔记，用于「相关阅�
 - 每章 Guest 答 **≥800 字**；保留数字、demo 步骤、专栏对话细节
 - **素材优先级**：`column_article` 对话 **扩写**，ASR 仅 spot-check 数字
 
-#### ⚠️ 铁律：S-tier column_article 是扩写源，不是摘要对象
+#### ⚠️ 铁律：column_article 是编辑骨架，不是唯一事实源
 
 **column_article.md 是 B 站专栏全文**（通常 20-130KB），**不是摘要**。写对谈稿时：
 
@@ -284,7 +285,7 @@ anchor_notes: []             # 可选：vault 已有笔记，用于「相关阅�
 - ❌ **禁止把 column_article 压缩成更短的笔记**——那是「摘要的摘要」，信息密度必然塌方
 - ❌ 禁止只读前 150 行就写——column_article 的核心内容常在中后段
 
-**判定标准**：写完后对谈稿 **字数 ≥ column_article 字数的 30%**。如果对谈稿比 column_article 短很多，说明你在摘要而不是扩写。
+**判定标准**：Pass 1 的主张、机制、数字、案例、限制和关键原话能在成稿中逐项找到。成稿显著短于 column 只触发复核，不能用固定字数比例替代保真检查。
 
 #### Agent 友好（可选 frontmatter）
 
@@ -419,7 +420,7 @@ S-tier 对谈稿——column_article 是扩写源，不是摘要对象：
 1. Read 工具分块读完整个 column_article.md（禁止只读前 150 行）
 2. Pass 1：从 column_article 内容划 4-8 章锚点
 3. 逐章扩写：Host 1 问 + Guest 答（≥800字，从 column_article 抽取原话/数字/例子）+ 本章小结
-4. Guest 答段落字数之和 ≥ column_article 字数的 30%
+4. Pass 1 保留清单逐项覆盖；长度差异只作异常预警
 5. 每章：金句双语块 + 概念三列表
 6. 总结维度表 + 封底金句
 7. 质量门：grep 禁止词 + 朗读关

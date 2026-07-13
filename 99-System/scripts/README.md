@@ -22,30 +22,9 @@ description: "99-System/scripts 下脚本的统一入口，包含用途、常用
 - 建议版本：`Python 3.11+`
 - 根目录已声明：[pyproject.toml](file:///d:/workSpace/obsidian_repository/pyproject.toml)
 
-### 2. PowerShell 环境变量
+### 2. Vault 访问方式
 
-如果你要让 Claude Code 通过 `.mcp.json` 连接 Obsidian MCP，先在当前 PowerShell 会话注入：
-
-```powershell
-$env:OBSIDIAN_MCP_TOKEN = "your-local-rest-api-token"
-```
-
-如果你想让每次打开 PowerShell 都自动生效，把同一行写进你的 profile：
-
-```powershell
-code $PROFILE
-```
-
-当前机器的 PowerShell profile 路径是：
-
-```text
-C:\Users\38788\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
-```
-
-说明：
-
-- 不要把真实 token 写回仓库文档
-- `.mcp.json` 现在只保留环境变量占位
+Agent 直接读写本仓库的 Markdown 文件，不依赖 Obsidian MCP、REST API、端口或 token。Obsidian 只负责人工阅读、编辑和链接呈现。
 
 ## 常用命令
 
@@ -59,7 +38,23 @@ python 99-System/scripts/vault-audit.py
 
 - 审计报告写入 `99-System/audit-report.md`
 
-### 2. B 站 ingest 对账
+### 2. B 站素材动态发现
+
+```powershell
+python 99-System/scripts/bilibili-source-inventory.py --workspace <Recastory/workspace> --json-out <inventory.json> --md-out <inventory.md>
+```
+
+用途：发现 BV 根目录和 `ingest/` 中的真实文件位置，不假定 `article.md` 路径。
+
+### 3. B 站单篇 v2 校验
+
+```powershell
+python 99-System/scripts/bilibili-note-validate.py <笔记> --source-root <Recastory/workspace>
+```
+
+检查双轴字段、来源路径、重构对谈标记、长视频 spot check 和反向链。
+
+### 4. B 站 ingest 对账
 
 ```powershell
 python 99-System/scripts/bilibili-ingest-reconcile.py
@@ -75,7 +70,7 @@ python 99-System/scripts/bilibili-ingest-reconcile.py
 - [SUBDOC - ASR内容分轨与收录决策.md](file:///d:/workSpace/obsidian_repository/99-System/Skills/vskill-vault-curate/SUBDOC%20-%20ASR%E5%86%85%E5%AE%B9%E5%88%86%E8%BD%A8%E4%B8%8E%E6%94%B6%E5%BD%95%E5%86%B3%E7%AD%96.md)
 - [SUBDOC - B站视频 v3 工作流.md](file:///d:/workSpace/obsidian_repository/99-System/Skills/vskill-vault-curate/SUBDOC%20-%20B%E7%AB%99%E8%A7%86%E9%A2%91%20v3%20%E5%B7%A5%E4%BD%9C%E6%B5%81.md)
 
-### 3. B 站 canonical 合并
+### 5. B 站 canonical 合并
 
 单篇：
 
@@ -90,7 +85,7 @@ python 99-System/scripts/bilibili-canonical-merge.py --all-s --apply
 python 99-System/scripts/bilibili-canonical-merge.py --fix-wikilinks --apply
 ```
 
-### 4. B 站遗漏检查
+### 6. B 站遗漏检查
 
 ```powershell
 python 99-System/scripts/bilibili-v3-gap-check.py
@@ -101,7 +96,7 @@ python 99-System/scripts/bilibili-v3-gap-check.py
 - 检查 v3 rollout 是否还有漏项
 - 仅校验 manifest 中带 `vault_path` 的条目；`B站视频知识库/README.md` 不计入 32 篇计数
 
-### 5. 长视频 factual spot check
+### 7. 长视频 factual spot check
 
 先看 backlog：
 
@@ -135,6 +130,9 @@ ingest reconcile
 | 脚本 | 用途 |
 |---|---|
 | `vault-audit.py` | 全库审计 |
+| `bilibili-source-inventory.py` | Recastory 素材动态发现与全量统计 |
+| `bilibili-note-validate.py` | 单篇双轴收录契约校验 |
+| `agent-contract-check.py` | Agent 控制面与平台适配检查 |
 | `bilibili-ingest-reconcile.py` | ingest × vault 对账 |
 | `bilibili-concept-cn-fill.py` | 补中文概念字段 |
 | `bilibili-vault-v3-light.py` | 轻量生成/整理 v3 内容 |
