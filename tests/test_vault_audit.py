@@ -49,9 +49,13 @@ author:
 
             # 构造最小 vault 目录，覆盖 frontmatter、坏 tag、死链和 orphan 判定。
             (vault_root / ".obsidian").mkdir()
+            (vault_root / ".agents" / "skills" / "adapter").mkdir(parents=True)
             (vault_root / "notes").mkdir()
 
             (vault_root / ".obsidian" / "ignored.md").write_text("# ignored", encoding="utf-8")
+            (vault_root / ".agents" / "skills" / "adapter" / "SKILL.md").write_text(
+                "# platform adapter", encoding="utf-8"
+            )
 
             (vault_root / "notes" / "Topic.md").write_text(
                 """---
