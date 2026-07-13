@@ -473,3 +473,10 @@ Agent 的 system prompt 不是"一段提示词"，它是一个**分层的、有�
 4. **怎么对抗 Context Rot？** 控制入口，与其压缩不如一开始就少放东西
 
 好，这一节我们就讲这么多。下一篇我们来聊更硬核的部分——上下文真的爆了怎么办？我们下一节再见。
+
+## 关联
+
+- [[4-1 Context Engineering 全景|Context Engineering 全景]] — **呼应**：模块化与缓存分层是五维地图中 System Prompt 与 Cache 的工程落地。
+- [[4-4 Cache 全解与成本控制|Cache 全解]] — **依赖**：静态/动态分界线直接决定 Prompt Cache 命中率，是 Cache 优化的前提。
+- [[3-3 Deferred Loading 和动态工具集|Deferred Loading]] — **呼应**：Deferred Tool Loading 与 Tool Profile 同属"入口管理"，见第 10 篇。
+- [[3-5 Skills - Agent 时代的知识分发系统|Skills]] — **呼应**：Prompt Pipe 的按需出现与 Skills 的 Progressive Disclosure 同为渐进式披露。

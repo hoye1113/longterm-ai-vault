@@ -218,3 +218,10 @@ RAG 管线看起来步骤不少，但每一步的核心逻辑其实都很清晰�
 另外，我们还讲了 Agentic Search，本质上就是 **Agent Loop + RAG 管线**，没有新东西。
 
 下一篇我们专门拆解检索优化——混合检索为什么有效、Query 改写的几种策略、Bi-encoder 和 Cross-encoder 的两阶段架构、qmd 的三种搜索模式，我们下一节精彩继续。
+
+## 关联
+
+- [[4-5 Just-In-Time Context|JIT Context]] — **呼应**：RAG 是 JIT"按需加载"的语义检索路线。
+- [[4-7 检索优化|检索优化]] — **补充**：纯向量检索的结构性局限与混合检索、Reranker 在此展开。
+- [[4-8 LLM 编译知识库|LLM 编译知识库]] — **对比**：RAG 每次从零检索不积累，编译知识库让知识复利式增长。
+- [[4-1 Context Engineering 全景|Context Engineering 全景]] — **呼应**：RAG 对应五维地图中的 Retrieve 维度。

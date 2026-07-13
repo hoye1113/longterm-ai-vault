@@ -393,3 +393,9 @@ Anthropic 最新推荐的模式是：**MCP Server 捆绑发布 Skills**。Canva�
 未来我们会把手写 Skills 加载器的部分放到实战课里面，根据上述的这些专业流程，来把 Skills 加载器给动手实现出来，而不是仅仅一个加载 md 文件的 Demo 而已。相信你有了今天的知识体系积累，未来在实现的时候也是能胸有成竹的。
 
 下一篇我们进入 Tool System 的最后一个话题——权限系统。你敢让 AI 直接跑 `rm -rf /` 吗？
+
+## 关联
+
+- [[3-4 MCP 的工程真相|MCP]] — **对比**：本篇系统对比 Skills 与 MCP 的结构同构与实现路径差异，结论为「Skills 知道怎么做、MCP 能做到」。
+- [[3-3 Deferred Loading 和动态工具集|延迟加载]] — **呼应**：Skills 的三层渐进式加载与 MCP 的延迟加载解决同一问题——能力太多不能全塞上下文。
+- [[6-2 Hook 与可观测性|Hook]] — **应用于**：Skill frontmatter 的 PreToolUse hook 与全局 Hook 系统打通，可在 Skill 级做执行前拦截。

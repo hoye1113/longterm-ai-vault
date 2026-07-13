@@ -1,6 +1,6 @@
 ---
 title: MOC - AI Agent Development
-description: 三元（Sitor AI）吃透 AI Agent 开发课程总索引 — 六大支柱 30+ 篇
+description: 三元（Sitor AI）吃透 AI Agent 开发课程总索引 — 六大支柱 33 篇
 created: 2026-06-10
 tags:
   - ai_agent
@@ -65,17 +65,32 @@ source: vault_initiative - moc - sitor-ai - ai_agent
 - [[4-9 Agent 的记忆系统|Agent 的记忆系统]]
 - [[4-10 记忆的五种失效模式|记忆的五种失效模式]]
 
-### 05-Memory — 记忆系统（待收录 ❌）
-
-> 跨会话的长期记忆，与 Context Engineering（单次会话内）形成互补。
-
-### 06-Multi-Agent — 多 Agent 协作（待收录 ❌）
+### 05-Multi-Agent — 多 Agent 协作（2 篇 ✅）
 
 > 不是分角色，是分上下文。核心价值在于隔离上下文窗口。
 
-### 07-Harness Engineering — 骨架工程（待收录 ❌）
+- [[5-1 拆 Agent 不是为了分角色，是为了分上下文|拆 Agent 不是为了分角色，是为了分上下文]]
+- [[5-2 Agent Swarm：让多个 Agent 像团队一样协作|Agent Swarm：让多个 Agent 像团队一样协作]]
 
-> 模型外面那层壳——权限、重试、Hook、生命周期管理。
+### 06-Harness Engineering — 骨架工程（4 篇 ✅）
+
+> 模型外面那层壳——权限、重试、Hook、生命周期管理、ACP 控制接口。
+
+- [[6-1 Harness：模型外面的这层壳|Harness：模型外面的这层壳]]
+- [[6-2 Hook 与可观测性|Hook 与可观测性]]
+- [[6-3 部署与调度|部署与调度]]
+- [[6-4 ACP：标准化 Agent 的控制接口|ACP：标准化 Agent 的控制接口]]
+
+### 07-Framework — 回到框架（2 篇 ✅）
+
+> 用六大支柱透视任何 Agent 框架，并以 LangGraph 实战落地。
+
+- [[7-1 LangGraph 实战|LangGraph 实战]]
+- [[7-2 社区各大框架全景|社区各大框架全景]]
+
+### 08-结语 — 结课（1 篇 ✅）
+
+- [[结课：从 10 行代码到 Agent 六大支柱|结课：从 10 行代码到 Agent 六大支柱]]
 
 ## 快速导航
 
@@ -85,14 +100,18 @@ source: vault_initiative - moc - sitor-ai - ai_agent
 | 02-Agent Loop | 3 | ✅ 已完成 |
 | 03-Tool System | 6 | ✅ 已完成 |
 | 04-Context Engineering | 10 | ✅ 已完成 |
-| 05-Memory | — | ❌ 待收录 |
-| 06-Multi-Agent | — | ❌ 待收录 |
-| 07-Harness Engineering | — | ❌ 待收录 |
+| 05-Multi-Agent | 2 | ✅ 已完成 |
+| 06-Harness Engineering | 4 | ✅ 已完成 |
+| 07-Framework | 2 | ✅ 已完成 |
+| 08-结语 | 1 | ✅ 已完成 |
 
-**已收录**：24 / 30+ 篇
+> 注：课程原规划的「05-Memory」已并入第 4 章 Context Engineering（`4-9 Agent 的记忆系统`、`4-10 记忆的五种失效模式`），故无独立 Memory 章节。
+
+**已收录**：33 / 33 篇（全课程完成）
 
 ## 关联笔记
 
+- [[MOC - Super Agent 实战课|Super Agent 实战课]] — 同作者实战落地课，与知识体系课主题一一对应、互补
 - [[MOC - Agent Theory and Design]] — 外部文章索引
 - [[MOC - Loock AI 全栈课程|Loock AI 全栈课程]] — LangGraph.js + Coding Agent 实战课程
 - [[MOC - Agent Theory and Design]] — 视频转录知识库

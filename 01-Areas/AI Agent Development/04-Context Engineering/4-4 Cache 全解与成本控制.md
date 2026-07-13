@@ -350,3 +350,10 @@ Cache 和成本控制，对于 Agent 产品来说不单是优化措施了，而�
 到这里，System Prompt 怎么组装、上下文爆了怎么压缩、Cache 怎么省钱就讲完了，这三件事是短期上下文的核心。
 
 下一篇我们换一个角度，我们把关注点放到**信息什么时候应该进入上下文**。JIT Context——按需加载的三条路线，会彻底改变你对"怎么给模型喂信息"这件事的认知。
+
+## 关联
+
+- [[4-1 Context Engineering 全景|Context Engineering 全景]] — **呼应**：Cache 是五维地图中"复用计算结果"的维度。
+- [[4-2 System Prompt 工程化与 Context Rot|System Prompt 工程化]] — **补充**：静态/动态分界线是 Prompt Cache 命中的工程前提。
+- [[4-3 上下文压缩|上下文压缩]] — **对比**：Cache 降低重复计算成本，压缩回收已爆上下文，二者互补。
+- [[4-5 Just-In-Time Context|JIT Context]] — **应用于**：JIT 混合策略中确定性预加载依赖 Cache 命中以降本。

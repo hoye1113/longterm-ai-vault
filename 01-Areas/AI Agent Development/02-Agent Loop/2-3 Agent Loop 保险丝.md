@@ -748,3 +748,9 @@ npx tsx src/agent.ts
 下一章我们进入 Tool System——Agent 的手脚。
 
 第一个问题：模型是怎么"学会"调用你写的函数的？Function Calling 这个看起来很"魔法"的能力，底层到底是什么原理？
+
+## 关联
+
+- [[2-2 模型 API 容错|API 层容错]] — **对比**：上一篇解决 API 挂了的外部故障，本篇解决 API 没挂但 Agent 死循环、烧 Token、被截断的内部失控。
+- [[4-3 上下文压缩|上下文压缩]] — **依赖**：本篇 prompt_too_long 退出路径的两轮自救（Context Collapse、Reactive Compact），正是上下文压缩机制的应用。
+- [[6-2 Hook 与可观测性|Hook 拦截]] — **补充**：本篇七种退出路径中的 hook_stopped，依赖 Hook 系统在工具执行前做自定义检查与阻断。

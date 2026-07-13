@@ -367,3 +367,10 @@ Vercel 自己说得很好：
 **学原理比学框架重要。** 框架每年都在变，LangChain 自己都从 Chain 进化到了 Graph。但 Agent Loop 的核心——think、act、observe——从 ReAct 论文提出到现在，一直没变过。
 
 下一篇，我们就正式动手——从 ReAct 模式出发，拆解 Agent Loop 的每一个环节，看看"想一步、做一步、看一步"这个循环里，到底藏着多少工程细节。
+
+## 关联
+
+- [[1-1 搞定 Agent 六大支柱|六大支柱]] — **呼应**：本文学底层而非框架的立场，与六支柱的底层问题视角一致。
+- [[1-2 从 ChatBot 到 Agent|ChatBot 到 Agent]] — **支持**：本文批评 Chain 线性模型、主张 while(true) 循环，下篇正是该循环的出处。
+- [[7-1 LangGraph 实战|LangGraph 实战]] — **补充**：本文多次预告后续单独拆解 LangGraph，对应实战篇。
+- [[7-2 社区各大框架全景|框架全景]] — **延伸**：本文对 LangChain/LangGraph/Vercel AI SDK 的判断，可在社区框架全景中横向对照。

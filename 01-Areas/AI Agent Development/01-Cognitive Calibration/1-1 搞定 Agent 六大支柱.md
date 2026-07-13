@@ -260,3 +260,10 @@ Claude Code 在这方面做得很细：6 种权限模式、Bash 命令专用风�
 ## 后面的路
 
 然后我们就正式进入 Agent 的世界。从一个 while(true) 循环开始，一步一步搭起来。
+
+## 关联
+
+- [[1-2 从 ChatBot 到 Agent|ChatBot 到 Agent]] — **依赖**：本文 Agent Loop 的最小可运行模型，正是下篇从 while(true) 循环展开的载体。
+- [[1-3 大模型底层机制|底层机制]] — **依赖**：文末指向的下一篇，用以解释 KV Cache、约束解码等工具系统依赖的底层原理。
+- [[2-3 Agent Loop 保险丝|Agent Loop 保险丝]] — **补充**：本文提到的截断恢复、死循环检测、熔断，属 Agent Loop 的工程保险细节。
+- [[4-1 Context Engineering 全景|Context 全景]] — **补充**：本文 Context Engineering 五维度在后续章节逐一展开。

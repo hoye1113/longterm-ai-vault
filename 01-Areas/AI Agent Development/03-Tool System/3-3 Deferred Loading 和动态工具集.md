@@ -305,3 +305,9 @@ Manus 的做法：工具列表**永远不变**。需要禁用某些工具时，�
 Manus 的 "Mask Don't Remove" 是一个非常值得借鉴的原则：**不可用的工具，禁用它的输出概率，而不是从列表里删掉它**。如果你没有 response prefill 的能力，至少保持工具列表在整个对话过程中不变。
 
 下一篇我们进入 Tool System 的最后一个核心话题——MCP 和 Skills 两条路线的对比。同样是"给 Agent 扩展能力"，两者各自解决了什么问题、又各自留下了什么坑，MCP 是不是一个要被淘汰的技术，下一篇我们来深入聊。
+
+## 关联
+
+- [[3-1 Function Calling 与 Structured Output|Function Calling]] — **支持**：本篇工具数量导致准确率下降的实测数据引自 3-1，是延迟加载要解决的问题。
+- [[3-4 MCP 的工程真相|MCP]] — **应用于**：MCP 工具是延迟加载最大的受益者，Claude Code 对所有 MCP 工具默认 defer_loading。
+- [[4-4 Cache 全解与成本控制|Prompt Cache]] — **依赖**：本篇的核心约束就是 KV/Prompt Cache 不能被工具列表变动击穿，延迟加载正是为保住 Cache 前缀而设计。

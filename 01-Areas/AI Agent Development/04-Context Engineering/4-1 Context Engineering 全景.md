@@ -177,3 +177,10 @@ Cache 分三层：KV Cache（模型推理层，你管不了）、Prompt Cache（
 Offloading 的内容会贯穿在各篇里（因为它不是一个独立的技术，而是一种思维方式），Isolation 留给 Multi-Agent 章节。
 
 好，让我们继续，下一篇从 System Prompt 工程化的话题讲起，Let's go!
+
+## 关联
+
+- [[4-2 System Prompt 工程化与 Context Rot|System Prompt 工程化]] — **补充**：本文的模块化与缓存分层是五维地图中 System Prompt 与 Cache 的工程落地。
+- [[4-3 上下文压缩|上下文压缩]] — **补充**：Reduce 维度的 Compaction / Summarization 两种策略在此详述。
+- [[4-4 Cache 全解与成本控制|Cache 全解]] — **补充**：Cache 维度的三层缓存机制（KV / Prompt / Collapse）在此展开。
+- [[3-3 Deferred Loading 和动态工具集|Deferred Loading]] — **呼应**：文中 Offload 思路与第 10 篇工具延迟加载、Tool Profile 一脉相承。
