@@ -370,7 +370,7 @@ concepts:
 - [[Claude Code负责人-AI原生团队如何使用AI]] — Cat Wu 侧：Dogfooding、Todo/Plan、Eval 分 E2E 与 triggering
 - [[Anthropic团队-解析Claude Agent平台内幕]] — 云托管代理与 Harness 解脱；组织多代理 Slack 互聊对照
 - [[OpenClaw创始人-我是如何使用OpenClaw的]] — 另一套「循环 + 多 CLI」个人 harness；可与 Boris 闪电循环对照
-- [[MOC - Agent Theory and Design#B. Claude Code 实战（3 篇）]] — Claude Code 主题索引
+- [[MOC - AI Coding 与工具]] — Claude Code 主题索引
 
 ### 收录说明
 

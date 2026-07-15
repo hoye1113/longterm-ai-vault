@@ -1,11 +1,11 @@
 ---
 title: vskill-vault-write
 name: vskill-vault-write
-description: 基于 vault 已有笔记或访谈素材写长文——两种模式：① 5 步切刀观点文（1000-1500 字）；② Host-Guest 对谈稿（3–6 章对话体 + 小结 + 总结）。借鉴 ljg-writes。
+description: 基于 vault 已有笔记或访谈素材写观点文、真实对谈或明确标注的编辑重构对谈；保留声音归属、限制和类型化知识连接。
 created: 2026-06-27
 updated: 2026-07-13
 status: available
-version: 0.5
+version: 0.6
 tags:
   - skills
   - vskill
@@ -65,7 +65,7 @@ outputs:
 
 # vskill-vault-write
 
-> **核心一句话**：两种模式——**blade** 对准一个观点下刀（1000–1500 字）；**dialogue** 把访谈收成 Host/Guest 对谈稿（**3–6 章** + 小结 + 总结）。
+> **核心一句话**：两种模式——**blade** 对准一个观点下刀；**dialogue** 用 3–6 个独立问题保留人物声音、机制、案例和边界。
 >
 > **借鉴来源**：ljg-writes 写作引擎 + Founder Park 式对谈稿形态（见 SUBDOC）
 
@@ -93,13 +93,13 @@ outputs:
 | mode | 输入 | 输出 | 文档 |
 |------|------|------|------|
 | `blade`（默认） | `viewpoint` + `anchor_notes` | 1000–1500 字观点文 | 下文「5 步切刀」 |
-| `dialogue` | `raw_transcript` + host/guest 元数据 | 3–6 章对谈 + 小结 + 总结 | [Host-Guest](./SUBDOC%20-%20Host-Guest%20对谈稿.md) · [ASR 无专栏 SOP](../vskill-vault-curate/SUBDOC%20-%20ASR内容分轨与收录决策.md) |
+| `dialogue` | 专栏、访谈或转写 + 人物元数据 | 3–6 个独立问题 + 限制 + 知识连接 | [Host-Guest](./SUBDOC%20-%20Host-Guest%20对谈稿.md) |
 
-**dialogue 执行顺序**：读 SUBDOC → 划 **3–6 章**锚点（Pass 1 章地图）→ 写开场 → 逐章 Host 问 / Guest 答 / 本章小结 → 大总结 → 质量门 → frontmatter + 反向链。
+**dialogue 执行顺序**：读 SUBDOC → Pass 1 声音与保留清单 → 规划 3–6 个独立问题 → 写对谈 → 保留限制 → 建类型化知识连接 → 质量门。
 
 **IRON LAW（dialogue）**：Guest 正文禁止「他表示 / 她认为」式摘要；数字与原话金句保留，英译中须口语化。
 
-真实问答写 `dialogue_fidelity: source`、`question_source: transcript`。编辑重构写 `reconstructed/editorial`，不得把“编者问”描述成真实现场主持人。
+真实专栏问答写 `source/column`；历史转写问答写 `source/transcript`；编辑重构写 `reconstructed/editorial`。不得把“编者问”描述成现场主持人，也不得把 `editorial_summary` 写成真实人物直接引语。
 
 **密度铁律**：先建立 Pass 1 保留清单，逐项保住主张、机制、数字、案例、限制和关键原话。成稿显著短于来源只触发复核，不以固定字数比例代替内容验收。
 
@@ -185,12 +185,12 @@ outputs:
 
 **不执行切刀**。完整规范见 [SUBDOC - Host-Guest 对谈稿.md](./SUBDOC%20-%20Host-Guest%20对谈稿.md)。摘要：
 
-1. 开场（背景 + 核心问题 + 四章预告）
-2. 01–04：各 **Host 1 问 → Guest 答 → 本章小结**
-3. 总结（跨章 mental model + 封底金句双语块）
+1. 开场（人物、主题与核心问题）
+2. 3–6 个独立问题：Host/编者问 → Guest/专栏整理答
+3. 限制与边界 + 类型化知识连接 + 来源说明
 4. 过 SUBDOC 质量门 + §10 朗读关
 5. **B 站 S 级**：落盘 **`{主题}.md` 单篇 canonical**（正文对谈 + `## 附录`）；勿另建 `- 对谈稿.md`
-6. 其他来源可选文末 `## 讲义索引`（vault 检索用，≤ 一页 bullet）
+6. 概念表、小结、金句和讲义索引均按知识增量选用，不作为固定模板
 
 ## 写作手法（blade 随时可用）
 

@@ -8,6 +8,7 @@ created: 2026-07-13
 description: "手写 MCP Client 接入 GitHub MCP Server，讲解 JSON-RPC 协议、命名空间隔离、registerMCPServer 集成与三层降级，并分析 MCP 带来的工具 Token 开销这一隐性成本。"
 tags:
   - ai_agent
+  - mcp
 ---
 ## MCP 接入实战——给 Agent 接上 GitHub
 

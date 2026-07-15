@@ -86,6 +86,6 @@ Andrew 的判断：**流程倒过来了**——实现不再稀缺，**品味（t
 - [[Codex 自我改进 Prompt]] — traces → Skill 固化
 - [[Claude Code负责人-AI原生团队如何使用AI]] — 对照 Anthropic dogfooding
 - [[AI 时代如何面试工程师]] — Coder → Engineer，元能力
-- [[80% 的 App 未来会消失吗我不这么认为]] — 品味与「做得好」
+- [[80% 的 App 未来会消失吗？我不这么认为]] — 品味与「做得好」
 - [[AI Coding 时间管理 - 50% 工作法 - 魔术师卡颂]] — Harness 时间分配（对照 OpenAI 内部 90 路原型）
 - [[MOC - Agent Theory and Design]] — 横切入口

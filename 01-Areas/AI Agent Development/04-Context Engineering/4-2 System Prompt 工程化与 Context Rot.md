@@ -8,6 +8,7 @@ created: 2026-06-08
 description: 市面上的 Agent 教程要么太浅要么太碎。这门课从「底层实现级」角度拆解 Claude Code、Manus、OpenClaw 等真实产品的工程决策，帮你建立完整的 Agent 知识体系。30+ 篇深度内容，覆盖 Agent Loop、Tool System、Context Engineering、Memory & RAG、Multi-Agent 等六大支柱。
 tags:
   - ai_agent
+  - prompting
 ---
 
 # System Prompt 工程化：从"写一段提示词"到"搭建一个行为控制系统"

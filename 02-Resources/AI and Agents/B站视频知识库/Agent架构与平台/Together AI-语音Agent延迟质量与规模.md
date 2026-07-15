@@ -241,5 +241,8 @@ Rishabh 在 Together AI 带语音团队（Refuel 被收购前是联合创始人�
 - [[Cloudflare专家-Sandbox确保AI代码安全]] — Agent 跑代码的另一条实时约束：沙盒与能力边界
 - [[Anthropic团队-如何构建运行数小时的Agent]] — 长时 Agent；本篇是实时语音的另一极
 - [[Qodo研究员-长上下文越多Agent越笨]] — 上下文与智能的工程权衡
+- [[Cursor实战-零代码构建语音助手Jarvis]] — 用 Cursor + 实时语音搭语音助手，印证本篇"半秒生死线 / 级联流水线"
+- [[Vercel 团队-Nico Albanese 给智能体一台电脑]] — Agent 生产化另一极：agent runtime 三支柱（指令 / 工具 / 沙盒）
+- [[2026 年 Agent 最重要的工程概念 Harness Engineering]] — 逐组件预算 / SLA / 同址 = harness 在实时语音场景的硬约束
 - [[MOC - Agent Theory and Design]] — 入口
 - [[MOC - Harness Engineering]] — 编排、可观测、预算同属 harness 问题

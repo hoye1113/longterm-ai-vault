@@ -1,11 +1,11 @@
 ---
 title: vskill-vault-relate
 name: vskill-vault-relate
-description: 给定一篇 vault 内笔记（含刚收录的新笔记），扫描 vault 全文输出 top-N 反向链候选——评分维度含 tags / title / description / MOC 链入权重。每条候选附 1 行"为什么"。用于 vskill-vault-curate 的 Step 6 自动化，让 §7 反向链硬规则半自动执行。
+description: 为新笔记或孤岛笔记寻找可解释的知识关系；先用标题、tag 和描述预筛，再按主张、机制、限制与应用匹配类型化连接。
 created: 2026-07-01
 updated: 2026-07-01
 status: available
-version: 0.1
+version: 0.2
 tags:
   - skills
   - vskill
@@ -46,7 +46,7 @@ outputs:
 
 # vskill-vault-relate
 
-> **核心一句话**：把"找反向链"从手挖变成评分——给定新笔记，scan vault，按 tags / title / description / MOC 链入四个维度加权评分，输出 top-N 候选，每条附"为什么是这个"。
+> **核心一句话**：先用元数据找候选，再判断两篇笔记究竟是支持、补充、反驳、限制、依赖、应用还是示例关系。
 >
 > **借鉴来源**：
 > - `kb-retriever` 的"分层索引 + 多轮迭代"（5 步检索骨架的轻量版）
@@ -75,6 +75,8 @@ score = (tags_jaccard × 3) + (title_keywords × 5) + (description_keywords × 2
 ```
 
 各维度归一化到 `[0, 1]`。最终 score 也在 `[0, 1]`。
+
+该分数只用于预筛，不能直接决定写入。入选候选还必须通过正文语义检查：主张、机制、限制或应用至少命中一项，并能给出关系类型和两端章节。
 
 ### 维度定义
 
@@ -131,7 +133,7 @@ score = (tags_jaccard × 3) + (title_keywords × 5) + (description_keywords × 2
 
 ### Step 4：评分 + 排序
 
-按"评分公式"对每篇候选打分，生成 `(path, score, reason)` 三元组。
+按评分公式预筛，再读取高分候选的相关章节，生成 `(path, score, relation_type, source_section, target_section, reason)`。
 
 ### Step 5：Top-N 输出
 
@@ -143,7 +145,10 @@ score = (tags_jaccard × 3) + (title_keywords × 5) + (description_keywords × 2
   "path": "相对 vault 根路径",
   "title": "wikilink 形式 [[笔记标题]]",
   "score": "0.00 - 1.00",
-  "reason": "一句话说明为什么是这个（命中维度 + 关键共享词）",
+  "relation_type": "supports | extends | contradicts | limits | depends_on | applies_to | example_of",
+  "source_section": "目标笔记中的命题章节",
+  "target_section": "候选笔记中的对应章节",
+  "reason": "一句话说明具体知识关系，而不是只列共享词",
   "moc_linked": "如已链入某 MOC，标出；否则空"
 }
 ```
@@ -195,7 +200,7 @@ score = (tags_jaccard × 3) + (title_keywords × 5) + (description_keywords × 2
 
 - ❌ **不凑数**：候选 < 3 也只输出实际命中，不补"看起来相关"的
 - ❌ **不忽略 orphan 检查**：score 全 < min_score 时**强制**输出 `orphan_candidate: None` 警告，提示加 `status: orphan`
-- ❌ **不擅自写入**：候选只是候选，必须用户确认才写"相关阅读"
+- ✅ 普通收录可从 top 5 自动选择 1–3 个真实关系写入，并在收录报告中披露；新概念、新 MOC、新 tag 仍需用户确认。
 - ❌ **不杜撰 score**：score 是真实计算，不是"看起来高"
 - ❌ **不忽略 vault 协议**：找到的候选必须符合 §3 / §4 / §6 / §7；候选本身不合规的，必须先标 warning
 
@@ -230,7 +235,7 @@ min_score: 0.2
 ## 约束
 
 - ❌ 不读 vault 外的笔记 / 不联网
-- ❌ 不修改目标笔记内容（只输出候选，不写"相关阅读"）
+- ❌ 独立 relate 请求不修改目标笔记；作为 curate 子流程时可写入已选关系。
 - ❌ 不忽略 §10 反模式（凑数 / 死链 / 低质反向链）
 - ✅ 候选必须能在 wikilink 后真正打开 vault 文件
 - ✅ 评分透明可追溯（reason 字段必须可解释）

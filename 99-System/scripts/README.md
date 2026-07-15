@@ -34,7 +34,7 @@ Agent 直接读写本仓库的 Markdown 文件，不依赖 Obsidian MCP、REST A
 python 99-System/scripts/bilibili-opus-validate.py <笔记> --vault-root <vault> --sources-read column
 ```
 
-验证用户提供的单篇 opus/cv 精华笔记，包括 BV/opus/cv 查重、C1/C2、正文形态、事实状态、反向链和图片跳过。新流程不要求 Recastory、transcript 或 Spot Check。
+验证用户提供的单篇 opus/cv v2 笔记，包括来源查重、来源/成稿形态、声音依据、对谈忠实度、事实范围、限制边界、类型化知识关系和图片跳过。缺少 `ingest_workflow` 的 v1 笔记继续兼容；新流程不要求 Recastory、transcript 或 Spot Check。
 
 Recastory inventory、ASR reconcile/batch/gap-check、Spot Check 与 trust audit 已冻结为 Legacy，只用于历史笔记核验。
 
@@ -47,6 +47,25 @@ python 99-System/scripts/vault-audit.py
 输出：
 
 - 审计报告写入 `99-System/audit-report.md`
+
+### 知识库混合检索（vault-search）
+
+```powershell
+# 关键词检索（默认只搜 01-Areas + 02-Resources，章节级命中）
+python 99-System/scripts/vault-search.py "agent 记忆 不遗忘" --top 5
+
+# tag 分面过滤（多个 --tag 为 AND，逗号内为 OR）
+python 99-System/scripts/vault-search.py "loop" --tag loop_engineering
+
+# agent 消费：JSON + 命中解释
+python 99-System/scripts/vault-search.py "上下文 压缩" --json --top 5
+python 99-System/scripts/vault-search.py "prompt 减法" --explain
+
+# 全库 tag 分面总览（看检索轴）
+python 99-System/scripts/vault-search.py --tags
+```
+
+用途：**不靠人维护索引**的实时检索。BM25 关键词轴 + tag 过滤，章节级返回 `文件 § 章节 [tags] + 分数 + 命中片段`；纯标准库零依赖，只读不写。向量轴为预留扩展点（`score_vector` stub，未来接 bge-m3 只填该函数 + `fuse` 权重）。供 `vskill-vault-discuss` Step 1 调用。
 
 ### 2. B 站素材动态发现
 
@@ -130,7 +149,7 @@ python 99-System/scripts/bilibili-spot-check.py "<笔记路径>" -o 99-System/au
 
 ## 推荐执行顺序
 
-如果你在跑 B 站 v3 工作流，建议顺序是：
+以下顺序只用于 Legacy B站 v3/ASR 历史核验，不用于新专栏收录：
 
 ```text
 ingest reconcile
@@ -148,8 +167,9 @@ ingest reconcile
 | 脚本 | 用途 |
 |---|---|
 | `vault-audit.py` | 全库审计 |
+| `vault-search.py` | 知识库混合检索（BM25 + tag 分面，向量预留） |
 | `bilibili-source-inventory.py` | Recastory 素材动态发现与全量统计 |
-| `bilibili-opus-validate.py` | 新 B 站图文专栏字段、忠实度、查重与完成门 |
+| `bilibili-opus-validate.py` | B站图文专栏 v2 字段、声音、类型化关系、v1 兼容与完成门 |
 | `bilibili-note-validate.py` | 单篇双轴收录契约校验 |
 | `bilibili-trust-audit.py` | 存量来源可信度风险评分与首批队列 |
 | `agent-contract-check.py` | Agent 控制面与平台适配检查 |

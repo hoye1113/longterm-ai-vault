@@ -8,6 +8,7 @@ created: 2026-07-13
 description: "梳理各厂商 Prompt Cache 的隐式与显式模式差异、命中折扣与杀 Cache 的踩坑点，并给 Agent 加上 normalizeUsage 成本追踪与 /context、/usage 终端面板量化缓存省下的钱。"
 tags:
   - ai_agent
+  - prompting
 ---
 ## 让对话越来越便宜——Prompt Cache 与成本追踪
 

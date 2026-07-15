@@ -8,6 +8,7 @@ created: 2026-07-13
 description: "Swarm 模式让多个 Agent 组成有 Leader 协调的团队，通过 Mailbox 消息、共享任务列表与 Permission Sync 解决双向通信、共享状态与权限转发三大难题，对比 hub-and-spoke、handoff、groupchat 等编排范式。"
 tags:
   - ai_agent
+  - multi_agent
 ---
 ## Agent Swarm：让多个 Agent 像团队一样协作
 

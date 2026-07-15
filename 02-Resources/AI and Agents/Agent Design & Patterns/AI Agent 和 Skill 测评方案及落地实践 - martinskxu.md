@@ -5,6 +5,7 @@ tags:
   - article
   - ai_evaluation
   - wechat
+  - skills
 source: https://mp.weixin.qq.com/s/PUbGqheJhFMmb6hGj1ZtOw
 created: 2026-06-17
 description: "系统性讲解如何为 AI Agent 和 Skill 设计可落地的测评方案，涵盖评什么、怎么评、用例集构建、基线管理、稳定性评估、工程化落地"

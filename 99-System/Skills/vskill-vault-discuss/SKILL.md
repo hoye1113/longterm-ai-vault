@@ -4,7 +4,7 @@ description: 基于 vault 笔记进行结构化讨论——给定讨论主题，
 created: 2026-06-27
 updated: 2026-06-27
 status: available
-version: 0.2
+version: 0.3
 mode:
   - summary     # 默认——top-K 评分 + 交叉对比（v0.1）
   - roundtable  # 圆桌讨论——多视角立场对比（ljg-roundtable 借鉴）
@@ -238,28 +238,31 @@ top-K 评分 + 交叉对比，输出"讨论报告"。**适合**：3+ 篇短笔�
 
 ## 工作流（5 步）
 
-### Step 1：定位（grep + glob）
-- 用 `grep` 搜 `topic` 关键词在 `tags`、`title`、`description` 字段的命中
-- 用 `glob` 找文件名包含关键词的笔记
-- 用 MOC 索引作为入口（vault 现有 ~11 个 MOC）
+### Step 1：检索（vault-search 优先）
+- 首选用 `vault-search.py` 做章节级检索（BM25 + tag 分面，实时算、不靠人维护索引）：
+  ```powershell
+  python 99-System/scripts/vault-search.py "{topic}" --json --top {max_notes}
+  python 99-System/scripts/vault-search.py "{topic}" --tag {细分tag} --top {max_notes}
+  ```
+- 返回 `文件 § 章节 [tags] + 分数 + 命中片段`，一次拿到 top-K 候选与命中章节。
+- `--tag` 做分面过滤；中英混合查询原生支持（CJK bigram + ASCII word）。
+- 兜底（vault-search 无命中，或需精确匹配专名/作者）：`grep` 搜 `topic` 在 tags/title/description，`glob` 找文件名，MOC 索引（~15 个）作入口。
 
 ### Step 2：评分（top-K 候选）
-- 候选笔记按以下维度评分：
-  - tags 命中数 × 3
-  - 标题命中 × 5
-  - description 命中 × 2
-  - MOC 链入权重 × 1
-- 取 top `max_notes`（默认 10）
+- vault-search 已给出 BM25 相关度分数，直接取 top `max_notes`（默认 10）。
+- 无 vault-search 时回退手工评分：tags 命中 ×3、标题命中 ×5、description 命中 ×2、MOC 链入 ×1。
 
 ### Step 3：加载（注意 token 预算）
-- 按 score 降序加载笔记全文
-- 单笔记 > 3000 字时只加载 §核心观点 + §关键洞察
+- 先定位命中章节，不默认加载全文；再沿 `知识连接` 的类型化链接加载一跳上下文
+- 默认尝试加入一个支持/补充观点和一个限制/反驳/边界观点
+- 单笔记 > 3000 字时优先加载命中章节、相邻论证和限制边界
 - 总加载量超过 50k 字时触发"加载警告"，让用户选择
 
 ### Step 4：交叉对比
 - 提取每篇笔记的"核心观点" / "关键洞察"
-- 标注：一致 / 冲突 / 补充
+- 标注：支持 / 补充 / 反驳 / 限制 / 依赖 / 应用 / 示例
 - 冲突时给出来源（笔记标题）
+- `verified` 可引用并附 source；`partial` 使用保守措辞并披露 unresolved；`unverified` 只作为检索线索
 
 ### Step 5：输出报告
 按下方"输出格式"生成。

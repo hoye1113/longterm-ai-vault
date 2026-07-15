@@ -45,9 +45,43 @@ def check_repository(root: Path) -> dict[str, list[str]]:
             errors.append("Bilibili adapter does not route to opus decision document")
         if "必须先读 `99-System/Skills/vskill-vault-curate/SUBDOC - ASR" in adapter_text:
             errors.append("Bilibili adapter still defaults to ASR")
+        if "bilibili_opus_ingest_v2" not in adapter_text:
+            errors.append("Bilibili adapter does not declare opus ingest v2")
     opus_doc = root / "99-System" / "Skills" / "vskill-vault-curate" / "SUBDOC - B站图文专栏精华收录.md"
     if not opus_doc.is_file():
         errors.append("missing Bilibili opus ingest document")
+    else:
+        opus_text = opus_doc.read_text(encoding="utf-8")
+        required_v2 = (
+            "bilibili_opus_ingest_v2",
+            "source_form",
+            "question_source: column | editorial | none",
+            "reconstructed/editorial",
+            "知识连接",
+        )
+        for token in required_v2:
+            if token not in opus_text:
+                errors.append(f"Bilibili opus v2 contract is missing: {token}")
+
+    default_docs = [
+        root / "AGENTS.md",
+        root / "99-System" / "Agent" / "ROUTER.md",
+        root / "99-System" / "Agent" / "INGEST-CONTRACT.md",
+        opus_doc,
+        curate_adapter,
+    ]
+    forbidden_patterns = {
+        r"新流程不创建\s+reconstructed": "default opus route forbids reconstructed dialogue",
+        r"lecture\s+即使.*保持\s+lecture": "default opus route forces lecture presentation",
+        r"dialogue/roundtable.*source/transcript": "default opus route still requires transcript questions",
+    }
+    for path in default_docs:
+        if not path.is_file():
+            continue
+        content = path.read_text(encoding="utf-8")
+        for pattern, message in forbidden_patterns.items():
+            if re.search(pattern, content, re.IGNORECASE):
+                errors.append(message)
     return {"errors": errors, "warnings": []}
 
 

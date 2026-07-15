@@ -8,6 +8,7 @@ created: 2026-07-13
 description: "讲解 Agent 接入飞书群等多人环境后，如何用权限系统拦截危险操作，并用 Hook 管线在工具执行前后插入审计日志与格式校验等自定义逻辑。"
 tags:
   - ai_agent
+  - hooks
 ---
 ## 权限系统 + Hook 管线——让 Agent 安全地被别人使用
 

@@ -25,9 +25,11 @@ canonical Skill 根目录：`99-System/Skills/`。平台适配层只负责发现
 
 1. 用户提供单篇 opus/cv 后读取专栏专项 SUBDOC。
 2. 只读取文字正文和页面元数据；图片一律跳过。
-3. lecture 即使末尾有现场 Q&A 也保持 lecture。
-4. dialogue/roundtable 只保留专栏中真实存在的问答关系。
-5. 不要求 Recastory、transcript、ASR 或 Spot Check。
+3. 先判断 `source_form`，再根据素材等级决定最终 `content_form`。
+4. S级真实访谈使用 `source/column`；S级演讲使用明确标注的 `reconstructed/editorial` 对谈。
+5. 第三方总结使用“专栏整理”，不冒充讲者原话；真实多人观点保留 roundtable。
+6. 收录后建立带关系类型的知识连接，供 relate/discuss 按一跳上下文使用。
+7. 不要求 Recastory、transcript、ASR 或 Spot Check。
 
 ## 相关阅读
 

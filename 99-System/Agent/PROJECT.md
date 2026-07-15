@@ -24,7 +24,7 @@ Markdown 是唯一事实源。Agent 读写文件；Obsidian 负责呈现；Git �
 
 ## Frontmatter
 
-新笔记必填：`title`、`tags`、`created`、`source`、`description`。推荐 `author`。B 站图文专栏新收录另填 `source_type`、`source_url`、`opus_id`、`column_id`、`video_url`、`bv`、`source_tier`、`primary_source`、`material_tier`、`content_form`、`dialogue_fidelity`、`question_source`、`factual_status`、`factual_reviewed` 与实际读取的 `verification_basis`。不要求 `ingest_dir`、`transcript_source` 或 `spot_check`。
+新笔记必填：`title`、`tags`、`created`、`source`、`description`。推荐 `author`。B站图文专栏 v2 另填 `ingest_workflow`、来源标识、`source_tier`、`material_tier`、`source_form`、`content_form`、`dialogue_fidelity`、`question_source`、`voice_basis`、`factual_status`、`factual_reviewed`、`verification_scope` 与实际读取的 `verification_basis`。不要求 `ingest_dir`、`transcript_source` 或 `spot_check`。
 
 ## Tag 字典
 
@@ -40,7 +40,8 @@ Tag 只用小写英文和下划线。新 tag 先提议并取得用户确认，�
 ## 命名与链接
 
 - 文件名使用空格或 `-`，不超过 50 字；不用全角冒号和 Windows 特殊字符。
-- 每篇笔记必须有至少一个语义相关 wikilink；无候选时用 `status: orphan` 说明原因。
+- 每篇笔记必须有至少一个语义相关 wikilink；S级来源笔记还必须说明支持、补充、反驳、限制、依赖、应用或示例关系。无候选时用 `status: orphan` 说明原因。
+- 来源笔记保留完整语境；跨来源概念只进入候选。概念被两个独立来源支撑后可提议创建，但仍需用户确认。
 - 同主题达到 3 篇时评估 MOC；新建 MOC 需确认。
 - MOC 包含主题简介、带说明的核心笔记、关联笔记或横切 MOC。
 

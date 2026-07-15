@@ -4,34 +4,35 @@ parent: vskill-vault-curate
 created: 2026-07-13
 updated: 2026-07-13
 status: active
-version: 1.0
-description: "用户提供单篇 opus/cv 后，以专栏文字为主源提炼高密度 canonical 笔记。"
+version: 2.0
+description: "把用户提供的单篇 B站专栏编译为对谈式、可追溯、可串联的第二大脑上下文。"
 ---
 
-# B站图文专栏精华收录
+# B站图文专栏精华收录 v2
 
 ## 适用边界
 
-只处理用户明确提供的单篇 B 站 opus/cv。不得扫描 UP 主空间、维护增量游标或自动收录。图片一律跳过：不读取、不识别、不下载、不写附件。
-
-Recastory、ASR、transcript 和长视频 Spot Check 已退出默认流程。历史核验见 [LEGACY - B站 ASR 与 Recastory.md](./LEGACY%20-%20B站%20ASR%20与%20Recastory.md)。
+只处理用户明确提供的单篇 opus/cv。读取专栏文字和页面元数据；图片、Recastory、ASR、transcript 与 Spot Check 全部跳过。不得扫描 UP 主空间、维护增量游标或自动创建概念笔记。
 
 ## 状态机
 
 ```text
-PREFLIGHT -> DISCOVER -> MATCH -> ADMISSION -> EXTRACT
-          -> CLASSIFY -> TRANSFORM -> RELATE -> VALIDATE/REPORT
+PREFLIGHT -> DISCOVER -> MATCH -> ADMISSION -> EXTRACT -> PROVENANCE
+          -> CLASSIFY -> DIALOGUE_PLAN -> TRANSFORM -> TRACE
+          -> RELATE -> INTEGRATE -> VALIDATE/REPORT
 ```
 
-1. `PREFLIGHT`：读取 AGENTS、Ingest Contract、Density Profile 和本文件。
-2. `DISCOVER`：从文字 DOM 和播放器元数据提取标题、作者、发布日期、opus、cv、BV、时长。禁止读取图片。
-3. `MATCH`：按 BV、opus、cv、source URL 查重。已有 canonical 时停止，新建或覆盖须用户确认。
-4. `ADMISSION`：纯新闻、重复观点、低价值教程、越界主题标 rejected。
-5. `EXTRACT`：建立 Pass 1，不落入正式知识目录。
-6. `CLASSIFY`：输出 source_tier、material_tier、content_form 和理由。
-7. `TRANSFORM`：按知识增量压缩，保持原论述，不补来源之外的事实。
-8. `RELATE`：检索 top 5，选 1–3 个真实相关链接或标 orphan；只更新已有 MOC。
-9. `VALIDATE/REPORT`：运行专栏验证器，通过后输出机器可读报告。
+- `DISCOVER`：提取标题、作者、日期、opus、cv、BV 和内嵌视频元数据。
+- `MATCH`：按 BV、opus、cv、source URL 查重。
+- `ADMISSION`：拒收纯新闻、重复观点、低价值教程、越界主题和无法归属的碎片。
+- `EXTRACT`：生成 Pass 1 保留单元。
+- `PROVENANCE`：确定问题、人物和回答的声音依据。
+- `CLASSIFY`：分别判断 C1/C2、S/A/B、source_form 与 content_form。
+- `DIALOGUE_PLAN`：先规划问题与回答单元，再写正文。
+- `TRACE`：所有关键单元必须有保留位置、删除理由或未决标记。
+- `RELATE`：选择 1–3 个带类型的真实关系，或标 orphan。
+- `INTEGRATE`：写 canonical 并更新已有 MOC；受控变更先确认。
+- `VALIDATE/REPORT`：运行 v2 验证器和语义自检。
 
 ## Pass 1
 
@@ -42,29 +43,65 @@ mechanisms: []
 numbers: []
 examples: []
 constraints_and_counterexamples: []
-valuable_questions: []
-entities: []
+knowledge_units:
+  concepts: []
+  methods: []
+  decisions: []
+  failure_modes: []
+  open_questions: []
+voice_map:
+  - unit_id:
+    speaker:
+    voice_basis:
+    source_location:
+relation_candidates:
+  supports: []
+  extends: []
+  contradicts: []
+  limits: []
+  depends_on: []
+  applies_to: []
+  example_of: []
 uncertain_facts: []
 ```
 
-## 分类
+每个单元记录 `id/type/content/source_location/speaker/voice_basis/decision/reason/target_section`。Pass 1 是临时执行产物，不进入正式知识目录。
 
-- C1：完整正文、章节、BV、人物和时间锚点齐全。
-- C2：正文可用，但人物、问答、数字或 BV 映射有缺口。
-- lecture：论述、教程或机制推进；末尾有 Q&A 仍是 lecture，使用 `none/none`。
-- dialogue：真实追问改变论述方向，使用 `source/transcript`。
-- roundtable：三人以上独立观点和回应构成价值，使用 `source/transcript`。
-- 新流程不创建 reconstructed dialogue。`unknown：` 改为“现场提问：”或“观众提问：”。
+## 声音与路由
 
-## 提炼规则
+```text
+S + source dialogue   -> dialogue + source/column
+S + source lecture    -> dialogue + reconstructed/editorial
+S + source roundtable -> roundtable + source/column
+A                     -> 优先保留 source_form
+B                     -> 有限讲义、Inbox 或 rejected；禁止人物化重构
+```
 
-保留核心命题、机制、方法框架、关键案例、带语境数字、限制反例和有效问答。删除重复摘要、重点速览重复项、章节预告、寒暄串场、展位导流、关注提示、平台 UI 和无知识增量的例子。
+- 真实 Host/Guest 使用真实姓名；无真实主持人只使用“编者问”。
+- 提问者身份不明时写“现场提问”或“观众提问”。
+- 专栏是第三方总结时，回答角色写“专栏整理”，不得冒充讲者第一人称。
+- 纯技术步骤型 S级仍用对谈框架，连续步骤留在回答内的列表或代码块中。
+- `question_source` 描述整篇最终形态；A/B lecture 即使保留末尾现场问答，note-level 仍写 `dialogue_fidelity: none`、`question_source: none`。
+- 人物不完整但内容可用时标 `partial`；核心观点无法归属时降级或拒收。
 
-删除一段后若仍能回答“是什么、为什么、怎么用、何时不成立”，默认删除。不按固定比例压缩，不机械套固定章数，不把转述写成直接引语。
+## Dialogue Plan
+
+```yaml
+chapters:
+  - chapter_claim:
+    question:
+    question_type: source | editorial
+    answer_units: []
+    tension:
+    related_concepts: []
+```
+
+问题必须打开机制、选择、冲突、实践或边界；不得加入专栏没有的事实前提，也不得用同义问题凑章节。回答至少保留判断和机制，关键章节再加入案例、数字或限制。
 
 ## Frontmatter
 
 ```yaml
+ingest_workflow: bilibili_opus_ingest_v2
 source_type: bilibili_opus
 source_url: "https://www.bilibili.com/opus/..."
 opus_id: "..."
@@ -72,25 +109,66 @@ column_id: "cv..."
 video_url: "https://www.bilibili.com/video/BV.../"
 bv: "BV..."
 uploader: "Easonlee的AI笔记"
-source_tier: C1 | C2
 primary_source: column
+source_tier: C1 | C2
 material_tier: S | A | B
+source_form: lecture | dialogue | roundtable
 content_form: lecture | dialogue | roundtable
-dialogue_fidelity: source | none
-question_source: transcript | none
+dialogue_fidelity: source | reconstructed | none
+question_source: column | editorial | none
+voice_basis: direct_speech | attributed_paraphrase | editorial_summary | mixed
 factual_status: verified | partial | unverified
 factual_reviewed: YYYY-MM-DD
+verification_scope: column_only | column_plus_original
 verification_basis:
   - column
 ```
 
-只有实际读取视频页或官方页，才能把相应来源加入 `verification_basis`。有关键疑点则写 `unresolved_facts` 并使用 partial/unverified。
+`column_only` 只表示笔记忠实于专栏，不表示外部事实已独立核验。只有实际读取官方原页后才能使用 `column_plus_original`。v2 禁止写入 `transcript_source`、`ingest_dir`、`asr_version` 和 `spot_check`。
+
+## S级正文
+
+```markdown
+# 标题
+
+> 人物、主题、核心问题和阅读导航。
+
+## 开场
+
+## 01 具体问题或判断
+
+**真实主持人 / 编者问：** 问题。
+
+**讲者 / 专栏整理：** 判断、机制、案例和限制。
+
+## 限制与边界
+
+## 知识连接
+
+## 来源说明
+```
+
+使用 3–6 个主要问题，但不得用重复问题补数量。不强制概念表、本章小结、双语金句或固定字数。删除重复摘要、章节预告、寒暄、宣传、评论、UI 和无知识增量的例子。
+
+## 知识连接
+
+允许关系：`supports/extends/contradicts/limits/depends_on/applies_to/example_of`，正文分别写“支持、补充、反驳、限制、依赖、应用于、示例”。
+
+```markdown
+- **支持** [[MOC - Agent Theory and Design]]：说明新增了什么证据。
+- **限制** [[Agent实战-打造一个AI Agent的完整教程]]：说明哪项结论只在特定条件下成立。
+```
+
+S级必须有 `知识连接`；不得只放裸 wikilink。没有真实关系时写 `status: orphan` 并说明缺口。新概念只进入报告的 `concept_candidates`；至少两个独立来源后可标 `eligible`，仍需用户确认才能创建。
+
+## 报告接口
+
+报告使用 `workflow: bilibili_opus_ingest_v2`，包含 route、retention、related_notes、concept_candidates、moc_updates、checks、unresolved 和 status。`checks` 至少覆盖来源、声音、保留率、问题独立性、数字语境、限制、关系质量和讨论就绪。
 
 ## 完成门
 
 ```powershell
-python 99-System/scripts/bilibili-opus-validate.py <note> --vault-root <vault>
+python 99-System/scripts/bilibili-opus-validate.py <note> --vault-root <vault> --sources-read column
 ```
 
-同一 BV/opus/cv 无重复、有反向链或 orphan、图片未进入正文或附件、来源字段合法、忠实度与正文形态一致，才可报告 complete。
-
+确定性验证通过后，Agent 还必须确认保留覆盖、声音安全、问题独立、数字语境、限制保留、关系质量和讨论就绪。任一关键项失败或 unresolved 非空时报告 `incomplete`。

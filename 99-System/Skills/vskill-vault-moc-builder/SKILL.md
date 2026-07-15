@@ -5,7 +5,7 @@ description: 给一个 vault 主题，找出背后真正撑着的几根独立"�
 created: 2026-06-27
 updated: 2026-06-27
 status: available
-version: 0.1
+version: 0.2
 tags:
   - skills
   - vskill
@@ -157,6 +157,8 @@ outputs:
 ### Step 4：写 MOC
 
 按 AGENTS.md §5 "MOC 规范"：
+
+优先按问题空间、机制、争议、边界或应用组织，不按来源平台堆列表。每条笔记必须有一句关系说明；同一笔记不要因多个关系在同一分组重复出现，横切关系放到关联区。
 
 ```markdown
 # MOC - {主题名}

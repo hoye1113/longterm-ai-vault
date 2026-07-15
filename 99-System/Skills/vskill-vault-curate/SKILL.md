@@ -1,11 +1,11 @@
 ---
 title: vskill-vault-curate
 name: vskill-vault-curate
-description: 从外部收录内容到 vault；B站默认处理用户提供的图文专栏并提炼精华，ASR/Recastory仅作历史核验。
+description: 收录外部内容到 vault；B站默认把用户提供的单篇专栏编译为对谈式、可追溯、可串联的第二大脑上下文。
 created: 2026-06-27
 updated: 2026-07-13
 status: available
-version: 0.7
+version: 0.8
 tags:
   - skills
   - vskill
@@ -44,7 +44,7 @@ outputs:
 >
 > **借鉴来源**：wiki-ingest 8 步工作流 + kimi-webbridge 浏览器抓取（工具链引用）+ AGENTS.md §8 SOP 7 步
 >
-> **IRON LAW**：**One wiki page = one knowledge entity.** 永远不把多个概念压成一篇笔记。
+> **IRON LAW**：**One source = one canonical context note.** 来源笔记保留完整语境；跨来源概念进入候选，不自动制造碎片卡片。
 
 ## 何时使用
 
@@ -123,7 +123,7 @@ pdftotext input.pdf output.txt
 
 ## 工作流（7 步 = AGENTS.md §8 SOP）
 
-> 本节的通用 8 步受 `99-System/Agent/INGEST-CONTRACT.md` 约束。用户提供 B 站 opus/cv 时必须先读 `SUBDOC - B站图文专栏精华收录.md`；不扫描空间、不读图片、不进入 ASR。历史 Recastory/ASR 核验按 Legacy 索引加载。
+> 本节受 `99-System/Agent/INGEST-CONTRACT.md` 约束。用户提供 B站 opus/cv 时必须先读 `SUBDOC - B站图文专栏精华收录.md`，使用 `bilibili_opus_ingest_v2`；不扫描空间、不读图片、不进入 ASR。历史 Recastory/ASR 核验按 Legacy 索引加载。
 
 ### Step 1：收素材
 
@@ -207,6 +207,8 @@ author:
 - **不要直接创造新 tag**，先走登记流程
 
 ### Step 6：找反向链（§7 强制 ≥ 1）
+
+B站 S级来源笔记不能只放裸链接。候选必须归入“支持、补充、反驳、限制、依赖、应用于、示例”之一，并用一句话解释具体关系；找不到则标 orphan。
 
 两条路并行：
 
@@ -326,7 +328,7 @@ target_para: "auto"
 | [SUBDOC - Spot check（长视频 factual）.md](./SUBDOC%20-%20Spot%20check（长视频%20factual）.md) | ≥45 min factual 对读 |
 | [SUBDOC - Host-Guest 对谈稿.md](../vskill-vault-write/SUBDOC%20-%20Host-Guest%20对谈稿.md) | **dialogue 形态**：真实或明确标注重构的 canonical 对谈 |
 
-B 站新收录：**先读图文专栏 SUBDOC** → 查重 opus/cv/BV → 提取文字精华 → 跳过图片与 transcript → 专栏验证器。ASR 路线仅用于历史核验。
+B站新收录：**先读图文专栏 SUBDOC v2** → 查重 → Pass 1 → 声音归属 → 对谈规划 → 类型化知识连接 → 专栏验证器。图片、transcript 与 Recastory 跳过；ASR 只用于历史核验。
 
 **访谈 / 对谈公众号**：Step 2 抓内容后，若用户要 Founder Park 式对话体 → 转 `vskill-vault-write mode=dialogue`（读 Host-Guest SUBDOC），勿默认压成第三人称讲义。
 

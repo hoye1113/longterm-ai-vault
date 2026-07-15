@@ -9,6 +9,7 @@
 3. 收录任务必须再读 [INGEST-CONTRACT](99-System/Agent/INGEST-CONTRACT.md) 和对应 canonical Skill。
 4. 写正文前读取 [DENSITY-PROFILE](99-System/Agent/DENSITY-PROFILE.md)。
 5. 目录、PARA、frontmatter、tag 与 MOC 细则见 [PROJECT](99-System/Agent/PROJECT.md)。
+6. 查找或反哺知识库内容（找笔记、跨笔记讨论）先读 [MOC - 知识库导航](MOC - 知识库导航.md)，按其加载梯子最小化 context。
 
 权威顺序：用户当前指令 > 本文件 > Agent 工作流契约 > canonical Skill > 形态专项 SUBDOC > README > 历史审计报告。
 
@@ -22,7 +23,7 @@
 | 基于已有笔记讨论 | `vskill-vault-discuss` |
 | 新建、合并、拆分或审计 MOC | `vskill-vault-moc-builder` |
 
-B 站 opus/cv 图文专栏任务必须先读：
+B 站 opus/cv 图文专栏任务使用 `bilibili_opus_ingest_v2`，必须先读：
 
 `99-System/Skills/vskill-vault-curate/SUBDOC - B站图文专栏精华收录.md`
 
@@ -30,7 +31,7 @@ Recastory/ASR 已冻结为 Legacy，不参与新收录；仅在核验历史笔�
 
 ## 收录硬规则
 
-所有收录按以下状态机执行：
+通用收录按以下状态机执行；B站专栏使用专项文档中的扩展状态机：
 
 ```text
 PREFLIGHT -> ADMISSION -> INVENTORY -> CLASSIFY -> TRANSFORM
@@ -39,12 +40,15 @@ PREFLIGHT -> ADMISSION -> INVENTORY -> CLASSIFY -> TRANSFORM
 
 - 写入前按 BV、opus ID、cv ID、`source_url` 查重。
 - B 站新收录只接受用户提供的单篇 opus/cv；不自动扫描空间，不读取图片。
-- B 站分类使用双轴：`material_tier: S|A|B` 与 `content_form: dialogue|lecture|roundtable`。
+- B站专栏同时区分 `source_tier`、`material_tier`、`source_form` 与最终 `content_form`。
+- S级默认以对谈或圆桌出版：真实问答使用 `source/column`，演讲重构使用 `reconstructed/editorial` 和“编者问”。
+- 第三方总结使用“专栏整理”，不得把转述写进真实人物口中。
 - 1 BV = 1 篇 canonical 笔记；禁止额外生成 `- 对谈稿.md`。
-- 每篇笔记必须有语义相关的 `[[wikilink]]`；找不到则标 `status: orphan`，不得凑数。
+- S级笔记必须用“支持、补充、反驳、限制、依赖、应用于、示例”说明知识关系；不得只放裸 `[[wikilink]]`。
+- 找不到真实关系时标 `status: orphan` 并说明缺口，不得凑数。
 - 已有 MOC 可随收录更新；新建 MOC、新 tag、覆盖已有 canonical 笔记必须先取得用户确认。
 - 校验未通过或 `unresolved` 非空时，不得报告“收录完成”。
-- 新 B 站专栏收录必须声明 `source_tier`、`primary_source: column` 与 `factual_status`；不要求 transcript、Recastory 或 Spot Check。
+- 新 B站专栏必须声明 `ingest_workflow: bilibili_opus_ingest_v2`、来源/成稿形态、声音依据、核验范围与事实状态；不要求 transcript、Recastory 或 Spot Check。
 - 基于 vault 回答时，verified 可附来源引用；partial 使用保守措辞；unverified 只作为检索线索。
 
 ## 修改边界

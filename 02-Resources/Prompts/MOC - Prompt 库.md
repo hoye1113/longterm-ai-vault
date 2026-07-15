@@ -7,6 +7,7 @@ source: local://02-Resources/Prompts/
 tags:
   - "moc"
   - "prompts"
+  - prompting
 ---
 
 # Prompt 库

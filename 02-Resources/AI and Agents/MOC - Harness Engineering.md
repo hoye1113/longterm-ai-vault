@@ -61,10 +61,10 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 |---|------|------|------|--------|
 | 31 | [[ClawdBot创始人-一个人顶一个团队]] | B站视频 | **Agent 创业** | 一人公司如何用 Agent 工具链构建产品 |
 | 32 | [[OpenClaw教程-实战完整指南]] | B站视频 | **OpenClaw harness** | OpenClaw 全套配置与实战 |
-| 33 | [[OpenClaw-Every团队演示使用Case]] | B站视频 | **团队 Agent 实践** | Every 团队 OpenClaw 使用 Case 演示 |
+| 33 | [[OpenClaw实战-Every团队使用Case]] | B站视频 | **团队 Agent 实践** | Every 团队 OpenClaw 使用 Case 演示 |
 | 34 | [[OpenClaw养虾指南-打造数字员工]] | B站视频 | **Agent 养成** | 养虾 = 数字员工养成方法论 |
-| 35 | [[OpenClaw-从零开始完成全套配置]] | B站视频 | **OpenClaw harness** | 从零到完整 OpenClaw 配置 |
-| 36 | [[Hermes实战-新手配置真实使用案例]] | B站视频 | **Agent harness** | Hermes 新手配置与真实使用案例 |
+| 35 | [[OpenClaw实战-从零完成全套配置]] | B站视频 | **OpenClaw harness** | 从零到完整 OpenClaw 配置 |
+| 36 | [[Hermes实战-新手配置真实案例]] | B站视频 | **Agent harness** | Hermes 新手配置与真实使用案例 |
 | 37 | [[AI编程工具-2026年趋势与Vibe Code]] | B站视频 | **Coding harness** | 2026 年 AI 编程工具趋势与 Vibe Code |
 | 38 | [[Brex CEO-打造全公司共用AI型CEO]] | B站视频 | **组织 Agent** | 全公司共用 AI CEO 的组织实践 |
 
@@ -91,7 +91,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 
 | 横切主题 | MOC |
 |----------|-----|
-| Claude Code 实践 | [[MOC - Agent Theory and Design#B. Claude Code 实战（3 篇）]] |
+| Claude Code 实践 | [[MOC - AI Coding 与工具]] |
 | Coding Agent 体系 | [[MOC - Loock AI 全栈课程]] — 包含 LangGraph.js Coding Agent 实现 |
 
 ### 关联 Areas

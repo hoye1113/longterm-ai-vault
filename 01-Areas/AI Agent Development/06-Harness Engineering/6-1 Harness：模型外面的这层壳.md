@@ -8,6 +8,7 @@ created: 2026-07-13
 description: "Harness 是包裹在模型之外的控制层（最大步数、工具系统、上下文工程、记忆与多智能体分工），决定 Agent 真实表现；模型越强，部分失效的 Harness 被删减，但系统级约束仍需保留。"
 tags:
   - ai_agent
+  - harness_engineering
 ---
 ## Harness：模型外面的这层壳
 

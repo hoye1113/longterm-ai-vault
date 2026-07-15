@@ -67,12 +67,13 @@ tags:
 
 ---
 
-## C. 上下文工程（3 篇）
+## C. 上下文工程（4 篇）
 
 > Prompt 的"系统级"升级版——不只管 prompt 本身，而是管 prompt 周围的所有上下文。
 
 | 笔记 | 来源 | 核心 |
 |------|------|------|
+| [[OpenAI官方-GPT-5.6 提示词指南]] | OpenAI 官方文档 | 一手权威：减法范式、结果优先、自主性边界、PTC、检索预算、迁移一次只改一处 |
 | [[Manus创始人-深度干货-上下文工程的最佳实践]] | B站视频 | Context Engineering 范式、Context Offloading 策略 |
 | [[OpenAI员工-上下文工程和Agent记忆]] | B站视频 | 3 大记忆模式（Reshape & Fit, Isolate & Route, Extract & Retrieve）|
 | [[Anthropic Agent 工程实战指南 - 从入门到生产落地#第 7 章 上下文工程]] | 公众号 | Anthropic 的 Context Engineering 体系化梳理 |
@@ -109,6 +110,6 @@ tags:
 
 ## 维护
 
-- **总笔记数**：13 Prompt 模板 + 3 Skills/Context 笔记 = 16 核心
-- **最后更新**：2026-06-11（v1 建立）
+- **总笔记数**：13 Prompt 模板 + 4 Skills/Context 笔记 = 17 核心
+- **最后更新**：2026-07-15（新增 [[OpenAI官方-GPT-5.6 提示词指南]]）
 - **入选标准**：笔记主题直接讨论"Prompt 设计 / Skills 体系 / 上下文工程"——不收录单纯的"Agent 实现细节"或"模型架构"

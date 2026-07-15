@@ -11,6 +11,7 @@ tags:
   - loock_ai
   - coding_agent
   - ai_agent
+  - mcp
 ---
 
 第 9 章 · MCP 与工具扩展协议

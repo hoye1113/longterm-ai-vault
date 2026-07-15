@@ -66,7 +66,7 @@
 7. 更新 MOC：如有相关 MOC，把新笔记加入
 ```
 
-**B 站图文专栏**：用户提供单篇 opus/cv 后，Agent 查重 BV/opus/cv，只读取文字正文和页面元数据，生成精华 Pass 1，跳过图片、Recastory 与 ASR，最后运行 `bilibili-opus-validate.py`。
+**B站图文专栏 v2**：用户提供单篇 opus/cv 后，Agent 查重来源，只读取文字与页面元数据，建立 Pass 1、声音归属和对谈规划。S级真实问答使用 `source/column`，演讲使用“编者问”重构；正文以类型化知识关系接入 vault，最后运行 `bilibili-opus-validate.py`。图片、Recastory 与 ASR 全部跳过。
 
 ## 参考
 
@@ -81,6 +81,7 @@
 **变更记录**：
 - 2026-07-13：Markdown 成为唯一事实源；Agent 控制面与 B站双轴收录 v2。
 - 2026-07-13：B站默认收录改为用户提供图文专栏；ASR/Recastory 冻结为 Legacy。
+- 2026-07-13：专栏协议升级为 `bilibili_opus_ingest_v2`；S级默认对谈出版并增加类型化知识关系。
 - 2026-07-06：B 站 canonical 与 ASR 三轨初版。
 - 2026-06-11 v2：基于 AGENTS.md v1 重写——目录树反映实际规范，新增 §2 主题视角
 - 2026-06-11 v1：基于 PARA + 领域细分初版

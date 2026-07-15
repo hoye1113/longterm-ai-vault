@@ -8,6 +8,7 @@ created: 2026-06-09
 description: 别再搭 Harness 了，先把你的痛点解决，用最笨的方式
 tags:
   - ai_agent
+  - harness_engineering
 ---
 
 很多人一上来就想搞一个完美的 Harness 系统或者 AI 工作流，把一套现有的系统直接搬过来直接用，这个想法大部分情况都是一种妄念。

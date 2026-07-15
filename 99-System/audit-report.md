@@ -3,7 +3,7 @@
 **审计时间**：2026-06-11  
 **审计对象**：`D:\workSpace\obsidian_repository`  
 **脚本版本**：vault-audit.py v1.0  
-**总文件数**：476
+**总文件数**：546
 
 ---
 
@@ -12,15 +12,20 @@
 **说明**：非文件、非目录、不在白名单中的 `[[wikilink]]`。可能是真死链或需要创建对应笔记。
 
 
-共 235 个唯一目标，329 处引用。
+共 224 个唯一目标，305 处引用。
 
+- `[[1-2 从"能聊天"到"能干活"——给 Agent 装上 while 循环]]`
 - `[[2026 年 Agent 最重要的工程概念 Harness Engineering\]]`
 - `[[80% 的 App 未来会消失吗]]`
 - `[[80% 的 App 未来会消失吗？我不这么认为\]]`
+- `[[AGENTS.md]]`
+- `[[AI Agent 微调与后训练]]`
 - `[[AI Agent 核心能力清单 - 胖哥]]`
-- `[[AI App实战-6个AI工具共同开发App]]`
+- `[[AI Agent 记忆系统 从会话缓存到持久记忆]]`
 - `[[AI 时代如何面试工程师\]]`
+- `[[AI反思与自我纠错机制]]`
 - `[[AI编程工具-2026年趋势与Vibe Code]]`
+- `[[Agent 评估应该关注什么]]`
 - `[[Agent 越用越翻车...]]`
 - `[[Agent 越用越翻车，怎么破局？答案藏在经典管理学里\]]`
 - `[[Al Harris]]`
@@ -38,7 +43,6 @@
 - `[[Anthropic]]`
 - `[[Anthropic-3个最聪明的人想离开Anthropic创业]]`
 - `[[Anton Osika]]`
-- `[[Arise首席-AI新交互方式无限画布]]`
 - `[[Arnab Bose]]`
 - `[[Arnab Maiti]]`
 - `[[Ash Prabaker]]`
@@ -57,9 +61,6 @@
 - `[[Charlie O'Neill]]`
 - `[[Chris Lovejoy]]`
 - `[[Chris Nicholson]]`
-- `[[Claude Code实战-40分钟浏览器自动化]]`
-- `[[Claude深度功能-19种测试统计准确性]]`
-- `[[Codex实战-用AI高效完成视频脚本]]`
 - `[[Codex实战-用Codex处理日常工作]]`
 - `[[Cole Murray]]`
 - `[[Cormac Brick]]`
@@ -81,18 +82,14 @@
 - `[[Federico Cassano]]`
 - `[[Felix Rieseberg]]`
 - `[[François Chollet]]`
-- `[[GPT Image2深度体验-新突破]]`
 - `[[Gabriel Goh]]`
 - `[[Garry Tan]]`
-- `[[Giga创始人-为什么拒绝孙正义创业]]`
-- `[[Granola联创-AI时代的笔记软件]]`
 - `[[Greg Brockman]]`
 - `[[Greg Isenberg]]`
 - `[[Harrison Chase]]`
 - `[[Harry Partridge]]`
 - `[[Harshil Agrawal]]`
 - `[[Hermes Agent-比 OpenClaw 更好]]`
-- `[[Hermes实战-新手配置真实使用案例]]`
 - `[[Ivan Zhao]]`
 - `[[Jack Clark]]`
 - `[[Jakub Pachocki]]`
@@ -116,7 +113,6 @@
 - `[[Lenny Rachitsky]]`
 - `[[Liam Fedus]]`
 - `[[Logan Kilpatrick]]`
-- `[[Logical CEO-用好LLM的关键方法论]]`
 - `[[Loop-Engineering橙皮书-v260615.pdf]]`
 - `[[Lukasz Kaiser]]`
 - `[[Luke Bailey]]`
@@ -147,13 +143,11 @@
 - `[[Nikhyl Singhal]]`
 - `[[Nitya Narasimhan]]`
 - `[[Noah Brier]]`
+- `[[Notion CEO-AI原生组织...]]`
 - `[[Nupur Sharma]]`
 - `[[Olivia]]`
 - `[[OpenAI官方-Codex新]]`
-- `[[OpenAI官方-GPT Image2.0现场演示]]`
 - `[[OpenAI总裁-AI要让每个人都受益]]`
-- `[[OpenClaw-Every团队演示使用Case]]`
-- `[[OpenClaw-从零开始完成全套配置]]`
 - `[[OpenClaw养虾指南-打造数字员工]]`
 - `[[OpenClaw创始人-如何安全使用OpenClaw]]`
 - `[[OpenClaw创始人-我是如何使用OpenClaw的？]]`
@@ -164,11 +158,11 @@
 - `[[Peter Steinberger]]`
 - `[[Peter Yang]]`
 - `[[Peter Yang-Agent时代的职业]]`
-- `[[Polsia CEO-1人用AI Agent月入百万]]`
 - `[[Prompt Rewriter与视频生成]]`
 - `[[Rachel Lee Nabors]]`
 - `[[Rachel Williamson]]`
 - `[[Rajiv]]`
+- `[[Replit CEO-...]]`
 - `[[Riley Brown]]`
 - `[[Rishabh]]`
 - `[[Robert George]]`
@@ -183,16 +177,12 @@
 - `[[Sarah Friar]]`
 - `[[Satya Nadella]]`
 - `[[Sebastian Raschke]]`
-- `[[Seedance实战-AI视频转向可控编辑]]`
 - `[[Simon Eskildsen]]`
 - `[[Simon Last]]`
 - `[[Sirio]]`
-- `[[Sitor AI - 解决人的信息幻觉]]`
-- `[[Snap CEO-面对增长还是失败的选择]]`
 - `[[Solaria]]`
 - `[[Sonya Huang]]`
 - `[[Stefano Fiorucci]]`
-- `[[Stripe设计主管-如何用AI设计新网站]]`
 - `[[Tejas Kumar]]`
 - `[[The-Founders-Playbook-05062026.pdf]]`
 - `[[Theo Tabah]]`
@@ -202,6 +192,7 @@
 - `[[Tina Huang]]`
 - `[[Tom Krcha]]`
 - `[[Varun Vummadi]]`
+- `[[Vercel COO-2026...GTM]]`
 - `[[Vibhu]]`
 - `[[Vibhu Sapra]]`
 - `[[Vinod Khosla]]`
@@ -214,8 +205,6 @@
 - `[[Yasser Elsaid]]`
 - `[[Zico Kolter]]`
 - `[[Zubin]]`
-- `[[a16z创始人-程序员末日将Pi与OpenClaw]]`
-- `[[arc创始人-只有Scaling Law能到AGI]]`
 - `[[martinskxu]]`
 - `[[swyx]]`
 - `[[vskill-vault-curate/SKILL.md]]`
@@ -229,11 +218,11 @@
 - `[[人不自信的最根本原因是什么]]`
 - `[[垂直领域的AI数字员工与Agent封装器]]`
 - `[[姚顺雨]]`
-- `[[微软Agent-多模态对齐与组合]]`
 - `[[所谓的agent开发到底是个啥岗位\]]`
 - `[[李飞飞]]`
 - `[[杨植麟]]`
 - `[[某笔记]]`
+- `[[沐洒]]`
 - `[[流畅性错觉]]`
 - `[[用AI的这三年想跟你分享这9条心得\]]`
 - `[[硅谷今年最火的岗位 FDE，我们闷头干了三年\]]`
@@ -255,12 +244,8 @@
 - `AGENTS.md` （真孤岛）
 - `CLAUDE.md` （真孤岛）
 - `README.md` （真孤岛）
-- `01-Areas/Programming and Engineering/ACP集成问题与踩坑经验.md` （真孤岛）
-- `02-Resources/AI and Agents/Agent Design & Patterns/Sitor AI - 解决人的信息幻觉 - 三元同学.md` （真孤岛）
-- `02-Resources/AI and Agents/B站视频知识库/README.md` （真孤岛）
-- `02-Resources/AI and Agents/Loock AI 全栈应用开发/6-从 0 实现 Coding Agent/6-2 02 · 什么是 Coding Agent.md` （真孤岛）
-- `02-Resources/Prompts/MOC - Prompt 库.md` （真孤岛）
-- `02-Resources/哲学与自我认知/人不自信的最根本原因是什么？.md` （真孤岛）
+- `issues/infrastructure_baseline_hardening.md` （真孤岛）
+- `issues/scripts_runbook_backfill.md` （真孤岛）
 - `99-System/Agent/DENSITY-PROFILE.md` （真孤岛）
 - `99-System/Agent/INGEST-CONTRACT.md` （真孤岛）
 - `99-System/Agent/PROJECT.md` （真孤岛）
@@ -295,6 +280,21 @@
 - `99-System/audit/spot-check-BV1VczqBREQ8-2026-07-13.md` （真孤岛）
 - `99-System/scripts/README.md` （真孤岛）
 - `99-System/Skills/INDEX.md` （真孤岛）
+- `99-System/working/opus-trace/1220311027565985864.trace.md` （真孤岛）
+- `99-System/working/opus-trace/1220419260720873510.trace.md` （真孤岛）
+- `99-System/working/opus-trace/1221006820893523977.trace.md` （真孤岛）
+- `99-System/working/opus-trace/1221903592888205347.trace.md` （真孤岛）
+- `99-System/working/opus-trace/1222120059228389384.trace.md` （真孤岛）
+- `99-System/working/opus-trace/1222346069005828103.trace.md` （真孤岛）
+- `99-System/working/opus-trace/1222491144375500806.trace.md` （真孤岛）
+- `99-System/working/opus-trace/1222537534343479317.trace.md` （真孤岛）
+- `99-System/working/opus-trace/1222645767471104034.trace.md` （真孤岛）
+- `99-System/working/opus-trace/1222862229567701014.trace.md` （真孤岛）
+- `99-System/working/opus-trace/1222908619516805124.trace.md` （真孤岛）
+- `99-System/working/opus-trace/1223016848358899717.trace.md` （真孤岛）
+- `99-System/working/opus-trace/1224198789037817860.trace.md` （真孤岛）
+- `99-System/working/opus-trace/1224198806222929928.trace.md` （真孤岛）
+- `99-System/working/opus-trace/1224198831997976579.trace.md` （真孤岛）
 - `99-System/Skills/vskill-vault-curate/LEGACY - B站 ASR 与 Recastory.md` （真孤岛）
 - `99-System/Skills/vskill-vault-curate/SKILL.md` （真孤岛）
 - `99-System/Skills/vskill-vault-curate/SUBDOC - ASR内容分轨与收录决策.md` （真孤岛）
@@ -308,14 +308,18 @@
 - `99-System/Skills/vskill-vault-relate/SKILL.md` （真孤岛）
 - `99-System/Skills/vskill-vault-write/SKILL.md` （真孤岛）
 - `99-System/Skills/vskill-vault-write/SUBDOC - Host-Guest 对谈稿.md` （真孤岛）
-- `issues/infrastructure_baseline_hardening.md` （真孤岛）
-- `issues/scripts_runbook_backfill.md` （真孤岛）
+- `02-Resources/哲学与自我认知/人不自信的最根本原因是什么？.md` （真孤岛）
+- `02-Resources/AI and Agents/B站视频知识库/README.md` （真孤岛）
+- `02-Resources/AI and Agents/Loock AI 全栈应用开发/6-从 0 实现 Coding Agent/6-2 02 · 什么是 Coding Agent.md` （真孤岛）
+- `01-Areas/Programming and Engineering/ACP集成问题与踩坑经验.md` （真孤岛）
 
 ## 3. 无 frontmatter 的文件
 
 - `AGENTS.md`
 - `CLAUDE.md`
 - `README.md`
+- `issues/infrastructure_baseline_hardening.md`
+- `issues/scripts_runbook_backfill.md`
 - `99-System/audit/bilibili-spot-check-2026-07-02.md`
 - `99-System/audit/easonlee-opus-ingest-audit-2026-07-08.md`
 - `99-System/audit/easonlee-pilot10-2026-07-08.md`
@@ -323,14 +327,24 @@
 - `99-System/audit/spot-check-BV1iH7R6tEfJ.md`
 - `99-System/audit/spot-check-BV1Mpf9B5Egk.md`
 - `99-System/audit/spot-check-BV1NuGU6yE1b.md`
+- `99-System/working/opus-trace/1220311027565985864.trace.md`
+- `99-System/working/opus-trace/1220419260720873510.trace.md`
+- `99-System/working/opus-trace/1221006820893523977.trace.md`
+- `99-System/working/opus-trace/1221903592888205347.trace.md`
+- `99-System/working/opus-trace/1222120059228389384.trace.md`
+- `99-System/working/opus-trace/1222346069005828103.trace.md`
+- `99-System/working/opus-trace/1222491144375500806.trace.md`
+- `99-System/working/opus-trace/1222537534343479317.trace.md`
+- `99-System/working/opus-trace/1222645767471104034.trace.md`
+- `99-System/working/opus-trace/1222862229567701014.trace.md`
+- `99-System/working/opus-trace/1222908619516805124.trace.md`
+- `99-System/working/opus-trace/1223016848358899717.trace.md`
+- `99-System/working/opus-trace/1224198789037817860.trace.md`
 - `99-System/Skills/vskill-vault-curate/SUBDOC - ASR后处理与manifest.md`
 - `99-System/Skills/vskill-vault-curate/SUBDOC - Spot check（长视频 factual）.md`
-- `issues/infrastructure_baseline_hardening.md`
-- `issues/scripts_runbook_backfill.md`
 
 ## 4. frontmatter 必填字段缺失
 
-- `02-Resources/AI and Agents/B站视频知识库/README.md` 缺失: source
 - `99-System/audit/bilibili-a-tier-v3-rewrite-2026-07-03.md` 缺失: source
 - `99-System/audit/bilibili-enrich-partial-2026-07-03.md` 缺失: source
 - `99-System/audit/bilibili-exclude-review-tiers-2026-07-07.md` 缺失: source
@@ -343,6 +357,8 @@
 - `99-System/audit/bilibili-unmapped-2026-07-07.md` 缺失: source
 - `99-System/audit/bilibili-v3-rollout-2026-07-03.md` 缺失: source
 - `99-System/audit/recastory-unmapped-2026-07-06.md` 缺失: source
+- `99-System/working/opus-trace/1224198806222929928.trace.md` 缺失: tags, created, source
+- `99-System/working/opus-trace/1224198831997976579.trace.md` 缺失: tags, created, source
 - `99-System/Skills/vskill-vault-curate/LEGACY - B站 ASR 与 Recastory.md` 缺失: tags, source
 - `99-System/Skills/vskill-vault-curate/SKILL.md` 缺失: source
 - `99-System/Skills/vskill-vault-curate/SUBDOC - ASR内容分轨与收录决策.md` 缺失: tags, source
@@ -353,6 +369,7 @@
 - `99-System/Skills/vskill-vault-moc-builder/SKILL.md` 缺失: source
 - `99-System/Skills/vskill-vault-relate/SKILL.md` 缺失: source
 - `99-System/Skills/vskill-vault-write/SKILL.md` 缺失: source
+- `02-Resources/AI and Agents/B站视频知识库/README.md` 缺失: source
 
 ## 5. tag 风格违规（按 §4 字典）
 
@@ -361,18 +378,22 @@
 
 ## 6. 文件名反模式
 
-✅ 所有文件名规范
-
+- `01-Areas/AI Agent Development/05-Multi-Agent/5-2 Agent Swarm：让多个 Agent 像团队一样协作.md` (全角冒号)
+- `01-Areas/AI Agent Development/06-Harness Engineering/6-1 Harness：模型外面的这层壳.md` (全角冒号)
+- `01-Areas/AI Agent Development/06-Harness Engineering/6-4 ACP：标准化 Agent 的控制接口.md` (全角冒号)
+- `01-Areas/AI Agent Development/08-结语/结课：从 10 行代码到 Agent 六大支柱.md` (全角冒号)
+- `01-Areas/AI Agent Development/Super Agent 实战课/02-Tool System/2-3 小试牛刀——把工具组装成应用：代码分析、Research Agent、Vibe Coding.md` (全角冒号)
+- `01-Areas/AI Agent Development/Super Agent 实战课/02-Tool System/2-4 加餐：Agent 的 Search 工具究竟是如何来实现的？.md` (全角冒号)
 
 ## 7. 被链入最多的文件（Top 10 hub）
 
+- `MOC - Agent Theory and Design` (152 个反向链)
 - `Loock AI` (142 个反向链)
-- `MOC - Agent Theory and Design` (141 个反向链)
-- `MOC - Loock AI 全栈课程` (127 个反向链)
-- `MOC - Harness Engineering` (110 个反向链)
+- `MOC - Loock AI 全栈课程` (133 个反向链)
+- `MOC - Harness Engineering` (114 个反向链)
 - `AI Agent Development` (94 个反向链)
-- `3-1 Function Calling 与 Structured Output` (80 个反向链)
-- `3-6 生产级权限系统的四层防线` (79 个反向链)
-- `2-3 Agent Loop 保险丝` (62 个反向链)
-- `4-9 Agent 的记忆系统` (57 个反向链)
-- `MOC - 从 0 实现 Coding Agent` (57 个反向链)
+- `3-1 Function Calling 与 Structured Output` (85 个反向链)
+- `3-6 生产级权限系统的四层防线` (83 个反向链)
+- `2-3 Agent Loop 保险丝` (71 个反向链)
+- `4-9 Agent 的记忆系统` (63 个反向链)
+- `Sitor AI` (60 个反向链)

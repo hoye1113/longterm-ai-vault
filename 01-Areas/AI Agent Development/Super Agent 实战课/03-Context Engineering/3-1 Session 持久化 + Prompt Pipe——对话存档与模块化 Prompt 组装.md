@@ -8,6 +8,7 @@ created: 2026-07-13
 description: "用 JSONL 实现 Session 持久化让对话关掉再开也能恢复，并用 Prompt Pipe 模式把 system prompt 拆成可按运行时条件加载的模块化管道，遵循先静后动以提升 KV Cache 命中。"
 tags:
   - ai_agent
+  - prompting
 ---
 ## Session 持久化 + Prompt Pipe——对话存档与模块化 Prompt 组装
 
