@@ -81,6 +81,7 @@ verification_basis:
 - [[Peter Yang-Hermes 打造 24 小时数字员工]]：本篇明确 Hyperframes 与 Hermes 深度整合，把智能体长篇汇报转成 30 秒视频——同一作者的工具链闭环（Hermes 主动代理 → Hyperframes 可视化汇报）。
 - [[2026 年 Agent 最重要的工程概念 Harness Engineering]]："HTML 是 LLM 母语"，Studio 的 UI 修改→代码 diff→智能体协同"最后一公里"，正是 harness 把人类控制与代码层结合的范式。
 - [[Manus创始人-深度干货-上下文工程的最佳实践]]：design.md/frame.md 把品牌视觉规范作为视频生成的上下文输入，与 context 工程同源。
+- [[季白羽-Codex 与 Remotion 纸片分层动画流水线]]：都用代码（React/HTML）生成 AI 视频；Hyperframes 偏 website-to-video 技能，那篇偏多工具编排的纸片分层动画。
 
 ## 来源声明
 

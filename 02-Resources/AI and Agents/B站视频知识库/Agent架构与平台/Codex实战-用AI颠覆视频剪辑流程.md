@@ -304,6 +304,7 @@ Claude 桌面把 **Code** 和 **Cowork** 拆开——要表格、文档、演示
 - [[Codex实战-构建全能AI营销团队]] — 同一创作者：Skills 栈含 Remotion 营销工作流
 - [[Codex负责人-现场演示Codex]] — OpenAI 官方 knowledge work + Agent 演示
 - [[OpenAI官方-Codex新手教程]] — CLI / AGENTS.md 系统入门
+- [[季白羽-Codex 与 Remotion 纸片分层动画流水线]] — 同为 Codex + Remotion 视频工作流；本篇偏帧级转场与竞品拆解，那篇偏纸片分层的图层/遮挡/配音流水线
 
 ### 收录说明
 
