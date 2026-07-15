@@ -29,7 +29,7 @@ Step 4  沿类型化关系加载一跳     ← 支持/补充/反驳/限制，优
 | harness / loop / system prompt 设计 / 权限分层 / 压缩 / AGENTS.md / docs as truth / linter / session log / 五步法 | [[MOC - Harness Engineering]] | 横切 |
 | prompt 设计 / skills 体系 / 上下文工程 / context engineering / verbosity / PTC / grounding 接地 | [[MOC - Prompt 工程]] | 横切 |
 | agent 架构 / 记忆 / multi-agent / 企业生产 / RAG / 可观测 / delegation / 长上下文致笨 / ReAct | [[MOC - Agent 架构与工程]] | domain |
-| Claude Code / Codex / OpenClaw / Cursor / Vibe Code / AI 编程 | [[MOC - AI Coding 与工具]] | domain |
+| Claude Code / Codex / OpenClaw / Cursor / Vibe Code / AI 编程 / 视频制作 / 动画 / Remotion / FFmpeg / 纸片分层 | [[MOC - AI Coding 与工具]] | domain |
 | eval / benchmark / LLM-as-judge / RL 小模型 / 论文 | [[MOC - AI 评估与研究]] | domain |
 | 找不准子主题 / Agent 理论总览 / 想扫一遍全貌 | [[MOC - Agent Theory and Design]]（总览） | 总览 |
 | FDE / 职业 / 蜂群组织 / 哲学 / AGI 时间线 / 面试 / 裁员 / PM 转型 | [[MOC - AI 时代个人发展与组织]] | 横切 |
