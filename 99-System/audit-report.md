@@ -12,7 +12,7 @@
 **说明**：非文件、非目录、不在白名单中的 `[[wikilink]]`。可能是真死链或需要创建对应笔记。
 
 
-共 224 个唯一目标，305 处引用。
+共 224 个唯一目标，304 处引用。
 
 - `[[1-2 从"能聊天"到"能干活"——给 Agent 装上 while 循环]]`
 - `[[2026 年 Agent 最重要的工程概念 Harness Engineering\]]`
@@ -308,10 +308,7 @@
 - `99-System/Skills/vskill-vault-relate/SKILL.md` （真孤岛）
 - `99-System/Skills/vskill-vault-write/SKILL.md` （真孤岛）
 - `99-System/Skills/vskill-vault-write/SUBDOC - Host-Guest 对谈稿.md` （真孤岛）
-- `02-Resources/哲学与自我认知/人不自信的最根本原因是什么？.md` （真孤岛）
 - `02-Resources/AI and Agents/B站视频知识库/README.md` （真孤岛）
-- `02-Resources/AI and Agents/Loock AI 全栈应用开发/6-从 0 实现 Coding Agent/6-2 02 · 什么是 Coding Agent.md` （真孤岛）
-- `01-Areas/Programming and Engineering/ACP集成问题与踩坑经验.md` （真孤岛）
 
 ## 3. 无 frontmatter 的文件
 
@@ -387,7 +384,7 @@
 
 ## 7. 被链入最多的文件（Top 10 hub）
 
-- `MOC - Agent Theory and Design` (152 个反向链)
+- `MOC - Agent Theory and Design` (150 个反向链)
 - `Loock AI` (142 个反向链)
 - `MOC - Loock AI 全栈课程` (133 个反向链)
 - `MOC - Harness Engineering` (114 个反向链)

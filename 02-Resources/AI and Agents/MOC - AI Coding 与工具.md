@@ -103,6 +103,12 @@ source: vault_initiative - moc - split from Agent Theory and Design
 
 ---
 
+## 工程踩坑
+
+| 笔记 | 核心主题 |
+|------|---------|
+| [[ACP集成问题与踩坑经验]] | ACP（Hermes × FlowyClaw/AI_Router）协议集成踩坑：通信、责任边界、Agent Server 问题、连接排障 |
+
 ## 跨 MOC
 
 | 横切主题 | MOC |

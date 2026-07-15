@@ -16,7 +16,8 @@ source: vault_initiative - moc - loock_ai - coding_agent - ai_agent
 
 ## 文章列表
 
-- [[6-1 01 · Harness - 模型之外的工程|01 · Harne  - 模型之外的工程]]么是 Coding Agent|02 · 什么是 Coding Agent]]
+- [[6-1 01 · Harness - 模型之外的工程|01 · Harness - 模型之外的工程]]
+- [[6-2 02 · 什么是 Coding Agent|02 · 什么是 Coding Agent]]
 - [[6-3 03 · 主流产品拆解|03 · 主流产品拆解]]
 - [[6-4 04 · 课程边界与工程取舍|04 · 课程边界与工程取舍]]
 - [[6-5 05 · 主项目与课程路线图|05 · 主项目与课程路线图]]
