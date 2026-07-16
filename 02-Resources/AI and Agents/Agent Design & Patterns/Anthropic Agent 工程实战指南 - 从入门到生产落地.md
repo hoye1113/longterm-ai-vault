@@ -1762,7 +1762,11 @@ await salesforce.updateRecord({
 #### <font style="color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0);">13.5 总结</font>
 <font style="color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0);">Agent 安全的核心，不是用无休止的权限提示，给用户带来负担，而是通过底层的隔离机制，从根本上限制风险的影响范围。沙箱隔离，让我们在安全与自治性之间，找到了完美的平衡：在沙箱内，Agent 可以自由地完成工作，无需频繁的权限申请；在沙箱外，用户的系统与数据，得到了完全的安全防护。</font>
 
-<font style="color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0);">我们也希望，通过开源沙箱运行时，能推动整个行业的 Agent 安全能力提升，让所有开发者都能构建出既安全、又高效的 Agent 系统。</font>
+<font style="color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0);">我们也希望，通过开源沙箱运行时，能推动整个行业的 Agent 安全能力提升，让所有开发者都能构建出既安全、又高效的 Agent 系统。
+
+## 相关笔记
+
+- [[WorkBuddy团队-从模型到可用Agent的Harness工程]] — 腾讯 WorkBuddy 的产品实践；Anthropic 偏理论框架，WorkBuddy 偏产品落地（五层 Harness、Context Engineering、Loop Engineering）</font>
 
 
 

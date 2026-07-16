@@ -55,6 +55,7 @@ source: vault_initiative - moc - split from Agent Theory and Design
 | [[Karpathy-Code Agent与Auto Research]] | Karpathy × No Priors：token 吞吐量、Claw/Dobby、AutoResearch/program.md、MicroGPT（**A-dialogue v3.2-asr** ✓；≠ BV11nRmB1EkH） |
 | [[Fable 5 订阅权限又续了 5 天 - 花叔]] | OpenSquilla 多模型集成：4 个国产模型组队跑平 Fable 5，账单只有 1/3 |
 | [[一个业务 Agent 到底长啥样 - 沐洒]] | 沐洒业务 Agent 系统拆解：10 要素（目标/模型/上下文/工具/知识/状态/工作流/约束/人工节点/评估）+ 任务流动 + 规则/模型/人工三问 + 失败暴露缺口；最小闭环优先于组件齐全 |
+| [[WorkBuddy团队-从模型到可用Agent的Harness工程]] | 腾讯 WorkBuddy 五层 Harness：Context Engineering + 前馈/反馈/权限/验证/可观测（**Harness 详见 [[MOC - Harness Engineering]]**） |
 
 ---
 

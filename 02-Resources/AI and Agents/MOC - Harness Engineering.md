@@ -67,6 +67,7 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 | 36 | [[Hermes实战-新手配置真实案例]] | B站视频 | **Agent harness** | Hermes 新手配置与真实使用案例 |
 | 37 | [[AI编程工具-2026年趋势与Vibe Code]] | B站视频 | **Coding harness** | 2026 年 AI 编程工具趋势与 Vibe Code |
 | 38 | [[Brex CEO-打造全公司共用AI型CEO]] | B站视频 | **组织 Agent** | 全公司共用 AI CEO 的组织实践 |
+| 39 | [[WorkBuddy团队-从模型到可用Agent的Harness工程]] | 公众号（Founder Park）| **产品实践** | 腾讯 WorkBuddy 五层 Harness：Context Engineering + 前馈/反馈/权限/验证/可观测 |
 
 ---
 

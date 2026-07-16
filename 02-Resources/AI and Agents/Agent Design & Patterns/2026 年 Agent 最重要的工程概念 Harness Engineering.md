@@ -304,3 +304,5 @@ Codex 会复现代码仓库中已存在的模式，甚至包括那些不均衡�
 > - 本文（OpenAI）：从内部 5 个月实验出发，讲 harness 怎么**搭建**——仓库作为记录系统、AGENTS.md 当地图不当地图、docs/ 当 source of truth、强制架构不变量、黄金原则、垃圾回收
 >
 > 两篇放在一起，harness engineering 既有"内部是什么"也有"怎么搭"——可作为这个主题的入门 + 实操的双视角。
+
+- [[WorkBuddy团队-从模型到可用Agent的Harness工程]] — 腾讯 WorkBuddy 的产品实践；OpenAI 偏理论框架，WorkBuddy 偏产品落地（五层 Harness、Context Engineering、Loop Engineering）
