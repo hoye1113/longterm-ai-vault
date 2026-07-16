@@ -189,3 +189,4 @@ concepts:
 - [[Codex实战-构建个人操作系统]]
 - [[MOC - Agent Theory and Design]]
 - [[MOC - Harness Engineering]]
+- [[拾语隅-给Hermes装个状态灯]] — 同为 Hermes Agent 实战；本篇偏 OpenRouter 降本与 Obsidian 集成，那篇偏状态监控与用户协作思路

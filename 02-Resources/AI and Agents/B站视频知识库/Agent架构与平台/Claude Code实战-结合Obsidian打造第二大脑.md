@@ -299,6 +299,7 @@ Obsidian vault 接 Git，**库根起 Claude**；新项目 frontmatter 写死 thi
 - [[Manus创始人-深度干货-上下文工程的最佳实践]] — 长任务 context offload/compact  
 - [[Loop Engineering 橙皮书 - 花叔]] — Loop / 留痕与迭代  
 - [[MOC - Agent Theory and Design]] — Agent 理论总索引  
+- [[拾语隅-给Hermes装个状态灯]] — 都是 Agent 个人助手实战；本篇偏知识库集成，那篇偏状态可视化
 
 ---
 
