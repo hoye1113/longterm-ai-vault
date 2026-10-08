@@ -122,3 +122,18 @@ source: vault_initiative - moc - split from Agent Theory and Design
 | 职业与组织 | [[MOC - AI 时代个人发展与组织]] |
 | Loock 全栈课程 | [[MOC - Loock AI 全栈课程]] |
 
+
+---
+
+## 迁移收录（2026-10-08 · syno vault 分叉回迁）
+
+> 以下来自已停用的 syno vault 分叉捕获管道，先挂到本 MOC 保证可达，后续策展融入上方结构。
+
+- [[Claude Code负责人-创造内幕与印刷术时刻|Claude Code负责人：Claude Code的 创造内幕 - 哔哩哔哩]]
+- [[Google Flow实战-AIGC视频工作流|Google Flow 实战：AIGC 视频工作流]]
+- [[Riley Brown-Fable 5与Paper的智能体原生设计流|Riley Brown-Fable 5与Paper的智能体原生设计流]]
+- [[claude-design-25分钟教程-47b9df82|Claude Design：25分钟教程]]
+- [[every-ceo-现场演示-chatgpt写作-e5822871|Every CEO：现场演示！使用 ChatGPT进行写作 - 哔哩哔哩]]
+- [[openai产品负责人-codex如何-被开发出来的-哔哩哔哩-c8546496|OpenAI产品负责人：Codex如何 被开发出来的？ - 哔哩哔哩]]
+- [[openclaw之父-乐趣就是速度-be250b8c|OpenClaw之父：“乐趣就是速度”]]
+- [[riley-brown-codex-150万粉丝-afde4b36|Riley Brown：使用 Codex，运营150万粉丝的账号]]

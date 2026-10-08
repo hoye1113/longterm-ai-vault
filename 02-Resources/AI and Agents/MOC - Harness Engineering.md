@@ -101,3 +101,25 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 - **总笔记数**：42 核心 + 3 跨 MOC 链接
 - **最后更新**：2026-07-09（新增 S-tier 8 篇视频转录：ClawdBot、OpenClaw 教程/Every/养虾/配置、Hermes、AI 编程工具、Brex CEO）
 - **入选标准**：笔记主题必须直接讨论"围绕 Agent 的工程系统"（不是单纯的"Agent 本身"或"Agent 怎么用"）
+
+---
+
+## 迁移收录（2026-10-08 · syno vault 分叉回迁）
+
+> 以下来自已停用的 syno vault 分叉捕获管道，先挂到本 MOC 保证可达，后续策展融入上方结构。
+
+- [[Arize创始人Jason-如何开发自我改进的Agent|Arize创始人Jason-如何开发自我改进的Agent]]
+- [[Databricks主管-企业级Agent生产实践框架-20260916|Databricks主管：企业级Agent 生产实践 - 哔哩哔哩]]
+- [[Kelo Code负责人-Agent工程方法论|Kelo Code负责人：Agent工程方法论 - 哔哩哔哩]]
+- [[OpenAI Build Hours-用API和Codex构建Agent-20260916|OpenAI 团队：用API和Codex,构建Agent教程 - 哔哩哔哩]]
+- [[arize-ai团队-skill到底-应该写多长-哔哩哔哩-1fa0932a|Arize AI团队：Skill到底 应该写多长？ - 哔哩哔哩]]
+- [[deepmind团队-如何大规模-运行agent-哔哩哔哩-4cc3d8de|DeepMind团队：如何大规模 运行Agent - 哔哩哔哩]]
+- [[deepseek-harness橙皮书-花叔-v260814-a00322c4|DeepSeek-Harness橙皮书（花叔，v260814）]]
+- [[exo开发者-让agent自进化的方法-哔哩哔哩-bf4bdc38|Exo开发者：让Agent自进化的方法 - 哔哩哔哩]]
+- [[galileo联创-ai时代的可观测性-哔哩哔哩-66b5ff96|Galileo联创：AI时代的可观测性 - 哔哩哔哩]]
+- [[hermes-自我改进-ai智能体-27405226|Hermes 联合创始人谈如何构建自我改进的 AI 智能体 | Karan Ma]]
+- [[linkedin-工程师-领英的ai-agent-开发和部署实践-哔哩哔哩-b84b419d|LinkedIn 工程师：领英的AI Agent 开发和部署实践 - 哔哩哔哩]]
+- [[nvidiafu-zong-c-构建agent的-正确方式-哔哩哔哩-5adab385|NVIDIAfu'zong'c：构建Agent的 正确方式 - 哔哩哔哩]]
+- [[openai团队-openai的-harness工程实践-哔哩哔哩-0145f85f|OpenAI团队：OpenAI的 Harness工程实践 - 哔哩哔哩]]
+- [[为什么-harness-比模型更重要-3a8f81a0|为什么 Harness 比模型更重要]]
+- [[微软专家-agent可观测性-生产实践-哔哩哔哩-2ac0f227|微软专家：Agent可观测性 生产实践 - 哔哩哔哩]]

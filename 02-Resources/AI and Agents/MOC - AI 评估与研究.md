@@ -45,3 +45,16 @@ source: vault_initiative - moc - split from Agent Theory and Design
 | 职业与组织 | [[MOC - AI 时代个人发展与组织]] |
 | Loock 全栈课程 | [[MOC - Loock AI 全栈课程]] |
 
+
+---
+
+## 迁移收录（2026-10-08 · syno vault 分叉回迁）
+
+> 以下来自已停用的 syno vault 分叉捕获管道，先挂到本 MOC 保证可达，后续策展融入上方结构。
+
+- [[OpenAI研究主管Mark Chen-研究品味是人类的终极壁垒|OpenAI研究主管Mark Chen-研究品味是人类的终极壁垒]]
+- [[OpenAI研究员Noam Brown-测试时算力让评估与安全失效|OpenAI研究员Noam Brown-测试时算力让评估与安全失效]]
+- [[braintrust-cto-你的智能体进化了-但评测没有-哔哩哔哩-059be32d|Braintrust CTO：你的智能体进化了，但评测没有 - 哔哩哔哩]]
+- [[redwood-ceo-ai安全-2367ade9|Redwood CEO：OpenAI/Hugging Face事件揭秘，AI安全 - 哔哩哔哩]]
+- [[vals-联创-前沿ai模型-如何评估-哔哩哔哩-d914331d|Vals 联创：前沿AI模型 如何评估？ - 哔哩哔哩]]
+- [[白宫科技主任-ai战略-f1d58fb9|白宫科技主任：白宫人工智能战略内幕]]

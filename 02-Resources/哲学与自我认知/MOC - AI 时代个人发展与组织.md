@@ -207,3 +207,32 @@ source: vault_initiative - moc - ai_agent - ai_career - ai_philosophy
 - **总笔记数**：9 核心 + 79 行业观点/访谈（2026-07-15 从原 Agent Theory 总览 S-tier 迁入）
 - **最后更新**：2026-07-15（从原 Agent Theory 总览迁入行业观点/访谈 S-tier，dedup 后 +N 篇）
 - **入选标准**：笔记主题直接讨论"AI 时代下的人/职业/组织/自我认知"（不是 Agent 本身的实现细节）
+
+---
+
+## 迁移收录（2026-10-08 · syno vault 分叉回迁）
+
+> 以下来自已停用的 syno vault 分叉捕获管道，先挂到本 MOC 保证可达，后续策展融入上方结构。
+
+- [[Alexandr Wang-智能普及之后愿景成为瓶颈|Alexandr Wang-智能普及之后愿景成为瓶颈]]
+- [[Anthropic Labs负责人Mike Krieger-构建AI原生产品的两个思想实验|Anthropic Labs负责人Mike Krieger-构建AI原生产品的两个思想实验]]
+- [[Cursor人才负责人-高人才密度团队招聘方法论-20260916|Cursor团队：打造高人才密度团队的方法论 - 哔哩哔哩]]
+- [[Dan Koe-理解人性是抗AI淘汰的终极元技能|Dan Koe-理解人性是抗AI淘汰的终极元技能]]
+- [[Every-Kieran-复利工程与单人杠杆|Every团队：复利工程时代，把一半时间用来教会系统 - 哔哩哔哩]]
+- [[TypeScript创始人-AI与软件工程师的责任边界-20260916|TypeScript 创始人：为什么 AI 不会取代软件工程师？ - 哔哩哔哩]]
+- [[USV合伙人Mike Mignano-应用层时代与智能体利益对齐|USV合伙人Mike Mignano-应用层时代与智能体利益对齐]]
+- [[Whatnot CPO-产品经理不该成为团队的默认配置|Whatnot CPO-产品经理不该成为团队的默认配置]]
+- [[a16z-ai时代-投资和资产配置-e65c7283|a16z：AI时代 投资和资产配置]]
+- [[a16z合伙人-智能体时代的无头软件与企业粘性|a16z合伙人-智能体时代的无头软件与企业粘性]]
+- [[anthropic设计负责人-agi至上的-产品设计-83503ae9|Anthropic设计负责人：AGI至上的 产品设计]]
+- [[cloudflare-ceo-ai的访问流量要超过人了-怎么办-a46c1787|Cloudflare CEO：AI的访问流量要超过人了 怎么办？]]
+- [[garry-tan-个人agi-a9b8ffba|Garry Tan：个人 AGI 是保持自主力量的方式]]
+- [[max-hodak-深科技组织操作系统-e4063a4b|Max Hodak：平均水平远远不够 - 哔哩哔哩]]
+- [[openai设计负责人-最佳设计师时代-b53692ba|OpenAI 设计负责人：这是历史上成为设计师的最佳时代]]
+- [[portola-ceo-ai伴侣-01fb89c3|Portola CEO：这款 AI伴侣应用如何迅速崛起？]]
+- [[skills-ai-agents-管理生活-13ff1907|我如何利用 Skills + AI Agents 管理生活]]
+- [[stripe-token-新的美元-adcb8ce1|Stripe总裁：Token就是新的美元]]
+- [[superhuman-ceo-ai时代晋升-取决于提出关键问题的能力-c36aece2|Superhuman CEO：AI时代晋升 取决于提出关键问题的能力]]
+- [[wispr增长负责人-用ai打造一台1亿美元增长引擎-a4b9750d|Wispr增长负责人：用AI打造一台1亿美元增长引擎]]
+- [[代理时代的设计方法-6b140cee|代理时代的设计方法]]
+- [[黄仁勋-成就英伟达的心态|黄仁勋-成就英伟达的心态]]

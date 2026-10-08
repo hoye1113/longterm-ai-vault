@@ -95,3 +95,16 @@ source: vault_initiative - moc - split from Agent Theory and Design
 | 职业与组织 | [[MOC - AI 时代个人发展与组织]] |
 | Loock 全栈课程 | [[MOC - Loock AI 全栈课程]] |
 
+
+---
+
+## 迁移收录（2026-10-08 · syno vault 分叉回迁）
+
+> 以下来自已停用的 syno vault 分叉捕获管道，先挂到本 MOC 保证可达，后续策展融入上方结构。
+
+- [[Claude Code成员Tariq-40分钟讲清楚Loop Engineering|Claude Code成员Tariq-40分钟讲清楚Loop Engineering]]
+- [[Cognition的Jared-智能体构建原则与云端异步协同|Cognition的Jared-智能体构建原则与云端异步协同]]
+- [[Together AI Rishabh-实时语音智能体的架构与工程权衡|Together AI Rishabh-实时语音智能体的架构与工程权衡]]
+- [[langchain-ceo-何时构建自己的agent框架-哔哩哔哩-1e149996|LangChain CEO：何时构建自己的Agent框架？ - 哔哩哔哩]]
+- [[linear团队-构建生产级别agent的5条规则-哔哩哔哩-72c13f86|Linear团队：构建生产级别Agent的5条规则 - 哔哩哔哩]]
+- [[每家公司即将构建的ai智能体-vercel首席执行官guillermo-ra-哔哩-c9dc516b|每家公司即将构建的AI智能体 | Vercel首席执行官Guillermo Ra - 哔哩哔哩]]

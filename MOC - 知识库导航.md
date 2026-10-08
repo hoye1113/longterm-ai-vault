@@ -34,6 +34,7 @@ Step 4  沿类型化关系加载一跳     ← 支持/补充/反驳/限制，优
 | 找不准子主题 / Agent 理论总览 / 想扫一遍全貌 | [[MOC - Agent Theory and Design]]（总览） | 总览 |
 | FDE / 职业 / 蜂群组织 / 哲学 / AGI 时间线 / 面试 / 裁员 / PM 转型 | [[MOC - AI 时代个人发展与组织]] | 横切 |
 | 全栈实现 / LangGraph / Next.js / Coding Agent / Chat Bot / 前端面试 | [[MOC - Loock AI 全栈课程]] | 课程 |
+| 具身智能 / 脑机接口 / BCI / 物理 AI / 前沿模型 / 机器人 / GPU 算力 | [[MOC - 具身智能与脑机接口]] | domain |
 | 底层实现 / 系统课程 / 认知校准 / agent loop / 工具系统（三元·Sitor） | [[MOC - AI Agent Development]] | Areas |
 | Super Agent 实战 | [[MOC - Super Agent 实战课]] | 课程 |
 | 可复用 prompt 模板（tweet / 摘要 / 翻译 / web clip） | [[MOC - Prompt 库]] | 模板库 |
