@@ -50,4 +50,6 @@
 
 遗留（用户侧操作，agent 无法代劳）：旧 Obsidian MCP token 需在插件侧撤销。
 
+2026-10-08 复核补充：`.mcp.json` 从未进入 git 历史，仓库侧零残留；仅 Obsidian 的 Local REST API 插件仍处启用状态且 `data.json` 持有 apiKey。该插件默认只监听 localhost，且已无任何 MCP 客户端配置指向它，本机自用场景风险可忽略。如需彻底清零：Obsidian 设置 → 第三方插件 → 卸载 Local REST API，或在插件设置里重新生成 API key 使旧 key 失效。
+
 已闭环，归档至 `03-Archive/issues/`。
