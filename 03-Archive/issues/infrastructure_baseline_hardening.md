@@ -32,3 +32,22 @@
 
 - 当前仓库中已有若干用户正在编辑的笔记文件，本次未触碰
 - 本次未引入第三方 Python 依赖，测试继续基于标准库 `unittest`
+
+---
+
+## 闭环记录（2026-10-08）
+
+“计划执行”的验证已实际跑完，全部通过：
+
+- `python -m py_compile 99-System/scripts/vault-audit.py` — OK
+- `python -m unittest discover -s tests -v` — 57 个测试全部 OK（含 vault-audit、bilibili trust audit、workflow v2、opus 工作流）
+
+现状复核：
+
+- `.mcp.json` 已删除，且 `.gitignore` 中有防误提交条目
+- `pyproject.toml` 已声明 `requires-python = ">=3.11"` 与 unittest 约定
+- `skill-collection/maps/obsidian-mcp-setup.md` 已随 skill-collection 清空移除，全库无悬空引用
+
+遗留（用户侧操作，agent 无法代劳）：旧 Obsidian MCP token 需在插件侧撤销。
+
+已闭环，归档至 `03-Archive/issues/`。
