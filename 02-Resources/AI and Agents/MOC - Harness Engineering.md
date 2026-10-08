@@ -104,9 +104,9 @@ source: vault_initiative - moc - ai_agent - harness_engineering
 
 ---
 
-## 迁移收录（2026-10-08 · syno vault 分叉回迁）
+## 迁移收录（2026-10-08 · 知识库合并）
 
-> 以下来自已停用的 syno vault 分叉捕获管道，先挂到本 MOC 保证可达，后续策展融入上方结构。
+> 以下为 2026-10-08 两库合并时按来源管道成组挂载的笔记，保证 MOC 可达，后续策展融入上方结构。
 
 - [[Arize创始人Jason-如何开发自我改进的Agent|Arize创始人Jason-如何开发自我改进的Agent]]
 - [[Databricks主管-企业级Agent生产实践框架-20260916|Databricks主管：企业级Agent 生产实践 - 哔哩哔哩]]

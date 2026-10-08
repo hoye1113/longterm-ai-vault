@@ -98,9 +98,9 @@ source: vault_initiative - moc - split from Agent Theory and Design
 
 ---
 
-## 迁移收录（2026-10-08 · syno vault 分叉回迁）
+## 迁移收录（2026-10-08 · 知识库合并）
 
-> 以下来自已停用的 syno vault 分叉捕获管道，先挂到本 MOC 保证可达，后续策展融入上方结构。
+> 以下为 2026-10-08 两库合并时按来源管道成组挂载的笔记，保证 MOC 可达，后续策展融入上方结构。
 
 - [[Claude Code成员Tariq-40分钟讲清楚Loop Engineering|Claude Code成员Tariq-40分钟讲清楚Loop Engineering]]
 - [[Cognition的Jared-智能体构建原则与云端异步协同|Cognition的Jared-智能体构建原则与云端异步协同]]

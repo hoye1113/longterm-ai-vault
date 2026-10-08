@@ -125,9 +125,9 @@ source: vault_initiative - moc - split from Agent Theory and Design
 
 ---
 
-## 迁移收录（2026-10-08 · syno vault 分叉回迁）
+## 迁移收录（2026-10-08 · 知识库合并）
 
-> 以下来自已停用的 syno vault 分叉捕获管道，先挂到本 MOC 保证可达，后续策展融入上方结构。
+> 以下为 2026-10-08 两库合并时按来源管道成组挂载的笔记，保证 MOC 可达，后续策展融入上方结构。
 
 - [[Claude Code负责人-创造内幕与印刷术时刻|Claude Code负责人：Claude Code的 创造内幕 - 哔哩哔哩]]
 - [[Google Flow实战-AIGC视频工作流|Google Flow 实战：AIGC 视频工作流]]

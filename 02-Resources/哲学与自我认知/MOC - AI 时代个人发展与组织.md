@@ -210,9 +210,9 @@ source: vault_initiative - moc - ai_agent - ai_career - ai_philosophy
 
 ---
 
-## 迁移收录（2026-10-08 · syno vault 分叉回迁）
+## 迁移收录（2026-10-08 · 知识库合并）
 
-> 以下来自已停用的 syno vault 分叉捕获管道，先挂到本 MOC 保证可达，后续策展融入上方结构。
+> 以下为 2026-10-08 两库合并时按来源管道成组挂载的笔记，保证 MOC 可达，后续策展融入上方结构。
 
 - [[Alexandr Wang-智能普及之后愿景成为瓶颈|Alexandr Wang-智能普及之后愿景成为瓶颈]]
 - [[Anthropic Labs负责人Mike Krieger-构建AI原生产品的两个思想实验|Anthropic Labs负责人Mike Krieger-构建AI原生产品的两个思想实验]]

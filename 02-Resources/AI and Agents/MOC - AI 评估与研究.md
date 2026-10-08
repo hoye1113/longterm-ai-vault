@@ -48,9 +48,9 @@ source: vault_initiative - moc - split from Agent Theory and Design
 
 ---
 
-## 迁移收录（2026-10-08 · syno vault 分叉回迁）
+## 迁移收录（2026-10-08 · 知识库合并）
 
-> 以下来自已停用的 syno vault 分叉捕获管道，先挂到本 MOC 保证可达，后续策展融入上方结构。
+> 以下为 2026-10-08 两库合并时按来源管道成组挂载的笔记，保证 MOC 可达，后续策展融入上方结构。
 
 - [[OpenAI研究主管Mark Chen-研究品味是人类的终极壁垒|OpenAI研究主管Mark Chen-研究品味是人类的终极壁垒]]
 - [[OpenAI研究员Noam Brown-测试时算力让评估与安全失效|OpenAI研究员Noam Brown-测试时算力让评估与安全失效]]
